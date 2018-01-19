@@ -1,0 +1,43 @@
+{
+  "icons": [
+    {
+      "src": "http://localhost:8080/public/assets/icons/icon_512x512.63a5d5c6a7eade7d8bf3f3bb9322b6e3.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "http://localhost:8080/public/assets/icons/icon_384x384.107ca7e251b0fba185070cbfc2954722.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "http://localhost:8080/public/assets/icons/icon_256x256.dd9cc1c9191a8bc233e7b870ecc82983.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "http://localhost:8080/public/assets/icons/icon_192x192.ed3dff52dfbcddc8c9914995056609de.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "http://localhost:8080/public/assets/icons/icon_128x128.3daa4052825efedee69d85aaf3d46a22.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "http://localhost:8080/public/assets/icons/icon_96x96.83f6c5d1d04c42fbd3ed073699468539.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "My Applications Friendly Name",
+  "short_name": "Application",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "description": "Description!",
+  "background_color": "#01579b",
+  "theme_color": "#01579b",
+  "theme-color": "#01579b"
+}

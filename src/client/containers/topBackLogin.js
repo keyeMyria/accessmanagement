@@ -1,0 +1,81 @@
+import React from 'react';
+import './css/pinpoints.css';
+
+export default () =>
+<svg xmlns="http://www.w3.org/2000/svg" width="792.688" height="100.166">
+  <defs>
+
+  </defs>
+  <g transform="translate(-388.055 10.722) scale(.99984)">
+    <path fill="none" stroke="rgba(255,255,255,.16)" d="M57.477 117.695l-150.22-26.737" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 1129.266 90.452)"/>
+    <path fill="none" stroke="rgba(255,255,255,.16)" d="M91.896 125.87l-164.634 21.234" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 910.776 184.97)"/>
+    <path fill="none" stroke="rgba(255,255,255,.16)" d="M67.158 123.504l-165.28-72.128" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 930.372 110.752)"/>
+    <path fill="none" stroke="rgba(255,255,255,.16)" d="M83.697 137.522l-163.34-32.28" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 661.8 125.98)"/>
+    <path fill="none" stroke="rgba(255,255,255,.16)" d="M140.233 194.49l165.518-65.512" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 617.663 170.785)"/>
+    <path fill="none" stroke="rgba(255,255,255,.16)" d="M88.444 120.691l-171.108-17.176" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 658.122 113.274)"/>
+    <path id="rect-1" fillOpacity="0" d="M0 0h1400.224v144.82H0z" pointerEvents="none" transform="matrix(1 0 0 -1 0 134.749)"/>
+    <g data-name="Group 300">
+      <path fill="none" stroke="#fff" d="M57 2L0 0" className="cls-1" data-name="Line 46" transform="matrix(.77476 0 0 -.77476 477.555 15.542)"/>
+      <path fill="none" stroke="#fff" d="M0 3l34-3" className="cls-1" data-name="Line 47" transform="matrix(.77476 0 0 -.77476 495.374 13.992)"/>
+      <path fill="none" stroke="#fff" d="M0 30L46 0" className="cls-1" data-name="Line 48" transform="matrix(.77476 0 0 -.77476 459.735 11.668)"/>
+      <path fill="none" stroke="#fff" d="M0 0l23 5" className="cls-1" data-name="Line 49" transform="matrix(.77476 0 0 -.77476 477.555 15.542)"/>
+      <path fill="none" stroke="#fff" d="M8 0L0 15" className="cls-1" data-name="Line 50" transform="matrix(.77476 0 0 -.77476 593.77 44.983)"/>
+      <path fill="none" stroke="#fff" d="M0 0l7 15" className="cls-1" data-name="Line 51" transform="matrix(.77476 0 0 -.77476 1174.068 .047)"/>
+      <path fill="none" stroke="#fff" d="M0 39L47 0" className="cls-1" data-name="Line 61" transform="matrix(.77476 0 0 -.77476 981.927 44.983)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M116 5L26.773 1.194" className="cls-3" data-name="Line 60" transform="matrix(.97735 0 0 -.97735 364.349 19.487)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l93 32" className="cls-3" data-name="Line 63" transform="matrix(.77476 0 0 -.77476 522.491 13.218)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M5 0L0 41" className="cls-2" data-name="Line 66" transform="matrix(.77476 0 0 -.77476 722.38 20.19)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M43 0L0 73" className="cls-2" data-name="Line 67" transform="matrix(.77476 0 0 -.77476 985.026 44.983)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l14 41" className="cls-3" data-name="Line 68" transform="matrix(.77476 0 0 -.77476 1057.079 20.19)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M0 0l125 20" className="cls-4" data-name="Line 86" transform="matrix(.77476 0 0 -.77476 758.02 86.82)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M0 101L89 0" className="cls-4" data-name="Line 87" transform="matrix(.77476 0 0 -.77476 785.911 71.325)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l97 87" className="cls-3" data-name="Line 88" transform="matrix(.77476 0 0 -.77476 981.927 87.595)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M0 43L134 0" className="cls-2" data-name="Line 99" transform="matrix(.77476 0 0 -.77476 495.374 44.983)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M136 9L0 0" className="cls-4" data-name="Line 69" transform="matrix(.77476 0 0 -.77476 390.006 18.64)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M64 39L0 0" className="cls-4" data-name="Line 71" transform="matrix(.77476 0 0 -.77476 390.006 18.64)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M75 0L0 33" className="cls-4" data-name="Line 72" transform="matrix(.77476 0 0 -.77476 463.609 13.992)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M26 33L0 0" className="cls-4" data-name="Line 73" transform="matrix(.77476 0 0 -.77476 521.716 13.992)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M100 33L0 0" className="cls-4" data-name="Line 74" transform="matrix(.77476 0 0 -.77476 521.716 13.992)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M0 0v95" className="cls-4" data-name="Line 76" transform="matrix(.77476 0 0 -.77476 981.927 88.37)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M0 34L10 0" className="cls-4" data-name="Line 77" transform="matrix(.77476 0 0 -.77476 974.179 14.767)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M101 0L0 40" className="cls-3" data-name="Line 55" transform="matrix(.77476 0 0 -.77476 521.716 44.983)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M93 0L0 25" className="cls-3" data-name="Line 56" transform="matrix(.77476 0 0 -.77476 521.716 33.361)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l15 74" className="cls-3" data-name="Line 57" transform="matrix(.77476 0 0 -.77476 599.193 45.758)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l21 58" className="cls-3" data-name="Line 58" transform="matrix(.77476 0 0 -.77476 593.77 33.361)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l78 36" className="cls-3" data-name="Line 59" transform="matrix(.77476 0 0 -.77476 726.254 20.19)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M41 0L0 86" className="cls-3" data-name="Line 60" transform="matrix(.77476 0 0 -.77476 726.254 86.82)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l47 55" className="cls-3" data-name="Line 62" transform="matrix(.77476 0 0 -.77476 981.927 87.595)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M97 0L0 7" className="cls-3" data-name="Line 63" transform="matrix(.77476 0 0 -.77476 981.927 20.19)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M28 41L0 0" className="cls-3" data-name="Line 65" transform="matrix(.77476 0 0 -.77476 1057.079 20.19)"/>
+      <path fill="none" stroke="rgba(255,255,255,.45)" d="M0 0l36 122" className="cls-4" data-name="Line 75" transform="matrix(.77476 0 0 -.77476 758.02 86.82)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l114 4" className="cls-3" data-name="Line 100" transform="matrix(.77476 0 0 -.77476 390.006 18.64)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l76 73" className="cls-3" data-name="Line 108" transform="matrix(.77476 0 0 -.77476 1018.34 44.983)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l30 39" className="cls-3" data-name="Line 109" transform="matrix(.77476 0 0 -.77476 390.006 18.64)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M1 0L0 15" className="cls-3" data-name="Line 113" transform="matrix(.77476 0 0 -.77476 1173.294 .047)"/>
+      <path fill="none" stroke="rgba(255,255,255,.68)" d="M0 0l118 35" className="cls-3" data-name="Line 114" transform="matrix(.77476 0 0 -.77476 981.927 15.542)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M0 0l39 31" className="cls-2" data-name="Line 115" transform="matrix(.77476 0 0 -.77476 495.374 11.668)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M61 0L0 34" className="cls-2" data-name="Line 116" transform="matrix(.77476 0 0 -.77476 474.456 13.992)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M38 0L0 118" className="cls-2" data-name="Line 117" transform="matrix(.77476 0 0 -.77476 -.475 80.622)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M12 0L0 41" className="cls-2" data-name="Line 120" transform="matrix(.77476 0 0 -.77476 716.957 20.19)"/>
+      <path fill="none" stroke="#fff" d="M0 0l50 32" className="cls-1" data-name="Line 121" transform="matrix(.77476 0 0 -.77476 1018.34 44.983)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M16 0L0 72" className="cls-2" data-name="Line 122" transform="matrix(.77476 0 0 -.77476 586.797 44.208)"/>
+      <path fill="none" stroke="rgba(255,255,255,.16)" d="M11 0L0 59" className="cls-2" data-name="Line 123" transform="matrix(.77476 0 0 -.77476 585.247 34.136)"/>
+      <path fill="none" stroke="#fff" d="M28 0L0 35" className="cls-1" data-name="Line 130" transform="matrix(.77476 0 0 -.77476 456.636 15.542)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 49" transform="matrix(.77476 0 0 -.77476 388.844 19.803)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 50" transform="matrix(.77476 0 0 -.77476 477.167 16.704)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 51" transform="matrix(.77476 0 0 -.77476 494.212 12.83)"/>
+      <path fill="#fff" d="M6 3a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3z" className="circles" data-name="Ellipse 52" transform="matrix(.77476 0 0 -.77476 519.78 15.93)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 53" transform="matrix(.77476 0 0 -.77476 592.607 34.524)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 54" transform="matrix(.77476 0 0 -.77476 598.03 46.145)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 55" transform="matrix(.77476 0 0 -.77476 725.092 21.353)"/>
+      <path fill="#fff" d="M8 4a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4z" className="circles" data-name="Ellipse 56" transform="matrix(.77476 0 0 -.77476 782.425 -4.215)"/>
+      <path fill="#fff" d="M6 3a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3z" className="circles" data-name="Ellipse 57" transform="matrix(.77476 0 0 -.77476 756.083 88.757)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 58" transform="matrix(.77476 0 0 -.77476 852.928 72.487)"/>
+      <path fill="#fff" d="M6 3a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3z" className="circles" data-name="Ellipse 59" transform="matrix(.77476 0 0 -.77476 979.99 17.479)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 60" transform="matrix(.77476 0 0 -.77476 980.764 88.757)"/>
+      <path fill="#fff" d="M6 3a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3z" className="circles" data-name="Ellipse 61" transform="matrix(.77476 0 0 -.77476 1055.142 22.127)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 62" transform="matrix(.77476 0 0 -.77476 1017.178 46.145)"/>
+      <path fill="#fff" d="M4 2a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z" className="circles" data-name="Ellipse 63" transform="matrix(.77476 0 0 -.77476 1172.906 1.209)"/>
+    </g>
+  </g>
+</svg>
