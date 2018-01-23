@@ -19,6 +19,7 @@ import ShareIcon from 'material-ui-icons/Share';import List, {
   ListSubheader,
 } from 'material-ui/List';
 import Switch from 'material-ui/Switch';
+import Radio from 'material-ui/Radio';
 import WifiIcon from 'material-ui-icons/Wifi';
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
@@ -153,14 +154,14 @@ class AgentCard extends React.Component {
           </ListItemIcon>
           <ListItemText primary={`${data.username}`}/>
           <ListItemSecondaryAction>
-                <WorkShopListComponent style={WorkShopListCard} handleWorkshopChange={this.handleWorkshopChange(data._id)}
+                {/* <WorkShopListComponent style={WorkShopListCard} handleWorkshopChange={this.handleWorkshopChange(data._id)}
                   { ...( data.workshop!=null && { value:  data.workshop._id } ) }
                     { ...( data.workshop==null && { value:0 } ) }
-                  />
+                  /> */}
                   <FormControlLabel
                      style={ControlLabelListCard}
                     control={
-                      <Switch
+                      <Radio
                         ref="in"
                         checked={this.state.enter}
                         onChange={this.updateAgentFunction('enter' , data._id)}
@@ -171,14 +172,25 @@ class AgentCard extends React.Component {
                   />
                   <FormControlLabel
                     control={
-                      <Switch
-                        ref="out"
+                      <Radio
                         checked={this.state.exit}
                         onChange={this.updateAgentFunction('exit' , data._id)}
                         disabled ={this.disable_out}
                       />
+
                     }
                     label="الخروج"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Radio
+                        checked={this.state.exit}
+                        onChange={this.updateAgentFunction('in_out' , data._id)}
+                        disabled ={this.disable_out}
+                      />
+
+                    }
+                    label="in/out"
                   />
           </ListItemSecondaryAction>
 

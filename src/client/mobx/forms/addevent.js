@@ -46,7 +46,7 @@ const hooks = {
     console.log(form.values())
     // get all form errors
   //  console.log('All form errors', form.errors());
-  }
+}
 }
 
 export default new MobxReactForm({ fields }, { plugins, hooks });

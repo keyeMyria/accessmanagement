@@ -17,7 +17,10 @@ import { observer } from 'mobx-react';
 import dateFormat from 'dateformat';
 import AccountCircle from 'material-ui-icons/AccountCircle'
 import {withRouter} from 'react-router-dom';
-import DeleteIcon from 'material-ui-icons/Delete';
+
+import Menu, { MenuItem } from 'material-ui/Menu';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 
 const styles= theme => ({
   date :{
@@ -35,6 +38,7 @@ class EventsList extends React.Component{
     super(props);
     this.state = {
         open: false,
+        open_menu : false,
         from: undefined,
          to: undefined,
       };
@@ -118,12 +122,34 @@ class EventsList extends React.Component{
               <p className="desc">{item.type}</p>
               <p className="desc">starts at {dateFormat(item.start_date , 'dd/mm/yyyy')} : {dateFormat(item.start_date , 'hh:mm')}</p>
               <p className="desc">ends at {dateFormat(item.end_date , 'dd/mm/yyyy')} : {dateFormat(item.end_date , 'hh:mm')}</p>
-              <p><AccountCircle/>{item.numberAttendies} Attendies</p></div>
-              <div className="info">
-              <Button fab mini aria-label="delete" onClick={()=>this.deleteEvent(item._id)}>
-                <DeleteIcon />
-              </Button>
-						</div>
+              <p><AccountCircle/>{item.numberAttendies} Attendies</p>
+                       <IconButton
+                         aria-label="More"
+                         aria-haspopup="true"
+                         onClick={this.handleClick}
+                       >
+                         <MoreVertIcon />
+                       </IconButton>
+                       <Menu
+                         id="long-menu"
+                         onClose={this.handleClose}
+                         open={this.state.open_menu}
+                         PaperProps={{
+                           style: {
+                             maxHeight: 100,
+                             width: 200,
+                           },
+                         }}
+                       >
+
+                     <MenuItem onClick={this.handleClose}>
+                       Edit Event
+                     </MenuItem>
+                     <MenuItem  onClick={()=>this.deleteEvent(item._id)}>
+                       Archive Event
+                     </MenuItem>
+                  </Menu>
+</div>
 
 					</li>
          ))}

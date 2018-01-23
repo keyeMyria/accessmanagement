@@ -30,8 +30,6 @@ scripts/start.js
 scripts/build.js
 roles.json
 profiles.json
-package.json
 scripts/test.js
 config/*
-public/*
 server/index.js

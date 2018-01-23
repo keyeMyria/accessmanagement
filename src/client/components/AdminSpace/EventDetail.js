@@ -4,7 +4,6 @@ import EventStore from '../../mobx/eventstore';
 import WorkshopStore from '../../mobx/workshopstore';
 import UserStore from '../../mobx/gueststore';
 import form from '../../mobx/forms/addworkshop';
-import Checkbox from 'material-ui/Checkbox';
 import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -13,7 +12,6 @@ import dateFormat from 'dateformat';
 import { withStyles } from 'material-ui/styles';
 import Dialog , {DialogActions} from 'material-ui/Dialog';
 import List, { ListItem, ListItemText , ListItemSecondaryAction } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
 import PlayArrow from 'material-ui-icons/PlayArrow';
 import Stop from 'material-ui-icons/Stop';
 import Divider from 'material-ui/Divider';
@@ -107,6 +105,7 @@ class EventDetail extends React.Component{
    this.setState({ open_workshop: false });
 
  }
+
  startSessionAction =() =>{
    EventStore.startSessionForEvent(this.props.match.params.id);
  }
@@ -177,17 +176,8 @@ class EventDetail extends React.Component{
           </Toolbar>
         </AppBar>
         <div className={classes.workshopform}><LectureIcon className={classes.icon}/>
-        <WorkShopForm form={form} />
-        {UserStore.users.map(user=>(
-          <ListItem key={user._id} dense button className={classes.userItem}>
-            <Avatar alt="" src={`public/assets/avatars/${user.profile.avatar}`} />
-              <ListItemText primary={`${user.profile.name} ${user.profile.forname}`} />
-              <Checkbox
-                //onChange={this.handleToggle(user)}
-                //checked={this.state.checked.indexOf(user) !== -1}
-              />
-            </ListItem>
-        ))}</div>
+        <WorkShopForm form={form} users={UserStore.users}/>
+        </div>
         <DialogActions>
           <Button onClick={form.onSubmit} color="primary">
             Confirm
@@ -226,8 +216,8 @@ class EventDetail extends React.Component{
       <List>
       {
         event.sessions.map((item) => (
-          <div>
-            <ListItem key={item._id} className={classes.sessionItem}>
+          <div  key={item._id}>
+            <ListItem className={classes.sessionItem}>
             <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')}`} />
             {item.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(item.end_hour , 'hh:mm')}`} />
             )}
@@ -243,8 +233,8 @@ class EventDetail extends React.Component{
         <List>
         {
           workshoplist.map((item) => (
-            <div>
-              <ListItem  key={item._id} className={classes.workshopItem}>
+            <div key={item._id} >
+              <ListItem className={classes.workshopItem}>
               <ListItemText primary={item.name} />
                 {item.session_empty==true &&(
                   <div><Button onClick={()=>this.startSessionForWorkshop(item._id)}><PlayArrow color="primary" />
