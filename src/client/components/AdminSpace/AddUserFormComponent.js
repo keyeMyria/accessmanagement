@@ -50,7 +50,7 @@ const styles = theme => ({
    flexWrap: 'wrap',
  },
  formControl: {
-   margin: theme.spacing.unit,
+   margin: 'theme.spacing.unit',
    minWidth: 120,
    maxWidth: 300,
  },
@@ -93,7 +93,7 @@ const backgroundAddUser = {
     width: '100vw',
     backgroundColor:'#003489',
     position: 'absolute',
-    height: '100px',
+    height: '180px',
     top: '56px',
     zIndex: '-1',
     left: '0',
@@ -108,12 +108,13 @@ const backgroundAddUser = {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'flex-start',
-      marginRight: '20px',
+      padding: '0 20px 20px',
     };
     const subContainerAddUser = {
-      maxWidth: '1000px',
+      maxWidth: '800px',
       marginLeft: 'auto',
       marginRight: 'auto',
+      position: 'relative',
     };
 
     const styleinputForm ={
