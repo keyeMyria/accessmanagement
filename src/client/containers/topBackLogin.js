@@ -6,7 +6,7 @@ export default () =>
   <defs>
 
   </defs>
-  <g transform="translate(-388.055 10.722) scale(.99984)">
+  <g transform="translate(-388.055 10.722) scale(.99984)" className="top-network">
     <path fill="none" stroke="rgba(255,255,255,.16)" d="M57.477 117.695l-150.22-26.737" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 1129.266 90.452)"/>
     <path fill="none" stroke="rgba(255,255,255,.16)" d="M91.896 125.87l-164.634 21.234" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 910.776 184.97)"/>
     <path fill="none" stroke="rgba(255,255,255,.16)" d="M67.158 123.504l-165.28-72.128" className="cls-2" data-name="Line 118" transform="matrix(.77476 0 0 -.77476 930.372 110.752)"/>
