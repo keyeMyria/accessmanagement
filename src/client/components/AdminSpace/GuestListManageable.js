@@ -51,18 +51,19 @@ import gueststore from '../../mobx/gueststore'
 // Covered in the MobX Section
 import { observer } from 'mobx-react';
 // pdfMake.vfs = pdfFonts.pdfMake.vfs;
-// pdfMake.fonts = {
-//   Roboto: {
-//            normal: 'Roboto-Regular.ttf',
-//            bold: 'Roboto-Medium.ttf',
-//            italics: 'Roboto-Italic.ttf',
-//            bolditalics: 'Roboto-Italic.ttf'
-//        },
-//    Cairo: {
-//         normal: 'Cairo-Regular.ttf',
-//         bold: 'Cairo-Bold.ttf'
-//    }
-// }
+pdfMake.fonts = {
+  Roboto: {
+           normal: 'Roboto-Regular.ttf',
+           bold: 'Roboto-Medium.ttf',
+           italics: 'Roboto-Italic.ttf',
+           bolditalics: 'Roboto-Italic.ttf'
+       }
+       ,
+   // Cairo: {
+   //      normal: 'Cairo-Regular.ttf',
+   //      bold: 'Cairo-Bold.ttf'
+   // }
+}
 const styles = theme => ({
   root: {
     width: '100%',
@@ -206,7 +207,7 @@ let  background="data:image/jpeg;base64,/9j/7gAOQWRvYmUAZAAAAAAA/9sAQwABAQEBAQEB
       });
       let  docDefinition = {
         defaultStyle: {
-            font: 'Cairo'
+            font: 'Roboto'
         },
           pageSize: {
             width: 950,
@@ -419,12 +420,12 @@ getDataUri = (url , callback) =>{
     }
   }
   render() {
-
-    if(gueststore.users=='undefined'){
-      return(<div className={classes.root}><CircularProgress color="accent" /></div>);
+    console.log(gueststore.loading)
+    if(gueststore.loading){
+      return(<div><CircularProgress color="accent" /></div>);
 
     }
-      else if (gueststore.users.length === 0) {
+      else if (gueststore.users.length === 0 && gueststore.loading==false) {
           return (
               <div>
                 <Paper elevation={4}>
@@ -582,7 +583,6 @@ getDataUri = (url , callback) =>{
 }}
 
 GuestListManageable.propTypes = {
-  classes: PropTypes.object.isRequired,
 };
 // const guestlist= gql`
 //   query guestlist {

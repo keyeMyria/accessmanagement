@@ -15,7 +15,7 @@ class EventStore {
     @observable selectedEvent = {};
     // In strict mode, only actions can modify mobx state
     @action setEvents = (events) => {this.events = [...events]; }
-    @action selectEvent = (event) => {this.selectedEvent = event;}
+    @action selectEvent = (event) => {this.selectedEvent = event; }
     // Managing how we clear our observable state
     @action clearSelectedEvent = () => { this.selectedEvent = {}; }
     // An example that's a little more complex

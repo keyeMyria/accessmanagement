@@ -168,7 +168,7 @@ class VerifyExitComponent extends React.Component{
         <div className={classes.verfExit}>
             <Avatar
             alt=""
-            src={`../assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
+            src={`/public/assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
             className={classNames(classes.bigAvatar)}
             />
             <span className={classNames(classes.styleCommun , classes.profileName)}>
