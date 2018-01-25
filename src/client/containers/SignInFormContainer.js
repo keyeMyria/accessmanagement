@@ -25,10 +25,10 @@ import BottomBackLogin from './bottomBackLogin';
     minHeight: '600px',
   };
   const topBackLoginC={
-    transform: 'scale(1.3)',
+    transform: 'scale(1.7)',
   };
   const bottomBackLoginC={
-    transform: 'scale(1.3)',
+    transform: 'scale(1.7)',
     transformOrigin: '50% 100%',
     alignSelf: 'flex-start',
   };
@@ -37,9 +37,9 @@ import BottomBackLogin from './bottomBackLogin';
     top: '5px',
   };
   const styleTypog2 = {
-    color:'#7B96C2',
+    color:'#fff',
     marginBottom: '50px',
-    marginTop: '177px',
+    marginTop: '30px',
     };
 
     const styleTypogTitle = {
@@ -50,7 +50,7 @@ import BottomBackLogin from './bottomBackLogin';
       display: 'flex',
       flexDirection: 'column',
       height: '100vh',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       alignContent: 'center',
     }
 
@@ -113,7 +113,7 @@ class SignInFormContainer extends React.Component {
             <Typography type="display2" style={styleTypog2}>
                 إدارة الحضور للانشطة والمناسبات
             </Typography>
-            <Typography type="title" gutterBottom style={styleTypogTitle}>
+            <Typography type="headline" gutterBottom style={styleTypogTitle}>
                 تسجيل الدخول
             </Typography>
             <LoginForm
