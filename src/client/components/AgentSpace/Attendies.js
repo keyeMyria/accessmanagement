@@ -182,8 +182,8 @@ else{
             />
             <List style={{textAlign: 'right',}}>
               {this.state.attendies_list.map(value => (
-                <ListItem key={value.profile.name} dense button className={classes.listItem}>
-                  <Avatar alt="" src={`../assets/avatars/${value.profile.avatar}`} />
+                <ListItem key={value._id} dense button className={classes.listItem}>
+                  <Avatar alt="" src={`/public/assets/avatars/${value.profile.avatar}`} />
                   <ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText} />
                   <ListItemText primary={`${value.status}door`} className={classes.listItemText} />
                   { value.status=='ABSCENT' ? 'Abscent' : `${value.status.toLowerCase()}door`}

@@ -175,7 +175,7 @@ handleIconButtonRequestOpen = () => {
             <div className={classNames(classes.verfEnter)}>
                 <Avatar
                   alt=""
-                  src={`../assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
+                  src={`/public/assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
                   className={classNames(classes.bigAvatar)}
                 />
                 <span className={classNames(classes.styleCommun , classes.profileName)}>

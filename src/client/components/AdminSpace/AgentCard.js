@@ -148,11 +148,9 @@ class AgentCard extends React.Component {
     const { classes , data} = this.props;
     return (
       <div>
-        <ListItem style={listeAgentCard}>
-          <ListItemIcon>
+        <ListItem>
             <Avatar className={classes.avatar}><Face/></Avatar>
-          </ListItemIcon>
-          <ListItemText primary={`${data.username}`}/>
+          <span>{data.username}</span>
           <ListItemSecondaryAction>
                 {/* <WorkShopListComponent style={WorkShopListCard} handleWorkshopChange={this.handleWorkshopChange(data._id)}
                   { ...( data.workshop!=null && { value:  data.workshop._id } ) }
@@ -195,7 +193,6 @@ class AgentCard extends React.Component {
           </ListItemSecondaryAction>
 
         </ListItem>
-        <Divider light />
 
       </div>
     );

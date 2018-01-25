@@ -33,6 +33,8 @@ class BottomBarComponent extends React.Component{
         >
         <BottomNavigationAction label="Attendies Status" icon={<People />} value="/listattendies" />
         <BottomNavigationAction label="Capture Code" icon={<PhotoCamera />} value="/agent"/>
+        <BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value="/dashboard"/>
+
       </BottomNavigation>
     )
     }

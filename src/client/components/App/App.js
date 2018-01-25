@@ -29,6 +29,8 @@ import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import JssProvider from 'react-jss/lib/JssProvider';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
+import AgentDashboard from '../AgentSpace/AgentDashboard';
+
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;
@@ -198,6 +200,7 @@ class App extends React.Component {
                 <PrivateRoute exact path='/capture' component={QReaderComponent} />
   			      	<AgentRoute exact path='/listattendies' component={Attendies} />
                 <AgentRoute exact path='/agent' component={QReaderComponent} />
+                <AgentRoute exact path='/dashboard' component={AgentDashboard} />
                 <AdminRoute exact path='/manageguest' component={GuestListManageable} />
                 <AdminRoute exact path='/listguests' component={AttendiesList} />
 								<AdminRoute exact path='/activitylog' component={PaginatedEntriesContainer} />
