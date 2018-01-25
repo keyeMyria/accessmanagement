@@ -38,7 +38,7 @@ class EventsList extends React.Component{
     super(props);
     this.state = {
         open: false,
-        open_menu : false,
+        openMenu : false,
         from: undefined,
          to: undefined,
       };
@@ -55,6 +55,14 @@ class EventsList extends React.Component{
       from : undefined ,
       to : undefined
     });
+  }
+
+  handleCloseMenu = () => {
+    this.setState({ openMenu: false });
+  };
+
+  handleClick = (event)=>{
+    this.setState({ openMenu: true});
   }
 
   handleClose = () => {
@@ -78,7 +86,7 @@ class EventsList extends React.Component{
     return (
       <div>
         <div>
-              <Button raised color="primary">
+              <Button raised color="primary" className="button-activ">
                 Current
               </Button>
               <Button raised color="contrast">
@@ -114,47 +122,45 @@ class EventsList extends React.Component{
 							<span className="day">{dateFormat(item.start_date , 'dd')}</span>
 							<span className="month">{dateFormat(item.start_date , 'mmm')}</span>
 							<span className="year">{dateFormat(item.start_date , 'yyyy')}</span>
-							<span className="time">{dateFormat(item.start_date , 'hh:mm')}</span>
 						</time>
-						<img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />
 						<div className="info">
 							<h2 className="title">{item.title}</h2>
-              <p className="desc">{item.type}</p>
-              <p className="desc">starts at {dateFormat(item.start_date , 'dd/mm/yyyy')} : {dateFormat(item.start_date , 'hh:mm')}</p>
-              <p className="desc">ends at {dateFormat(item.end_date , 'dd/mm/yyyy')} : {dateFormat(item.end_date , 'hh:mm')}</p>
-              <p><AccountCircle/>{item.numberAttendies} Attendies</p>
-                       <IconButton
-                         aria-label="More"
-                         aria-haspopup="true"
-                         onClick={this.handleClick}
+              <p className="type"> {item.type} </p>
+              <p className="emplacement">hotel yasmine hammamet</p>
+              <p className="desc">starts at {dateFormat(item.start_date , 'dd/mm/yyyy')} : {dateFormat(item.start_date , 'hh:mm')} ends at {dateFormat(item.end_date , 'dd/mm/yyyy')} : {dateFormat(item.end_date , 'hh:mm')}</p>
+              <p className="desc"><AccountCircle className="accountIcon"/>{item.numberAttendies} Attendies</p>
+            </div>
+            <div>
+            <IconButton
+                       aria-label="More"
+                       aria-haspopup="true"
+                       onClick={this.handleClick}
+                     >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                    id="long-menu"
+                    Close={this.handleCloseMenu}
+                    open={this.state.openMenu}
+                    PaperProps={{
+                                  style: {
+                                          maxHeight: 100,
+                                          width: 200,
+                                         },
+                                 }}
                        >
-                         <MoreVertIcon />
-                       </IconButton>
-                       <Menu
-                         id="long-menu"
-                         onClose={this.handleClose}
-                         open={this.state.open_menu}
-                         PaperProps={{
-                           style: {
-                             maxHeight: 100,
-                             width: 200,
-                           },
-                         }}
-                       >
-
-                     <MenuItem onClick={this.handleClose}>
+                     <MenuItem onClick={this.handleCloseMenu}>
                        Edit Event
                      </MenuItem>
-                     <MenuItem  onClick={()=>this.deleteEvent(item._id)}>
+                     <MenuItem onClick={()=>this.deleteEvent(item._id)}>
                        Archive Event
                      </MenuItem>
-                  </Menu>
-</div>
-
+              </Menu>
+            </div>
 					</li>
          ))}
     </ul>
-    <Button fab color="accent" aria-label="add new event" onClick={this.handleAddEvent}>
+    <Button fab color="accent" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">
       <AddBox />
     </Button>
   </div>
