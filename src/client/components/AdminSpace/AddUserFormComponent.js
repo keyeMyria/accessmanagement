@@ -18,6 +18,7 @@ import WebAsset from 'material-ui-icons/WebAsset'
 import gouvernement  , {whatido} from './vendor/states'
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
+import Button from 'material-ui/Button';
 
 
 
@@ -93,14 +94,14 @@ const backgroundAddUser = {
     width: '100vw',
     backgroundColor:'#003489',
     position: 'absolute',
-    height: '180px',
+    height: '160px',
     top: '56px',
     zIndex: '-1',
     left: '0',
   };
   const titleAddUser = {
       color:'#fff',
-      marginTop: '103px',
+      marginTop: '100px',
       textAlign: 'right',
     };
     const formAddUser = {
@@ -119,10 +120,9 @@ const backgroundAddUser = {
 
     const styleinputForm ={
       width: '300px',
+      marginTop: '24',
     };
     const styleBottomForm ={
-      width: '200px',
-      height: '40px',
       marginTop: '24px',
       backgroundColor: '#00abc7',
       color: '#fff',
@@ -133,8 +133,8 @@ const backgroundAddUser = {
       marginTop: '15px',
     };
 
-    const idStyle={
-        marginTop: '30px',
+    const styleSmallInput ={
+        marginTop: '24px',
     };
 
     const ITEM_HEIGHT = 48;
@@ -285,11 +285,11 @@ render(){
         <Typography type="display1" gutterBottom style={titleAddUser}>
           إضافة مستخدم
         </Typography>
-        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={styleinputForm , idStyle}/>
+        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={styleinputForm , styleSmallInput}/>
         <Field name="name" type="text" component={this.renderTextField} label=" الأسم " value="" style={styleinputForm}/>
         <Field name="forname" type="text" component={this.renderTextField} label=" اللقب " value="" style={styleinputForm}/>
-        <Field name="cin" type="text" component={this.renderTextField} label=" رقم بطاقة التعريف الوطنية "/>
-        <Field name="tel" type="" component={this.renderTextField} label=" الهاتف "/>
+        <Field name="cin" type="text" component={this.renderTextField} label=" رقم بطاقة التعريف الوطنية " style={styleSmallInput}/>
+        <Field name="tel" type="" component={this.renderTextField} label=" الهاتف " style={styleSmallInput}/>
         <FormControl className={classes.formControl}  style={styleinputForm}>
             <Field name ="function" component={this.renderSelectField} label=" الصفة " value={this.state.job} style={styleinputForm}>
               {whatido.map(value => (
@@ -353,7 +353,9 @@ render(){
             ))}
           </Select>
      </FormControl>
-        <button type="submit" className="btn btn-primary" style={styleBottomForm}> حفظ المستخدم </button>
+        <Button raised type="submit" className="btn btn-primary" style={styleBottomForm}>
+         حفظ المستخدم
+      </Button>
 
         <AvatarCropper
           		av_photo = "avatar-photo"
