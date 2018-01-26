@@ -68,7 +68,13 @@ const renderErrors = (errors) => (
   </div>
 );
 class SignInForm extends React.Component{
-
+  renderHiddenField=({
+    input,
+    label,
+    type
+  })=>{
+    return(<input type="hidden" {...input}/>)
+  }
   renderTextField = ({
     input,
     label,
@@ -98,14 +104,16 @@ class SignInForm extends React.Component{
   );
 }
   render(){
-    const { handleSubmit , classes } = this.props;
+    const { handleSubmit , classes , username } = this.props;
+    console.log(username)
     const errors = this.props.errors <= 0 ? null : renderErrors(this.props.errors);
     return (
         <form onSubmit={handleSubmit}
         className={classes.formLogin}
         >
           {errors}
-          <Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" />
+          {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
+          {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" />)}
           <Field name="password" type="password" component={this.renderTextField} label="كلمة  المرور" />
           <button type="submit" className="btn btn-primary" style={button}> الدخول </button>
         </form>

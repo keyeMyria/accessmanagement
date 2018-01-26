@@ -66,9 +66,11 @@ class AgentCard extends React.Component {
   state = {
    enter :false ,
    exit : false ,
+   in_out : false,
    setted : false ,
    disabled_in :false ,
-   disabled_out : false
+   disabled_out : false,
+   disabled_do : false
  };
 
  handleToggle = value => () => {
@@ -87,10 +89,13 @@ class AgentCard extends React.Component {
   };
   updateAgentFunction  = (name , _id) => (event, checked) => {
     if(name =='enter'){
-      this.setState({ enter: checked ,  exit : !checked  });
+      this.setState({ enter: checked ,  exit : !checked , in_out : !checked  });
     }
     if(name =='exit'){
-      this.setState({ exit: checked , enter : !checked});
+      this.setState({ exit: checked , enter : !checked , in_out:!checked});
+    }
+    if(name =='in_out'){
+      this.setState({ exit: !checked , enter : !checked , in_out:checked});
     }
     this.props.SwitchRoleMutation({
       variables :{
@@ -107,11 +112,16 @@ class AgentCard extends React.Component {
   agentExitCheckedControl = (value)=>{
     return (value=='agent_out')
   }
+  agentINOUTCheckedControl = (value)=>{
+    console.log(value)
+    return (value=='agent_workshop')
+  }
   componentDidMount=()=>{
     if(!this.state.setted)
     this.setState ({
       enter : this.agentEnterCheckedControl(this.props.data.role.name) ,
       exit : this.agentExitCheckedControl(this.props.data.role.name) ,
+      in_out : this.agentINOUTCheckedControl(this.props.data.role.name),
       setted : true
     });
 
@@ -120,12 +130,14 @@ class AgentCard extends React.Component {
     if(val!='5a3d8b08fb6a630ce0804848'){
       this.setState({
         disabled_in:true ,
-        disabled_out :true
+        disabled_out :true ,
+        disabled_do : falsse
       })
     }else{
       this.setState({
         disabled_in:false ,
-        disabled_out :false
+        disabled_out :false ,
+        disabled_do : true
       })
     }
   }
@@ -137,7 +149,8 @@ class AgentCard extends React.Component {
         workshopId : val
       }
     }) .then((response) => {
-        this.initSwitchers(val)
+      console.log(response)
+        //this.initSwitchers(val)
         })
 
 
@@ -173,7 +186,7 @@ class AgentCard extends React.Component {
                       <Radio
                         checked={this.state.exit}
                         onChange={this.updateAgentFunction('exit' , data._id)}
-                        disabled ={this.disable_out}
+                        disabled ={this.state.disable_out}
                       />
 
                     }
@@ -182,9 +195,9 @@ class AgentCard extends React.Component {
                   <FormControlLabel
                     control={
                       <Radio
-                        checked={this.state.exit}
+                        checked={this.state.in_out}
                         onChange={this.updateAgentFunction('in_out' , data._id)}
-                        disabled ={this.disable_out}
+                        disabled ={this.state.disable_do}
                       />
 
                     }

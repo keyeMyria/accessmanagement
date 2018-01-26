@@ -1,12 +1,12 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-node_modules
-node_modules
+
 
 # testing
 /coverage
-
+/node_modules
+node_modules/*
 # production
 /build
 # misc
@@ -33,4 +33,3 @@ profiles.json
 scripts/test.js
 config/*
 server/index.js
-public

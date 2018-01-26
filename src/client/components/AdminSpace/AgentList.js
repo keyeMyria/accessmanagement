@@ -1,102 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import List, { ListItem } from 'material-ui/List';
+import DirectionsRun from 'material-ui-icons/DirectionsRun';
+import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import {red , lightblue} from 'material-ui/styles';
+import TextField from 'material-ui/TextField';
+import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Collapse from 'material-ui/transitions/Collapse';
 import AgentCard from './AgentCard';
 import { CircularProgress } from 'material-ui/Progress';
+import  {PieChart, Pie, Legend} from 'recharts';
+import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import { observer } from 'mobx-react';
+import { Motion , spring} from 'react-motion';
+import { inject , observer } from 'mobx-react';
 import SessionStore from '../../mobx/sessionstore';
+import _ from 'lodash'
+const styles = theme => ({
+  root: {
+    width: '100%',
+    background: theme.palette.background.paper,
+  },
+  IN:{
+    fill :"#00B0FF",
+    '-webkit-transform': 'rotateY(180deg)',
+    '-moz-transform': 'rotateY(180deg)',
+    '-ms-transform': 'rotateY(180deg)',
+    '-o-transform': 'rotateY(180deg)',
+    'transform': 'rotateY(180deg)',
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-// fake data generator
-const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k}`,
-    content: `item ${k}`,
-  }));
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-const grid = 8;
-const getItemStyle = (draggableStyle, isDragging) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  marginBottom: grid,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid,
-  width: 250,
+  },
+  OUT:{
+    fill :"red",
+  }
 });
 
-
-
+@observer
 class AgentList extends React.Component {
 constructor(props){
   super(props)
-
   this.state = {
-        items: getItems(10)
+      checked: [1] ,
+      total :0 ,
+      in_attendies : 0,
+      out_attendies : 0 ,
+      present_precent : 0,
+      mouse: [0, 0],
+      delta: [0, 0], // difference between mouse and item position, for dragging
+      lastPress: null, // key of the last pressed component
+      currentColumn: null,
+      isPressed: false,
+      isResizing: false
     };
-
 }
-onDragEnd=(result)=>{
-    // dropped outside the list
-    if (!result.destination) {
-      return;
+
+  componentWillReceiveProps=(newProps)=>{
+    if(newProps.data.agentusers){
+      let out = newProps.data.agentusers.filter(user => user.status =="IN");
+      //dataStructure.push({'name':'present' , 'items' : newProps.data.agentusers})
+
+      //this.resizeTimeout = null;
+      //calculateVisiblePositions(dataStructure);
     }
 
-    const items = reorder(
-      this.state.items,
-      result.source.index,
-      result.destination.index
-    );
-
-    this.setState({
-      items,
-    });
   }
-  // componentWillReceiveProps=(newProps)=>{
-  //   if(newProps.data.agentusers){
-  //     let out = newProps.data.agentusers.filter(user => user.status =="IN");
-  //     let unaffected = [];
-  //     newProps.data.agentusers.map(item=>{
-  //       unaffected.push(item);
-  //     })
-  //     //dataStructure.push({'name':'present' , 'items' : unaffected})
-  //     const sessions =SessionStore.getSessions();
-  //     sessions.then(res=>{
-  //       let arr = res.data.getActiveSessions;
-  //       arr.map(item=>{
-  //         // dataStructure.push({
-  //         //   name : item.workshop!=null ? item.workshop.name : 'session generale',
-  //         //   items :[]
-  //         // })
-  //
-  //       })
-  //
-  //     })
-  //
-  //   }
-  //
-  // }
-
 
     handleToggle = value => () => {
       const { checked } = this.state;
@@ -122,11 +93,12 @@ onDragEnd=(result)=>{
       this.setState({attendies_list: updatedList});
     };
     render() {
+      const { classes } = this.props;
       if(this.props.data.loading==true)
-        return(<div><CircularProgress color="accent" /></div>);
+        return(<div className={classes.root}><CircularProgress color="accent" /></div>);
         else if (this.props.data.agentusers==null || Object.keys(this.props.data.agentusers).length === 0) {
             return (
-                <div>
+                <div className={classes.root}>
                   <Paper elevation={4}>
                    <Typography type="body1" component="h3">
                      NoBody has presented his pass yet
@@ -139,46 +111,23 @@ onDragEnd=(result)=>{
               );
     }
     else{
+
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable droppableId="droppable">
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      style={getListStyle(snapshot.isDraggingOver)}
-                    >
-                      {this.state.items.map(item => (
-                        <Draggable key={item.id} draggableId={item.id}>
-                          {(provided, snapshot) => (
-                            <div>
-                              <div
-                                ref={provided.innerRef}
-                                style={getItemStyle(
-                                  provided.draggableStyle,
-                                  snapshot.isDragging
-                                )}
-                                {...provided.dragHandleProps}
-                              >
-                                {item.content}
-                              </div>
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-        )
+          <div className={classes.root}>
+                {
+                  this.props.data.agentusers.map(item=>{
+                    return(  <AgentCard  key={item._id} data={item} dense />)
+                  })
+                }
 
-
+        </div>
+          )
     }
   }
 }
 
 AgentList.propTypes = {
-  //classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 const agentusers= gql`
   query agentusers {
@@ -203,4 +152,4 @@ const agentusers= gql`
 `;
 
 const AgentsWithData = graphql(agentusers)(AgentList);
-export default AgentsWithData;
+export default withStyles(styles)(AgentsWithData);

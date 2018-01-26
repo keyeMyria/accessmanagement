@@ -2,6 +2,7 @@ import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import SignInFormContainer from '../../containers/SignInFormContainer';
 import LogoutPage from '../../components/Login/LogoutPage';
+import QrCodeAuthentication from '../../components/Login/QrCodeAuthentication';
 import Theme from './Theme';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Redirect } from 'react-router-dom';
@@ -74,7 +75,7 @@ const isOUTAgent=()=>{
 }
 const isWorkshopAgent=()=>{
   let role = localStorage.getItem('role');
-  if(role=='agent_workshop')
+  if(role=='agent_in_out')
   return true;
   else {
     return false;
@@ -196,6 +197,7 @@ class App extends React.Component {
         <JssProvider jss={jss}>
         <Switch>
                 <LoginRoute exact path='/' component={SignInFormContainer} />
+                <LoginRoute exact path='/loggedas/:id' component={QrCodeAuthentication} />
                 <Route exact path='/signout' component={LogoutPage} />
                 <PrivateRoute exact path='/capture' component={QReaderComponent} />
   			      	<AgentRoute exact path='/listattendies' component={Attendies} />
