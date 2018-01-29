@@ -44,7 +44,6 @@ class SessionBox extends Component {
 	render() {
 		const { cards } = this.state;
 		const { canDrop, isOver, connectDropTarget } = this.props;
-		console.log(this.props)
 		const isActive = canDrop && isOver;
 		const style = {
 			width: "350px",
@@ -75,11 +74,11 @@ class SessionBox extends Component {
 }
 const cardTarget = {
 	drop(props, monitor, component ) {
-		const { id } = props;
+		const { _id } = props;
 		const sourceObj = monitor.getItem();
-		if ( id !== sourceObj.listId ) component.pushCard(sourceObj.card);
+		if ( _id !== sourceObj.listId ) component.pushCard(sourceObj.card);
 		return {
-			listId: id
+			listId: _id
 		};
 	}
 }

@@ -31,6 +31,7 @@ import Divider from 'material-ui/Divider';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
+import UserStore from '../../mobx/gueststore';
 const style = {
 	width : '300px',
 	padding: '0.5rem 1rem',
@@ -201,9 +202,11 @@ const cardSource = {
 	endDrag(props, monitor) {
 		const item = monitor.getItem();
 		const dropResult = monitor.getDropResult();
-    console.log(item , dropResult)
 		if ( dropResult && dropResult.listId !== item.listId ) {
+      //console.log(item , dropResult)
+      UserStore.affectUserToSession(item.card._id , dropResult.listId)
 			props.removeCard(item.index);
+
 		}
 	}
 };
@@ -274,6 +277,7 @@ const SwitchAgentWorkshop = gql`
     }
   }
 `;
+
 const AgentCardWithMutation = compose(
  graphql(SwitchRoleMutation, {
    name : 'SwitchRoleMutation'}),

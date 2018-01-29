@@ -99,6 +99,29 @@ class UserStore {
           }
         })
     }
+    @action affectUserToSession =(userid , sessionId)=>{
+     fetch({
+        query:`mutation SwitchAgentSession($id:ID! , $sessionId:ID!){
+          SwitchAgentSession(id:$id , sessionId: $sessionId){
+            username
+            _id
+            profile {
+              name
+              forname
+              avatar
+            }
+
+          }
+        }
+        ` ,
+        variables :{
+          id : userid ,
+          sessionId:sessionId
+        }
+      }).then(res=>{
+        console.log(res)
+      })
+  }
 }
 const store = new UserStore();
 
