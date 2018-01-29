@@ -1,104 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import List, { ListItem } from 'material-ui/List';
+import DirectionsRun from 'material-ui-icons/DirectionsRun';
+import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import {red , lightblue} from 'material-ui/styles';
+import TextField from 'material-ui/TextField';
+import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Collapse from 'material-ui/transitions/Collapse';
 import AgentCard from './AgentCard';
 import { CircularProgress } from 'material-ui/Progress';
+import  {PieChart, Pie, Legend} from 'recharts';
+import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-<<<<<<< HEAD
-import { observer } from 'mobx-react';
-import SessionStore from '../../mobx/sessionstore';
-
-//import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-// fake data generator
-const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k}`,
-    content: `item ${k}`,
-  }));
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-const grid = 8;
-const getItemStyle = (draggableStyle, isDragging) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  marginBottom: grid,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid,
-  width: 250,
-});
-
-
-
-class AgentList extends React.Component {
-constructor(props){
-  super(props)
-
-  this.state = {
-        items: getItems(10)
-    };
-
-}
-onDragEnd=(result)=>{
-    // dropped outside the list
-    if (!result.destination) {
-      return;
-    }
-
-    const items = reorder(
-      this.state.items,
-      result.source.index,
-      result.destination.index
-    );
-
-    this.setState({
-      items,
-    });
-  }
-  // componentWillReceiveProps=(newProps)=>{
-  //   if(newProps.data.agentusers){
-  //     let out = newProps.data.agentusers.filter(user => user.status =="IN");
-  //     let unaffected = [];
-  //     newProps.data.agentusers.map(item=>{
-  //       unaffected.push(item);
-  //     })
-  //     //dataStructure.push({'name':'present' , 'items' : unaffected})
-  //     const sessions =SessionStore.getSessions();
-  //     sessions.then(res=>{
-  //       let arr = res.data.getActiveSessions;
-  //       arr.map(item=>{
-  //         // dataStructure.push({
-  //         //   name : item.workshop!=null ? item.workshop.name : 'session generale',
-  //         //   items :[]
-  //         // })
-  //
-  //       })
-  //
-  //     })
-  //
-  //   }
-  //
-  // }
-
-=======
 import {observer } from 'mobx-react';
 import SessionStore from '../../mobx/sessionstore';
 import { DragDropContext } from 'react-dnd'
@@ -148,7 +65,11 @@ constructor(props){
     SessionStore.getSessions().then(res=>{
 
       res.data.getActiveSessions.map(item=>{
-        sessions.push({lastDroppedItem: null , list :[] , _id : item._id , data : item})
+        let list =[] ;
+        item.agents.map(agent=>{
+          list.push(agent);
+        })
+        sessions.push({lastDroppedItem: null , list :list , _id : item._id , data : item})
       });
       this.setState({
         sessions: sessions
@@ -180,7 +101,6 @@ constructor(props){
     handleDrop(index, item) {
   		const { name } = item
   		const droppedBoxNames = name ? { $push: [name] } : {}
->>>>>>> 42ccc1582bf429a00f60fa7f0e536df75ccc849e
 
   		this.setState(
   			update(this.state, {
@@ -219,11 +139,12 @@ constructor(props){
       this.setState({attendies_list: updatedList});
     }
     render() {
+      const { classes } = this.props;
       if(this.props.data.loading==true)
-        return(<div><CircularProgress color="accent" /></div>);
+        return(<div className={classes.root}><CircularProgress color="accent" /></div>);
         else if (this.props.data.agentusers==null || Object.keys(this.props.data.agentusers).length === 0) {
             return (
-                <div>
+                <div className={classes.root}>
                   <Paper elevation={4}>
                    <Typography type="body1" component="h3">
                      NoBody has presented his pass yet
@@ -236,42 +157,6 @@ constructor(props){
               );
     }
     else{
-<<<<<<< HEAD
-        return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable droppableId="droppable">
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      style={getListStyle(snapshot.isDraggingOver)}
-                    >
-                      {this.state.items.map(item => (
-                        <Draggable key={item.id} draggableId={item.id}>
-                          {(provided, snapshot) => (
-                            <div>
-                              <div
-                                ref={provided.innerRef}
-                                style={getItemStyle(
-                                  provided.draggableStyle,
-                                  snapshot.isDragging
-                                )}
-                                {...provided.dragHandleProps}
-                              >
-                                {item.content}
-                              </div>
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-        )
-
-
-=======
       const { boxes, sessions } = this.state
         return (
           <div>
@@ -291,12 +176,11 @@ constructor(props){
 
     			</div>
           )
->>>>>>> 42ccc1582bf429a00f60fa7f0e536df75ccc849e
     }
 }
 }
 AgentList.propTypes = {
-  //classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 const agentusers= gql`
   query agentusers {
@@ -321,4 +205,4 @@ const agentusers= gql`
 `;
 
 const AgentsWithData = graphql(agentusers)(AgentList);
-export default AgentsWithData;
+export default withStyles(styles)(AgentsWithData);

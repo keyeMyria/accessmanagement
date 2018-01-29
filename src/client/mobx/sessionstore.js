@@ -35,6 +35,12 @@ class SessionStore {
                   _id
                   name
                 }
+                agents {
+                  _id
+                  role{
+                    name
+                  }
+                }
                 }
               }`
             })
