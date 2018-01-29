@@ -18,7 +18,7 @@ class UserStore {
     @computed get selectedId() { return this.selectedUser.id; }
     // In strict mode, only actions can modify mobx state
     @action setUsers = (users) => {this.users = [...users];this.loading=false; }
-    @action selectUser = (user) => { this.selectedUser = user; }
+    @action selectUser = (user) => { console.log(user);this.selectedUser = user; }
     // Managing how we clear our observable state
     @action clearSelectedUser = () => { this.selectedUser = {}; }
     // An example that's a little more complex
@@ -75,8 +75,31 @@ class UserStore {
         return role.data.getRoleNameByUserId ;
 
       }
-}
+      @action getUserByID =(userid)=>{
+       fetch({
+          query:`query userId($id:String){
+            userId(id:$id){
+              username
+              _id
+              profile {
+                name
+                forname
+                avatar
+              }
 
+            }
+          }
+          ` ,
+          variables :{
+            id : userid
+          }
+        }).then(res=>{
+          if(res.data!=null){
+            this.selectUser(res.data.userId)
+          }
+        })
+    }
+}
 const store = new UserStore();
 
 export default store;

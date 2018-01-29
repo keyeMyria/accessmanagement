@@ -9,6 +9,7 @@ import LoginForm from '../components/Login/LoginForm';
 import { signIn , setrole } from '../actions';
 import TopBackLogin from './topBackLogin';
 import BottomBackLogin from './bottomBackLogin';
+import QrReader from 'react-qr-reader'
 
 
   const container = {
@@ -73,6 +74,14 @@ class SignInFormContainer extends React.Component {
       user
     });
   }
+  handleScan=(data)=>{
+    if(data){
+      this.props.history.push(`/loggedas/${data}`);
+    }
+  }
+  handleError(err){
+    console.error(err)
+  }
   handleSubmit(values) {
     this.props.mutate({ variables: values })
       .then((response) => {
@@ -119,9 +128,17 @@ class SignInFormContainer extends React.Component {
             <LoginForm
               onSubmit={this.handleSubmit.bind(this)}
               errors={this.state.errors}
+              username={null}
               user={this.state.user}
             />
+
         </div>
+        <QrReader
+          delay={this.state.delay}
+          onError={this.handleError}
+          onScan={this.handleScan}
+          facingMode="user"
+          />
       </div>
     );
   }
