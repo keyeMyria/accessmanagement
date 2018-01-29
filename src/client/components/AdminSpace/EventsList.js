@@ -34,6 +34,8 @@ const styles= theme => ({
 
 @observer
 class EventsList extends React.Component{
+
+
   constructor(props){
     super(props);
     this.state = {
@@ -41,6 +43,7 @@ class EventsList extends React.Component{
         openMenu : false,
         from: undefined,
          to: undefined,
+         top: 0,
       };
     EventStore.getEvents();
 
@@ -63,11 +66,15 @@ class EventsList extends React.Component{
 
   handleClick = (event)=>{
     this.setState({ openMenu: true});
+    var x = event.clientX;
+    // var y = event.clientY;
+    this.setState({top:-x});
   }
 
   handleClose = () => {
     this.setState({ open: false });
   };
+
   handleAddEvent =(event)=>{
     this.setState({ open: true });
 
@@ -82,7 +89,6 @@ class EventsList extends React.Component{
   render(){
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
-
     return (
       <div>
         <div>
@@ -138,16 +144,21 @@ class EventsList extends React.Component{
                      >
                 <MoreVertIcon />
               </IconButton>
+              {console.log(this.state.top)}
               <Menu
                     id="long-menu"
                     Close={this.handleCloseMenu}
                     open={this.state.openMenu}
+
+                    style={{ top:this.state.top , left : -600}}
                     PaperProps={{
                                   style: {
                                           maxHeight: 100,
                                           width: 200,
+                                          top:this.state.top ,
                                          },
                                  }}
+
                        >
                      <MenuItem onClick={this.handleCloseMenu}>
                        Edit Event

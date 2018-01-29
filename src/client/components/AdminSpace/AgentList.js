@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import { observer } from 'mobx-react';
 import SessionStore from '../../mobx/sessionstore';
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+//import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 // fake data generator
 const getItems = count =>
