@@ -28,39 +28,16 @@ import gql from 'graphql-tag';
 import WorkShopListComponent from './WorkShopListComponent';
 import { compose } from 'react-apollo';
 import Divider from 'material-ui/Divider';
-
-const styles = theme => ({
-  card: {
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-   marginRight: theme.spacing.unit,
- },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  });
-
-  const listeAgentCard={
-    textAlign: 'right',
-    paddingTop: '30px',
-  };
-  const WorkShopListCard={
-    borderLeft: '1px solid #b9b9b9',
-    paddingLeft: '60px',
-    top: '-5px'
-  };
-  const ControlLabelListCard={
-      paddingRight: '40px',
-  };
+import { findDOMNode } from 'react-dom';
+import { DragSource, DropTarget } from 'react-dnd';
+import flow from 'lodash/flow';
+const style = {
+	width : '300px',
+	padding: '0.5rem 1rem',
+	margin: '.5rem',
+	backgroundColor: 'white',
+	cursor: 'move'
+};
 
 class AgentCard extends React.Component {
   state = {
@@ -103,7 +80,6 @@ class AgentCard extends React.Component {
         agentfunction : name
       }
     }) .then((response) => {
-        console.log(response)
         })
   };
   agentEnterCheckedControl = (value)=>{
@@ -113,7 +89,6 @@ class AgentCard extends React.Component {
     return (value=='agent_out')
   }
   agentINOUTCheckedControl = (value)=>{
-    console.log(value)
     return (value=='agent_workshop')
   }
   componentDidMount=()=>{
@@ -149,7 +124,6 @@ class AgentCard extends React.Component {
         workshopId : val
       }
     }) .then((response) => {
-      console.log(response)
         //this.initSwitchers(val)
         })
 
@@ -158,11 +132,15 @@ class AgentCard extends React.Component {
   };
 
   render() {
-    const { classes , data} = this.props;
-    return (
-      <div>
+    const {  data} = this.props;
+    const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
+    const opacity = isDragging ? 0 : 1;
+
+
+    return connectDragSource(connectDropTarget(
+      <div style={{ ...style, opacity }}>
         <ListItem>
-            <Avatar className={classes.avatar}><Face/></Avatar>
+            <Avatar><Face/></Avatar>
           <span>{data.username}</span>
           <ListItemSecondaryAction>
                 {/* <WorkShopListComponent style={WorkShopListCard} handleWorkshopChange={this.handleWorkshopChange(data._id)}
@@ -170,7 +148,6 @@ class AgentCard extends React.Component {
                     { ...( data.workshop==null && { value:0 } ) }
                   /> */}
                   <FormControlLabel
-                     style={ControlLabelListCard}
                     control={
                       <Radio
                         ref="in"
@@ -208,12 +185,80 @@ class AgentCard extends React.Component {
         </ListItem>
 
       </div>
-    );
+    ));
   }
 }
-AgentCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+const cardSource = {
+
+	beginDrag(props) {
+		return {
+			index: props.index,
+			listId: props.listId,
+			card: props.card
+		};
+	},
+
+	endDrag(props, monitor) {
+		const item = monitor.getItem();
+		const dropResult = monitor.getDropResult();
+    console.log(item , dropResult)
+		if ( dropResult && dropResult.listId !== item.listId ) {
+			props.removeCard(item.index);
+		}
+	}
 };
+
+const cardTarget = {
+
+	hover(props, monitor, component) {
+		const dragIndex = monitor.getItem().index;
+		const hoverIndex = props.index;
+		const sourceListId = monitor.getItem().listId;
+
+		// Don't replace items with themselves
+		if (dragIndex === hoverIndex) {
+			return;
+		}
+
+		// Determine rectangle on screen
+		const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+
+		// Get vertical middle
+		const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+		// Determine mouse position
+		const clientOffset = monitor.getClientOffset();
+
+		// Get pixels to the top
+		const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+		// Only perform the move when the mouse has crossed half of the items height
+		// When dragging downwards, only move when the cursor is below 50%
+		// When dragging upwards, only move when the cursor is above 50%
+
+		// Dragging downwards
+		if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+			return;
+		}
+
+		// Dragging upwards
+		if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+			return;
+		}
+
+		// Time to actually perform the action
+		if ( props.listId === sourceListId ) {
+			props.moveCard(dragIndex, hoverIndex);
+
+			// Note: we're mutating the monitor item here!
+			// Generally it's better to avoid mutations,
+			// but it's good here for the sake of performance
+			// to avoid expensive index searches.
+			monitor.getItem().index = hoverIndex;
+		}
+	}
+};
+
 const SwitchRoleMutation = gql`
   mutation SwitchAgentRole($id: ID!, $agentfunction: String!) {
     SwitchAgentRole(id: $id, agentfunction: $agentfunction) {
@@ -236,4 +281,13 @@ const AgentCardWithMutation = compose(
    name: 'SwitchAgentWorkshop'
  })
 )(AgentCard);
-export default withStyles(styles)(AgentCardWithMutation);
+
+export default flow(
+	DropTarget("AgentCard", cardTarget, connect => ({
+		connectDropTarget: connect.dropTarget()
+	})),
+	DragSource("AgentCard", cardSource, (connect, monitor) => ({
+		connectDragSource: connect.dragSource(),
+		isDragging: monitor.isDragging()
+	}))
+)(AgentCardWithMutation);

@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import AgentCard from './AgentCard';
 import { CircularProgress } from 'material-ui/Progress';
 import Typography from 'material-ui/Typography';
+<<<<<<< HEAD
 import { observer } from 'mobx-react';
 import SessionStore from '../../mobx/sessionstore';
 
@@ -97,7 +98,103 @@ onDragEnd=(result)=>{
   //
   // }
 
+=======
+import {observer } from 'mobx-react';
+import SessionStore from '../../mobx/sessionstore';
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
+import SessionBox from './SessionBox'
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    background: theme.palette.background.paper,
+  },
+  IN:{
+    fill :"#00B0FF",
+    '-webkit-transform': 'rotateY(180deg)',
+    '-moz-transform': 'rotateY(180deg)',
+    '-ms-transform': 'rotateY(180deg)',
+    '-o-transform': 'rotateY(180deg)',
+    'transform': 'rotateY(180deg)',
+
+  },
+  OUT:{
+    fill :"red",
+  } ,
+  wrapper :{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gridGap: '10px' ,
+      gridAutoRows: 'minmax(100px, auto)'
+    }
+});
+const sessions =[];
+const agents = [];
+@DragDropContext(HTML5Backend)
+@observer
+class AgentList extends React.Component {
+constructor(props){
+  super(props)
+  this.state={
+    sessions : sessions ,
+    boxes : agents ,
+    droppedBoxNames: []
+
+  }
+
+}
+  componentDidMount=()=>{
+    SessionStore.getSessions().then(res=>{
+
+      res.data.getActiveSessions.map(item=>{
+        sessions.push({lastDroppedItem: null , list :[] , _id : item._id , data : item})
+      });
+      this.setState({
+        sessions: sessions
+      })
+    })
+  }
+  componentWillReceiveProps=(newProps)=>{
+
+    if(newProps.data.agentusers){
+      newProps.data.agentusers.map(agent=>{
+        agents.push(agent)
+      })
+      sessions.push({
+        data : null ,
+        _id : 'default',
+        list : agents ,
+        lastDroppedItem: null
+      })
+      this.setState({
+        boxes : agents
+      })
+    }
+
+
+  }
+    isDropped(boxName) {
+        return this.state.droppedBoxNames.findIndex(item => boxName === item._id ) > -1
+    	}
+    handleDrop(index, item) {
+  		const { name } = item
+  		const droppedBoxNames = name ? { $push: [name] } : {}
+>>>>>>> 42ccc1582bf429a00f60fa7f0e536df75ccc849e
+
+  		this.setState(
+  			update(this.state, {
+  				sessions: {
+  					[index]: {
+  						lastDroppedItem: {
+  							$set: item,
+  						},
+  					},
+  				},
+  				droppedBoxNames,
+  			}),
+  		)
+  	}
     handleToggle = value => () => {
       const { checked } = this.state;
       const currentIndex = checked.indexOf(value);
@@ -112,7 +209,7 @@ onDragEnd=(result)=>{
       this.setState({
         checked: newChecked,
       });
-    };
+    }
     filterList =(event)=>{
       var updatedList = this.state.attendies_list;
       updatedList = updatedList.filter(function(item){
@@ -120,7 +217,7 @@ onDragEnd=(result)=>{
           event.target.value.toLowerCase()) !== -1;
       });
       this.setState({attendies_list: updatedList});
-    };
+    }
     render() {
       if(this.props.data.loading==true)
         return(<div><CircularProgress color="accent" /></div>);
@@ -139,6 +236,7 @@ onDragEnd=(result)=>{
               );
     }
     else{
+<<<<<<< HEAD
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="droppable">
@@ -173,10 +271,30 @@ onDragEnd=(result)=>{
         )
 
 
-    }
-  }
-}
+=======
+      const { boxes, sessions } = this.state
+        return (
+          <div>
+    				<div className={classes.wrapper}>
+    					{sessions.map(({lastDroppedItem  , list , _id , data }, index) => (
+    						<SessionBox
+    							lastDroppedItem={lastDroppedItem}
+    							onDrop={item => this.handleDrop(index, item)}
+                  data ={data}
+                  list = {list}
+                  _id={_id}
+                  data={data}
+    							key={index}
+    						/>
+    					))}
+    				</div>
 
+    			</div>
+          )
+>>>>>>> 42ccc1582bf429a00f60fa7f0e536df75ccc849e
+    }
+}
+}
 AgentList.propTypes = {
   //classes: PropTypes.object.isRequired,
 };
