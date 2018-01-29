@@ -33,3 +33,5 @@ profiles.json
 scripts/test.js
 config/*
 server/index.js
+package.json
+public/index.html

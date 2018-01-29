@@ -16,10 +16,12 @@ import { CircularProgress } from 'material-ui/Progress';
 import  {PieChart, Pie, Legend} from 'recharts';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import { Motion , spring} from 'react-motion';
-import { inject , observer } from 'mobx-react';
+import {observer } from 'mobx-react';
 import SessionStore from '../../mobx/sessionstore';
-import _ from 'lodash'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
+import SessionBox from './SessionBox'
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -36,39 +38,79 @@ const styles = theme => ({
   },
   OUT:{
     fill :"red",
-  }
+  } ,
+  wrapper :{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gridGap: '10px' ,
+      gridAutoRows: 'minmax(100px, auto)'
+    }
 });
-
+const sessions =[];
+const agents = [];
+@DragDropContext(HTML5Backend)
 @observer
 class AgentList extends React.Component {
 constructor(props){
   super(props)
-  this.state = {
-      checked: [1] ,
-      total :0 ,
-      in_attendies : 0,
-      out_attendies : 0 ,
-      present_precent : 0,
-      mouse: [0, 0],
-      delta: [0, 0], // difference between mouse and item position, for dragging
-      lastPress: null, // key of the last pressed component
-      currentColumn: null,
-      isPressed: false,
-      isResizing: false
-    };
-}
-
-  componentWillReceiveProps=(newProps)=>{
-    if(newProps.data.agentusers){
-      let out = newProps.data.agentusers.filter(user => user.status =="IN");
-      //dataStructure.push({'name':'present' , 'items' : newProps.data.agentusers})
-
-      //this.resizeTimeout = null;
-      //calculateVisiblePositions(dataStructure);
-    }
+  this.state={
+    sessions : sessions ,
+    boxes : agents ,
+    droppedBoxNames: []
 
   }
 
+}
+  componentDidMount=()=>{
+    SessionStore.getSessions().then(res=>{
+
+      res.data.getActiveSessions.map(item=>{
+        sessions.push({lastDroppedItem: null , list :[] , _id : item._id , data : item})
+      });
+      this.setState({
+        sessions: sessions
+      })
+    })
+  }
+  componentWillReceiveProps=(newProps)=>{
+
+    if(newProps.data.agentusers){
+      newProps.data.agentusers.map(agent=>{
+        agents.push(agent)
+      })
+      sessions.push({
+        data : null ,
+        _id : 'default',
+        list : agents ,
+        lastDroppedItem: null
+      })
+      this.setState({
+        boxes : agents
+      })
+    }
+
+
+  }
+    isDropped(boxName) {
+        return this.state.droppedBoxNames.findIndex(item => boxName === item._id ) > -1
+    	}
+    handleDrop(index, item) {
+  		const { name } = item
+  		const droppedBoxNames = name ? { $push: [name] } : {}
+
+  		this.setState(
+  			update(this.state, {
+  				sessions: {
+  					[index]: {
+  						lastDroppedItem: {
+  							$set: item,
+  						},
+  					},
+  				},
+  				droppedBoxNames,
+  			}),
+  		)
+  	}
     handleToggle = value => () => {
       const { checked } = this.state;
       const currentIndex = checked.indexOf(value);
@@ -83,7 +125,7 @@ constructor(props){
       this.setState({
         checked: newChecked,
       });
-    };
+    }
     filterList =(event)=>{
       var updatedList = this.state.attendies_list;
       updatedList = updatedList.filter(function(item){
@@ -91,7 +133,7 @@ constructor(props){
           event.target.value.toLowerCase()) !== -1;
       });
       this.setState({attendies_list: updatedList});
-    };
+    }
     render() {
       const { classes } = this.props;
       if(this.props.data.loading==true)
@@ -111,21 +153,28 @@ constructor(props){
               );
     }
     else{
-
+      const { boxes, sessions } = this.state
         return (
-          <div className={classes.root}>
-                {
-                  this.props.data.agentusers.map(item=>{
-                    return(  <AgentCard  key={item._id} data={item} dense />)
-                  })
-                }
+          <div>
+    				<div className={classes.wrapper}>
+    					{sessions.map(({lastDroppedItem  , list , _id , data }, index) => (
+    						<SessionBox
+    							lastDroppedItem={lastDroppedItem}
+    							onDrop={item => this.handleDrop(index, item)}
+                  data ={data}
+                  list = {list}
+                  _id={_id}
+                  data={data}
+    							key={index}
+    						/>
+    					))}
+    				</div>
 
-        </div>
+    			</div>
           )
     }
-  }
 }
-
+}
 AgentList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
