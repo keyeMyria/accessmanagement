@@ -1,24 +1,30 @@
-import React from 'react';
+import React , {Fragment} from 'react';
 import { observer } from 'mobx-react';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
 import Avatar from 'material-ui/Avatar';
-import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
 import Chip from 'material-ui/Chip';
 import Paper from 'material-ui/Paper';
-import Checkbox from 'material-ui/Checkbox';
 import update from 'immutability-helper'
 // styles
 const $input = 'input-reset ba b--black-10 br1 pa2 mb2 db w-100 f6';
 const $label = 'f7 db mb2 mt3 light-silver';
 const $small = 'f6 black-60 db red';
-const values = [];
-const handleNameChange=(event)=>{
-  values.push(event.target.value);
-  console.log(values)
-
-
+const styles ={
+  guestItem :{
+    width : '100px' ,
+    height : '100px' ,
+    float : 'right' ,
+    padding : '10px'
+  } ,
+  avatarGuest :{
+    width : '50px' ,
+    height : '50px' ,
+  },
+  guestName :{
+    fontWeight : '0.8em'
+  }
 }
 const invited=[];
 @observer
@@ -42,6 +48,8 @@ class MaterialSelectField extends React.Component{
       chipData : update(prevState.chipData, {$push: [ item ]}) ,
       names : update(prevState.names, {$push: [ item._id ]}) ,
   }))
+  this.props.form.$('users').value = this.state.names
+  
  };
  handleDeleteChip = (item , index) => {
 
@@ -52,37 +60,43 @@ class MaterialSelectField extends React.Component{
        return i !== item._id
      })
  }))
+ this.props.form.$('users').value = this.state.names
 };
+
   render(){
-    const { field , placeholder } = this.props;
+    const { field , placeholder , type ,form} = this.props;
     return(
+<Fragment>
       <div>
         <Paper>
           {this.state.chipData.map((data , index) => {
             return (
               <Chip
                 key={`{chip${data._id}}`}
-                avatar={<Avatar src={`public/assets/avatars/${data.profile.avatar}`}/>}
+                avatar={<Avatar src={`public/assets/avatars/${data.profile.avatar}`} />}
                 label={`${data.profile.name} ${data.profile.forname}`}
                 onDelete={()=>this.handleDeleteChip(data , index)}
               />
             );
           })}
           </Paper>
-          <List>
+          <ul>
 
                 {this.state.invited.map((item , index) => (
 
-                  <ListItem onClick={()=>this.handleAddGuest(item , index)} key={item._id} dense button>
-                          <Avatar src={`public/assets/avatars/${item.profile.avatar}`} />
-                          <ListItemText primary={`${item.profile.name} ${item.profile.forname}`} />
-                        </ListItem>
+                  <li onClick={()=>this.handleAddGuest(item , index)} key={item._id} style={styles.guestItem}>
+                          <Avatar
+                            src={`public/assets/avatars/${item.profile.avatar}`}
+                            style={styles.avatarGuest}
+                          />
+                          <p style={styles.guestName}> {item.profile.name} {item.profile.forname}</p>
+                        </li>
 
                 ))}
-              </List>
-              <input type="hidden" {...field.bind({  placeholder })} value={this.state.names} />
+              </ul>
+              <Input {...field.bind({type})} value={this.state.names}/>
             </div>
-
+      </Fragment>
     )
   }
 }

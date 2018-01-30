@@ -11,9 +11,9 @@ const fields = [{
 },
 {
   name: 'users',
-  label: 'users',
-  placeholder: 'Select Users',
-  rules: 'required|string'
+  type : 'hidden',
+  rules: 'required',
+  value: [],
 }];
 
 const hooks = {

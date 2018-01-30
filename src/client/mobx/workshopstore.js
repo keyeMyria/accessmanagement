@@ -75,8 +75,8 @@ class WorkshopStore {
       }
       @action addNewWorkshop(data){
         fetch({
-          query: `mutation addWorkShopForEvent($name :String! , $event_id :String!) {
-            addWorkShopForEvent(name:$name , event_id : $event_id)  {
+          query: `mutation addWorkShopForEvent($name :String! , $event_id :String! , $users :[ID!]) {
+            addWorkShopForEvent(name:$name , event_id : $event_id , users:$users)  {
               _id
               name
               session_empty
@@ -84,6 +84,7 @@ class WorkshopStore {
           }`,
           variables:{
             name : data.name ,
+            users :data.users,
             event_id : this.getEvent()
           }
         }).then(res => {
