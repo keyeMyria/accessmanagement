@@ -95,6 +95,7 @@ var config = {
 },
 devServer: {
     historyApiFallback: true,
+    host: '0.0.0.0',
     proxy: {
       '/manage-single-event/*': {
         target: 'http://localhost:8080/',
