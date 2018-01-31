@@ -10,50 +10,66 @@ import { signIn , setrole } from '../actions';
 import TopBackLogin from './topBackLogin';
 import BottomBackLogin from './bottomBackLogin';
 import QrReader from 'react-qr-reader'
+import './css/SignInFormContainer.css';
 
 
-  const container = {
-    backgroundColor: '#013084',
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    position: 'absolute',
-    alignItems: 'center',
-    overflow: 'hidden',
-    zIndex: '-1',
-    minHeight: '600px',
-  };
-  const topBackLoginC={
-    transform: 'scale(1.7)',
-  };
-  const bottomBackLoginC={
-    transform: 'scale(1.7)',
-    transformOrigin: '50% 100%',
-    alignSelf: 'flex-start',
-  };
-  const bottomBackLoginSvg={
-    position: 'relative',
-    top: '5px',
-  };
+  // const container = {
+  //   display: 'flex' ,
+  //   flexDirection: 'row',
+  // }
+  // const containerBackground = {
+  //   backgroundColor: '#013084',
+  //   width: '100vw',
+  //   height: '100vh',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'space-between',
+  //   position: 'absolute',
+  //   alignItems: 'center',
+  //   overflow: 'hidden',
+  //   zIndex: '-1',
+  //   minHeight: '600px',
+  // };
+  // const topBackLoginC={
+  //   transform: 'scale(1.7)',
+  //   width: '50vw',
+  // };
+  // const bottomBackLoginC={
+  //   transform: 'scale(1.7)',
+  //   transformOrigin: '50% 100%',
+  //   alignSelf: 'flex-start',
+  //   width: '50vw',
+  // };
+  // const bottomBackLoginSvg={
+  //   position: 'relative',
+  //   top: '5px',
+  // };
   const styleTypog2 = {
     color:'#fff',
-    marginBottom: '50px',
-    marginTop: '30px',
     };
 
     const styleTypogTitle = {
       color:'#fff',
       };
-
-    const formLogin ={
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-      justifyContent: 'center',
-      alignContent: 'center',
-    }
+  //
+  //   const formLogin ={
+  //     display: 'flex',
+  //     flexDirection: 'column',
+  //     height: '100vh',
+  //     justifyContent: 'center',
+  //     alignContent: 'center',
+  //     width: '50vw',
+  //   }
+  //   const containerQRcode ={
+  //     width: '50vw',
+  //     display: 'flex',
+  //     flexDirection: 'row',
+  //     justifyContent: 'center',
+  //     alignItems: 'center',
+  //   }
+  //   const QRcode ={
+  //     width: '30vw',
+  //   }
 
 class SignInFormContainer extends React.Component {
   constructor(props) {
@@ -110,35 +126,43 @@ class SignInFormContainer extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <div style={container}>
-      		<div style={topBackLoginC}>
+        <div className="containerBackground">
+          <div className="topBackLoginC">
           <TopBackLogin/>
           </div>
-          <div style={bottomBackLoginC}>
+          <div className="bottomBackLoginC">
           <BottomBackLogin/>
           </div>
         </div>
-        <div style={formLogin}>
-            <Typography type="display2" style={styleTypog2}>
-                إدارة الحضور للانشطة والمناسبات
-            </Typography>
-            <Typography type="headline" gutterBottom style={styleTypogTitle}>
-                تسجيل الدخول
-            </Typography>
-            <LoginForm
-              onSubmit={this.handleSubmit.bind(this)}
-              errors={this.state.errors}
-              username={null}
-              user={this.state.user}
-            />
-
+        <div className="container">
+            <div className="section1">
+              <Typography type="display2" style = {styleTypog2}>
+                  إدارة الحضور للانشطة والمناسبات
+              </Typography>
+            </div>
+            <div className="section2">
+                <div className="formLogin article">
+                    <Typography type="headline" gutterBottom style={styleTypogTitle}>
+                        تسجيل الدخول
+                    </Typography>
+                    <LoginForm
+                      onSubmit={this.handleSubmit.bind(this)}
+                      errors={this.state.errors}
+                      username={null}
+                      user={this.state.user}
+                    />
+                </div>
+                <div className="article">
+                  <QrReader
+                   className="QRcode"
+                    delay={this.state.delay}
+                    onError={this.handleError}
+                    onScan={this.handleScan}
+                    facingMode="user"
+                    />
+                </div>
+            </div>
         </div>
-        <QrReader
-          delay={this.state.delay}
-          onError={this.handleError}
-          onScan={this.handleScan}
-          facingMode="user"
-          />
       </div>
     );
   }
