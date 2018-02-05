@@ -8,10 +8,12 @@ import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
+import AccountCircle from 'material-ui-icons/AccountCircle';
 import dateFormat from 'dateformat';
 import { withStyles } from 'material-ui/styles';
 import Dialog , {DialogActions} from 'material-ui/Dialog';
 import List, { ListItem, ListItemText , ListItemSecondaryAction } from 'material-ui/List';
+import './vendor/events.css';
 import PlayArrow from 'material-ui-icons/PlayArrow';
 import Stop from 'material-ui-icons/Stop';
 import Divider from 'material-ui/Divider';
@@ -26,14 +28,26 @@ import LectureIcon from './vendor/lecture.svg';
 import WorkShopForm from './addWorkShopForm';
 import Add from 'material-ui-icons/Add'
 const styles = theme => ({
+  editButton:{
+    marginBottom: '10px',
+    backgroundColor:'#fff',
+  },
+  container:{
+    backgroundColor: '#c1c1c14f',
+  },
   card: {
     backgroundColor : '#053787',
-    color :'white'
+    color :'white',
+    padding:'30px 0',
   } ,
+  title:{
+    marginBottom: '15px',
+    fontSize: '30px',
+  },
   appBar: {
     position: 'relative',
   },
-  flex: {
+  typoStyle: {
     flex: 1,
   },
   icon :{
@@ -41,12 +55,34 @@ const styles = theme => ({
   } ,
   sessionItem :{
     borderLeft : '8px solid #053787' ,
-    paddingTop : '5px'
   } ,
+  containerWorkshop:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  listWorkshop:{
+    width: '70vw',
+    backgroundColor: 'rgb(255, 255, 255)',
+    boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+    marginBottom: '20px',
+  },
   workshopItem:{
     borderLeft : '8px solid #FC4482' ,
-    marginTop : '5px',
     minHeight : '80px'
+  },
+  startStopSession:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+
+  },
+  star:{
+    color: '#053887',
+  },
+  stop:{
+    color:'red',
   },
   sessionListWork:{
     paddingTop :'0px' ,
@@ -57,21 +93,29 @@ const styles = theme => ({
     borderLeft : '8px solid #CECECE' ,
     backgroundColor :'#F5F5F5',
     minHeight : '30px',
-    marginLeft : '30px'
   },
-  AddingButton :{
-    minHeight : '70px' ,
-    margin : '10px',
-    textTransform :'none' ,
-    fontsize : '0.2em'
+
+  backgroundTop:{
+      backgroundColor: '#053887',
+      marginTop: '-30px',
+      position: 'absolute',
+      width: '100%',
+      height: '60px',
   },
-  workshopform:{
-    width : '100%'
+  AddButton:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   userItem :{
-    width : '50%' ,
-    float : 'right'
-  }
+    width : '50%',
+    float : 'right',
+  },
+  numberAttend:{
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
 });
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -83,12 +127,11 @@ class EventDetail extends React.Component{
     super(props);
     this.state = {
      open: false,
-     open_workshop:false ,
+     open_workshop:false
    };
    WorkshopStore.getWorkshopsForEvent(props.match.params.id);
    EventStore.getEventByID(this.props.match.params.id);
    UserStore.getUsers();
-   console.log(this.props)
   }
 
  handleClickOpen = () => {
@@ -131,6 +174,7 @@ class EventDetail extends React.Component{
 
     return(
       <div>
+        <div className={classes.backgroundTop}></div>
         <Dialog
          fullScreen
          open={this.state.open}
@@ -142,7 +186,7 @@ class EventDetail extends React.Component{
              <IconButton color="contrast" onClick={this.handleClose} aria-label="Close">
                <CloseIcon />
              </IconButton>
-             <Typography type="title" color="inherit" className={classes.flex}>
+             <Typography type="title" color="inherit" className={classes.typoStyle}>
                start a new session
              </Typography>
 
@@ -170,7 +214,7 @@ class EventDetail extends React.Component{
             <IconButton color="contrast" onClick={this.handleCloseWorkshop} aria-label="Close">
               <CloseIcon />
             </IconButton>
-            <Typography type="title" color="inherit" className={classes.flex}>
+            <Typography type="title" color="inherit" className={classes.typoStyle}>
               Add a new Workshop
             </Typography>
           </Toolbar>
@@ -188,35 +232,42 @@ class EventDetail extends React.Component{
         </DialogActions>
         </Dialog>
 
+      <div className={classes.container}>
       <div className={classes.card}>
-        <Button  fab raised color="accent" aria-label="edit Event">
+        <Button  fab raised color="accent" aria-label="edit Event" className={classes.editButton}>
           <ModeEditIcon />
         </Button>
-          <h3>
+          <h2 className={classes.title}>
             {event.title}
-          </h3>
+          </h2>
           <h3>{event.type}</h3>
           <span>{event.place}</span>
-          <p>{`starts at : ${dateFormat(event.start_date , 'dd/mm/yyyy')}`}</p>
-          <p>{`ends at : ${dateFormat(event.end_date , 'dd/mm/yyyy')}`}</p>
+          <p>{`starts at : ${dateFormat(event.start_date , 'dd/mm/yyyy')}`}  {`ends at : ${dateFormat(event.end_date , 'dd/mm/yyyy')}`}</p>
+          <p className={classes.numberAttend}> <AccountCircle/>{event.numberAttendies} Attendies </p>
     </div>
 
-    <Button onClick={this.handleClickOpenWorkshop} className={classes.AddingButton}>
+    <Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
+     <div className={classes.AddButton}>
       <Add />
       Add Workshop
+      </div>
     </Button>
-    {event.session_empty  &&(<Button onClick={this.handleClickOpen}  className={classes.AddingButton}>
+    {event.session_empty  &&(<Button onClick={this.handleClickOpen}  className="AddingButton">
+     <div className={classes.AddButton}>
       <Add />
       Add Session
+      </div>
     </Button>)}
-    {event.session_empty==null  &&(<Button onClick={this.handleClickOpen} className={classes.AddingButton}>
-      <Add />
-      Add Session
+    {event.session_empty==null  &&(<Button onClick={this.handleClickOpen} className="AddingButton">
+      <div className={classes.AddButton}>
+        <Add />
+        Add Session
+      </div>
     </Button>)}
       {(event.session_collection!==undefined)&&(
         <List>
       {
-        event.session_collection.map((item) => (
+        event.sessions.map((item) => (
           <div  key={item._id}>
             <ListItem className={classes.sessionItem}>
             <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')}`} />
@@ -229,51 +280,59 @@ class EventDetail extends React.Component{
         </div>
         ))
       }
-    </List>)}
+    </List>
       {workshoplist!==undefined &&(
-        <List>
+        <List className={classes.containerWorkshop}>
         {
           workshoplist.map((item) => (
-            <div key={item._id} >
+            <div key={item._id} className={classes.listWorkshop}>
               <ListItem className={classes.workshopItem}>
               <ListItemText primary={item.name} />
                 {item.session_empty==true &&(
-                  <div><Button onClick={()=>this.startSessionForWorkshop(item._id)}><PlayArrow color="primary" />
-                  Start session</Button></div>
+                    <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
+                    <div className={classes.startStopSession}>
+                      <PlayArrow color="primary" />
+                      Start session
+                    </div>
+                    </Button>
                 )}
                 {item.session_empty==null &&(
-                  <div><Button onClick={()=>this.startSessionForWorkshop(item._id)}><PlayArrow color="primary" />
-                  Start session</Button></div>
+                    <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
+                    <div className={classes.startStopSession}>
+                      <PlayArrow color="primary" />
+                      Start session
+                      </div>
+                    </Button>
                 )}
                 {item.session_empty==false &&(
-                  <div><Button onClick={()=>this.stopSessionForWorkShop(item._id)}><Stop color="accent" />
-                  Stop session</Button></div>
+                    <Button onClick={()=>this.stopSessionForWorkShop(item._id)}  className={classes.stop}>
+                    <div className={classes.startStopSession}>
+                      <Stop color="accent" />
+                      Stop session
+                      </div>
+                    </Button>
                 )}
                 </ListItem>
-
                   <List className={classes.sessionListWork}>
-                    {
-                      item.session_list.map((lol) => (
-                        <div key={lol._id}><ListItem className={classes.workshopsessionitem}>
-                          <ListItemText secondary={`starts at : ${dateFormat(lol.start_hour , 'hh:mm')}`} />
-                            {lol.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(lol.end_hour , 'hh:mm')}`} />
-                            )}
-                        </ListItem>
-                        <Divider/>
+                    { item.sessions.map((lol) => (
+                        <div key={lol._id}>
+                          <ListItem className={classes.workshopsessionitem}>
+                            <ListItemText secondary={`starts at : ${dateFormat(lol.start_hour , 'hh:mm')}`} />
+                              {lol.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(lol.end_hour , 'hh:mm')}`} />
+                              )}
+                          </ListItem>
+                          <Divider/>
                         </div>
-
-
                       ))
-
                     }
                   </List>
                   <Divider/>
-
           </div>
           ))
         }
       </List>
       )}
+      </div>
   </div>);
   }
 }

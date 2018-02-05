@@ -2,6 +2,8 @@ import React from 'react';
 import Button from 'material-ui/Button';
 import AddBox from 'material-ui-icons/AddBox'
 import TextField from 'material-ui/TextField';
+import green from 'material-ui/colors/green';
+
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -21,7 +23,7 @@ import {withRouter} from 'react-router-dom';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import {Link} from 'react-router'
+
 const styles= theme => ({
   date :{
 
@@ -81,7 +83,7 @@ class EventsList extends React.Component{
   }
   eventDetail=(item)=>{
     EventStore.selectEvent(item);
-    this.props.history.replace(`/manage-single-event/${item._id}`);
+    this.props.history.push(`/manage-single-event/${item._id}`);
   }
   deleteEvent=(eventid)=>{
     EventStore.deleteEvent(eventid);
@@ -144,6 +146,7 @@ class EventsList extends React.Component{
                      >
                 <MoreVertIcon />
               </IconButton>
+              {console.log(this.state.top)}
               <Menu
                     id="long-menu"
                     Close={this.handleCloseMenu}
@@ -171,7 +174,9 @@ class EventsList extends React.Component{
          ))}
     </ul>
     <Button fab color="accent" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">
-      <AddBox />
+      <AddBox style={{
+                      color:'#ffff',
+                    }}/>
     </Button>
   </div>
     )
