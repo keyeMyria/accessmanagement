@@ -8,7 +8,11 @@ import AgentCard from './AgentCard'
 class SessionBox extends Component {
 	constructor(props) {
 			super(props);
-			this.state = { cards: props.list };
+			this.state = {
+							cards: props.list ,
+							data:props.data
+						};
+						console.log(props.data)
 		}
 		pushCard(card) {
 		this.setState(update(this.state, {
@@ -42,8 +46,8 @@ class SessionBox extends Component {
 	}
 
 	render() {
-		const { cards } = this.state;
-		const { canDrop, isOver, connectDropTarget } = this.props;
+		const { cards,data } = this.state;
+		const { canDrop, isOver, connectDropTarget} = this.props;
 		const isActive = canDrop && isOver;
 		const style = {
 			width: "350px",
@@ -56,6 +60,8 @@ class SessionBox extends Component {
 
 		return connectDropTarget(
 			<div style={{...style, backgroundColor}}>
+				{(data!=null && data.workshop==null)&&(<span>Session Globale</span>)}
+				{(data!=null && data.workshop!=null)&&(<span>{data.workshop.name}</span>)}
 				{cards.map((card, i) => {
 					return (
 						<AgentCard
