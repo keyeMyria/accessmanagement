@@ -1,0 +1,116 @@
+/* css Background */
+
+.containerBackground {
+  background-color:  #013084;
+  width:  100vw;
+  height:  100vh;
+  display:  flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position:  absolute;
+  align-items: center;
+  overflow:  hidden;
+  z-index: -1;
+  min-height: 670px;
+};
+.topBackLogin{
+  transform:  scale(1.7);
+  width:  50vw;
+};
+.bottomBackLogin{
+  transform:  scale(1.7);
+  transform-origin: 50% 100%;
+  align-self: flex-start;
+  width:  50vw;
+};
+.bottomBackLoginSv{
+  position:  relative;
+  top:  5px;
+}
+
+/* end css Background */
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.section1{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 25vh;
+    min-height: 145px;
+}
+
+.section2{
+    display: flex;
+    height: 70vh;
+    min-height: 500px;
+}
+
+.article {
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formLogin {
+    flex-direction: column;
+  }
+
+.QRcode {
+    width: 300px;
+  }
+@media (min-width: 480px) and (max-width: 800px) {
+  .containerBackground {
+    min-height: 1000px;
+  }
+  .section1 {
+    height: 20%;
+    min-height: 204px;
+  }
+  .section2 {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 70%;
+    min-height: 650px;
+    }
+    .formLogin {
+      order: 2;
+    }
+    .containerQRcode {
+      order: 1;
+    }
+}
+@media (max-width: 320px) {
+  .containerBackground {
+    min-height: 1000px;
+  }
+  .section1 {
+    height: 15%;
+    min-height: 204px;
+  }
+  .section2 {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 70%;
+    min-height: 650px;
+    }
+    .formLogin {
+      order: 2;
+      width: 90%;
+    }
+    .containerQRcode {
+      order: 1;
+    }
+    .QRcode {
+    width: 90%;
+    }
+    .article {
+      width: 100%;
+    }
+}
