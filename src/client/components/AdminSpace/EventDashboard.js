@@ -8,7 +8,7 @@ import Button from 'material-ui/Button';
 class EventDashboard extends React.Component{
   constructor(props){
     super(props);
-    EventStore.getFullEventDetailsByID('5a5c9013968f5b0d1baf68d2')
+    EventStore.getFullEventDetailsByID('5a781af99b784c0aee1ca8d2')
   }
   render(){
     return(
@@ -19,16 +19,14 @@ class EventDashboard extends React.Component{
         <Button  color="accent">
           Closed
         </Button>
-        {(EventStore.selectedEvent.sessions!== undefined)&&
-          EventStore.selectedEvent.sessions.map(gen_session=>{
-            console.log(gen_session)
+        {(EventStore.selectedEvent.session_collection!== undefined)&&
+          EventStore.selectedEvent.session_collection.map(gen_session=>{
             return(<DashboardUnit key={gen_session._id} details={gen_session}/>);
           })}
         {(EventStore.selectedEvent.workshops!== undefined)&& EventStore.selectedEvent.workshops.map(work=>{
-          console.log(work)
-            work.sessions.map(session=>{
-              return(<DashboardUnit key={work._id} details={session}/>);
-            })
+            //work.session_list.map(session=>{
+              return(<DashboardUnit key={work._id} details={work}/>);
+            //})
           })
         }
 

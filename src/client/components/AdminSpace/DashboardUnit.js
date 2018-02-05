@@ -70,59 +70,67 @@ const containers={
   }
 }
 class DashboardUnit extends React.Component{
-
-  render(){
-    const {classes , details , key} = this.props;
+  buildContentBasedOnData =(details , classes)=>{
     const data = [{name: 'indoor', value: 400}, {name: 'Abscent', value: 300},
                   {name: 'outdoor', value: 300}]
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
 
-                  let start = moment(moment(details.start_hour))
-                  let end = moment(moment(details.end_hour))
-                  let difference = moment.duration(end.diff(start))
+      if(details.session_list!=null){
+          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes)))}</div>)
+      }else{
+        let start = moment(moment(details.start_hour))
+        let end = moment(moment(details.end_hour))
+        let difference = moment.duration(end.diff(start))
 
-    return(
-      <div style={containers.DetailContainer} key={key}>
-        <div className="ChartContainer">
-          <PieChart width={400} height={400}>
-          <Pie data={data} cx="50%" cy="50%" innerRadius={74} outerRadius={80} fill="#00ABC7" label >
-            {
-              data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-            }
-            <Label value="Running Time" position="topcenter" className={classes.boldLabel}/>
-            <Label value={`${difference._data.hours}h${difference._data.minutes}mn`} position="center" className={classes.raffined} />
-          </Pie>
-          <Pie data={data} cx="50%" cy="50%" innerRadius={45} outerRadius={60} fill="#00abc7" >
-            {
-              data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-            }
-          </Pie>
+        return(
+          <div style={containers.DetailContainer} key={details._id}>
+            <div className="ChartContainer">
+              <PieChart width={400} height={400}>
+              <Pie data={data} cx="50%" cy="50%" innerRadius={74} outerRadius={80} fill="#00ABC7" label >
+                {
+                  data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                }
+                <Label value="Running Time" position="topcenter" className={classes.boldLabel}/>
+                <Label value={`${difference._data.hours}h${difference._data.minutes}mn`} position="center" className={classes.raffined} />
+              </Pie>
+              <Pie data={data} cx="50%" cy="50%" innerRadius={45} outerRadius={60} fill="#00abc7" >
+                {
+                  data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                }
+              </Pie>
 
-          <Tooltip/>
-        </PieChart>
-      </div>
-            <div><h3>Workshop Name</h3>
-            <div style={containers.smallFont}>
-              <Button fab disabled><QueryBuilder color="action"/>
-              </Button>
-              <span >Started At </span>
-              <span>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
-            </div>
-              <div style={containers.smallFont}>
+              <Tooltip/>
+            </PieChart>
+          </div>
+                <div><h3>Workshop Name</h3>
+                <div style={containers.smallFont}>
+                  <Button fab disabled><QueryBuilder color="action"/>
+                  </Button>
+                  <span >Started At </span>
+                  <span>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+                </div>
+                  <div style={containers.smallFont}>
 
-                <span>Ended At </span>
-                <span>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
-            </div>
-            <div>
-              <div  style={containers.smallFont}><Button fab disabled>
-                <People color="action"/>
-              </Button>
-              <span>
-                Expected Attendies 40</span>
-              </div>
-            </div>
-      </div>
-    </div>)
+                    <span>Ended At </span>
+                    <span>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+                </div>
+                <div>
+                  <div  style={containers.smallFont}><Button fab disabled>
+                    <People color="action"/>
+                  </Button>
+                  <span>
+                    Expected Attendies 40</span>
+                  </div>
+                </div>
+          </div>
+        </div>)
+      }
+  }
+  render(){
+    const {classes , details , key} = this.props;
+    return(<div>{this.buildContentBasedOnData(details , classes)}</div>)
+
+
   }
 }
 export default withStyles(styles)(DashboardUnit);

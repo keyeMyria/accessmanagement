@@ -88,7 +88,6 @@ class EventDetail extends React.Component{
    WorkshopStore.getWorkshopsForEvent(props.match.params.id);
    EventStore.getEventByID(this.props.match.params.id);
    UserStore.getUsers();
-   EventStore.getEventByID(this.props.match.params.id)
    console.log(this.props)
   }
 
@@ -214,7 +213,8 @@ class EventDetail extends React.Component{
       <Add />
       Add Session
     </Button>)}
-      {(event.session_collection!==undefined && event.session_collection!==null )&&(<List>
+      {(event.session_collection!==undefined)&&(
+        <List>
       {
         event.session_collection.map((item) => (
           <div  key={item._id}>

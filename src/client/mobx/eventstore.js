@@ -161,6 +161,7 @@ class EventStore {
                 eventid :eventid
               }
             }).then(res=>{
+              console.log(res.data.getEventByID)
               this.selectEvent(res.data.getEventByID)
             })
           }
@@ -185,7 +186,8 @@ class EventStore {
                     _id
                     name
                     session_empty
-                    session_list{
+                    session_list {
+                      _id
                       start_hour
                       end_hour
                       stat
