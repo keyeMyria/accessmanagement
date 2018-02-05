@@ -267,7 +267,7 @@ class EventDetail extends React.Component{
       {(event.session_collection!==undefined)&&(
         <List>
       {
-        event.sessions.map((item) => (
+        event.session_collection.map((item) => (
           <div  key={item._id}>
             <ListItem className={classes.sessionItem}>
             <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')}`} />
@@ -314,7 +314,7 @@ class EventDetail extends React.Component{
                 )}
                 </ListItem>
                   <List className={classes.sessionListWork}>
-                    { item.sessions.map((lol) => (
+                    { item.session_list.map((lol) => (
                         <div key={lol._id}>
                           <ListItem className={classes.workshopsessionitem}>
                             <ListItemText secondary={`starts at : ${dateFormat(lol.start_hour , 'hh:mm')}`} />
