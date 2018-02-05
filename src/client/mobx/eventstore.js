@@ -1,5 +1,6 @@
 import { observable, action, computed, useStrict } from 'mobx';
 import { createApolloFetch } from 'apollo-fetch';
+
 useStrict(true);
 
 
@@ -35,7 +36,7 @@ class EventStore {
           end_date
           numberAttendies
           session_empty
-          sessions{
+          session_collection{
             _id
             start_hour
             end_hour
@@ -45,9 +46,10 @@ class EventStore {
             _id
             name
             session_empty
-            sessions{
+            session_list{
               start_hour
               end_hour
+              stat
             }
           }
 
@@ -141,7 +143,7 @@ class EventStore {
                   end_date
                   numberAttendies
                   session_empty
-                  sessions{
+                  session_collection{
                     _id
                     start_hour
                     end_hour
@@ -162,9 +164,44 @@ class EventStore {
               this.selectEvent(res.data.getEventByID)
             })
           }
+          @action getFullEventDetailsByID(eventid){
+            fetch({
+              query: `query getEventByID($eventid:String!) {
+                getEventByID(eventid : $eventid){
+                  _id
+                  title
+                  type
+                  start_date
+                  end_date
+                  numberAttendies
+                  session_empty
+                  session_collection{
+                    _id
+                    start_hour
+                    end_hour
+                    stat
+                  }
+                  workshops{
+                    _id
+                    name
+                    session_empty
+                    session_list{
+                      start_hour
+                      end_hour
+                      stat
+                    }
+                  }
+
+                }
+              }`,
+              variables :{
+                eventid :eventid
+              }
+            }).then(res=>{
+              this.selectEvent(res.data.getEventByID)
+            })
+          }
       }
-
-
 const storeevent = new EventStore();
 
 export default storeevent;

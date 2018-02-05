@@ -83,12 +83,13 @@ class EventDetail extends React.Component{
     super(props);
     this.state = {
      open: false,
-     open_workshop:false
+     open_workshop:false ,
    };
    WorkshopStore.getWorkshopsForEvent(props.match.params.id);
    EventStore.getEventByID(this.props.match.params.id);
    UserStore.getUsers();
-
+   EventStore.getEventByID(this.props.match.params.id)
+   console.log(this.props)
   }
 
  handleClickOpen = () => {
@@ -213,9 +214,9 @@ class EventDetail extends React.Component{
       <Add />
       Add Session
     </Button>)}
-      <List>
+      {(event.session_collection!==undefined && event.session_collection!==null )&&(<List>
       {
-        event.sessions.map((item) => (
+        event.session_collection.map((item) => (
           <div  key={item._id}>
             <ListItem className={classes.sessionItem}>
             <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')}`} />
@@ -228,7 +229,7 @@ class EventDetail extends React.Component{
         </div>
         ))
       }
-    </List>
+    </List>)}
       {workshoplist!==undefined &&(
         <List>
         {
@@ -252,7 +253,7 @@ class EventDetail extends React.Component{
 
                   <List className={classes.sessionListWork}>
                     {
-                      item.sessions.map((lol) => (
+                      item.session_list.map((lol) => (
                         <div key={lol._id}><ListItem className={classes.workshopsessionitem}>
                           <ListItemText secondary={`starts at : ${dateFormat(lol.start_hour , 'hh:mm')}`} />
                             {lol.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(lol.end_hour , 'hh:mm')}`} />

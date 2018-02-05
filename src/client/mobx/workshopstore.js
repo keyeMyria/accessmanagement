@@ -39,7 +39,7 @@ class WorkshopStore {
           _id
           name
           session_empty
-          sessions {
+          session_list {
             _id
             start_hour
             end_hour
@@ -118,7 +118,7 @@ class WorkshopStore {
               users{
                 _id
               }
-              sessions{
+              session_list{
                 start_hour
                 entries{
                   _id

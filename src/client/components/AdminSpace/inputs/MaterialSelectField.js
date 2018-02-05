@@ -38,7 +38,9 @@ class MaterialSelectField extends React.Component{
     this.state = {
       chipData: [],
       invited : invited,
-      names : []
+      names : [],
+      numberguest : 0
+
 
     };
   }
@@ -47,9 +49,11 @@ class MaterialSelectField extends React.Component{
       invited: update(prevState.invited, {$splice: [[index, 1]]}) ,
       chipData : update(prevState.chipData, {$push: [ item ]}) ,
       names : update(prevState.names, {$push: [ item._id ]}) ,
+      numberguest : prevState.numberguest+1
+
   }))
   this.props.form.$('users').value = this.state.names
-  
+
  };
  handleDeleteChip = (item , index) => {
 
@@ -58,7 +62,8 @@ class MaterialSelectField extends React.Component{
      invited : update(prevState.invited, {$push: [ item ]}) ,
      names: prevState.names.filter(i => {
        return i !== item._id
-     })
+     }),
+     numberguest : prevState.numberguest-1
  }))
  this.props.form.$('users').value = this.state.names
 };
@@ -69,6 +74,7 @@ class MaterialSelectField extends React.Component{
 <Fragment>
       <div>
         <Paper>
+
           {this.state.chipData.map((data , index) => {
             return (
               <Chip
@@ -79,6 +85,7 @@ class MaterialSelectField extends React.Component{
               />
             );
           })}
+          <p>You have Selected : {this.state.numberguest}</p>
           </Paper>
           <ul>
 

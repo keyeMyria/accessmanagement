@@ -21,7 +21,7 @@ import {withRouter} from 'react-router-dom';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-
+import {Link} from 'react-router'
 const styles= theme => ({
   date :{
 
@@ -81,7 +81,7 @@ class EventsList extends React.Component{
   }
   eventDetail=(item)=>{
     EventStore.selectEvent(item);
-    this.props.history.push(`/manage-single-event/${item._id}`);
+    this.props.history.replace(`/manage-single-event/${item._id}`);
   }
   deleteEvent=(eventid)=>{
     EventStore.deleteEvent(eventid);
@@ -144,7 +144,6 @@ class EventsList extends React.Component{
                      >
                 <MoreVertIcon />
               </IconButton>
-              {console.log(this.state.top)}
               <Menu
                     id="long-menu"
                     Close={this.handleCloseMenu}
