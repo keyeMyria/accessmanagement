@@ -20,6 +20,7 @@ import PaginatedEntriesContainer from '../../containers/PaginatedEntriesContaine
 import AttendeeActivity from '../AdminSpace/AttendeeActivity';
 import EventsList from '../AdminSpace/EventsList';
 import EventDetail from '../AdminSpace/EventDetail';
+import EventDashboard from '../AdminSpace/EventDashboard';
 import VerifyEnterComponent from '../AgentSpace/VerifyEnterComponent';
 import VerifyExitComponent from '../AgentSpace/VerifyExitComponent';
 import AgentList from '../AdminSpace/AgentList';
@@ -210,7 +211,8 @@ class App extends React.Component {
 								<AdminRoute exact path="/useractivity/:id" component={AttendeeActivity} />
                 <AdminRoute exact path="/manageagents" component={AgentList} />
                 <AdminRoute exact path="/managevents" component={EventsList} />
-                <AdminRoute exact path="/manage-single-event/:id" component={EventDetail} />
+                <AdminRoute exact path="/manage-single-event/:id"  name="event-detail" component={EventDetail} />
+                <AdminRoute exact path="/event-dashboard/:id"  name="event-detail" component={EventDashboard} />
 								<AgentINRoute exact path="/verifyenter/:id" component={VerifyEnterComponent} />
 								<AgentOUTRoute exact path="/verifyexit/:id" component={VerifyExitComponent} />
                 <AgentWorkshopRoute exact path="/accessoperation/:id" component={AccessOperationForWorkshopsComponent} />

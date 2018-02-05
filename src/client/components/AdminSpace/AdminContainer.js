@@ -94,7 +94,6 @@ handleSessionCancellation =()=>{
        this.setState({ drawer_open: true });
   }
   handleDrawerClose=()=>{
-    console.log('closed')
     this.setState({ drawer_open: false });
 
 };
