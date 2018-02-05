@@ -70,16 +70,21 @@ const containers={
   }
 }
 class DashboardUnit extends React.Component{
+
   buildContentBasedOnData =(details , classes)=>{
     const data = [{name: 'indoor', value: 400}, {name: 'Abscent', value: 300},
                   {name: 'outdoor', value: 300}]
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
-
+    let end ;
       if(details.session_list!=null){
           return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes)))}</div>)
       }else{
         let start = moment(moment(details.start_hour))
-        let end = moment(moment(details.end_hour))
+        if(details.end_hour!=null)
+      {   end = moment(moment(details.end_hour))}
+        else {
+           end = moment(moment.now())
+        }
         let difference = moment.duration(end.diff(start))
 
         return(
@@ -109,11 +114,11 @@ class DashboardUnit extends React.Component{
                   <span >Started At </span>
                   <span>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
                 </div>
-                  <div style={containers.smallFont}>
+                {(details.end_hour!=null)&&(<div style={containers.smallFont}>
 
                     <span>Ended At </span>
                     <span>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
-                </div>
+                </div>)}
                 <div>
                   <div  style={containers.smallFont}><Button fab disabled>
                     <People color="action"/>
@@ -129,8 +134,6 @@ class DashboardUnit extends React.Component{
   render(){
     const {classes , details , key} = this.props;
     return(<div>{this.buildContentBasedOnData(details , classes)}</div>)
-
-
   }
 }
 export default withStyles(styles)(DashboardUnit);
