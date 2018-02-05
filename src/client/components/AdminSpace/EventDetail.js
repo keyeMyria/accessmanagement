@@ -280,7 +280,7 @@ class EventDetail extends React.Component{
         </div>
         ))
       }
-    </List>
+    </List>)}
       {workshoplist!==undefined &&(
         <List className={classes.containerWorkshop}>
         {
