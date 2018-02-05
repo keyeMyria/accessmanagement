@@ -2,6 +2,8 @@ import React from 'react';
 import Button from 'material-ui/Button';
 import AddBox from 'material-ui-icons/AddBox'
 import TextField from 'material-ui/TextField';
+import green from 'material-ui/colors/green';
+
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -172,7 +174,9 @@ class EventsList extends React.Component{
          ))}
     </ul>
     <Button fab color="accent" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">
-      <AddBox />
+      <AddBox style={{
+                      color:'#ffff',
+                    }}/>
     </Button>
   </div>
     )
