@@ -114,3 +114,20 @@
       width: 100%;
     }
 }
+.qrcode-enter {
+  opacity: 0.01;
+}
+
+.qrcode-enter.qrcode-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.qrcode-leave {
+  opacity: 1;
+}
+
+.qrcode-leave.qrcode-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

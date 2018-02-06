@@ -110,19 +110,14 @@ class WorkshopStore {
 
         });
       }
-      @action fetchWorkshopDataForAgent = async(userid)=>{
-        const workshop = await fetch({
+      @action fetchWorkshopDataForAgent = (userid)=>{
+         fetch({
           query : `query getWorkshopByUserId($id : ID!){
             getWorkshopByUserId(id :$id){
-              name
-              users{
+              _id
+              username
+              session{
                 _id
-              }
-              session_list{
-                start_hour
-                entries{
-                  _id
-                }
               }
             }
 
@@ -130,6 +125,8 @@ class WorkshopStore {
           variables :{
             id : userid
           }
+        }).then(res=>{
+          console.log(res)
         })
       }
 }

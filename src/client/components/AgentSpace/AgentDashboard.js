@@ -29,6 +29,7 @@ class AgentDashboard extends React.Component{
     super(props)
     let id = localStorage.getItem('loogedin_id');
     let workshop_fetched = WorkshopStore.fetchWorkshopDataForAgent(id);
+    console.log(workshop_fetched)
   }
   render(){
     const data = [{name: 'indoor', value: 400}, {name: 'Abscent', value: 300},

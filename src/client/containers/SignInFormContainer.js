@@ -10,9 +10,10 @@ import { signIn , setrole } from '../actions';
 import TopBackLogin from './topBackLogin';
 import BottomBackLogin from './bottomBackLogin';
 import QrReader from 'react-qr-reader'
+import Fingerprint from 'material-ui-icons/Fingerprint'
+import Button from 'material-ui/Button';
 import './css/SignInFormContainer.css';
-
-
+import { CSSTransitionGroup } from 'react-transition-group'
   // const container = {
   //   display: 'flex' ,
   //   flexDirection: 'row',
@@ -74,7 +75,7 @@ import './css/SignInFormContainer.css';
 class SignInFormContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { errors: [] , user : null };
+    this.state = { errors: [] , user : null  , qrcodeauth : false};
   }
   /**
    * Change the user object.
@@ -98,6 +99,11 @@ class SignInFormContainer extends React.Component {
   handleError(err){
     console.error(err)
   }
+    handleOpenQrCode=()=>{
+     this.setState({
+       qrcodeauth : true
+     })
+   }
   handleSubmit(values) {
     this.props.mutate({ variables: values })
       .then((response) => {
@@ -141,6 +147,10 @@ class SignInFormContainer extends React.Component {
               </Typography>
             </div>
             <div className="section2">
+              <CSSTransitionGroup
+                transitionName="qrcode"
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={300}>
                 <div className="formLogin article">
                     <Typography type="headline" gutterBottom style={styleTypogTitle}>
                         تسجيل الدخول
@@ -152,15 +162,19 @@ class SignInFormContainer extends React.Component {
                       user={this.state.user}
                     />
                 </div>
+                <Button  fab raised color="accent"  onClick={this.handleOpenQrCode}>
+                  <Fingerprint />
+                </Button>
                 <div className="article">
-                  <QrReader
+                  {(this.state.qrcodeauth)&&( <QrReader
                    className="QRcode"
                     delay={this.state.delay}
                     onError={this.handleError}
                     onScan={this.handleScan}
                     facingMode="user"
-                    />
+                  /> )}
                 </div>
+                </CSSTransitionGroup>
             </div>
         </div>
       </div>
