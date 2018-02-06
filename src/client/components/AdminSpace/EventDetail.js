@@ -129,6 +129,7 @@ class EventDetail extends React.Component{
      open: false,
      open_workshop:false
    };
+   props.handleEventDashboardBottomBarElements(props.match.params.id)
    WorkshopStore.getWorkshopsForEvent(props.match.params.id);
    EventStore.getEventByID(this.props.match.params.id);
    UserStore.getUsers();
@@ -220,7 +221,7 @@ class EventDetail extends React.Component{
           </Toolbar>
         </AppBar>
         <div className={classes.workshopform}><LectureIcon className={classes.icon}/>
-        <WorkShopForm form={form} users={UserStore.users}/>
+        <WorkShopForm form={form} users={UserStore.users} onSuccess={this.handleClose}/>
         </div>
         <DialogActions>
           <Button onClick={form.onSubmit} color="primary">

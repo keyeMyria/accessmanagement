@@ -47,6 +47,8 @@ class AdminContainer extends React.Component{
       drawer_open :false ,
       start_session :false ,
       end_session : false ,
+      addEventItems : false,
+      eventid : null
     }
   }
 
@@ -83,7 +85,12 @@ handleSessionCancellation =()=>{
       console.error(err);
     });
   }
-
+handleEventDashboardBottomBarElements=(id)=>{
+  this.setState({
+    addEventItems : true ,
+    eventid : id
+  })
+}
   handleDialogClose = () => {
     this.setState({ start_session: false });
   };
@@ -99,6 +106,11 @@ handleSessionCancellation =()=>{
 };
 
   render(){
+    const childrenWithExtraProp = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        handleEventDashboardBottomBarElements: this.handleEventDashboardBottomBarElements
+      });
+    });
     const drawer = (
       <Drawer
          anchor="left"
@@ -196,9 +208,9 @@ handleSessionCancellation =()=>{
                   </DialogActions>
                 </Dialog>
           {drawer}
-          {this.props.children}
+          {childrenWithExtraProp}
 
-          <BottomToolbarContainer/>
+          <BottomToolbarContainer addEventItems={this.state.addEventItems} eventid={this.state.eventid}/>
         </div>
   );
 

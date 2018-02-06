@@ -19,7 +19,7 @@ class BottomBarComponent extends React.Component{
     };
 
   handleChange = (event, value) => {
-      this.props.history.push(value);
+    this.props.history.push(value);
     this.setState({ value });
   };
   render(){
@@ -37,8 +37,8 @@ class BottomBarComponent extends React.Component{
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value="/dashboard"/>)}
         {(role=='admin')&&(<BottomNavigationAction label="Attendies Status" icon={<People />} value="/listguests" />)}
         {(role=='admin')&&(<BottomNavigationAction label="Activity" icon={<SwapHoriz />} value="/activitylog"/>)}
-        {(role=='admin')&&(<BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value="/event-dashboard/:id"/>)}
-        {(role=='admin')&&(<BottomNavigationAction label="Sessions" icon={<Toys />} value="/activitylog"/>)}
+        {((role=='admin') &&(this.props.addEventItems==true))&&(<BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value={`/event-dashboard/${this.props.eventid}`}/>)}
+        {((role=='admin')&&(this.props.addEventItems==true))&&(<BottomNavigationAction label="Sessions" icon={<Toys />} value="/activitylog"/>)}
       </BottomNavigation>
     )
     }
