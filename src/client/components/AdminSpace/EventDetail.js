@@ -55,6 +55,7 @@ const styles = theme => ({
   } ,
   sessionItem :{
     borderLeft : '8px solid #053787' ,
+    minHeight : '80px',
   } ,
   containerWorkshop:{
     display: 'flex',
@@ -70,7 +71,7 @@ const styles = theme => ({
   },
   workshopItem:{
     borderLeft : '8px solid #FC4482' ,
-    minHeight : '80px'
+    minHeight : '80px',
   },
   startStopSession:{
     display: 'flex',
@@ -265,16 +266,22 @@ class EventDetail extends React.Component{
       </div>
     </Button>)}
       {(event.session_collection!==undefined)&&(
-        <List>
+        <List className={classes.containerWorkshop}>
       {
         event.session_collection.map((item) => (
-          <div  key={item._id}>
+          <div  key={item._id} className={classes.listWorkshop}>
             <ListItem className={classes.sessionItem}>
             <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')}`} />
             {item.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(item.end_hour , 'hh:mm')}`} />
             )}
-              {item.stat=='ON' &&(<Button onClick={()=>this.stopSessionAction(item._id)}><Stop color="accent" />
-              stop session</Button>)}
+              {item.stat=='ON' &&(
+                <Button onClick={()=>this.stopSessionAction(item._id)}  className={classes.stop}>
+                  <div className={classes.startStopSession}>
+                    <Stop color="accent" />
+                      stop session
+                  </div>
+                </Button>
+              )}
             </ListItem>
             <Divider/>
         </div>
