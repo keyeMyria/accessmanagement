@@ -91,6 +91,12 @@ handleEventDashboardBottomBarElements=(id)=>{
     eventid : id
   })
 }
+cancelEventDashboardBottomBarElements=()=>{
+  this.setState({
+    addEventItems : false ,
+    eventid : null
+  })
+}
   handleDialogClose = () => {
     this.setState({ start_session: false });
   };
@@ -104,7 +110,10 @@ handleEventDashboardBottomBarElements=(id)=>{
     this.setState({ drawer_open: false });
 
 };
-
+  redirectToEffect=(event)=>{
+    this.cancelEventDashboardBottomBarElements()
+    this.handleDrawerClose()
+  }
   render(){
     const childrenWithExtraProp = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
@@ -125,7 +134,7 @@ handleEventDashboardBottomBarElements=(id)=>{
             </IconButton>
           </div>
           <Divider />
-          <Link to="/manageagents" style={{ textDecoration: 'none' }}>
+          <Link to="/manageagents" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
               <ListItemIcon>
                 <VerifiedUser/>
@@ -133,7 +142,7 @@ handleEventDashboardBottomBarElements=(id)=>{
               <ListItemText primary="Manage Agents" />
             </ListItem>
           </Link>
-          <Link to="/manageguest" style={{ textDecoration: 'none' }}>
+          <Link to="/manageguest" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
               <ListItemIcon>
                <AssignmentInd />
@@ -141,7 +150,7 @@ handleEventDashboardBottomBarElements=(id)=>{
               <ListItemText primary="Manage Guests" />
             </ListItem>
           </Link>
-          <Link to="/managevents" style={{ textDecoration: 'none' }}>
+          <Link to="/managevents" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
               <ListItemIcon>
                 <Event />
@@ -149,7 +158,7 @@ handleEventDashboardBottomBarElements=(id)=>{
               <ListItemText primary="Manage Events" />
             </ListItem>
           </Link>
-          <Link to="/adduser" style={{ textDecoration: 'none' }}>
+          <Link to="/adduser" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
               <ListItemIcon>
                 <PersonAdd />

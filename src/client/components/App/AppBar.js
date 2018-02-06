@@ -124,7 +124,7 @@ class AppBarComponent extends React.Component{
                   >
               <MenuIcon />
             </IconButton>
-            {authenticated && this.isAnActiveSession()&&(<Chip
+            {/* {authenticated && this.isAnActiveSession()&&(<Chip
     				  avatar={
     					  <Avatar className={classes.styleChip}>
     						<GroupWork />
@@ -132,8 +132,8 @@ class AppBarComponent extends React.Component{
     					}
     					label={`session opened ${dateFormat(this.props.activeSession.activeSession.start_hour , 'd/m/yy')} : ${dateFormat(this.props.activeSession.activeSession.start_hour , 'hh:mm')}`}
     					className={classes.styleChip}
-    				/>)}
-            {authenticated && this.isAClosedSession()&& !this.isAnActiveSession() &&(<Chip
+    				/>)} */}
+            {/* {authenticated && this.isAClosedSession()&& !this.isAnActiveSession() &&(<Chip
               avatar={
                 <Avatar className={classes.styleChip}>
                 <GroupWork />
@@ -141,7 +141,7 @@ class AppBarComponent extends React.Component{
               }
               label={`session closed ${dateFormat(this.props.closedSession.closedSession.end_hour , 'd/m/yy')} : ${dateFormat(this.props.closedSession.closedSession.end_hour , 'hh:mm')}`}
               className={classes.styleChip}
-            />)}
+            />)} */}
             <IconButton onClick={this.goBack} color="contrast" aria-label="Menu">
               <ArrowBack />
             </IconButton>
