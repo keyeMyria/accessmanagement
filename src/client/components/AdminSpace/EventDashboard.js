@@ -8,7 +8,7 @@ import Button from 'material-ui/Button';
 class EventDashboard extends React.Component{
   constructor(props){
     super(props);
-    EventStore.getFullEventDetailsByID('5a781af99b784c0aee1ca8d2')
+    EventStore.getFullEventDetailsByID(props.match.params.id)
   }
   render(){
     return(

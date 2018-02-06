@@ -9,7 +9,7 @@ import Avatar from 'material-ui/Avatar';
 
 const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 const handleTogleUser=(user)=>{
-  console.log('ok')
+
 }
 export default observer(({ form , users }) => {
   return(
