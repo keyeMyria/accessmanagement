@@ -5,12 +5,20 @@ import indigo from 'material-ui/colors/indigo';
 
 const theme = createMuiTheme({
   palette: {
-    primary: indigo
+    primary: {
+    main: '#003489',
+    contrastText: '#fff',
+    },
+    secondary: {
+    main: '#00acc1',
+    contrastText: '#000',
+    },
   },
   status: {
     danger: 'orange',
   },
   overrides: {
+
     MuiAppBar: {
       // Name of the styleSheet
       root: {
@@ -34,10 +42,29 @@ const theme = createMuiTheme({
       },
     },
     MuiButton: {
-      // Name of the styleSheet
+      root: {
+        // Name of the rule
+        fontFamily: 'Changa',
+      },
     },
-    
-    MuiBottomNavigation :{
+    MuiTypography: {
+      display1: {
+        fontFamily: 'Changa',
+        fontWeight:'300',
+      },
+      title: {
+        fontFamily: 'Changa',
+        fontWeight:'300',
+      },
+    },
+    MuiDialogTitle:{
+          root: {
+            disableTypography:"true",
+            fontFamily: 'Changa',
+            fontWeight:'500',
+          },
+  },
+  MuiBottomNavigation :{
       root: {
         // Name of the rule
         //add code in them.js
@@ -49,6 +76,13 @@ const theme = createMuiTheme({
         border: 0,
         color: 'white',
         boxShadow: '0 -2px 6px rgba(0, 0, 0, .16)',
+      },
+    },
+    MuiBottomNavigationAction:{
+      label: {
+        // Name of the rule
+        fontFamily: 'Changa',
+        fontWeight:'500',
       },
     },
     MuiToolbar :{

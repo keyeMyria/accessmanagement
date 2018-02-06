@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import AddBox from 'material-ui-icons/AddBox'
+import Add from 'material-ui-icons/Add'
 import TextField from 'material-ui/TextField';
 import green from 'material-ui/colors/green';
 
@@ -44,8 +44,7 @@ class EventsList extends React.Component{
         open: false,
         openMenu : false,
         from: undefined,
-         to: undefined,
-         top: 0,
+        to: undefined,
       };
     EventStore.getEvents();
 
@@ -66,12 +65,12 @@ class EventsList extends React.Component{
     this.setState({ openMenu: false });
   };
 
-  handleClick = (event)=>{
-    this.setState({ openMenu: true});
-    var x = event.clientX;
+  //handleClick = (event)=>{
+  //  this.setState({ openMenu: true});
+    //var x = event.clientX;
     // var y = event.clientY;
-    this.setState({top:-x});
-  }
+    //this.setState({top:-x});
+  //}
 
   handleClose = () => {
     this.setState({ open: false });
@@ -94,14 +93,14 @@ class EventsList extends React.Component{
     return (
       <div>
         <div>
-              <Button raised color="primary" className="button-activ">
-                Current
+              <Button disabled='true' className="button-activ">
+                الحالي
               </Button>
-              <Button raised color="contrast">
-                Upcoming
+              <Button color="secondary">
+                المقبل
               </Button>
-              <Button raised color="contrast">
-                closed
+              <Button color="secondary">
+                الفارط
               </Button>
       </div>
         <Dialog
@@ -109,16 +108,16 @@ class EventsList extends React.Component{
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Add new Event</DialogTitle>
+          <DialogTitle id="form-dialog-title">إضافة حدث جديد</DialogTitle>
           <DialogContent>
           <Form form={form} />
           </DialogContent>
           <DialogActions>
             <Button onClick={form.onSubmit} color="primary">
-              Confirm
+              حفظ
             </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
+            <Button onClick={this.handleClose} >
+            إلغاء
             </Button>
           </DialogActions>
         </Dialog>
@@ -173,10 +172,10 @@ class EventsList extends React.Component{
 					</li>
          ))}
     </ul>
-    <Button fab color="accent" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">
-      <AddBox style={{
-                      color:'#ffff',
-                    }}/>
+    <Button fab color="secondary" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">
+      <Add style={{
+        color:'#ffff',
+      }}/>
     </Button>
   </div>
     )
