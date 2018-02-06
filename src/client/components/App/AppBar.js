@@ -51,6 +51,9 @@ const styles = theme => ({
     color:'#00348A',
     backgroundColor: '#fff',
   },
+  styleButton:{
+    color:'#fff',
+  },
 });
 class AppBarComponent extends React.Component{
   constructor(props) {
@@ -121,6 +124,7 @@ class AppBarComponent extends React.Component{
                   color="contrast"
                   aria-label="open drawer"
                   onClick={this.props.handleDrawerOpen}
+                   className={classes.styleButton}
                   >
               <MenuIcon />
             </IconButton>
@@ -141,8 +145,8 @@ class AppBarComponent extends React.Component{
               }
               label={`session closed ${dateFormat(this.props.closedSession.closedSession.end_hour , 'd/m/yy')} : ${dateFormat(this.props.closedSession.closedSession.end_hour , 'hh:mm')}`}
               className={classes.styleChip}
-            />)} */}
-            <IconButton onClick={this.goBack} color="contrast" aria-label="Menu">
+            />)*/}
+            <IconButton onClick={this.goBack} color="contrast" aria-label="Menu" className={classes.styleButton}>
               <ArrowBack />
             </IconButton>
           </Toolbar>
