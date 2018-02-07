@@ -37,7 +37,7 @@ const drawerWidth = 240 ;
 const container = {
     overflow: 'auto',
     marginBottom: '56px',
-    marginTop : '64px'
+    marginTop : '56px'
 };
 
 class AdminContainer extends React.Component{
