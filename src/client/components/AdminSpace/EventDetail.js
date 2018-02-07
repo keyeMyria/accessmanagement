@@ -153,6 +153,7 @@ class EventDetail extends React.Component{
 
  startSessionAction =() =>{
    EventStore.startSessionForEvent(this.props.match.params.id);
+   this.handleClose()
  }
  stopSessionAction =(sessionid) =>{
    EventStore.stopSessionForEvent(sessionid , this.props.match.params.id);
@@ -163,6 +164,10 @@ class EventDetail extends React.Component{
  stopSessionForWorkShop =(workshopid) =>{
    WorkshopStore.stopSessionForWorkShop(workshopid);
 
+ }
+ handleSubmitAddWorkshop=(event , form)=>{
+   form.onSubmit(event);
+   this.handleCloseWorkshop()
  }
   render(){
     const event = EventStore.selectedEvent;
@@ -225,7 +230,7 @@ class EventDetail extends React.Component{
         <WorkShopForm form={form} users={UserStore.users} onSuccess={this.handleClose}/>
         </div>
         <DialogActions>
-          <Button onClick={form.onSubmit} color="primary">
+          <Button onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="primary">
             Confirm
           </Button>
           <Button onClick={this.handleCloseWorkshop} color="primary">
