@@ -22,7 +22,7 @@ class WorkshopStore {
 
     // In strict mode, only actions can modify mobx state
     @action setWorkshops = (workshops) => {this.workshops = [...workshops]; }
-    @action selectWorkshop = (workshop) => { this.selectedWorkshop = workshop; }
+    @action selectWorkshop = (workshop) => {this.selectedWorkshop = workshop;console.log(this.selectedWorkshop)  }
     @action setSelectedWorkShopEvent = (event) =>{this.selectedEvent=event}
     @action getEvent = ()=>{
       return this.selectedEvent;
@@ -118,6 +118,12 @@ class WorkshopStore {
               username
               session{
                 _id
+                start_hour
+                end_hour
+              }
+              workshop{
+                _id
+                name
               }
             }
 
@@ -126,7 +132,8 @@ class WorkshopStore {
             id : userid
           }
         }).then(res=>{
-          console.log(res)
+          this.selectWorkshop(res.data.getWorkshopByUserId)
+          //console.log(res)
         })
       }
 }

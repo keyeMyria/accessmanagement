@@ -18,8 +18,7 @@ const fields = [{
 
 const hooks = {
   onSuccess(form) {
-    console.log(form)
-    //WorkshopStore.addNewWorkshop(form.values())
+    WorkshopStore.addNewWorkshop(form.values())
   },
   onError(form) {
     alert('Form has errors!');
