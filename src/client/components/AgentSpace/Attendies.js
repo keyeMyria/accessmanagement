@@ -7,8 +7,6 @@ import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
 import AirlineSeatReclineNormal from 'material-ui-icons/AirlineSeatReclineNormal';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import SearchComponent from './SearchComponent';
 import {red , lightblue} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
@@ -21,6 +19,9 @@ import Typography from 'material-ui/Typography';
 import idcard from './id-card.svg';
 import NavBarContainer from '../../containers/NavBarContainer';
 import BottomToolbarContainer from '../../containers/BottomToolbarContainer';
+import {observer} from 'mobx-react';
+import UserStore from '../../mobx/gueststore';
+
 const drawerWidth = 240 ;
 
 const styles = theme => ({
@@ -87,7 +88,9 @@ empty_description:{
   color: 'rgba(0, 0, 0, 0.56)',
 }
 });
+const id = localStorage.getItem('loogedin_id');
 
+@observer
 class Attendies extends React.Component {
         constructor(props){
           super(props)
@@ -97,6 +100,8 @@ class Attendies extends React.Component {
             unfiltered_list :[]
 
           };
+          UserStore.fetchGuestForAgentWorkshop(id)
+          console.log(UserStore.users)
         }
 
   componentWillReceiveProps(newProps) {
@@ -148,9 +153,9 @@ class Attendies extends React.Component {
 
   render() {
     const { classes } = this.props;
-    if(this.props.data.loading==true)
+    if(UserStore.loading==true)
       return(<div className={classes.root}><CircularProgress color="accent" /></div>);
-    else if (this.props.data.guestusers==null || Object.keys(this.props.data.guestusers).length === 0) {
+    else if (UserStore.users==null) {
         return (
               <div elevation={4} className={classes.empty}>
                 <div className={classes.empty_img}>
@@ -181,7 +186,7 @@ else{
               placeholder="Search Attendies" onChange={this.filterList}
             />
             <List style={{textAlign: 'right',}}>
-              {this.state.attendies_list.map(value => (
+              {UserStore.users.map(value => (
                 <ListItem key={value._id} dense button className={classes.listItem}>
                   <Avatar alt="" src={`/public/assets/avatars/${value.profile.avatar}`} />
                   <ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText} />
@@ -209,22 +214,22 @@ else{
 Attendies.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-const CurrentUserForLayout = gql`
-  query CurrentUserForLayout {
-    guestusers {
-      username
-      status
-      profile{
-        name
-        forname
-        avatar
-        tel
+// const CurrentUserForLayout = gql`
+//   query CurrentUserForLayout {
+//     guestusers {
+//       username
+//       status
+//       profile{
+//         name
+//         forname
+//         avatar
+//         tel
+//
+//       }
+//
+//     }
+//   }
+// `;
 
-      }
-
-    }
-  }
-`;
-
-const AttendeesWithData = graphql(CurrentUserForLayout)(Attendies);
-export default withStyles(styles)(AttendeesWithData);
+//const AttendeesWithData = graphql(CurrentUserForLayout)(Attendies);
+export default withStyles(styles)(Attendies);

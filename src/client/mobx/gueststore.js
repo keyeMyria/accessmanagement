@@ -122,6 +122,59 @@ class UserStore {
         console.log(res)
       })
   }
+  @action fetchGuestForAgentWorkshop=(userid)=>{
+    fetch({
+     query : `query getWorkshopByUserId($id : ID!){
+       getWorkshopByUserId(id :$id){
+         _id
+         workshop{
+           _id
+           name
+           users{
+             _id
+             username
+             status
+             profile{
+               name
+               forname
+               avatar
+             }
+           }
+         }
+       }
+
+     }`,
+     variables :{
+       id : userid
+     }
+   }).then(res=>{
+     console.log(res)
+     this.setUsers(res.data.getWorkshopByUserId.workshop.users)
+   })
+  }
+  @action alterGuestStatus =(guest , status , agent)=>{
+    fetch({
+      query:`mutation updateUserStatus($id:ID! , $status:String! , $agent:String!){
+        updateUserStatus(id:$id  , status:$status , agent:$agent){
+          _id
+          username
+          status
+          profile{
+            name
+            forname
+            avatar
+          }
+        }
+      }`,
+      variables :{
+        id : guest ,
+        status : status ,
+        agent : agent
+      }
+    }).then(res=>{
+      console.log(res)
+    })
+  }
 }
 const store = new UserStore();
 
