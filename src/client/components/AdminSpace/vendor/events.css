@@ -1,14 +1,19 @@
-@import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
+
+@import url("https://fonts.googleapis.com/css?family=Changa:300,500");
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
 
+body{
+  background: #eee;
+}
 
 div > .button-activ{
  background-color: #003489;
+ color: #fff;
 }
 
 .event-list {
   /* list-style: none; */
-  font-family: Lato,sans-serif;
+  font-family: Roboto,sans-serif;
   /* margin: 0;
   padding: 0;
   width: 100%; */
@@ -22,13 +27,13 @@ max-width: 700px;
 width: 70vw;
 background-color: rgb(255, 255, 255);
 box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-margin: 20px 0;
+margin: 8px 16px 8px 16px;
 }
 .event-list > li > time {
 display: inline-block;
 color: rgb(255, 255, 255);
 background-color: #00BCD4;
-padding: 5px;
+padding: 8px 16px;
 text-align: center;
 text-transform: uppercase;
 }
@@ -40,15 +45,20 @@ background-color: rgb(165, 82, 167);
 }
 .event-list > li > time > .day {
 display: block;
-font-size: 43pt;
+font-size: 42pt;
 font-weight: 100;
 line-height: 1;
 }
 .event-list > li time > .month {
 display: block;
-font-size: 20pt;
-font-weight: 900;
+font-size: 22pt;
+font-weight: 700;
 line-height: 1;
+}
+.event-list > li time > .year {
+display: block;
+font-size: 18pt;
+font-weight: 100;
 }
 .event-list > li > img {
 width: 100%;
