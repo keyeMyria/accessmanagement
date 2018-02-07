@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import Add from 'material-ui-icons/Add'
+import Add from 'material-ui-icons/Add';
 import TextField from 'material-ui/TextField';
 import green from 'material-ui/colors/green';
 
@@ -92,8 +92,8 @@ class EventsList extends React.Component{
     const modifiers = { start: from, end: to };
     return (
       <div>
-        <div>
-              <Button disabled='true' className="button-activ">
+        <div className="Btns-filter">
+              <Button disabled='true' className="filter-activ">
                 الحالي
               </Button>
               <Button color="secondary">
@@ -113,7 +113,7 @@ class EventsList extends React.Component{
           <Form form={form} />
           </DialogContent>
           <DialogActions>
-            <Button onClick={form.onSubmit} color="primary">
+            <Button onClick={form.onSubmit} color="secondary">
               حفظ
             </Button>
             <Button onClick={this.handleClose} >
@@ -130,10 +130,10 @@ class EventsList extends React.Component{
 							<span className="month">{dateFormat(item.start_date , 'mmm')}</span>
 							<span className="year">{dateFormat(item.start_date , 'yyyy')}</span>
 						</time>
-						<div className="info">
+						<div className="info" onClick={() => {this.eventDetail(item)}}>
 							<h2 className="title">{item.title}</h2>
               <p className="type"> {item.type} </p>
-              <p className="emplacement">hotel yasmine hammamet</p>
+              <p className="emplacement"> Hotel Yasmine Hammamet</p>
               <p className="desc">starts at {dateFormat(item.start_date , 'dd/mm/yyyy')} : {dateFormat(item.start_date , 'hh:mm')} ends at {dateFormat(item.end_date , 'dd/mm/yyyy')} : {dateFormat(item.end_date , 'hh:mm')}</p>
               <p className="desc"><AccountCircle className="accountIcon"/>{item.numberAttendies} Attendies</p>
             </div>

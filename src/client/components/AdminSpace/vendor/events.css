@@ -6,7 +6,11 @@ body{
   background: #eee;
 }
 
-div > .button-activ{
+.Btns-filter{
+ margin:8px;
+}
+
+.Btns-filter .filter-activ{
  background-color: #003489;
  color: #fff;
 }
@@ -24,28 +28,33 @@ div > .button-activ{
 .event-list > li {
 display: flex;
 max-width: 700px;
-width: 70vw;
+width: 90vw;
 background-color: rgb(255, 255, 255);
 box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-margin: 8px 16px 8px 16px;
+margin: 8px;
 }
+
+.event-list > li:hover {
+box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+transition: all 0.2s ease-in;
+}
+
 .event-list > li > time {
 display: inline-block;
 color: rgb(255, 255, 255);
-background-color: #00BCD4;
-padding: 8px 16px;
+background-color: #003489;
+padding: 16px 24px;
 text-align: center;
 text-transform: uppercase;
+cursor: pointer;
 }
-.event-list > li:nth-child(even) > time {
-background-color: rgb(165, 82, 167);
-}
+
 .event-list > li > time > span {
 /* display: none; */
 }
 .event-list > li > time > .day {
 display: block;
-font-size: 42pt;
+font-size: 38pt;
 font-weight: 100;
 line-height: 1;
 }
@@ -67,19 +76,22 @@ width: 100%;
 padding: 10px;
 text-align: right;
 flex-grow: 3;
+cursor: pointer;
 }
 .event-list > li > .info > .title {
 font-size: 17pt;
-font-weight: 700;
+font-weight: 500;
+font-family: Changa, sans-serif;
 margin: 0px;
-color: #1A237E;
+color: #00abc7;
 }
 .event-list > li > .info > .type {
 display: inline-block;
-font-size: 10pt;
+font-size: 12pt;
 font-weight: 300;
-color: #fff;
-background-color: #9E9E9E;
+color: #6f6f6f;
+background-color: #e0e0e0;
+border-radius: 2px;
 margin-top: 10px;
 padding: 0 10px;
 }
@@ -139,12 +151,10 @@ text-decoration: none;
 color: rgb(30, 30, 30);
 background-color: rgb(200, 200, 200);
 }
-
-
 .event-list + .addButton{
   position: fixed;
-  bottom: 70px;
-  right: 10px;
+  bottom: 76px;
+  right: 16px;
   background-color: #00bcd4;
 }
 .event-list + .addButton:hover{
@@ -166,13 +176,10 @@ div > div > .AddingButton:hover{
 },
 @media screen and (max-width: 768px) {
 .event-list > li {
-  display: flex;
   max-width: 100%;
   width: 90vw;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  margin: 20px 0;
 }
+/*
 .event-list > li > time,
 .event-list > li > img  {
   display: inline-block;
@@ -204,9 +211,9 @@ div > div > .AddingButton:hover{
   display: block;
   width: 40px;
 }
-    .event-list > li > .social > ul {
-        border-left: 1px solid rgb(230, 230, 230);
-    }
+.event-list > li > .social > ul {
+    border-left: 1px solid rgb(230, 230, 230);
+}
 .event-list > li > .social > ul > li {
   display: block;
         padding: 0px;
@@ -215,5 +222,5 @@ div > div > .AddingButton:hover{
   display: block;
   width: 40px;
   padding: 10px 0px 9px;
-}
+}*/
 }
