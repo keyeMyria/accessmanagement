@@ -28,23 +28,25 @@ const styles = theme => ({
     background: theme.palette.background.paper,
   },
   IN:{
-    fill :"#00B0FF",
-    '-webkit-transform': 'rotateY(180deg)',
-    '-moz-transform': 'rotateY(180deg)',
-    '-ms-transform': 'rotateY(180deg)',
-    '-o-transform': 'rotateY(180deg)',
-    'transform': 'rotateY(180deg)',
+    // fill :"#00B0FF",
+    // '-webkit-transform': 'rotateY(180deg)',
+    // '-moz-transform': 'rotateY(180deg)',
+    // '-ms-transform': 'rotateY(180deg)',
+    // '-o-transform': 'rotateY(180deg)',
+    // 'transform': 'rotateY(180deg)',
 
   },
   OUT:{
     fill :"red",
   } ,
   wrapper :{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      gridGap: '10px' ,
-      gridAutoRows: 'minmax(100px, auto)'
-    }
+        height: '100%',
+        padding: '15px',
+      // display: 'grid',
+      // gridTemplateColumns: 'repeat(3, 1fr)',
+      // gridGap: '10px' ,
+      // gridAutoRows: 'minmax(100px, auto)'
+    },
 });
 const sessions =[];
 const agents = [];

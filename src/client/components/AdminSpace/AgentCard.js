@@ -32,12 +32,35 @@ import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 import UserStore from '../../mobx/gueststore';
+
 const style = {
 	width : '300px',
-	padding: '0.5rem 1rem',
+  height: '100px',
+	// padding: '0.5rem 1rem',
 	margin: '.5rem',
 	backgroundColor: 'white',
-	cursor: 'move'
+	cursor: 'move',
+  listStyleType: 'none',
+};
+const styleListe = {
+	margin: '0px' ,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  padding: '10px 10px 0',
+};
+const profileStyle = {
+  display: 'flex',
+  alignItems: 'center',
+};
+const styleAvatar = {
+    margin: '0 10px',
+};
+
+const styleListAction = {
+    position: 'static',
+    marginTop: '0',
 };
 
 class AgentCard extends React.Component {
@@ -50,6 +73,7 @@ class AgentCard extends React.Component {
    disabled_out : false,
    disabled_do : false
  };
+
 
  handleToggle = value => () => {
    const { checked } = this.state;
@@ -140,10 +164,12 @@ class AgentCard extends React.Component {
 
     return connectDragSource(connectDropTarget(
       <div style={{ ...style, opacity }}>
-        <ListItem>
-            <Avatar><Face/></Avatar>
-          <span>{data.username}</span>
-          <ListItemSecondaryAction>
+        <ListItem  style={{ ...styleListe}}>
+          <div style={{ ...profileStyle}}>
+            <Avatar  style={{ ...styleAvatar}}><Face/></Avatar>
+            <span>{data.username}</span>
+          </div>
+          <ListItemSecondaryAction style={{ ...styleListAction}}>
                 {/* <WorkShopListComponent style={WorkShopListCard} handleWorkshopChange={this.handleWorkshopChange(data._id)}
                   { ...( data.workshop!=null && { value:  data.workshop._id } ) }
                     { ...( data.workshop==null && { value:0 } ) }
