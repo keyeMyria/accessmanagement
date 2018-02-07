@@ -23,6 +23,7 @@ import EventDetail from '../AdminSpace/EventDetail';
 import EventDashboard from '../AdminSpace/EventDashboard';
 import VerifyEnterComponent from '../AgentSpace/VerifyEnterComponent';
 import VerifyExitComponent from '../AgentSpace/VerifyExitComponent';
+import EnterExitListUser from '../AgentSpace/EnterExitListUser';
 import AgentList from '../AdminSpace/AgentList';
 import AccessOperationForWorkshopsComponent from '../AgentSpace/AccessOperationForWorkshopsComponent';
 import './style.css';
@@ -204,6 +205,7 @@ class App extends React.Component {
   			      	<AgentRoute exact path='/listattendies' component={Attendies} />
                 <AgentRoute exact path='/agent' component={QReaderComponent} />
                 <AgentRoute exact path='/dashboard' component={AgentDashboard} />
+                <AgentRoute exact path='/operateonguestlist' component={EnterExitListUser}/>
                 <AdminRoute exact path='/manageguest' component={GuestListManageable} />
                 <AdminRoute exact path='/listguests' component={AttendiesList} />
 								<AdminRoute exact path='/activitylog' component={PaginatedEntriesContainer} />

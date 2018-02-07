@@ -10,6 +10,7 @@ import People from 'material-ui-icons/People';
 import PhotoCamera from 'material-ui-icons/PhotoCamera';
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
 import DonutSmall from 'material-ui-icons/DonutSmall';
+import TransferWithinAStation from 'material-ui-icons/TransferWithinAStation'
 import Toys from 'material-ui-icons/Toys';
 import { withRouter } from 'react-router';
 
@@ -35,6 +36,7 @@ class BottomBarComponent extends React.Component{
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="حالة الحضور" icon={<People />} value="/listattendies" />)}
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="التقاط الرمز" icon={<PhotoCamera />} value="/agent"/>)}
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value="/dashboard"/>)}
+        {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="Operate on list" icon={<TransferWithinAStation />} value="/operateonguestlist"/>)}
         {(role=='admin')&&(<BottomNavigationAction label="حالة الحضور" icon={<People />} value="/listguests" />)}
         {(role=='admin')&&(<BottomNavigationAction label="التحركات" icon={<SwapHoriz />} value="/activitylog"/>)}
         {((role=='admin') &&(this.props.addEventItems==true))&&(<BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value={`/event-dashboard/${this.props.eventid}`}/>)}
