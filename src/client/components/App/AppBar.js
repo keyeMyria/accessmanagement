@@ -24,14 +24,7 @@ import Avatar from 'material-ui/Avatar';
 import { compose } from 'react-apollo';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-const theme = createMuiTheme({
-  palette: {
-    primary: indigo,
-    error: red,
-  },
-});
 
-const accent = indigo[50];
 
 const styles = theme => ({
   root: {
@@ -121,7 +114,6 @@ class AppBarComponent extends React.Component{
             <AppBar position="fixed" color="inherit">
               <Toolbar>
                 <IconButton
-                  color="contrast"
                   aria-label="open drawer"
                   onClick={this.props.handleDrawerOpen}
                    className={classes.styleButton}
@@ -146,7 +138,7 @@ class AppBarComponent extends React.Component{
               label={`session closed ${dateFormat(this.props.closedSession.closedSession.end_hour , 'd/m/yy')} : ${dateFormat(this.props.closedSession.closedSession.end_hour , 'hh:mm')}`}
               className={classes.styleChip}
             />)*/}
-            <IconButton onClick={this.goBack} color="contrast" aria-label="Menu" className={classes.styleButton}>
+            <IconButton onClick={this.goBack} aria-label="Menu" className={classes.styleButton}>
               <ArrowBack />
             </IconButton>
           </Toolbar>

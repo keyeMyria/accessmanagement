@@ -93,7 +93,7 @@ class EventsList extends React.Component{
     return (
       <div>
         <div className="Btns-filter">
-              <Button disabled='true' className="filter-activ">
+              <Button disabled={true} className="filter-activ">
                 الحالي
               </Button>
               <Button color="secondary">

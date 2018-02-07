@@ -91,6 +91,9 @@ const theme = createMuiTheme({
         width : '100%',
         justifyContent: 'space-between',
       },
+      iconButton:{
+        color:'#fff',
+      },
     },
     'MuiInput-underline':{
       root:{

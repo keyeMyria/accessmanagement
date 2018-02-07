@@ -19,6 +19,7 @@ import Stop from 'material-ui-icons/Stop';
 import Divider from 'material-ui/Divider';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import Chip from 'material-ui/Chip';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import Slide from 'material-ui/transitions/Slide';
@@ -33,28 +34,30 @@ const styles = theme => ({
     backgroundColor:'#fff',
   },
   container:{
-    backgroundColor: '#c1c1c14f',
   },
-  card: {
+  header: {
     backgroundColor : '#053787',
     color :'white',
-    padding:'30px 0',
+    padding:'24px 16px 56px',
   } ,
   title:{
-    marginBottom: '15px',
+    margin: '16px 0',
     fontSize: '30px',
   },
   appBar: {
     position: 'relative',
   },
+  closeDialog:{
+    color: 'white',
+  },
   typoStyle: {
     flex: 1,
   },
   icon :{
-    maxWidth :'50%'
+    maxWidth :'400px'
   } ,
   sessionItem :{
-    borderLeft : '8px solid #053787' ,
+    borderLeft : '3px solid #053787' ,
     minHeight : '80px',
   } ,
   containerWorkshop:{
@@ -66,11 +69,11 @@ const styles = theme => ({
   listWorkshop:{
     width: '70vw',
     backgroundColor: 'rgb(255, 255, 255)',
-    boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+    boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
     marginBottom: '20px',
   },
   workshopItem:{
-    borderLeft : '8px solid #FC4482' ,
+    borderLeft : '3px solid #FC4482' ,
     minHeight : '80px',
   },
   startStopSession:{
@@ -83,7 +86,7 @@ const styles = theme => ({
     color: '#053887',
   },
   stop:{
-    color:'red',
+    color:'#ef4035',
   },
   sessionListWork:{
     paddingTop :'0px' ,
@@ -91,17 +94,9 @@ const styles = theme => ({
     marginTop : '0px'
   },
   workshopsessionitem:{
-    borderLeft : '8px solid #CECECE' ,
+    borderLeft : '16px solid #F5F5F5' ,
     backgroundColor :'#F5F5F5',
     minHeight : '30px',
-  },
-
-  backgroundTop:{
-      backgroundColor: '#053887',
-      marginTop: '-30px',
-      position: 'absolute',
-      width: '100%',
-      height: '60px',
   },
   AddButton:{
     display: 'flex',
@@ -181,7 +176,6 @@ class EventDetail extends React.Component{
 
     return(
       <div>
-        <div className={classes.backgroundTop}></div>
         <Dialog
          fullScreen
          open={this.state.open}
@@ -190,8 +184,8 @@ class EventDetail extends React.Component{
        >
          <AppBar className={classes.appBar}>
            <Toolbar>
-             <IconButton color="contrast" onClick={this.handleClose} aria-label="Close">
-               <CloseIcon />
+             <IconButton onClick={this.handleClose} aria-label="Close">
+               <CloseIcon className={classes.closeDialog}/>
              </IconButton>
              <Typography type="title" color="inherit" className={classes.typoStyle}>
                start a new session
@@ -202,10 +196,10 @@ class EventDetail extends React.Component{
          <div>
            <PlayButton className={classes.icon}/>
          <h3>New Session</h3>
-         <Button raised color="primary" onClick={this.startSessionAction} className={classes.button}>
+         <Button raised color="secondary" onClick={this.startSessionAction} className={classes.button}>
            Start
          </Button>
-         <Button raised color="accent" onClick={this.handleClose} className={classes.button}>
+         <Button raised onClick={this.handleClose} className={classes.button}>
            Cancel
          </Button>
        </div>
@@ -218,8 +212,8 @@ class EventDetail extends React.Component{
       >
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton color="contrast" onClick={this.handleCloseWorkshop} aria-label="Close">
-              <CloseIcon />
+            <IconButton onClick={this.handleCloseWorkshop} aria-label="Close">
+              <CloseIcon className={classes.closeDialog}/>
             </IconButton>
             <Typography type="title" color="inherit" className={classes.typoStyle}>
               Add a new Workshop
@@ -230,18 +224,18 @@ class EventDetail extends React.Component{
         <WorkShopForm form={form} users={UserStore.users} onSuccess={this.handleClose}/>
         </div>
         <DialogActions>
-          <Button onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="primary">
+          <Button onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="secondary">
             Confirm
           </Button>
-          <Button onClick={this.handleCloseWorkshop} color="primary">
+          <Button onClick={this.handleCloseWorkshop}>
             Cancel
           </Button>
         </DialogActions>
         </Dialog>
 
       <div className={classes.container}>
-      <div className={classes.card}>
-        <Button  fab raised color="accent" aria-label="edit Event" className={classes.editButton}>
+      <div className={classes.header}>
+        <Button fab raised color="accent" aria-label="edit Event" className={classes.editButton}>
           <ModeEditIcon />
         </Button>
           <h2 className={classes.title}>
