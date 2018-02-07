@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd';
 import update from 'immutability-helper';
-import AgentCard from './AgentCard'
+import AgentCard from './AgentCard';
+import moment from 'moment'
 
 class SessionBox extends Component {
 	constructor(props) {
@@ -57,27 +58,47 @@ class SessionBox extends Component {
 			alignItems: 'center',
 			padding: '10px',
 		};
+		const textStyle = {
+			alignSelf: 'flex-start',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'flex-start',
+		};
 		const titleBox ={
 			color: '#003489',
 			fontFamily: 'Changa, sans-serif',
 			fontSize: '12pt',
-			alignSelf: 'flex-start',
-    	marginRight: '23px',
+    	marginRight: '14px',
 		};
 		const descBox ={
 			color: 'rgba(88, 88, 88, 0.72)',
 			fontFamily: 'Changa, sans-serif',
 			fontSize: '9pt',
 			alignSelf: 'flex-start',
-			marginRight: '23px',
+			marginRight: '14px',
 		};
 		const backgroundColor = isActive ? 'lightgreen' : 'rgba(222, 222, 222, 0.68)';
 
 		return connectDropTarget(
 			<div style={{...style, backgroundColor}}>
-				{(data==null && data.workshop==null)&&(<p style={{...titleBox}}>قائمة الوكلاء</p>)(<p style={{...descBox}}>اسحب واسقط وكيل الى الدورةالمطلوبة </p>)}
-				{(data!=null && data.workshop==null)&&(<span>Session Globale</span>)}
-				{(data!=null && data.workshop!=null)&&(<span>{data.workshop.name}</span>)}
+			{(data==null)&&(
+				<div style={{...textStyle}}>
+					<p style={{...titleBox}}>قائمة الوكلاء</p>
+					<p style={{...descBox}}>اسحب واسقط وكيل الى الدورةالمطلوبة </p>
+				</div>
+		)}
+				{(data!=null && data.workshop==null)&&(
+					<div style={{...textStyle}}>
+						<p style={{...titleBox}}>جلسة عامة</p>
+						<p style={{...descBox}}> بدأت الجلسة على الساعة {moment(data.start_hour).utcOffset(1, true).format('hh:mm')}</p>
+					</div>
+				)}
+				{(data!=null && data.workshop!=null)&&(
+					<div style={{...textStyle}}>
+						<p style={{...titleBox}}>{data.workshop.name}</p>
+						<p style={{...descBox}}>  بدأت الجلسة على الساعة  {moment(data.start_hour).utcOffset(1, true).format('hh:mm')}</p>
+					</div>
+				)}
 				{cards.map((card, i) => {
 					return (
 						<AgentCard
