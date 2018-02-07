@@ -57,6 +57,7 @@ class SessionBox extends Component {
 			justifyContent: 'center',
 			alignItems: 'center',
 			padding: '10px',
+			marginLeft: '10px',
 		};
 		const textStyle = {
 			alignSelf: 'flex-start',

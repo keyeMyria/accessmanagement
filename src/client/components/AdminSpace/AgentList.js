@@ -40,12 +40,11 @@ const styles = theme => ({
     fill :"red",
   } ,
   wrapper :{
-        height: '100%',
-        padding: '15px',
-      // display: 'grid',
-      // gridTemplateColumns: 'repeat(3, 1fr)',
-      // gridGap: '10px' ,
-      // gridAutoRows: 'minmax(100px, auto)'
+    height: '100%',
+    padding: '15px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     },
 });
 const sessions =[];
