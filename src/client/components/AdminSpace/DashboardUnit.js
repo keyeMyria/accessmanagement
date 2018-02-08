@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography';
 import moment from 'moment'
 const styles = theme => ({
   ChartContainer:{
-    width:'100%',
+    width:'50%',
   },
   card: {
     backgroundColor : '#053787',
@@ -50,9 +50,6 @@ const styles = theme => ({
     textTransform :'none' ,
     fontsize : '0.2em'
   },
-  workshopform:{
-    width : '100%'
-  },
   userItem :{
     width : '50%' ,
     float : 'right'
@@ -64,7 +61,6 @@ const styles = theme => ({
     display: 'flex',
     paddingLeft: '10px',
     flexDirection: 'column',
-    borderLeft: '2px solid #8080805c',
     marginLeft: '10px',
   },
   timeDetailText:{
@@ -82,6 +78,7 @@ const containers={
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   ChartContainer:{
 
@@ -97,6 +94,9 @@ const containers={
     marginBottom: '10px',
   }
 }
+const styleEndTime = {
+    borderRight: '2px solid #8080805c',
+};
 class DashboardUnit extends React.Component{
 
   buildContentBasedOnData =(details , classes , name)=>{
@@ -104,9 +104,8 @@ class DashboardUnit extends React.Component{
                   {name: 'outdoor', value: 300}]
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
     let end ;
-    console.log(details)
       if(details.session_list!=null){
-          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name)))}</div>)
+          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name!=undefined ? details.name : "جلسة عامة")))}</div>)
       }else{
         let start = moment(moment(details.start_hour))
         if(details.end_hour!=null)
@@ -148,7 +147,7 @@ class DashboardUnit extends React.Component{
                     <span className={classes.timeDetailHour}>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
                   </div>
                   {(details.end_hour!=null)&&(
-                    <div className={classes.timeDetail}>
+                    <div className={classes.timeDetail} style={{...styleEndTime}}>
                       <span className={classes.timeDetailText}>Ended At </span>
                       <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                   </div>)}
@@ -157,10 +156,9 @@ class DashboardUnit extends React.Component{
                     <Button fab disabled>
                       <People color="action"/>
                     </Button>
-                    <div>
-                      <span>
-                        Expected Attendies 40
-                      </span>
+                    <div className={classes.timeDetail}>
+                      <span className={classes.timeDetailText}>Attendies </span>
+                      <span className={classes.timeDetailHour}>40</span>
                     </div>
                   </div>
               </div>
@@ -169,7 +167,7 @@ class DashboardUnit extends React.Component{
   }
   render(){
     const {classes , details , key} = this.props;
-    return(<div>{this.buildContentBasedOnData(details , classes)}</div>)
+    return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة" )}</div>)
   }
 }
 export default withStyles(styles)(DashboardUnit);
