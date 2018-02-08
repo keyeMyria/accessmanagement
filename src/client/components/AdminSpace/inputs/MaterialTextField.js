@@ -7,7 +7,7 @@ const $label = 'f7 db mb2 mt3 light-silver';
 const $small = 'f6 black-60 db red';
 const styles ={
   textFieldContainer :{
-    margin:'16px 0',
+    margin:'24px 0 16px',
   },
   aTextField:{
     width:'100%',

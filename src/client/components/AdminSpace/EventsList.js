@@ -19,18 +19,11 @@ import { observer } from 'mobx-react';
 import dateFormat from 'dateformat';
 import AccountCircle from 'material-ui-icons/AccountCircle'
 import {withRouter} from 'react-router-dom';
-
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 
 const styles= theme => ({
-  date :{
-
-  },
-  description :{
-
-  }
 
 })
 
@@ -109,8 +102,8 @@ class EventsList extends React.Component{
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">إضافة حدث جديد</DialogTitle>
-          <DialogContent>
-          <Form form={form} />
+          <DialogContent className="dialogContent">
+          <Form form={form}/>
           </DialogContent>
           <DialogActions>
             <Button onClick={form.onSubmit} color="secondary">
