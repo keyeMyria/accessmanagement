@@ -146,8 +146,9 @@ class SignInFormContainer extends React.Component {
                   إدارة الحضور للانشطة والمناسبات
               </Typography>
             </div>
-            <div className="section2">
+
               <CSSTransitionGroup
+                className="section2"
                 transitionName="qrcode"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}>
@@ -162,7 +163,7 @@ class SignInFormContainer extends React.Component {
                       user={this.state.user}
                     />
                 </div>
-                <Button  fab raised color="accent"  onClick={this.handleOpenQrCode}>
+                <Button className="buttonPrint" fab raised color="accent"  onClick={this.handleOpenQrCode}>
                   <Fingerprint />
                 </Button>
                 <div className="article">
@@ -176,7 +177,6 @@ class SignInFormContainer extends React.Component {
                 </div>
                 </CSSTransitionGroup>
             </div>
-        </div>
       </div>
     );
   }
