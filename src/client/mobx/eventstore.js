@@ -24,6 +24,12 @@ class EventStore {
     @action addWorkShopToCurrentEvent = (workshop)=>{
       this.selectedEvent.workshops.push(workshop)
     }
+    @action filteredWorkshopsByState(status) {
+      this.filtered_workshops = this.selectedEvent.workshops.filter(
+        work=>work.session_empty==status
+      );
+    }
+    @observable filtered_workshops = [];
     @action getEvents() {
   	//Managing Async tasks like ajax calls with Mobx actions
     fetch({

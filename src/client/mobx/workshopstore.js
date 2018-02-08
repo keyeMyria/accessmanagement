@@ -20,6 +20,7 @@ class WorkshopStore {
     @computed get selectedId() { return this.selectedWorkshop._id; }
     @action setStateAction = (state) => {this.state=state }
 
+
     // In strict mode, only actions can modify mobx state
     @action setWorkshops = (workshops) => {this.workshops = [...workshops]; }
     @action selectWorkshop = (workshop) => {this.selectedWorkshop = workshop;console.log(this.selectedWorkshop)  }

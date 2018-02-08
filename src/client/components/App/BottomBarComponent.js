@@ -37,8 +37,8 @@ class BottomBarComponent extends React.Component{
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="التقاط الرمز" icon={<PhotoCamera />} value="/agent"/>)}
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value="/dashboard"/>)}
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction label="Operate on list" icon={<TransferWithinAStation />} value="/operateonguestlist"/>)}
-        {(role=='admin')&&(<BottomNavigationAction label="حالة الحضور" icon={<People />} value="/listguests" />)}
-        {(role=='admin')&&(<BottomNavigationAction label="التحركات" icon={<SwapHoriz />} value="/activitylog"/>)}
+        {((role=='admin')&&(this.props.addEventItems==true))&&(<BottomNavigationAction label="حالة الحضور" icon={<People />} value="/listguests" />)}
+        {((role=='admin')&&(this.props.addEventItems==true))&&(<BottomNavigationAction label="التحركات" icon={<SwapHoriz />} value="/activitylog"/>)}
         {((role=='admin') &&(this.props.addEventItems==true))&&(<BottomNavigationAction label="Dashboard" icon={<DonutSmall />} value={`/event-dashboard/${this.props.eventid}`}/>)}
         {((role=='admin')&&(this.props.addEventItems==true))&&(<BottomNavigationAction label="الجلسات" icon={<Toys />} value="/activitylog"/>)}
       </BottomNavigation>

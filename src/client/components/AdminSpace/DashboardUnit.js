@@ -99,13 +99,14 @@ const containers={
 }
 class DashboardUnit extends React.Component{
 
-  buildContentBasedOnData =(details , classes)=>{
+  buildContentBasedOnData =(details , classes , name)=>{
     const data = [{name: 'indoor', value: 400}, {name: 'Abscent', value: 300},
                   {name: 'outdoor', value: 300}]
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
     let end ;
+    console.log(details)
       if(details.session_list!=null){
-          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes)))}</div>)
+          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name)))}</div>)
       }else{
         let start = moment(moment(details.start_hour))
         if(details.end_hour!=null)
@@ -137,7 +138,7 @@ class DashboardUnit extends React.Component{
               </div>
               <div className={classes.ChartContainer}>
                 <Typography variant="headline" gutterBottom className={classes.workshopName}>
-                  Workshop Name
+                  {name}
                 </Typography>
                 <div style={containers.containerDetail}>
                   <Button fab disabled><QueryBuilder color="action"/>

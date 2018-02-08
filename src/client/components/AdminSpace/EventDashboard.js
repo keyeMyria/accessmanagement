@@ -1,5 +1,6 @@
 import React from 'react';
 import DashboardUnit from './DashboardUnit';
+import {observable} from 'mobx'
 import {observer} from 'mobx-react';
 import EventStore from '../../mobx/eventstore';
 import Button from 'material-ui/Button';
@@ -9,7 +10,8 @@ class EventDashboard extends React.Component{
   constructor(props){
     super(props);
     EventStore.getFullEventDetailsByID(props.match.params.id)
-  }
+
+  };
   render(){
     return(
       <div>
