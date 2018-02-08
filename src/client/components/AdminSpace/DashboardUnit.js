@@ -9,9 +9,11 @@ import moment from 'moment'
 const styles = theme => ({
   ChartContainer:{
     width:'50%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   card: {
     backgroundColor : '#053787',
@@ -77,15 +79,25 @@ const styles = theme => ({
 
 });
 const containers={
+  container:{
+    display: 'flex',
+    justifyContent: 'center',
+  },
   DetailContainer:{
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     backgroundColor: '#fff',
     boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
-    width: '90vw',
+    width: '70vw',
+    marginBottom: '20px',
   },
+   ChartContainer:{
+     width: '35vw',
+      display: 'flex',
+      justifyContent: 'center',
+   },
   containerDetail :{
     // fontSize: 'small',
     // width : '100%' ,
@@ -119,8 +131,9 @@ class DashboardUnit extends React.Component{
         let difference = moment.duration(end.diff(start))
 
         return(
+          <div style={containers.container}>
           <div style={containers.DetailContainer} key={details._id}>
-            <div className="ChartContainer">
+            <div style={containers.ChartContainer}>
                 <PieChart width={400} height={400}>
                   <Pie data={data} cx="50%" cy="50%" innerRadius={74} outerRadius={80} fill="#00ABC7" label >
                     {
@@ -138,34 +151,37 @@ class DashboardUnit extends React.Component{
                   <Tooltip/>
                 </PieChart>
               </div>
-              <div className={classes.ChartContainer}>
-                <Typography variant="headline" gutterBottom className={classes.workshopName}>
-                  {name}
-                </Typography>
-                <div style={containers.containerDetail}>
-                  <Button fab disabled><QueryBuilder color="action"/>
-                  </Button>
-                  <div className={classes.timeDetail}>
-                    <span className={classes.timeDetailText}>Started At </span>
-                    <span className={classes.timeDetailHour}>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
-                  </div>
-                  {(details.end_hour!=null)&&(
-                    <div className={classes.timeDetail} style={{...styleEndTime}}>
-                      <span className={classes.timeDetailText}>Ended At </span>
-                      <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
-                  </div>)}
-                </div>
-                  <div  style={containers.containerDetail}>
-                    <Button fab disabled>
-                      <People color="action"/>
+              <div style={containers.ChartContainer}>
+                <div className={classes.ChartContainer}>
+                  <Typography variant="headline" gutterBottom className={classes.workshopName}>
+                    {name}
+                  </Typography>
+                  <div style={containers.containerDetail}>
+                    <Button fab disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
-                      <span className={classes.timeDetailText}>Attendies </span>
-                      <span className={classes.timeDetailHour}>40</span>
+                      <span className={classes.timeDetailText}>Started At </span>
+                      <span className={classes.timeDetailHour}>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>
+                    {(details.end_hour!=null)&&(
+                      <div className={classes.timeDetail} style={{...styleEndTime}}>
+                        <span className={classes.timeDetailText}>Ended At </span>
+                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+                    </div>)}
                   </div>
+                    <div  style={containers.containerDetail}>
+                      <Button fab disabled>
+                        <People color="action"/>
+                      </Button>
+                      <div className={classes.timeDetail}>
+                        <span className={classes.timeDetailText}>Attendies </span>
+                        <span className={classes.timeDetailHour}>40</span>
+                      </div>
+                    </div>
+                </div>
               </div>
-        </div>)
+        </div>
+      </div>)
       }
   }
   render(){
