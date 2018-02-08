@@ -16,6 +16,8 @@ import { CircularProgress } from 'material-ui/Progress';
 import { compose } from 'react-apollo';
 import classNames from 'classnames';
 import Avatar from 'material-ui/Avatar';
+import {observer} from 'mobx-react';
+import UserStore from '../../mobx/gueststore';
 
 const styles = theme => ({
   root: {
@@ -74,6 +76,11 @@ const styles = theme => ({
     color: '#212121',
   },
 });
+const role = localStorage.getItem('role');
+const id = localStorage.getItem('loogedin_id');
+UserStore.fetchGuestForAgentWorkshop(id);
+
+@observer
 class VerifyExitComponent extends React.Component{
   state = {
     open: false ,
@@ -106,19 +113,26 @@ class VerifyExitComponent extends React.Component{
     this.setState({ open: true });
   };
   handleEnter = async () => {
-    let id = this.props.match.params.id ;
+    // let id = this.props.match.params.id ;
+    let id = this.props.userToEnter.userId._id;
+
     let status = "OUT";
     let agent = localStorage.getItem('loogedin_id');
-    await this.props.updateUserStatus({
-    variables: {
-      id ,
-      status,
-      agent
 
-    }
-  }).then(res=>{
-    this.props.history.push('/agent');
-  })
+          await UserStore.alterGuestStatus(id , status , agent, UserStore.selectWorkshopAgent._id)
+          // .then(res=>{
+            this.props.history.push('/agent');
+          // });
+  //   await this.props.updateUserStatus({
+  //   variables: {
+  //     id ,
+  //     status,
+  //     agent
+  //
+  //   }
+  // }).then(res=>{
+  //   this.props.history.push('/agent');
+  // })
 }
   render(){
     const {userToEnter , classes} = this.props;

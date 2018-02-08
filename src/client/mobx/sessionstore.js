@@ -37,6 +37,7 @@ class SessionStore {
                 }
                 agents {
                   _id
+                  username
                   role{
                     name
                   }
@@ -47,6 +48,20 @@ class SessionStore {
             this.setSessions(data.data.getActiveSessions);
             return data;
 
+}
+@action getUnaffectedAgents =async ()=>{
+  const agents = await fetch({
+    query:`query getUnaffectedAgents{
+      getUnaffectedAgents{
+        _id
+        username
+        role{
+          name
+        }
+      }
+    }`
+  });
+  return agents;
 }
 }
 
