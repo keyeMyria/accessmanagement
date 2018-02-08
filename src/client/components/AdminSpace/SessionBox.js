@@ -51,7 +51,7 @@ class SessionBox extends Component {
 		const isActive = canDrop && isOver;
 		const style = {
 			width: "350px",
-			border: '1px solid gray' ,
+			border: '2px solid #dcdcdc' ,
 			display: 'flex',
 			flexDirection: 'column',
 			justifyContent: 'center',
@@ -78,10 +78,11 @@ class SessionBox extends Component {
 			alignSelf: 'flex-start',
 			marginRight: '14px',
 		};
-		const backgroundColor = isActive ? 'lightgreen' : 'rgba(222, 222, 222, 0.68)';
+		const backgroundColor = isActive ? '#00abc780' : '#eee';
+		const borderColor = isActive ? '#00abc7' : '#dcdcdc';
 
 		return connectDropTarget(
-			<div style={{...style, backgroundColor}}>
+			<div style={{...style, backgroundColor, borderColor}}>
 			{(data==null)&&(
 				<div style={{...textStyle}}>
 					<p style={{...titleBox}}>قائمة الوكلاء</p>
