@@ -61,6 +61,9 @@ const styles = theme => ({
   icon :{
     maxWidth :'400px'
   } ,
+  workshopform:{
+    margin:'32px 16px 16px',
+  },
   sessionItem :{
     borderLeft : '3px solid #053787' ,
     minHeight : '80px',
@@ -198,7 +201,6 @@ class EventDetail extends React.Component{
              <Typography type="title" color="inherit" className={classes.typoStyle}>
                start a new session
              </Typography>
-
            </Toolbar>
          </AppBar>
          <div>
@@ -212,6 +214,8 @@ class EventDetail extends React.Component{
          </Button>
        </div>
        </Dialog>
+
+
        <Dialog
         fullScreen
         open={this.state.open_workshop}
@@ -228,11 +232,12 @@ class EventDetail extends React.Component{
             </Typography>
           </Toolbar>
         </AppBar>
-        <div className={classes.workshopform}><LectureIcon className={classes.icon}/>
-        <WorkShopForm form={form} users={UserStore.users} onSuccess={this.handleClose}/>
+        <div className={classes.workshopform}>
+          <LectureIcon className={classes.icon}/>
+          <WorkShopForm form={form} users={UserStore.users} onSuccess={this.handleClose}/>
         </div>
         <DialogActions>
-          <Button onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="secondary">
+          <Button raised onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="secondary">
             Confirm
           </Button>
           <Button onClick={this.handleCloseWorkshop}>

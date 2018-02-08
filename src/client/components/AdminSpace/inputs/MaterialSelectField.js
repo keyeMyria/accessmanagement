@@ -13,19 +13,43 @@ const $label = 'f7 db mb2 mt3 light-silver';
 const $small = 'f6 black-60 db red';
 const styles ={
   guestItem :{
-    width : '100px' ,
-    height : '100px' ,
-    float : 'right' ,
-    padding : '10px'
+    padding : '8px',
+    display:'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    textAlign:'right',
   } ,
   avatarGuest :{
-    width : '50px' ,
-    height : '50px' ,
+    width : '40px' ,
+    height : '40px' ,
+    marginLeft:'8px',
   },
   guestName :{
-    fontWeight : '0.8em'
-  }
+    fontWeight : '0.8em',
+  },
+  chipsContainer:{
+    border : '2px solid #eee',
+    borderRadius:'2px',
+    minHeight: '40px',
+    padding:'8px',
+    marginTop:'16px',
+  },
+  GuestContainer:{
+    padding:'8px',
+    background:'#eee',
+    display:'flex',
+    flexDirection:'column',
+  },
+  guestCounter:{
+      margin : '8px',
+      color:'#acacac',
+  },
+  guestChip:{
+        margin : '3px',
+    },
 }
+
+
 const invited=[];
 @observer
 class MaterialSelectField extends React.Component{
@@ -73,7 +97,7 @@ class MaterialSelectField extends React.Component{
     return(
 <Fragment>
       <div>
-        <Paper>
+        <div style={styles.chipsContainer}>
 
           {this.state.chipData.map((data , index) => {
             return (
@@ -82,12 +106,13 @@ class MaterialSelectField extends React.Component{
                 avatar={<Avatar src={`public/assets/avatars/${data.profile.avatar}`} />}
                 label={`${data.profile.name} ${data.profile.forname}`}
                 onDelete={()=>this.handleDeleteChip(data , index)}
+                style={styles.guestChip}
               />
             );
           })}
-          <p>You have Selected : {this.state.numberguest}</p>
-          </Paper>
-          <ul>
+          <p style={styles.guestCounter}>Selected guests: {this.state.numberguest}</p>
+          </div>
+          <ul style={styles.GuestContainer}>
 
                 {this.state.invited.map((item , index) => (
 
@@ -97,7 +122,7 @@ class MaterialSelectField extends React.Component{
                             style={styles.avatarGuest}
                           />
                           <p style={styles.guestName}> {item.profile.name} {item.profile.forname}</p>
-                        </li>
+                  </li>
 
                 ))}
               </ul>
