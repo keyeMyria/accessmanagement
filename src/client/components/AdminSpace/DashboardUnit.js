@@ -6,6 +6,7 @@ import People from 'material-ui-icons/People'
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import moment from 'moment'
+import {observable} from 'mobx'
 const styles = theme => ({
   ChartContainer:{
     width:'100%',
@@ -104,7 +105,7 @@ class DashboardUnit extends React.Component{
                   {name: 'outdoor', value: 300}]
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
     let end ;
-    console.log(details)
+
       if(details.session_list!=null){
           return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name)))}</div>)
       }else{
