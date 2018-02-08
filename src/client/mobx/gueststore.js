@@ -14,11 +14,15 @@ class UserStore {
     // Values marked as 'observable' can be watched by 'observers'
     @observable users = [];
     @observable loading = true;
+    @observable agent_workshop ={};
     @observable selectedUser = {};
     @computed get selectedId() { return this.selectedUser.id; }
     // In strict mode, only actions can modify mobx state
     @action setUsers = (users) => {this.users = [...users];this.loading=false; }
-    @action selectUser = (user) => { console.log(user);this.selectedUser = user; }
+    @action setWorkShop = (workshop) => {this.agent_workshop = workshop; }
+    @computed get selectWorkshopAgent() { return this.agent_workshop; }
+
+    @action selectUser = (user) => {this.selectedUser = user; }
     // Managing how we clear our observable state
     @action clearSelectedUser = () => { this.selectedUser = {}; }
     // An example that's a little more complex
@@ -148,14 +152,14 @@ class UserStore {
        id : userid
      }
    }).then(res=>{
-     console.log(res)
+     this.setWorkShop(res.data.getWorkshopByUserId);
      this.setUsers(res.data.getWorkshopByUserId.workshop.users)
    })
   }
-  @action alterGuestStatus =(guest , status , agent)=>{
+  @action alterGuestStatus =(guest , status , agent , workshop)=>{
     fetch({
-      query:`mutation updateUserStatus($id:ID! , $status:String! , $agent:String!){
-        updateUserStatus(id:$id  , status:$status , agent:$agent){
+      query:`mutation updateUserStatus($id:ID! , $status:String! , $agent:String! , $workshop:String!){
+        updateUserStatus(id:$id  , status:$status , agent:$agent , workshop:$workshop){
           _id
           username
           status
@@ -169,10 +173,11 @@ class UserStore {
       variables :{
         id : guest ,
         status : status ,
-        agent : agent
+        agent : agent,
+        workshop:workshop
       }
     }).then(res=>{
-      console.log(res)
+      //console.log(res)
     })
   }
 }

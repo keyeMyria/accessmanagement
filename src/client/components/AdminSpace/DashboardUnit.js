@@ -6,6 +6,7 @@ import People from 'material-ui-icons/People'
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import moment from 'moment'
+import {observable} from 'mobx'
 const styles = theme => ({
   ChartContainer:{
     display: 'flex',

@@ -7,19 +7,19 @@ import Button from 'material-ui/Button';
 
 const role = localStorage.getItem('role');
 const id = localStorage.getItem('loogedin_id');
+UserStore.fetchGuestForAgentWorkshop(id);
 
 @observer
 class EnterExitListUser extends React.Component{
   constructor(props){
     super(props)
-    UserStore.fetchGuestForAgentWorkshop(id);
-
 
   }
-  addOperationToGuest =(guest , operation , agent)=>{
-    UserStore.alterGuestStatus(guest , operation , agent);
+  addOperationToGuest =(guest , operation , agent , workshop)=>{
+    UserStore.alterGuestStatus(guest , operation , agent, workshop);
   }
   render(){
+
     if(UserStore.users!=null){
       return(<div>
         <List>
@@ -28,10 +28,10 @@ class EnterExitListUser extends React.Component{
             <Avatar alt="" src={`/public/assets/avatars/${value.profile.avatar}`} />
             <ListItemText primary={`${value.profile.name} ${value.profile.forname}`}/>
             <ListItemText primary={`${value.status}`} />
-            {(role=='agent_in' || role=='agent_in_out') &&(<Button raised color="accent" onClick={()=>this.addOperationToGuest(value._id , "IN" , id )}>
+            {(role=='agent_in' || role=='agent_in_out') &&(<Button raised color="accent" onClick={()=>this.addOperationToGuest(value._id , "IN" , id , UserStore.selectWorkshopAgent._id )}>
                    دخول
             </Button>)}
-            {(role=='agent_out' || role=='agent_in_out')&&(<Button  raised color="accent" onClick={()=>this.addOperationToGuest(value._id , "OUT" , id )}>
+            {(role=='agent_out' || role=='agent_in_out')&&(<Button  raised color="accent" onClick={()=>this.addOperationToGuest(value._id , "OUT" , id , UserStore.selectWorkshopAgent._id)}>
                  خروج
             </Button>)}
           </ListItem>

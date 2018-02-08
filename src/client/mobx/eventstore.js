@@ -167,7 +167,6 @@ class EventStore {
                 eventid :eventid
               }
             }).then(res=>{
-              console.log(res.data.getEventByID)
               this.selectEvent(res.data.getEventByID)
             })
           }
@@ -198,6 +197,10 @@ class EventStore {
                       end_hour
                       stat
                     }
+                    users{
+                      _id
+                    }
+
                   }
 
                 }
