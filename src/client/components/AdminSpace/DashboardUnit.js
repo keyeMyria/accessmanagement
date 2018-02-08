@@ -134,19 +134,18 @@ class DashboardUnit extends React.Component{
           <div style={containers.DetailContainer} key={details._id}>
             <div style={containers.ChartContainer}>
                 <PieChart width={400} height={400}>
-                  <Pie data={data} cx="50%" cy="50%" innerRadius={74} outerRadius={80} fill="#00ABC7" label >
+                  <Pie data={data} cx="50%" cy="50%" innerRadius={100} outerRadius={110} fill="#00ABC7" label >
                     {
                       data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                     }
-                    <Label value="Running Time" position="topcenter" className={classes.boldLabel}/>
+                    <Label value="Running Time" position="insideBottom" className={classes.boldLabel}/>
                     <Label value={`${difference._data.hours}h${difference._data.minutes}mn`} position="center" className={classes.raffined} />
                   </Pie>
-                  <Pie data={data} cx="50%" cy="50%" innerRadius={45} outerRadius={60} fill="#00abc7" >
+                  <Pie data={data} cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#00abc7" >
                     {
                       data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                     }
                   </Pie>
-
                   <Tooltip/>
                 </PieChart>
               </div>
