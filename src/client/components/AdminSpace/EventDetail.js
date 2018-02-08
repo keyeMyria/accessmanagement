@@ -38,11 +38,16 @@ const styles = theme => ({
   header: {
     backgroundColor : '#053787',
     color :'white',
-    padding:'24px 16px 56px',
+    padding:'24px 16px 72px',
   } ,
   title:{
     margin: '16px 0',
-    fontSize: '30px',
+    fontSize: '30pt',
+  },
+  dateEvent: {
+    fontSize:'14pt',
+    lineHeight: '24pt',
+    margin:'8px',
   },
   appBar: {
     position: 'relative',
@@ -65,15 +70,18 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: '-24px',
+    marginBottom: '8px',
   },
   listWorkshop:{
-    width: '70vw',
+    width: '90vw',
+    maxWidth:'700px',
     backgroundColor: 'rgb(255, 255, 255)',
     boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
     marginBottom: '20px',
   },
   workshopItem:{
-    borderLeft : '3px solid #FC4482' ,
+    borderLeft : '3px solid #00ABC7' ,
     minHeight : '80px',
   },
   startStopSession:{
@@ -243,8 +251,8 @@ class EventDetail extends React.Component{
           </h2>
           <h3>{event.type}</h3>
           <span>{event.place}</span>
-          <p>{`starts at : ${dateFormat(event.start_date , 'dd/mm/yyyy')}`}  {`ends at : ${dateFormat(event.end_date , 'dd/mm/yyyy')}`}</p>
-          <p className={classes.numberAttend}> <AccountCircle/>{event.numberAttendies} Attendies </p>
+          <p className={classes.dateEvent}>{`من : ${dateFormat(event.start_date , 'dd/mm/yyyy')}`}  {`، الى : ${dateFormat(event.end_date , 'dd/mm/yyyy')}`}</p>
+          <p className={classes.numberAttend}> <AccountCircle/> {event.numberAttendies} الحضور المتوقع </p>
     </div>
 
     <Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
@@ -271,7 +279,7 @@ class EventDetail extends React.Component{
         event.session_collection.map((item) => (
           <div  key={item._id} className={classes.listWorkshop}>
             <ListItem className={classes.sessionItem}>
-            <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')}`} />
+            <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')} `} />
             {item.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(item.end_hour , 'hh:mm')}`} />
             )}
               {item.stat=='ON' &&(
@@ -328,12 +336,10 @@ class EventDetail extends React.Component{
                               {lol.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(lol.end_hour , 'hh:mm')}`} />
                               )}
                           </ListItem>
-                          <Divider/>
                         </div>
                       ))
                     }
                   </List>
-                  <Divider/>
           </div>
           ))
         }
