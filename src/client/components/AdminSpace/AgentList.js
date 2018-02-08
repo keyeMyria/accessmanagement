@@ -63,13 +63,9 @@ constructor(props){
 
 }
   componentDidMount=()=>{
-
-  }
-  componentWillReceiveProps=(newProps)=>{
-
-    if(newProps.data.agentusers){
-      newProps.data.agentusers.map(agent=>{
-        agents.push(agent)
+    SessionStore.getUnaffectedAgents().then(res=>{
+      res.data.getUnaffectedAgents.map(agent=>{
+        agents.push(agent);
       })
       sessions.push({
         data : null ,
@@ -80,7 +76,7 @@ constructor(props){
       this.setState({
         boxes : agents
       })
-    }
+    })
     SessionStore.getSessions().then(res=>{
 
       res.data.getActiveSessions.map(item=>{
@@ -94,6 +90,24 @@ constructor(props){
         sessions: sessions
       })
     })
+
+  }
+  componentWillReceiveProps=(newProps)=>{
+
+    // if(newProps.data.agentusers){
+    //   newProps.data.agentusers.map(agent=>{
+    //     agents.push(agent)
+    //   })
+    //   sessions.push({
+    //     data : null ,
+    //     _id : 'default',
+    //     list : agents ,
+    //     lastDroppedItem: null
+    //   })
+    //   this.setState({
+    //     boxes : agents
+    //   })
+    // }
 
 
   }
