@@ -168,15 +168,16 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
-                    <div  style={containers.containerDetail}>
+                      {(details.users!=undefined)&&(<div  style={containers.containerDetail}>
                       <Button fab disabled>
                         <People color="action"/>
                       </Button>
-                      <div className={classes.timeDetail}>
+
+                        <div className={classes.timeDetail}>
                         <span className={classes.timeDetailText}>Attendies </span>
-                        <span className={classes.timeDetailHour}>40</span>
+                        <span className={classes.timeDetailHour}>{details.users.length}</span>
                       </div>
-                    </div>
+                    </div>)}
                 </div>
               </div>
         </div>
