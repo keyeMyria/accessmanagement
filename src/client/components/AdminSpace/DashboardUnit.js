@@ -8,8 +8,6 @@ import Typography from 'material-ui/Typography';
 import moment from 'moment'
 const styles = theme => ({
   ChartContainer:{
-    width:'50%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
