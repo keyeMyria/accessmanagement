@@ -64,6 +64,11 @@ const theme = createMuiTheme({
             fontWeight:'500',
           },
   },
+  MuiDialogActions:{
+        root: {
+          paddingBottom:'24px',
+        },
+},
   MuiBottomNavigation :{
       root: {
         // Name of the rule

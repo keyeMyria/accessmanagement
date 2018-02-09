@@ -58,8 +58,12 @@ const styles = theme => ({
   typoStyle: {
     flex: 1,
   },
+  titleDialogContent: {
+      margin: '16px',
+    },
   icon :{
-    maxWidth :'400px'
+    maxWidth :'400px',
+    margin:'32px 24px 16px',
   } ,
   workshopform:{
     margin:'32px 16px 16px',
@@ -94,7 +98,7 @@ const styles = theme => ({
 
   },
   star:{
-    color: '#053887',
+    color: '#00abc7',
   },
   stop:{
     color:'#ef4035',
@@ -199,20 +203,24 @@ class EventDetail extends React.Component{
                <CloseIcon className={classes.closeDialog}/>
              </IconButton>
              <Typography type="title" color="inherit" className={classes.typoStyle}>
-               start a new session
+             تسجيل جلسة عامة جديدة
              </Typography>
            </Toolbar>
          </AppBar>
          <div>
            <PlayButton className={classes.icon}/>
-         <h3>New Session</h3>
-         <Button raised color="secondary" onClick={this.startSessionAction} className={classes.button}>
-           Start
-         </Button>
-         <Button raised onClick={this.handleClose} className={classes.button}>
-           Cancel
-         </Button>
-       </div>
+         <Typography type="display1" className={classes.titleDialogContent}>
+         جلسة عامة جديدة
+         </Typography>
+         </div>
+         <DialogActions>
+           <Button raised color="secondary" onClick={this.startSessionAction}>
+             تسجيل
+           </Button>
+           <Button onClick={this.handleClose}>
+             إلغاء
+           </Button>
+         </DialogActions>
        </Dialog>
 
 
@@ -228,7 +236,7 @@ class EventDetail extends React.Component{
               <CloseIcon className={classes.closeDialog}/>
             </IconButton>
             <Typography type="title" color="inherit" className={classes.typoStyle}>
-              Add a new Workshop
+              إضافة ورشة عمل جديدة
             </Typography>
           </Toolbar>
         </AppBar>
@@ -238,10 +246,10 @@ class EventDetail extends React.Component{
         </div>
         <DialogActions>
           <Button raised onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="secondary">
-            Confirm
+            إضافة
           </Button>
           <Button onClick={this.handleCloseWorkshop}>
-            Cancel
+          إلغاء
           </Button>
         </DialogActions>
         </Dialog>
@@ -263,13 +271,13 @@ class EventDetail extends React.Component{
     <Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
      <div className={classes.AddButton}>
       <Add />
-      Add Workshop
+      إضافة ورشة عمل
       </div>
     </Button>
     {event.session_empty  &&(<Button onClick={this.handleClickOpen}  className="AddingButton">
      <div className={classes.AddButton}>
-      <Add />
-      Add Session
+      <PlayArrow />
+        تسجيل جلسة عامة
       </div>
     </Button>)}
     {event.session_empty==null  &&(<Button onClick={this.handleClickOpen} className="AddingButton">
@@ -296,7 +304,6 @@ class EventDetail extends React.Component{
                 </Button>
               )}
             </ListItem>
-            <Divider/>
         </div>
         ))
       }
@@ -311,15 +318,15 @@ class EventDetail extends React.Component{
                 {item.session_empty==true &&(
                     <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
                     <div className={classes.startStopSession}>
-                      <PlayArrow color="primary" />
-                      Start session
+                      <PlayArrow />
+                      تسجيل جلسة
                     </div>
                     </Button>
                 )}
                 {item.session_empty==null &&(
                     <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
                     <div className={classes.startStopSession}>
-                      <PlayArrow color="primary" />
+                      <PlayArrow />
                       Start session
                       </div>
                     </Button>
@@ -328,7 +335,7 @@ class EventDetail extends React.Component{
                     <Button onClick={()=>this.stopSessionForWorkShop(item._id)}  className={classes.stop}>
                     <div className={classes.startStopSession}>
                       <Stop color="accent" />
-                      Stop session
+                      إنهاء الجلسة
                       </div>
                     </Button>
                 )}

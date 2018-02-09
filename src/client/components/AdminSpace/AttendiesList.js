@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem } from 'material-ui/List';
 import DirectionsRun from 'material-ui-icons/DirectionsRun';
+import Search from 'material-ui-icons/Search';
+import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import {red , lightblue} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
+import Input, { InputAdornment } from 'material-ui/Input';
+import { FormControl } from 'material-ui/Form';
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
 import Collapse from 'material-ui/transitions/Collapse';
 import AttendeeCard from './AttendeeCard';
@@ -20,7 +24,12 @@ import Typography from 'material-ui/Typography';
 const styles = theme => ({
   root: {
     width: '100%',
-    background: theme.palette.background.paper,
+    maxWidth:'1200px',
+    margin:'auto',
+  },
+  formControl: {
+    width: '100%',
+    padding:'16px',
   },
   IN:{
     fill :"#00abc7",
@@ -34,10 +43,6 @@ const styles = theme => ({
   OUT:{
     fill :"#ef4035",
   } ,
-	pie :{
-		    width: '100% !important',
-
-	}
 
 });
 
@@ -102,18 +107,16 @@ componentWillReceiveProps(newProps) {
   render() {
     const { classes } = this.props;
     if(this.props.data.loading==true)
-      return(<div className={classes.root}><CircularProgress color="accent" /></div>);
+      return(<div className={classes.root}><CircularProgress color="primary" /></div>);
       else if (this.props.data.guestusers==null || Object.keys(this.props.data.guestusers).length === 0) {
           return (
               <div className={classes.root}>
-                <Paper elevation={4}>
                  <Typography type="body1" component="h3">
                    NoBody has presented his pass yet
                  </Typography>
                  <Typography type="subheader" component="p">
                    Use the capture code to register the entry and the exit of the participants
                  </Typography>
-               </Paper>
               </div>
             );
   }
@@ -138,9 +141,20 @@ componentWillReceiveProps(newProps) {
 
           <Tooltip/>
          </PieChart> */}
-        <TextField
-          placeholder="Search Attendies" onChange={this.filterList}
-        />
+         <FormControl className={classes.formControl}>
+            <Input
+    			       endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton >
+                      <Search />
+                    </IconButton>
+                  </InputAdornment>
+                }
+                className={classes.search}
+                  placeholder="Search Attendies" onChange={this.filterList}
+            />
+        </FormControl>
+        <emptyAttendeesList className={classes.icon}/>
         <List >
           {this.state.attendies_list.map(value => (
           <AttendeeCard  key={value._id} data={value} dense className={classes.listItem}  />

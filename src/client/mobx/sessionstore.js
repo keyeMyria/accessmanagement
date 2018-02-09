@@ -49,20 +49,21 @@ class SessionStore {
             return data;
 
 }
-@action getUnaffectedAgents =async ()=>{
-  const agents = await fetch({
-    query:`query getUnaffectedAgents{
-      getUnaffectedAgents{
-        _id
-        username
-        role{
-          name
-        }
-      }
-    }`
-  });
-  return agents;
-}
+    @action getUnaffectedAgents =async ()=>{
+      const agents = await fetch({
+        query:`query getUnaffectedAgents{
+          getUnaffectedAgents{
+            _id
+            username
+            role{
+              name
+            }
+          }
+        }`
+      });
+      return agents;
+    }
+  
 }
 
 const store = new SessionStore();
