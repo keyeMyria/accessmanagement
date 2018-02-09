@@ -9,7 +9,7 @@ import _ from 'lodash';
 import moment from 'moment'
 import {observable} from 'mobx'
 const styles = theme => ({
-  ChartContainer:{
+  cardInfos:{
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -19,49 +19,53 @@ const styles = theme => ({
     backgroundColor : '#053787',
     color :'white'
   } ,
-  appBar: {
-    position: 'relative',
-  },
-  flex: {
-    flex: 1,
-  },
+  //appBar: {
+  //  position: 'relative',
+  //},
+  //flex: {
+  //  flex: 1,
+  //},
 
-  icon :{
-    maxWidth :'50%'
-  } ,
-  sessionItem :{
-    borderLeft : '8px solid #053787' ,
-    paddingTop : '5px'
-  } ,
-  workshopItem:{
-    borderLeft : '8px solid #FC4482' ,
-    marginTop : '5px',
-    minHeight : '80px'
-  },
-  sessionListWork:{
-    paddingTop :'0px' ,
-    paddingBottom : '0px',
-    marginTop : '0px'
-  },
-  workshopsessionitem:{
-    borderLeft : '8px solid #CECECE' ,
-    backgroundColor :'#F5F5F5',
-    minHeight : '30px',
-    marginLeft : '30px'
-  },
-  AddingButton :{
-    minHeight : '70px' ,
-    margin : '10px',
-    textTransform :'none' ,
-    fontsize : '0.2em'
-  },
+  //icon :{
+  //  maxWidth :'50%'
+  //} ,
+  //sessionItem :{
+  //  borderLeft : '8px solid #053787' ,
+  //  paddingTop : '5px'
+  //} ,
+  //workshopItem:{
+  //  borderLeft : '8px solid #FC4482' ,
+  //  marginTop : '5px',
+  //  minHeight : '80px'
+  //},
+  //sessionListWork:{
+  //  paddingTop :'0px' ,
+  //  paddingBottom : '0px',
+  //  marginTop : '0px'
+  //},
+  //workshopsessionitem:{
+  //  borderLeft : '8px solid #CECECE' ,
+  //  backgroundColor :'#F5F5F5',
+  //  minHeight : '30px',
+  //  marginLeft : '30px'
+  //},
+  //AddingButton :{
+  //  minHeight : '70px' ,
+  //  margin : '10px',
+  //  textTransform :'none' ,
+  //  fontsize : '0.2em'
+  //},
   userItem :{
     width : '50%' ,
     float : 'right'
   } ,
   workshopName:{
-    fontSize: '1.5rem'
-  },
+   color:'#013084',
+   fontSize: '2rem',
+   fontFamily: 'Changa',
+   fontWeight: '300',
+   marginBottom:'24px',
+ },
   timeDetail:{
     display: 'flex',
     paddingLeft: '10px',
@@ -75,7 +79,8 @@ const styles = theme => ({
   timeDetailHour:{
     fontSize: '21pt',
     fontweight: 'bold',
-  }
+    fontFamily: 'Roboto, arial, sans-serif',
+  },
 
 });
 const containers={
@@ -89,12 +94,15 @@ const containers={
     alignItems: 'center',
     // justifyContent: 'center',
     backgroundColor: '#fff',
-    boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
-    width: '70vw',
-    marginBottom: '20px',
+     width: '70vw',
+     marginBottom: '20px',
+     width: '90vw',
+     maxWidth:'1200px',
+     margin: '8px 16px',
+     boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
   },
    ChartContainer:{
-     width: '35vw',
+     width: '50%',
       display: 'flex',
       justifyContent: 'center',
    },
@@ -110,8 +118,9 @@ const containers={
   }
 }
 const styleEndTime = {
-    borderRight: '2px solid #8080805c',
+    borderRight: '1px solid #eee',
 };
+
 class DashboardUnit extends React.Component{
   getUsersStatistics =(users)=>{
     const in_guests = _.sumBy(users, i => (i.status==="IN"));
@@ -161,8 +170,8 @@ class DashboardUnit extends React.Component{
                 </PieChart>
               </div>
               <div style={containers.ChartContainer}>
-                <div className={classes.ChartContainer}>
-                  <Typography variant="headline" gutterBottom className={classes.workshopName}>
+                <div className={classes.cardInfos}>
+                  <Typography className={classes.workshopName}>
                     {name}
                   </Typography>
                   <div style={containers.containerDetail}>
