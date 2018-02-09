@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import GroupWork from 'material-ui-icons/GroupWork';
-import PersonPin from 'material-ui-icons/PersonPin';
+import ExitToApp from 'material-ui-icons/ExitToApp';
 import {Link} from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 const drawerWidth = 240 ;
@@ -125,7 +125,7 @@ class AgentContainer extends React.Component{
             <Link to="/signout" style={{ textDecoration: 'none' }}>
             <ListItem button>
               <ListItemIcon>
-            <PersonPin />
+            <ExitToApp />
           </ListItemIcon>
           <ListItemText primary="Sign out" />
         </ListItem></Link>
