@@ -37,6 +37,7 @@ class DialButton extends React.Component {
 
         'color'             : '#fff',
         'fontSize'          : '30px',
+        'letterSpacing'     : '-4px',
       }}>
         <strong>
           {icon}
@@ -99,10 +100,10 @@ export class DialPad extends React.Component {
     return (
       <div>
         <div style={{
-          'float'                : 'left',
-          'display'              : 'block',
-          'width'                : '280px',
-          'height'                : '280px',
+          // 'float'                : 'left',
+          // 'display'              : 'block',
+          // 'width'                : '280px',
+          // 'height'                : '280px',
           'WebkitTouchCallout'   : 'none',
           'WebkitUserSelect'     : 'none',
           'KhtmlUserSelect'      : 'none',
@@ -112,22 +113,24 @@ export class DialPad extends React.Component {
           'fontFamily'           : '"Lucida Grande", Tahoma, Arial, Verdana, sans-serif'
         }}>
           <ol style={{
-            'margin'             : 0,
-            'padding'            : 0,
-            'listStyle'          : 'none'
+            'listStyle'          : 'none',
+            'display'            : 'grid',
+            'gridTemplateColumns': 'repeat(3, 1fr)',
+            'grid-row-gap': '10px',
+            'grid-column-gap': '10px',
           }}>
             {buttons.map((button, i) => (
-              <li onClick={() => onClick(button)} style={{
-                'float'          : 'left',
-                'cursor'         : 'pointer',
-                'width'          : '80px',
-                'height'          : '80px',
-                'marginTop'       :'5px' ,
-                'marginRight'     :'5px',
-                'borderRadius'   : '50%',
-                'background'           : '#053787',
-
-
+              <li onClick={() => onClick(button)}  className="liNumber"
+              style={{
+                // 'width'           : '8vw',
+                // 'height'          : '8vw',
+                // 'border-radius'   : '50%',
+                // 'background'      : 'rgb(5, 55, 135) none repeat scroll 0% 0%',
+                // 'display'         : 'flex',
+                // 'alignItems'     : 'center',
+                // 'justifyContent' : 'center',
+                // 'maxWidth': '97px',
+                // 'maxHeight': '97px',
 
               }} key={i}>
                 <DialButton {...button} compact={compact} />
@@ -243,7 +246,21 @@ export default class Dial extends React.Component {
   render() {
     const { value, compact } = this.state
     return (
-      <div ref='container'>
+      <div ref='container' style={{
+        'display': 'flex',
+        'flex-direction': 'column',
+        'width': '71vw',
+        'justifyContent': 'center',
+        'alignItems': 'center',
+        'maxWidth': '691px',
+        'maxHeight': '487px',
+      }}>
+
+      <div style   = {{
+        'display': 'flex',
+        'justifyContent': 'center',
+        'alignContent': 'center',
+      }}>
         {!!value && (
           <a
             href    = '#'
@@ -256,25 +273,27 @@ export default class Dial extends React.Component {
               'marginTop'      : '11px',
               'fontSize'       : '30px',
               'textDecoration' : 'none',
-              'color'          : '#4d4d4d'
+              'color'          : '#4d4d4d',
             }}>&times;</a>
         )}
-        <input
+        <input className="inputDial"
           style    = {{
-          'border'      : 'none',
-          'float'       : 'left',
-          'display'     : 'block',
-          'width'       : '80%',
-          'fontSize'    : compact ? '24px' : '40px',
-          'minHeight'   : '47px',
-          'margin'      : '10px 0',
-          'color'       : '#4d4d4d'
+          // 'border'      : 'none',
+          // 'float'       : 'left',
+          // 'display'     : 'block',
+          // 'width'       : '26vw',
+          // 'fontSize'    : compact ? '24px' : '40px',
+          // 'minHeight'   : '47px',
+          // 'marginBottom': '20px',
+          // 'color'       : '#4d4d4d',
+          // 'maxWidth'    : '311px',
         }}
           onChange = {this.handleChange.bind(this)}
           onFocus  = {this.endCapture.bind(this)}
           onBlur   = {this.beginCapture.bind(this)}
           type     = 'text'
           value    = {value} />
+          </div>
         <DialPad onClick={this.handleClick.bind(this)} compact={compact} />
       </div>
     )

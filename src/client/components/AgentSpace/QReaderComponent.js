@@ -4,6 +4,7 @@ import {withRouter} from "react-router-dom";
 import Dial , { DialPad  }  from './vendor/Dial'
 import {observer} from 'mobx-react'
 import UserStore from '../../mobx/gueststore';
+import './vendor/agent.css'
 @observer
 class QReaderComponent extends Component {
 
@@ -86,14 +87,15 @@ class QReaderComponent extends Component {
   }
   render(){
     return(
-      <div>
+      <div className="containerQrcodeDail">
         <QrReader
+          className="section"
           delay={this.state.delay}
           onError={this.handleError}
           onScan={this.handleScan}
           facingMode="user"
           />
-          <Dial handleValid = {this.handleEntryNumber}/>
+          <Dial className="section" handleValid = {this.handleEntryNumber}/>
       </div>
     )
   }
