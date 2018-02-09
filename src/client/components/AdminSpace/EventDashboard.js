@@ -15,12 +15,14 @@ class EventDashboard extends React.Component{
   render(){
     return(
       <div>
-        <Button color="accent">
-          Current
-        </Button>
-        <Button  color="accent">
-          Closed
-        </Button>
+        <div className="Btns-filter">
+          <Button color="primary" disabled={true} className="filter-activ">
+            Current
+          </Button>
+          <Button  color="secondary">
+            Closed
+          </Button>
+        </div>
         {(EventStore.selectedEvent.session_collection!== undefined)&&
           EventStore.selectedEvent.session_collection.map(gen_session=>{
             return(<DashboardUnit key={gen_session._id} details={gen_session}/>);
