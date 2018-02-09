@@ -9,9 +9,11 @@ import LoginForm from '../components/Login/LoginForm';
 import { signIn , setrole } from '../actions';
 import TopBackLogin from './topBackLogin';
 import BottomBackLogin from './bottomBackLogin';
-import QrReader from 'react-qr-reader'
-import Fingerprint from 'material-ui-icons/Fingerprint'
+import QrReader from 'react-qr-reader';
+import Fingerprint from 'material-ui-icons/Fingerprint';
+import PhotoCamera from 'material-ui-icons/PhotoCamera';
 import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
 import './css/SignInFormContainer.css';
 import { CSSTransitionGroup } from 'react-transition-group'
   // const container = {
@@ -56,6 +58,16 @@ import { CSSTransitionGroup } from 'react-transition-group'
       fontFamily:'Changa',
       fontWeight:'300',
       };
+
+      const buttonQRCode= {
+        color:'#00abc7',
+        fontFamily:'Changa',
+        fontWeight:'300',
+        fontSize:'14pt',
+        height:'200px',
+        width:'200px',
+        backgroundColor:'#fff',
+        };
   //
   //   const formLogin ={
   //     display: 'flex',
@@ -167,8 +179,9 @@ class SignInFormContainer extends React.Component {
                       user={this.state.user}
                     />
                 </div>
-                <Button className="buttonPrint" fab raised color="accent"  onClick={this.handleOpenQrCode}>
-                  <Fingerprint />
+                <Button raised color="accent" style={buttonQRCode} onClick={this.handleOpenQrCode}>
+                  Login with QR code
+                  <PhotoCamera />
                 </Button>
                 <div className="article">
                   {(this.state.qrcodeauth)&&( <QrReader
