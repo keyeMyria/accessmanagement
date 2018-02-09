@@ -7,7 +7,7 @@ body{
 }
 
 .Btns-filter{
- margin:8px auto;
+ margin:16px auto 8px;
  width:270px;
 }
 
@@ -178,6 +178,22 @@ div > div > .AddingButton {
 div > div > .AddingButton:hover{
   background-color: #edfdff;
 },
+
+.picker{
+  margin:24px 0 16px;
+  text-align: right;
+}
+
+.dialogContent {
+  width: 400px;
+}
+
+@media screen and (max-width: 480px) {
+  .dialogContent {
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 768px) {
 .event-list > li {
   max-width: 100%;

@@ -12,17 +12,17 @@
   overflow:  hidden;
   z-index: -1;
   min-height: 670px;
-};
+}
 .topBackLogin{
   transform:  scale(1.7);
   width:  50vw;
-};
+}
 .bottomBackLogin{
   transform:  scale(1.7);
   transform-origin: 50% 100%;
   align-self: flex-start;
   width:  50vw;
-};
+}
 .bottomBackLoginSv{
   position:  relative;
   top:  5px;
@@ -55,7 +55,9 @@
     justify-content: center;
     align-items: center;
 }
-
+.buttonPrint{
+  align-self: center;
+}
 .formLogin {
     flex-direction: column;
   }
