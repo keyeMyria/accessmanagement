@@ -12,20 +12,25 @@ class EventDashboard extends React.Component{
     EventStore.getFullEventDetailsByID(props.match.params.id)
 
   };
+  filterWorkshopsAndSessions =(stat , empty)=>{
+    EventStore.filterWorkshopsAndSessions(stat , empty);
+  }
   render(){
     return(
       <div>
-        <Button color="accent">
-          Current
-        </Button>
-        <Button  color="accent">
-          Closed
-        </Button>
-        {(EventStore.selectedEvent.session_collection!== undefined)&&
-          EventStore.selectedEvent.session_collection.map(gen_session=>{
+        <div className="Btns-filter">
+              <Button  className="filter-activ" onClick={()=>this.filterWorkshopsAndSessions("ON" , false)}>
+                الحالي
+              </Button>
+              <Button color="secondary" onClick={()=>this.filterWorkshopsAndSessions("OFF" , true)}>
+                الفارط
+              </Button>
+      </div>
+        {(EventStore.event_sessions!== undefined)&&
+          EventStore.event_sessions.map(gen_session=>{
             return(<DashboardUnit key={gen_session._id} details={gen_session}/>);
           })}
-        {(EventStore.selectedEvent.workshops!== undefined)&& EventStore.selectedEvent.workshops.map(work=>{
+        {(EventStore.event_workshops!== undefined)&& EventStore.event_workshops.map(work=>{
             //work.session_list.map(session=>{
               return(<DashboardUnit key={work._id} details={work}/>);
             //})

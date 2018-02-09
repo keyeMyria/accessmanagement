@@ -14,8 +14,13 @@ class EventStore {
     // Values marked as 'observable' can be watched by 'observers'
     @observable events = [];
     @observable selectedEvent = {};
+    @observable event_sessions =[];
+    @observable event_workshops=[];
     // In strict mode, only actions can modify mobx state
     @action setEvents = (events) => {this.events = [...events]; }
+    @action setEventSessions = (sessions) => {this.event_sessions = [...sessions]; }
+    @action setEventWorkshops = (workshops) => {this.event_workshops = [...workshops]; }
+
     @action selectEvent = (event) => {this.selectedEvent = event; }
     // Managing how we clear our observable state
     @action clearSelectedEvent = () => { this.selectedEvent = {}; }
@@ -24,9 +29,12 @@ class EventStore {
     @action addWorkShopToCurrentEvent = (workshop)=>{
       this.selectedEvent.workshops.push(workshop)
     }
-    @action filteredWorkshopsByState(status) {
-      this.filtered_workshops = this.selectedEvent.workshops.filter(
+    @action filterWorkshopsAndSessions(status , empty) {
+      this.event_sessions = this.selectedEvent.session_collection.filter(
         work=>work.session_empty==status
+      );
+      this.event_workshops =this.selectedEvent.workshops.filter(
+        work=>work.session_empty==empty
       );
     }
     @observable filtered_workshops = [];
@@ -210,7 +218,9 @@ class EventStore {
                 eventid :eventid
               }
             }).then(res=>{
-              this.selectEvent(res.data.getEventByID)
+              this.selectEvent(res.data.getEventByID);
+              this.setEventSessions(res.data.getEventByID.session_collection);
+              this.setEventWorkshops(res.data.getEventByID.workshops);
             })
           }
           @action getUserDataForChartOfSession=(sessionId , status)=>{

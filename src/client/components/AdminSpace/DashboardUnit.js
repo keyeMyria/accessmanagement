@@ -122,7 +122,6 @@ class DashboardUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
-console.log(details)
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
                   let data =[]
                   //if(details.users!==undefined)
