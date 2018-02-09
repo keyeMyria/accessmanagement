@@ -6,20 +6,21 @@ import Input, { InputLabel } from 'material-ui/Input';
 import TextField from 'material-ui/TextField';
 import { FormControl } from 'material-ui/Form';
 import purple from 'material-ui/colors/purple';
+import Button from 'material-ui/Button';
 
-  const button = {
-    marginTop: '50px',
-    height: '40px',
+  const buttonLogin = {
+    marginTop: '24px',
     width: '300px',
     color: '#00abc7',
     backgroundColor: '#fff',
-    border: 'none',
-    borderRadius: '2px',
-    fontSize: '20px',
+    fontSize: '18px',
+    fontFamily:'Changa',
+    fontWeight:'300',
     };
     const formControl = {
       width: '300px',
       color: '#fff',
+      margin:'8px',
       };
 
       const labelStyle ={
@@ -81,7 +82,8 @@ class SignInForm extends React.Component{
     type
   }) =>{
     return (
-      <FormControl style={formControl} >
+
+        <FormControl style={formControl}>
         <InputLabel
                   FormControlClasses={{
                     root : this.props.classes.inputLabelFocused,
@@ -115,7 +117,7 @@ class SignInForm extends React.Component{
           {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
           {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" />)}
           <Field name="password" type="password" component={this.renderTextField} label="كلمة  المرور" />
-          <button type="submit" className="btn btn-primary" style={button}> الدخول </button>
+          <Button raised type="submit" className="btn btn-primary" style={buttonLogin}> الدخول </Button>
         </form>
     );
   }

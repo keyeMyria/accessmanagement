@@ -47,10 +47,14 @@ import { CSSTransitionGroup } from 'react-transition-group'
   // };
   const styleTypog2 = {
     color:'#fff',
+    fontFamily:'Changa',
+    fontWeight:'300',
     };
 
     const styleTypogTitle = {
       color:'#fff',
+      fontFamily:'Changa',
+      fontWeight:'300',
       };
   //
   //   const formLogin ={
@@ -143,7 +147,7 @@ class SignInFormContainer extends React.Component {
         <div className="container">
             <div className="section1">
               <Typography type="display2" style = {styleTypog2}>
-                  إدارة الحضور للانشطة والمناسبات
+              إدارة الأحداث والحضور
               </Typography>
             </div>
 
