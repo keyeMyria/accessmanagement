@@ -148,8 +148,10 @@ console.log(details)
                     {
                       data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                     }
-                    <Label value="Running Time" position="insideBottom" className={classes.boldLabel}/>
-                    <Label value={`${difference._data.hours}h${difference._data.minutes}mn`} position="center" className={classes.raffined} />
+
+                    <Label width={30} position="center"
+                      content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="Running Time"/>}>
+                    </Label>
                   </Pie>
                   <Pie data={data} cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#00abc7" >
                     {
@@ -197,5 +199,14 @@ console.log(details)
     const {classes , details , key} = this.props;
     return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", details.users)}</div>)
   }
+}
+function CustomLabel({viewBox, value1, value2}){
+  const {cx, cy} = viewBox;
+  return (
+   <text x={cx} y={cy} fill="#3d405c" className="recharts-text recharts-label" textAnchor="middle" dominantBaseline="central">
+      <tspan alignmentBaseline="middle" fontSize="14">{value1}</tspan>
+      <tspan  x={cx+15} y={cy+20}   fontSize="20">{value2}</tspan>
+   </text>
+  )
 }
 export default withStyles(styles)(DashboardUnit);
