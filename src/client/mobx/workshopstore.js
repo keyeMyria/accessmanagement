@@ -125,6 +125,10 @@ class WorkshopStore {
               workshop{
                 _id
                 name
+                users{
+                  _id
+                  status
+                }
               }
             }
 

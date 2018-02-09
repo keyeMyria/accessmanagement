@@ -199,6 +199,7 @@ class EventStore {
                     }
                     users{
                       _id
+                      status
                     }
 
                   }
@@ -210,6 +211,21 @@ class EventStore {
               }
             }).then(res=>{
               this.selectEvent(res.data.getEventByID)
+            })
+          }
+          @action getUserDataForChartOfSession=(sessionId , status)=>{
+            fetch({
+              query:`query getUsersDataForChartSession($sessionId:ID! , $status:String!){
+                getUsersDataForChartSession(sessionId:$sessionId , status:$status){
+                  _id
+                  username
+                }
+
+              }`,
+              variables :{
+                sessionId : sessionId ,
+                status :status
+              }
             })
           }
       }

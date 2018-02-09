@@ -33,14 +33,21 @@ class AgentDashboard extends React.Component{
     let workshop_fetched = WorkshopStore.fetchWorkshopDataForAgent(id);
 
   }
+  getUsersStatistics =(users)=>{
+    const in_guests = _.sumBy(users, i => (i.status==="IN"));
+    const out_guests = _.sumBy(users, i => (i.status==="OUT"));
+    const abscent_guests = _.sumBy(users, i => (i.status==="ABSCENT"));
+    const data = [{name: 'indoor', value: in_guests}, {name: 'Abscent', value: out_guests},
+                  {name: 'outdoor', value: abscent_guests}]
+                  return data ;
+  }
   render(){
-    const data = [{name: 'indoor', value: 400}, {name: 'Abscent', value: 300},
-                  {name: 'outdoor', value: 300}]
-                  const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
-
 
     const {classes}=this.props
     if(WorkshopStore.selectedWorkshop.session!=null && WorkshopStore.selectedWorkshop.session!=undefined){
+      const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
+      let data = this.getUsersStatistics(WorkshopStore.selectedWorkshop.workshop.users);
+
       let start = moment(moment(WorkshopStore.selectedWorkshop.session.start_hour))
       let end = moment(moment.now())
       let difference = moment.duration(end.diff(start))
@@ -63,8 +70,8 @@ class AgentDashboard extends React.Component{
           <Tooltip/>
         </PieChart>
         <h3>{WorkshopStore.selectedWorkshop.workshop.name}</h3>
-        <Button fab disabled><QueryBuilder color="action"/></Button><span>Started At</span><span>{moment(WorkshopStore.selectedWorkshop.session.start_hour).utcOffset(1, true).format('hh:mm')}</span>
-        <Button fab disabled><People color="action"/></Button><span>Expected Attendies 40</span>
+        <Button fab disabled><QueryBuilder color="action"/></Button><span>Started At </span><span>{moment(WorkshopStore.selectedWorkshop.session.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+        <Button fab disabled><People color="action"/></Button><span>Expected Attendies {WorkshopStore.selectedWorkshop.workshop.users.length}</span>
         <div>
           <Button className={classes.AddingButton}>
           Attendies Status

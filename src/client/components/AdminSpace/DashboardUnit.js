@@ -5,6 +5,7 @@ import QueryBuilder from 'material-ui-icons/QueryBuilder';
 import People from 'material-ui-icons/People'
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import _ from 'lodash';
 import moment from 'moment'
 import {observable} from 'mobx'
 const styles = theme => ({
@@ -112,14 +113,24 @@ const styleEndTime = {
     borderRight: '2px solid #8080805c',
 };
 class DashboardUnit extends React.Component{
-
-  buildContentBasedOnData =(details , classes , name)=>{
-    const data = [{name: 'indoor', value: 400}, {name: 'Abscent', value: 300},
-                  {name: 'outdoor', value: 300}]
+  getUsersStatistics =(users)=>{
+    const in_guests = _.sumBy(users, i => (i.status==="IN"));
+    const out_guests = _.sumBy(users, i => (i.status==="OUT"));
+    const abscent_guests = _.sumBy(users, i => (i.status==="ABSCENT"));
+    const data = [{name: 'indoor', value: in_guests}, {name: 'Abscent', value: out_guests},
+                  {name: 'outdoor', value: abscent_guests}]
+                  return data ;
+  }
+  buildContentBasedOnData =(details , classes , name , users)=>{
+console.log(details)
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
-    let end ;
+                  let data =[]
+                  //if(details.users!==undefined)
+                       data= this.getUsersStatistics(users)
+
+                       let end ;
       if(details.session_list!=null){
-          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name!=undefined ? details.name : "جلسة عامة")))}</div>)
+          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name!=undefined ? details.name : "جلسة عامة" , details.users)))}</div>)
       }else{
         let start = moment(moment(details.start_hour))
         if(details.end_hour!=null)
@@ -128,7 +139,6 @@ class DashboardUnit extends React.Component{
            end = moment(moment.now())
         }
         let difference = moment.duration(end.diff(start))
-
         return(
           <div style={containers.container}>
           <div style={containers.DetailContainer} key={details._id}>
@@ -185,7 +195,7 @@ class DashboardUnit extends React.Component{
   }
   render(){
     const {classes , details , key} = this.props;
-    return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة" )}</div>)
+    return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", details.users)}</div>)
   }
 }
 export default withStyles(styles)(DashboardUnit);

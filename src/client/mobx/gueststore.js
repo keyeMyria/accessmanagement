@@ -153,6 +153,7 @@ class UserStore {
      }
    }).then(res=>{
      this.setWorkShop(res.data.getWorkshopByUserId);
+     if(res.data.getWorkshopByUserId.workshop)
      this.setUsers(res.data.getWorkshopByUserId.workshop.users)
    })
   }
