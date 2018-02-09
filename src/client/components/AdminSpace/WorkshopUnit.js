@@ -122,25 +122,26 @@ const containers={
 const styleEndTime = {
     borderRight: '1px solid #eee',
 };
-const users=null ;
 
-@observer
-class DashboardUnit extends React.Component{
-
+class WorkshopUnit extends React.Component{
   getUsersStatistics =(users)=>{
     const in_guests = _.sumBy(users, i => (i.status==="IN"));
     const out_guests = _.sumBy(users, i => (i.status==="OUT"));
     const abscent_guests = _.sumBy(users, i => (i.status==="ABSCENT"));
-    let data = [{name: 'indoor', value: in_guests}, {name: 'Abscent', value: out_guests},
+    const data = [{name: 'indoor', value: in_guests}, {name: 'Abscent', value: out_guests},
                   {name: 'outdoor', value: abscent_guests}]
-
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
-                  let data= this.getUsersStatistics(users);
-                  let end ;
-                  let start = moment(moment(details.start_hour))
+                  let data =[]
+                       data= this.getUsersStatistics(users)
+
+                       let end ;
+      if(details.session_list!=null){
+          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name!=undefined ? details.name : "جلسة عامة" , users)))}</div>)
+      }else{
+        let start = moment(moment(details.start_hour))
         if(details.end_hour!=null)
       {   end = moment(moment(details.end_hour))}
         else {
@@ -201,13 +202,13 @@ class DashboardUnit extends React.Component{
               </div>
         </div>
       </div>)
+      }
   }
 
   render(){
     const {classes , details , key , users} = this.props;
-        return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", details.users)}</div>)
 
-
+    return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", users)}</div>)
   }
 }
 function CustomLabel({viewBox, value1, value2}){
@@ -219,4 +220,4 @@ function CustomLabel({viewBox, value1, value2}){
    </text>
   )
 }
-export default withStyles(styles)(DashboardUnit);
+export default withStyles(styles)(WorkshopUnit);
