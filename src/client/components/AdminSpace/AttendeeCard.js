@@ -35,11 +35,18 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  numbersButton: {
+    fontFamily: 'Roboto',
+    margin: theme.spacing.unit,
+  },
   leftIcon: {
    marginRight: theme.spacing.unit,
  },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  expandedPanelContainer:{
+    alignItems: 'flex-end',
   },
 });
 
@@ -71,7 +78,7 @@ class AttendeeCard extends React.Component {
     const { classes , data} = this.props;
     return (
       <div>
-        <ExpansionPanel>
+        <ExpansionPanel className={classes.expandedPanelContainer}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}  style={ExpansionContainer}>
             <Avatar src={`public/assets/avatars/${data.profile.avatar}`} style={avatarExpansion}/>
             <div>
@@ -85,11 +92,13 @@ class AttendeeCard extends React.Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
           <div>
-            <Button className={classes.button}  disabled >
+            <Button raised className={classes.numbersButton}  disabled >
               <Phone  className={classes.leftIcon} />
               {data.profile.tel}
             </Button>
-            <Link to={`/useractivity/${data._id}`}><Button raised color="accent" ><SwapHoriz  className={classes.leftIcon} />View Activity</Button></Link>
+            <Link to={`/useractivity/${data._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+             الاطلاع على التحركات
+            </Button></Link>
           </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
