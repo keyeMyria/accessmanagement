@@ -249,7 +249,7 @@ export default class Dial extends React.Component {
       <div ref='container' style={{
         'display': 'flex',
         'flex-direction': 'column',
-        'width': '65vw',
+        // 'width': '65vw',
         'justifyContent': 'center',
         'alignItems': 'center',
         'maxWidth': '691px',
