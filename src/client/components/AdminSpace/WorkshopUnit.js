@@ -134,6 +134,7 @@ class WorkshopUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
+    console.log(users)
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
                   let data =[]
                        data= this.getUsersStatistics(users)
@@ -154,7 +155,7 @@ class WorkshopUnit extends React.Component{
           <div style={containers.DetailContainer} key={details._id}>
             <div style={containers.ChartContainer}>
                 <PieChart width={400} height={400}>
-                  <Pie data={data} cx="50%" cy="50%" innerRadius={100} outerRadius={110} fill="#00ABC7" label >
+                  <Pie data={data} cx="50%" cy="50%"  dataKey="value" nameKey="name" innerRadius={100} outerRadius={110} fill="#00ABC7" label >
                     {
                       data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                     }
@@ -163,7 +164,7 @@ class WorkshopUnit extends React.Component{
                       content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="Running Time"/>}>
                     </Label>
                   </Pie>
-                  <Pie data={data} cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#00abc7" >
+                  <Pie data={data} cx="50%" cy="50%"  dataKey="value" nameKey="name" innerRadius={70} outerRadius={90} fill="#00abc7" >
                     {
                       data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                     }
@@ -214,7 +215,7 @@ class WorkshopUnit extends React.Component{
 
   render(){
     const {classes , details , key , users} = this.props;
-
+    console.log(users)
     return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", users)}</div>)
   }
 }

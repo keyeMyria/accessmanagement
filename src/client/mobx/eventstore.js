@@ -39,12 +39,11 @@ class EventStore {
           session.users = res.data.getUserDataForChartOfSession;
           this.addSessionToEventSessions(session);
         })
-        console.log(this.event_sessions)
 
       })
     }
     @action setEventWorkshops = (workshops) => {
-      his.event_workshops.length=0;
+      this.event_workshops.length=0;
       this.event_workshops = [...workshops]; }
 
     @action selectEvent = (event) => {this.selectedEvent = event; }
@@ -67,10 +66,19 @@ class EventStore {
     }
     @action filterWorkshopsAndSessions(status , empty) {
       this.event_sessions = this.selectedEvent.session_collection.filter(
-        session => session.stat===status
+        session => {
+            let users = this.getUserDataForChartOfSession(session._id);
+            users.then(res=>{
+              session.users = res.data.getUserDataForChartOfSession;
+            })
+          return session.stat===status
+        }
       );
       this.event_workshops =this.selectedEvent.workshops.filter(
-        work=>work.session_empty==empty
+        work=>{
+          console.log(work)
+          work.session_empty==empty
+        }
       );
     }
     @observable filtered_workshops = [];
