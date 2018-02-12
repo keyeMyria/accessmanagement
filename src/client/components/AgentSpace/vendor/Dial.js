@@ -116,8 +116,8 @@ export class DialPad extends React.Component {
             'listStyle'          : 'none',
             'display'            : 'grid',
             'gridTemplateColumns': 'repeat(3, 1fr)',
-            'grid-row-gap': '10px',
-            'grid-column-gap': '10px',
+            'gridRowGap': '10px',
+            'gridColumnGap': '10px',
           }}>
             {buttons.map((button, i) => (
               <li onClick={() => onClick(button)}  className="liNumber"
@@ -248,7 +248,7 @@ export default class Dial extends React.Component {
     return (
       <div ref='container' style={{
         'display': 'flex',
-        'flex-direction': 'column',
+        'flexDirection': 'column',
         // 'width': '65vw',
         'justifyContent': 'center',
         'alignItems': 'center',
