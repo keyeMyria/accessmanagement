@@ -53,7 +53,10 @@ class EventsList extends React.Component{
       to : undefined
     });
   }
-
+  filterEventByCurrentDate =(type)=>{
+    console.log(type)
+    EventStore.filterEventByCurrentDate(type);
+  }
   handleCloseMenu = () => {
     this.setState({ openMenu: false });
   };
@@ -86,13 +89,13 @@ class EventsList extends React.Component{
     return (
       <div>
         <div className="Btns-filter">
-              <Button disabled={true} className="filter-activ">
+              <Button  className="filter-activ" onClick={()=>this.filterEventByCurrentDate("current")}>
                 الحالي
               </Button>
-              <Button color="secondary">
+              <Button color="secondary" onClick={()=>this.filterEventByCurrentDate("coming")}>
                 المقبل
               </Button>
-              <Button color="secondary">
+              <Button color="secondary" onClick={()=>this.filterEventByCurrentDate("done")}>
                 الفارط
               </Button>
       </div>
@@ -116,7 +119,7 @@ class EventsList extends React.Component{
         </Dialog>
 
 	     <ul className="event-list">
-         {EventStore.events.map((item) => (
+         {EventStore.unfiltered_events.map((item) => (
             <li key={item._id}>
 						<time dateTime="2014-07-20" onClick={() => {this.eventDetail(item)}}>
 							<span className="day">{dateFormat(item.start_date , 'dd')}</span>

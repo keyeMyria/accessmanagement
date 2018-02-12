@@ -11,6 +11,7 @@ import {observer} from 'mobx-react'
 import EventStore from '../../mobx/eventstore';
 import {Link} from 'react-router-dom';
 
+import SwapHoriz from 'material-ui-icons/SwapHoriz';
 const styles = theme => ({
   cardInfos:{
     display: 'flex',
@@ -126,6 +127,7 @@ const styleEndTime = {
 
 class WorkshopUnit extends React.Component{
   getUsersStatistics =(users)=>{
+
     const in_guests = _.sumBy(users, i => (i.status==="IN"));
     const out_guests = _.sumBy(users, i => (i.status==="OUT"));
     const abscent_guests = _.sumBy(users, i => (i.status==="ABSCENT"));
@@ -134,7 +136,7 @@ class WorkshopUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
-    console.log(users)
+
                   const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
                   let data =[]
                        data= this.getUsersStatistics(users)
@@ -190,14 +192,14 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
-                      {(details.users!=undefined)&&(<div  style={containers.containerDetail}>
+                      {(users!=undefined)&&(<div  style={containers.containerDetail}>
                       <Button fab disabled>
                         <People color="action"/>
                       </Button>
 
                         <div className={classes.timeDetail}>
                         <span className={classes.timeDetailText}>Attendies </span>
-                        <span className={classes.timeDetailHour}>{details.users.length}</span>
+                        <span className={classes.timeDetailHour}>{users.length}</span>
                       </div>
                     </div>)}
                     <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
