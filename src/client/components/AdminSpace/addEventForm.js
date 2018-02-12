@@ -10,7 +10,6 @@ export default observer(({ form , onSuccess }) => (
     <MaterialTextField field={form.$('title')} />
     <MaterialTextField field={form.$('type')} />
     <MaterialTextField field={form.$('place')} />
-    <MaterialTextField field={form.$('numberAttendies')} />
     <MaterialDatePicker field={form.$('start_date')}/>
     <MaterialDatePicker field={form.$('end_date')}/>
 
