@@ -131,16 +131,7 @@ componentWillReceiveProps(newProps) {
 
       return (
         <div className={classes.root}>
-          {/* <PieChart width={400} height={400} className={classes.pie}>
-		  <Pie data={data} cx="50%" cy="50%" innerRadius={74} outerRadius={80} fill="#00ABC7" label/>
-          <Pie data={data} cx="50%" cy="50%" innerRadius={45} outerRadius={60} fill="#00abc7">
-		          	{
-          	data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-          }
-		  </Pie>
 
-          <Tooltip/>
-         </PieChart> */}
          <FormControl className={classes.formControl}>
             <Input
     			       endAdornment={

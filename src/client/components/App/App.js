@@ -33,7 +33,8 @@ import rtl from 'jss-rtl';
 import JssProvider from 'react-jss/lib/JssProvider';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 import AgentDashboard from '../AgentSpace/AgentDashboard';
-
+import SessionActivity from '../AdminSpace/SessionActivity';
+import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter'
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;
@@ -209,8 +210,10 @@ class App extends React.Component {
                 <AdminRoute exact path='/manageguest' component={GuestListManageable} />
                 <AdminRoute exact path='/listguests' component={AttendiesList} />
 								<AdminRoute exact path='/activitylog' component={PaginatedEntriesContainer} />
+                <AdminRoute exact path='/listusersbysession/:id' component={ListGuestBYSessionFilter} />
                 <AdminRoute exact path='/adduser' component={AddUserFormContainer} />
 								<AdminRoute exact path="/useractivity/:id" component={AttendeeActivity} />
+                <AdminRoute exact path="/sessionactivity/:id" component={SessionActivity} />
                 <AdminRoute exact path="/manageagents" component={AgentList} />
                 <AdminRoute exact path="/managevents" component={EventsList} />
                 <AdminRoute exact path="/manage-single-event/:id"  name="event-detail" component={EventDetail} />

@@ -9,7 +9,9 @@ import _ from 'lodash';
 import moment from 'moment'
 import {observer} from 'mobx-react'
 import EventStore from '../../mobx/eventstore';
+import {Link} from 'react-router-dom';
 
+import SwapHoriz from 'material-ui-icons/SwapHoriz';
 const styles = theme => ({
   cardInfos:{
     display: 'flex',
@@ -187,7 +189,8 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
-                      {(details.users!=undefined)&&(<div  style={containers.containerDetail}>
+                      {
+                        (details.users!=undefined)&&(<div  style={containers.containerDetail}>
                       <Button fab disabled>
                         <People color="action"/>
                       </Button>
@@ -196,7 +199,14 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailText}>Attendies </span>
                         <span className={classes.timeDetailHour}>{details.users.length}</span>
                       </div>
-                    </div>)}
+                    </div>)
+                  }
+                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+                   الاطلاع على التحركات
+                  </Button></Link>
+                  <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+                  حالة الحضور
+                </Button></Link></div>
                 </div>
               </div>
         </div>
