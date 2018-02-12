@@ -145,7 +145,6 @@ componentWillReceiveProps(newProps) {
                   placeholder="Search Attendies" onChange={this.filterList}
             />
         </FormControl>
-        <emptyAttendeesList className={classes.icon}/>
         <List >
           {this.state.attendies_list.map(value => (
           <AttendeeCard  key={value._id} data={value} dense className={classes.listItem}  />
