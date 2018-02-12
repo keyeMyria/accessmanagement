@@ -17,15 +17,23 @@ class SessionStore {
     @observable sessionusers =[];
     @observable selectedSession = {};
     @observable sessionEntries=[];
-    constructor(){
-      this.getSessions()
-    }
     @computed get selectedId() { return this.selectedSession.id; }
     // In strict mode, only actions can modify mobx state
-    @action setSessions = (sessions) => {this.sessions = [...sessions];this.loading = false;}
-    @action setSessionEntries = (entries) => {this.sessionEntries = [...entries];}
-    @action setsessionusers =(users) =>{this.sessionusers = [...users]}
-    @action selectSession = (session) => { this.selectedSession = session; }
+    @action setSessions = (sessions) => {
+      this.sessions.length=0;
+      this.sessions = [...sessions];
+      this.loading = false;}
+    @action setSessionEntries = (entries) => {
+      this.sessionEntries.length=0;
+      this.sessionEntries = [...entries];
+    }
+    @action setsessionusers =(users) =>{
+      this.sessionusers.length=0;
+      this.sessionusers = [...users]
+    }
+    @action selectSession = (session) => {
+      this.selectedSession = session;
+    }
     // Managing how we clear our observable state
     @action clearSelectedSession = () => { this.selectedSession = {}; }
     @action getSessions = async () => {

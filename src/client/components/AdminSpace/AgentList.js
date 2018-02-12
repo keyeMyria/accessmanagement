@@ -60,56 +60,40 @@ constructor(props){
     droppedBoxNames: []
 
   }
+  sessions.length=0 ;
+  agents.length=0;
+  SessionStore.getUnaffectedAgents().then(res=>{
+    res.data.getUnaffectedAgents.map(agent=>{
+      agents.push(agent);
+    })
+    sessions.push({
+      data : null ,
+      _id : 'default',
+      list : agents ,
+      lastDroppedItem: null
+    })
+    this.setState({
+      boxes : agents
+    })
+  })
+  SessionStore.getSessions().then(res=>{
+
+    res.data.getActiveSessions.map(item=>{
+      let list =[] ;
+      item.agents.map(agent=>{
+        list.push(agent);
+      })
+      sessions.push({lastDroppedItem: null , list :list , _id : item._id , data : item})
+    });
+    this.setState({
+      sessions: sessions
+    })
+  })
 
 }
   componentDidMount=()=>{
-    SessionStore.getUnaffectedAgents().then(res=>{
-      res.data.getUnaffectedAgents.map(agent=>{
-        agents.push(agent);
-      })
-      sessions.push({
-        data : null ,
-        _id : 'default',
-        list : agents ,
-        lastDroppedItem: null
-      })
-      this.setState({
-        boxes : agents
-      })
-    })
-    SessionStore.getSessions().then(res=>{
 
-      res.data.getActiveSessions.map(item=>{
-        let list =[] ;
-        item.agents.map(agent=>{
-          list.push(agent);
-        })
-        sessions.push({lastDroppedItem: null , list :list , _id : item._id , data : item})
-      });
-      this.setState({
-        sessions: sessions
-      })
-    })
-
-  }
-  componentWillReceiveProps=(newProps)=>{
-
-    // if(newProps.data.agentusers){
-    //   newProps.data.agentusers.map(agent=>{
-    //     agents.push(agent)
-    //   })
-    //   sessions.push({
-    //     data : null ,
-    //     _id : 'default',
-    //     list : agents ,
-    //     lastDroppedItem: null
-    //   })
-    //   this.setState({
-    //     boxes : agents
-    //   })
-    // }
-
-
+    console.log(sessions , agents)
   }
     isDropped(boxName) {
         return this.state.droppedBoxNames.findIndex(item => boxName === item._id ) > -1
