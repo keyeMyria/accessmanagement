@@ -14,6 +14,7 @@ class SessionStore {
     // Values marked as 'observable' can be watched by 'observers'
     @observable sessions = [];
     @observable loading = true;
+    @observable sessionusers =[];
     @observable selectedSession = {};
     @observable sessionEntries=[];
     constructor(){
@@ -23,7 +24,7 @@ class SessionStore {
     // In strict mode, only actions can modify mobx state
     @action setSessions = (sessions) => {this.sessions = [...sessions];this.loading = false;}
     @action setSessionEntries = (entries) => {this.sessionEntries = [...entries];}
-
+    @action setsessionusers =(users) =>{this.sessionusers = [...users]}
     @action selectSession = (session) => { this.selectedSession = session; }
     // Managing how we clear our observable state
     @action clearSelectedSession = () => { this.selectedSession = {}; }
@@ -106,6 +107,7 @@ class SessionStore {
               name
               forname
               avatar
+              tel
             }
           }
         }` ,
@@ -113,7 +115,7 @@ class SessionStore {
           sessionId : sessionId
         }
       }).then(res=>{
-        console.log(res)
+        this.setsessionusers(res.data.getGuestStatusBySession)
       })
     }
 }
