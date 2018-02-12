@@ -9,6 +9,7 @@ import _ from 'lodash';
 import moment from 'moment'
 import {observer} from 'mobx-react'
 import EventStore from '../../mobx/eventstore';
+import {Link} from 'react-router-dom';
 
 const styles = theme => ({
   cardInfos:{
