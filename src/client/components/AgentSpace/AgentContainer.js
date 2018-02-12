@@ -18,7 +18,7 @@ import { withStyles } from 'material-ui/styles';
 const drawerWidth = 240 ;
 const container = {
     overflow: 'auto',
-    marginBottom: '56px',
+    // marginBottom: '56px',
 };
 const styles = theme => ({
   drawerPaper: {

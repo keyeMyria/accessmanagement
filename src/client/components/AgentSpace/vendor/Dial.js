@@ -249,7 +249,7 @@ export default class Dial extends React.Component {
       <div ref='container' style={{
         'display': 'flex',
         'flex-direction': 'column',
-        'width': '71vw',
+        'width': '65vw',
         'justifyContent': 'center',
         'alignItems': 'center',
         'maxWidth': '691px',
@@ -257,9 +257,9 @@ export default class Dial extends React.Component {
       }}>
 
       <div style   = {{
-        'display': 'flex',
-        'justifyContent': 'center',
-        'alignContent': 'center',
+        // 'display': 'flex',
+        // 'justifyContent': 'center',
+        // 'alignContent': 'center',
       }}>
         {!!value && (
           <a

@@ -44,18 +44,22 @@
     align-items: center;
     flex-direction: column;
     padding: 0 20px;
+    margin: 70px 0 200px;
   }
   .section{
     width: 50vw;
     max-width: 487px;
     min-width: 344px;
-    margin-bottom: 50px;
+    margin-bottom: 17vw;
   }
   .liNumber{
       width: 10vw;
       height: 10vw;
+      min-width: 60px;
+      min-height: 60px;
   }
   .inputDial{
     width: 33vw;
+    min-width: 200px;
   }
 }
