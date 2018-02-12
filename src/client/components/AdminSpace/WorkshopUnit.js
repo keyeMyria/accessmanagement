@@ -9,6 +9,7 @@ import _ from 'lodash';
 import moment from 'moment'
 import {observer} from 'mobx-react'
 import EventStore from '../../mobx/eventstore';
+import {Link} from 'react-router-dom';
 
 const styles = theme => ({
   cardInfos:{
@@ -198,6 +199,12 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{details.users.length}</span>
                       </div>
                     </div>)}
+                    <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+                     الاطلاع على التحركات
+                    </Button></Link>
+                    <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+                    حالة الحضور
+                  </Button></Link></div>
                 </div>
               </div>
         </div>

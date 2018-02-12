@@ -19,13 +19,19 @@ class EventStore {
     @observable event_sessions =[];
     @observable event_workshops=[];
     // In strict mode, only actions can modify mobx state
-    @action setEvents = (events) => {this.events = [...events]; }
-    @action setUnfilteredEvents=(events) =>{this.unfiltered_events =[...events]}
+    @action setEvents = (events) => {
+      this.events.length=0;
+      this.events = [...events];
+    }
+    @action setUnfilteredEvents=(events) =>{
+      this.unfiltered_events.length=0;
+      this.unfiltered_events =[...events]
+    }
     @action addSessionToEventSessions =(session)=>{
       this.event_sessions.push(session)
     }
     @action setEventSessions = (sessions) => {
-
+      this.event_sessions.length=0;
       sessions.map(session=>{
 
         let users = this.getUserDataForChartOfSession(session._id);
@@ -37,7 +43,9 @@ class EventStore {
 
       })
     }
-    @action setEventWorkshops = (workshops) => {this.event_workshops = [...workshops]; }
+    @action setEventWorkshops = (workshops) => {
+      his.event_workshops.length=0;
+      this.event_workshops = [...workshops]; }
 
     @action selectEvent = (event) => {this.selectedEvent = event; }
     // Managing how we clear our observable state

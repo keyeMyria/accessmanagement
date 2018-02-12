@@ -22,7 +22,9 @@ class WorkshopStore {
 
 
     // In strict mode, only actions can modify mobx state
-    @action setWorkshops = (workshops) => {this.workshops = [...workshops]; }
+    @action setWorkshops = (workshops) => {
+      this.workshops.length=0;
+      this.workshops = [...workshops]; }
     @action selectWorkshop = (workshop) => {this.selectedWorkshop = workshop;}
     @action setSelectedWorkShopEvent = (event) =>{this.selectedEvent=event}
     @action getEvent = ()=>{

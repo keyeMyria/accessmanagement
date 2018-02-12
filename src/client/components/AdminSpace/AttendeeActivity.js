@@ -35,7 +35,6 @@ const styles = theme => ({
  class AttendeeActivity  extends React.Component{
   render(){
     const {classes} = this.props;
-    console.log(this.props)
     if(this.props.data.loading==true)
       return(<div className={classes.root}><CircularProgress color="accent" /></div>);
       else if (this.props.data.activity==null || Object.keys(this.props.data.activity).length === 0) {

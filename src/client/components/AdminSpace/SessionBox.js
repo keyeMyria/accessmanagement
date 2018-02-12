@@ -12,7 +12,6 @@ class SessionBox extends Component {
 							cards: props.list ,
 							data:props.data
 						};
-						console.log(props.data)
 		}
 		pushCard(card) {
 		this.setState(update(this.state, {

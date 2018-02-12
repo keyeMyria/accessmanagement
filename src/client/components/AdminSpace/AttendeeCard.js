@@ -80,7 +80,7 @@ class AttendeeCard extends React.Component {
       <div>
         <ExpansionPanel className={classes.expandedPanelContainer}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}  style={ExpansionContainer}>
-            <Avatar src={`public/assets/avatars/${data.profile.avatar}`} style={avatarExpansion}/>
+            <Avatar src={`/public/assets/avatars/${data.profile.avatar}`} style={avatarExpansion}/>
             <div>
               <Typography type="title" gutterBottom>
                 {data.profile.name} {data.profile.forname}
