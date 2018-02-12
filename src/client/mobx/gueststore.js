@@ -75,7 +75,6 @@ class UserStore {
             id : userid
           }
         })
-        //console.log(role.data.getRoleNameByUserId)
         return role.data.getRoleNameByUserId ;
 
       }
@@ -153,7 +152,7 @@ class UserStore {
      }
    }).then(res=>{
      this.setWorkShop(res.data.getWorkshopByUserId);
-     if(res.data.getWorkshopByUserId.workshop)
+     if(res.data.getWorkshopByUserId!== null && res.data.getWorkshopByUserId.workshop)
      this.setUsers(res.data.getWorkshopByUserId.workshop.users)
    })
   }

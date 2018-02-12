@@ -2,14 +2,14 @@
   display: flex;
   height: 100%;
   width: 100%;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: row-reverse;
   padding: 0 20px;
 }
 .section{
   width: 50vw;
-  max-width: 487px;
+  max-width: 370px;
   min-width: 344px;
 }
 .liNumber{
@@ -20,8 +20,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 97px;
-    max-height: 97px;
+    max-width: 70px;
+    max-height: 70px;
 }
 .inputDial{
     border: none;
@@ -61,5 +61,35 @@
   .inputDial{
     width: 33vw;
     min-width: 200px;
+  }
+}
+@media screen and (max-width: 320px) {
+
+  .containerQrcodeDail{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 20px;
+    margin: 70px 0 250px;
+  }
+  .section{
+    width: 50vw;
+    max-width: 487px;
+    min-width: 344px;
+    margin-bottom: 17vw;
+  }
+  .liNumber{
+      width: 10vw;
+      height: 10vw;
+      min-width: 50px;
+      min-height: 50px;
+  }
+  .inputDial{
+    width: 33vw;
+    min-width: 200px;
+    margin-top: 140px;
   }
 }
