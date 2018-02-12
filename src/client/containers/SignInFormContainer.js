@@ -14,6 +14,7 @@ import Fingerprint from 'material-ui-icons/Fingerprint';
 import PhotoCamera from 'material-ui-icons/PhotoCamera';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
+import ButtonBase from 'material-ui/ButtonBase';
 import './css/SignInFormContainer.css';
 import { CSSTransitionGroup } from 'react-transition-group'
   // const container = {
@@ -53,20 +54,35 @@ import { CSSTransitionGroup } from 'react-transition-group'
     fontWeight:'300',
     };
 
-    const styleTypogTitle = {
+  const styleTypogTitle = {
       color:'#fff',
       fontFamily:'Changa',
       fontWeight:'300',
       };
 
-      const buttonQRCode= {
+  const QRCodeContainer= {
+      display:'flex',
+      flexDirection:'column',
+      justifyContent:'center',
+      };
+
+  const buttonQRCode= {
+        color:'rgba(255, 255, 255, 0.50)',
+        height:'300px',
+        width:'300px',
+        padding:'72px',
+        backgroundColor:'rgba(0, 0, 0, 0.20)',
+        border:'1px solid rgba(255, 255, 255, 0.30)',
+        };
+  const buttonQRCodeText= {
         color:'#00abc7',
         fontFamily:'Changa',
         fontWeight:'300',
         fontSize:'14pt',
-        height:'200px',
-        width:'200px',
+        padding:'8px',
+        marginTop:'32px',
         backgroundColor:'#fff',
+        borderRadius:'2px',
         };
   //
   //   const formLogin ={
@@ -91,7 +107,7 @@ import { CSSTransitionGroup } from 'react-transition-group'
 class SignInFormContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { errors: [] , user : null  , qrcodeauth : false};
+    this.state = { errors: [] , user : null  , qrcodeauth : false };
   }
   /**
    * Change the user object.
@@ -179,19 +195,39 @@ class SignInFormContainer extends React.Component {
                       user={this.state.user}
                     />
                 </div>
-                <Button raised color="accent" style={buttonQRCode} onClick={this.handleOpenQrCode}>
-                  Login with QR code
-                  <PhotoCamera />
-                </Button>
-                <div className="article">
-                  {(this.state.qrcodeauth)&&( <QrReader
-                   className="QRcode"
-                    delay={this.state.delay}
-                    onError={this.handleError}
-                    onScan={this.handleScan}
-                    facingMode="user"
-                  /> )}
+
+              <div style={QRCodeContainer}>
+                <div>
+                  {!this.state.qrcodeauth &&(<ButtonBase
+                      focusRipple
+                      style={buttonQRCode}
+                      onClick={this.handleOpenQrCode}
+                    >
+                      <span>
+                        <PhotoCamera style={{ height: 48, width:48 }}/>
+                        <Typography
+                          component="span"
+                          style={buttonQRCodeText}
+                        >
+                        تسجيل الدخول برمز QR
+                        </Typography>
+                      </span>
+                    </ButtonBase>)}
+                  </div>
+
+                  <div className="article">
+                    {(this.state.qrcodeauth)&&( <QrReader
+                     className="QRcode"
+                      delay={this.state.delay}
+                      onError={this.handleError}
+                      onScan={this.handleScan}
+                      facingMode="user"
+                    /> )}
+                  </div>
+
                 </div>
+
+
                 </CSSTransitionGroup>
             </div>
       </div>
