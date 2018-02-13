@@ -1,6 +1,7 @@
 import { observable, action, computed, useStrict } from 'mobx';
 import axios from 'axios';
 import { createApolloFetch } from 'apollo-fetch';
+import EventStore from './eventstore';
 useStrict(true);
 
 
@@ -15,11 +16,14 @@ class UserStore {
     @observable users = [];
     @observable loading = true;
     @observable agent_workshop ={};
+    @observable agent_session ={};
     @observable selectedUser = {};
     @computed get selectedId() { return this.selectedUser.id; }
     // In strict mode, only actions can modify mobx state
     @action setUsers = (users) => {this.users = [...users];this.loading=false; }
     @action setWorkShop = (workshop) => {this.agent_workshop = workshop; }
+    @action setSession = (session) => {this.agent_session = session; }
+
     @computed get selectWorkshopAgent() { return this.agent_workshop; }
 
     @action selectUser = (user) => {this.selectedUser = user; }
@@ -130,6 +134,11 @@ class UserStore {
      query : `query getWorkshopByUserId($id : ID!){
        getWorkshopByUserId(id :$id){
          _id
+         session{
+           _id
+           start_hour
+           end_hour
+         }
          workshop{
            _id
            name
@@ -151,9 +160,19 @@ class UserStore {
        id : userid
      }
    }).then(res=>{
-     this.setWorkShop(res.data.getWorkshopByUserId);
-     if(res.data.getWorkshopByUserId!== null && res.data.getWorkshopByUserId.workshop)
-     this.setUsers(res.data.getWorkshopByUserId.workshop.users)
+
+     if(res.data.getWorkshopByUserId!== null && res.data.getWorkshopByUserId.workshop!=null){
+        this.setWorkShop(res.data.getWorkshopByUserId);
+        this.setUsers(res.data.getWorkshopByUserId.workshop.users)
+
+     }
+     if(res.data.getWorkshopByUserId.session!=null){
+       this.setSession(res.data.getWorkshopByUserId.session);
+       let users = EventStore.getUserDataForChartOfSession(res.data.getWorkshopByUserId.session._id);
+       users.then(res=>{
+         this.setUsers(res.data.getUserDataForChartOfSession)
+       })
+     }
    })
   }
   @action alterGuestStatus =(guest , status , agent , workshop)=>{

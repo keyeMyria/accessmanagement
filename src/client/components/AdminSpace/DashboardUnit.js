@@ -23,42 +23,6 @@ const styles = theme => ({
     backgroundColor : '#053787',
     color :'white'
   } ,
-  //appBar: {
-  //  position: 'relative',
-  //},
-  //flex: {
-  //  flex: 1,
-  //},
-
-  //icon :{
-  //  maxWidth :'50%'
-  //} ,
-  //sessionItem :{
-  //  borderLeft : '8px solid #053787' ,
-  //  paddingTop : '5px'
-  //} ,
-  //workshopItem:{
-  //  borderLeft : '8px solid #FC4482' ,
-  //  marginTop : '5px',
-  //  minHeight : '80px'
-  //},
-  //sessionListWork:{
-  //  paddingTop :'0px' ,
-  //  paddingBottom : '0px',
-  //  marginTop : '0px'
-  //},
-  //workshopsessionitem:{
-  //  borderLeft : '8px solid #CECECE' ,
-  //  backgroundColor :'#F5F5F5',
-  //  minHeight : '30px',
-  //  marginLeft : '30px'
-  //},
-  //AddingButton :{
-  //  minHeight : '70px' ,
-  //  margin : '10px',
-  //  textTransform :'none' ,
-  //  fontsize : '0.2em'
-  //},
   userItem :{
     width : '50%' ,
     float : 'right'
