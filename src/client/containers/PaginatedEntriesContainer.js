@@ -8,8 +8,7 @@ import { graphql } from 'react-apollo'
 import gql from "graphql-tag"
 import ActivityHistory from '../components/AdminSpace/ActivityHistory';
 
-import {InfiniteLoader,AutoSizer,List} from "react-virtualized"
-import 'react-virtualized/styles.css'
+
 
 // import {List} from "immutable"
 

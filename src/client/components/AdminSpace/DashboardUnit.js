@@ -20,6 +20,9 @@ const styles = theme => ({
     justifyContent: 'center',
   },
   card: {
+    margin : '8px',
+  } ,
+  button: {
     backgroundColor : '#053787',
     color :'white'
   } ,
@@ -103,7 +106,7 @@ const containers={
      width: '90vw',
      maxWidth:'1200px',
      margin: '8px 16px',
-     boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+     boxShadow: '0 1px 4px 0 rgba(0,0,0,0.14)',
   },
    ChartContainer:{
      width: '50%',
@@ -139,7 +142,7 @@ class DashboardUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
-                  const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
+                  const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data= this.getUsersStatistics(users);
                   let end ;
                   let start = moment(moment(details.start_hour))
@@ -154,7 +157,7 @@ class DashboardUnit extends React.Component{
           <div style={containers.DetailContainer} key={details._id}>
             <div style={containers.ChartContainer}>
                 <PieChart width={400} height={400}>
-                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={100} outerRadius={110} fill="#00ABC7" label >
+                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={90} outerRadius={110} fill="#00ABC7" label >
                     {
                       data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
                     }
@@ -163,12 +166,6 @@ class DashboardUnit extends React.Component{
                       content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="Running Time"/>}>
                     </Label>
                   </Pie>
-                  <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#00abc7" >
-                    {
-                      data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
-                    }
-                  </Pie>
-                  <Tooltip/>
                 </PieChart>
               </div>
               <div style={containers.ChartContainer}>
@@ -201,10 +198,10 @@ class DashboardUnit extends React.Component{
                       </div>
                     </div>)
                   }
-                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                    الاطلاع على التحركات
                   </Button></Link>
-                  <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+                  <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                   حالة الحضور
                 </Button></Link></div>
                 </div>
