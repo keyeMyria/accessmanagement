@@ -12,6 +12,7 @@ import {red , lightblue} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 import Search from 'material-ui-icons/Search';
+import DirectionsRun from 'material-ui-icons/directionsRun';
 import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
@@ -191,12 +192,12 @@ else{
                   <Avatar alt="" src={`/public/assets/avatars/${value.profile.avatar}`} />
                   <ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText} />
                   <ListItemText primary={`${value.status}door`} className={classes.listItemText} />
-                  { value.status=='ABSCENT' ? 'Abscent' : `${value.status.toLowerCase()}door`}
+                  { value.status=='ABSCENT' ? <AirlineSeatReclineNormal/> :  `${value.status.toLowerCase()}door`}
 
 					{ value.status =="OUT" && (
                   <DirectionsWalk className={classes.OUT}/>
 					)}
-					{ value.status =="IN" && (
+					{ value.status == <DirectionsRun/> && (
                   <AirlineSeatReclineNormal className={classes.IN}/>
 					)}
 

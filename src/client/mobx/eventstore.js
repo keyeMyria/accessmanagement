@@ -289,6 +289,13 @@ class EventStore {
                 _id
                 username
                 status
+                profile{
+                  name
+                  forname
+                  avatar
+                  tel
+                  
+                }
               }
             }` ,
             variables :{

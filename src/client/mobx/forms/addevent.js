@@ -28,6 +28,12 @@ const fields = [{
   label: 'End Date',
   placeholder: 'Choose an Ending date',
   rules: 'required|date',
+} ,
+{
+  name :'importedfile',
+  label :'Choose a csv file to import your guests list',
+  type :'file'
+
 }];
 
 const hooks = {

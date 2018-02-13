@@ -38,7 +38,9 @@ class EnterExitListUser extends React.Component{
         ))}
       </List>
   </div>)
-    }
+}else{
+  return(<div>Either you're not affected to any workshop or no guest are present yet </div>)
+}
 
   }
 }

@@ -1,5 +1,6 @@
 import React    from 'react'
 import ReactDOM from 'react-dom'
+import ReactCodeInput from './react-code-input'
 import Clear from 'material-ui-icons/backspace';
 import Send from 'material-ui-icons/Send'
 class DialButton extends React.Component {
@@ -185,6 +186,7 @@ export default class Dial extends React.Component {
     } else if ('verify' === button.action) {
       this.props.handleValid(value)
     }
+    this.handleClickPad()
   }
   handleKeyPress(e) {
     const { capture, value } = this.state
@@ -243,6 +245,11 @@ export default class Dial extends React.Component {
       })
     }
   }
+  handleClickPad=()=>{
+    const element = this.child
+    console.log(element)
+    element.handleClickPad()
+  }
   render() {
     const { value, compact } = this.state
     return (
@@ -276,23 +283,11 @@ export default class Dial extends React.Component {
               'color'          : '#4d4d4d',
             }}>&times;</a>
         )}
-        <input className="inputDial"
-          style    = {{
-          // 'border'      : 'none',
-          // 'float'       : 'left',
-          // 'display'     : 'block',
-          // 'width'       : '26vw',
-          // 'fontSize'    : compact ? '24px' : '40px',
-          // 'minHeight'   : '47px',
-          // 'marginBottom': '20px',
-          // 'color'       : '#4d4d4d',
-          // 'maxWidth'    : '311px',
-        }}
-          onChange = {this.handleChange.bind(this)}
-          onFocus  = {this.endCapture.bind(this)}
-          onBlur   = {this.beginCapture.bind(this)}
-          type     = 'text'
-          value    = {value} />
+          <ReactCodeInput
+              value  = {value}
+              fields={4}
+              ref={instance => { this.child = instance; }}
+          />
           </div>
         <DialPad onClick={this.handleClick.bind(this)} compact={compact} />
       </div>

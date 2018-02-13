@@ -15,12 +15,12 @@ class WorkshopStore {
     // Values marked as 'observable' can be watched by 'observers'
     @observable state = 'loading' ;
     @observable workshops = [];
+    @observable users = [];
     @observable selectedWorkshop = {};
     @observable selectedEvent = {};
     @computed get selectedId() { return this.selectedWorkshop._id; }
     @action setStateAction = (state) => {this.state=state }
-
-
+    @observable agent_session ={};
     // In strict mode, only actions can modify mobx state
     @action setWorkshops = (workshops) => {
       this.workshops.length=0;
@@ -30,9 +30,14 @@ class WorkshopStore {
     @action getEvent = ()=>{
       return this.selectedEvent;
     }
+    @action setSession = (session) => {this.agent_session = session; }
+    @action setUsers=(users)=>{
+      this.users = users;
+    }
     // Managing how we clear our observable state
     @action clearSelectedWorkshop = () => { this.selectedWorkshop = {}; }
     @action addnewWorkshopToList =(work) =>{this.workshops.push(work);}
+
     // An example that's a little more complex
     @action getWorkshopsForEvent(eventid) {
   	//Managing Async tasks like ajax calls with Mobx actions
@@ -138,7 +143,19 @@ class WorkshopStore {
             id : userid
           }
         }).then(res=>{
-          this.selectWorkshop(res.data.getWorkshopByUserId)
+
+               if(res.data.getWorkshopByUserId!== null && res.data.getWorkshopByUserId.workshop!=null){
+                  this.selectWorkshop(res.data.getWorkshopByUserId);
+                  this.setUsers(res.data.getWorkshopByUserId.workshop.users)
+
+               }
+               if(res.data.getWorkshopByUserId.session!=null){
+                 this.setSession(res.data.getWorkshopByUserId.session);
+                 let users = EventStore.getUserDataForChartOfSession(res.data.getWorkshopByUserId.session._id);
+                 users.then(res=>{
+                   this.setUsers(res.data.getUserDataForChartOfSession)
+                 })
+               }
 
         })
       }

@@ -101,7 +101,6 @@ class VerifyEnterComponent extends React.Component{
     };
 
   componentDidUpdate(props){
-    console.log(this.props)
     if(this.props.userToEnter.hasOwnProperty('userId')&&this.props.userToEnter.userId.status=='IN' && this.state.open==false && this.state.displayed==false){
       this.setState({
         open:true ,
@@ -195,7 +194,7 @@ handleIconButtonRequestOpen = () => {
                 {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
                 <span className={classNames(classes.styleCommun , classes.profileFunction)}>
                 {this.props.userToEnter.userId.profile.function}</span>
-                <Button className={classes.button} raised color="primary" onClick={this.handleEnter}>
+                <Button className={classes.button} color="primary" onClick={this.handleEnter}>
                        دخول
                 </Button>
                 <span className={classNames(classes.styleCommun , classes.profileCin)}>
