@@ -27,7 +27,7 @@ const styles = theme => ({
     flexGrow: 1,
     position: 'relative',
     height: 200,
-  },
+    },
   suggestionsContainerOpen: {
     position: 'absolute',
     marginTop: theme.spacing.unit,
@@ -124,10 +124,6 @@ const backgroundAddUser = {
     };
     const styleBottomForm ={
       marginTop: '24px',
-      backgroundColor: '#00abc7',
-      color: '#fff',
-      borderRadius: '3px',
-      fontSize: '14px',
     };
     const styleAutosuggest ={
       marginTop: '15px',
@@ -353,7 +349,7 @@ render(){
             ))}
           </Select>
      </FormControl>
-        <Button raised type="submit" className="btn btn-primary" style={styleBottomForm}>
+        <Button raised type="submit" color="secondary" style={styleBottomForm}>
          حفظ المستخدم
       </Button>
 

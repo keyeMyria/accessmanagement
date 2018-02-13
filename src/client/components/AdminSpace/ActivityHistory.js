@@ -8,8 +8,6 @@ import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import { LinearProgress } from 'material-ui/Progress';
 import injectTapEventPlugin from 'react-tap-event-plugin'
-
-import {InfiniteLoader,AutoSizer,List} from "react-virtualized"
 import dateFormat from 'dateformat';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';

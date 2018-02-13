@@ -10,8 +10,8 @@ const theme = createMuiTheme({
     contrastText: '#fff',
     },
     secondary: {
-    main: '#00acc1',
-    contrastText: '#000',
+    main: '#00abc7',
+    contrastText: '#fff',
     },
   },
   status: {
@@ -43,7 +43,6 @@ const theme = createMuiTheme({
     },
     MuiButton: {
       root: {
-        // Name of the rule
         fontFamily: 'Changa',
       },
     },
