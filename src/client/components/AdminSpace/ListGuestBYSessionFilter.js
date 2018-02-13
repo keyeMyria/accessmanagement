@@ -2,6 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import SessionStore from '../../mobx/sessionstore';
 import AttendeeCard from './AttendeeCard'
+
 @observer
 class ListGuestBYSessionFilter extends React.Component{
   constructor(props){

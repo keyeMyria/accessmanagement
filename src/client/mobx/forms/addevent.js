@@ -9,11 +9,6 @@ const fields = [{
   placeholder: 'Insert Title',
   rules: 'required|string'
 }, {
-  name: 'numberAttendies',
-  label: 'nombre de présents',
-  placeholder: 'nombre de présents',
-  rules: 'required',
-}, {
   name: 'type',
   label: 'Event Type',
   placeholder: 'Choose an event type',
