@@ -21,9 +21,9 @@ class QReaderComponent extends Component {
 
   }
   verifySession=(data)=>{
-    if(data.workshop==null && data.workshop==null)
+    if(data.workshop==null && data.session==null)
       return false ;
-    if(data.workshop.session_empty==true && data.session.stat=='OFF')
+    if((data.workshop!=null && data.workshop.session_empty==true ) || (data.session!==null && data.session.stat=='OFF'))
       return false
     return true;
   }
@@ -60,7 +60,6 @@ class QReaderComponent extends Component {
     let id = localStorage.getItem('loogedin_id');
     let fetched_user = UserStore.fetchUserRole(id);
     fetched_user.then(res=>{
-      console.log(res)
       let role = res.role.name ;
       if(data){
         this.setState({
