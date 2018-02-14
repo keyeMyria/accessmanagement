@@ -56,6 +56,7 @@ import Avatar from 'material-ui/Avatar';
     color:'#fff',
     fontFamily:'Changa',
     fontWeight:'300',
+    marginBottom:'32px',
     };
 
   const styleTypogTitle = {

@@ -1,26 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import ExpansionPanel, {
-  ExpansionPanelDetails,
-   ExpansionPanelSummary,
-   ExpansionPanelActions,
-} from 'material-ui/ExpansionPanel';
+import List, {
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from 'material-ui/List';
 import Typography from 'material-ui/Typography';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import Grid from 'material-ui/Grid';
-import DirectionsRun from 'material-ui-icons/DirectionsRun';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import {red , lightblue} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Collapse from 'material-ui/transitions/Collapse';
 import { CircularProgress } from 'material-ui/Progress';
-import Chip from 'material-ui/Chip';
 import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import { Field, reduxForm ,reset } from 'redux-form';
@@ -30,8 +26,7 @@ import classNames from 'classnames';
 import Input, { InputLabel, InputAdornment  } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
-import gouvernement  , {whatido} from './vendor/states'
-import Paper from 'material-ui/Paper';
+import gouvernement  , {whatido} from './vendor/states';
 import IconButton from 'material-ui/IconButton';
 import getRawCanvas from './lib/qrcode.react';
 import pdfMake from "pdfmake/build/pdfmake";
@@ -44,10 +39,11 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
+import './vendor/GuestListManageable.css';
 import Delete from 'material-ui-icons/Delete';
-import GLOBAL_TEXTS  from '../../Badge_constants'
-import PictureAsPdf from 'material-ui-icons/PictureAsPdf'
-import gueststore from '../../mobx/gueststore'
+import GLOBAL_TEXTS  from '../../Badge_constants';
+import PictureAsPdf from 'material-ui-icons/PictureAsPdf';
+import gueststore from '../../mobx/gueststore';
 // Covered in the MobX Section
 import { observer } from 'mobx-react';
 // pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -65,12 +61,13 @@ pdfMake.fonts = {
    // }
 }
 const styles = theme => ({
-  root: {
-    width: '100%',
-    background: theme.palette.background.paper,
-        marginTop: '100px',
-  },
-  icon: {
+    root: {
+      width: '100%',
+    },
+    button: {
+      margin: theme.spacing.unit,
+    },
+    icon: {
       verticalAlign: 'bottom',
       height: 20,
       width: 20,
@@ -95,8 +92,32 @@ const styles = theme => ({
         textDecoration: 'underline',
       },
     },
-
 });
+
+const button= {
+    margin: '8px 4px',
+};
+
+const input= {
+    margin: '16px 8px',
+};
+
+const select= {
+    margin: '16px 8px',
+    width:'90%',
+};
+
+const ListOfGuests= {
+    background: '#fff',
+    boxShadow:'0 1px 4px 0 rgba(0,0,0,0.14)'
+};
+
+const FormContainer= {
+    textAlign:'right',
+    padding:'8px 16px',
+};
+
+
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
@@ -422,7 +443,7 @@ getDataUri = (url , callback) =>{
   render() {
     console.log(gueststore.loading)
     if(gueststore.loading){
-      return(<div><CircularProgress color="accent" /></div>);
+      return(<div><CircularProgress color="primary" /></div>);
 
     }
       else if (gueststore.users.length === 0 && gueststore.loading==false) {
@@ -445,13 +466,13 @@ getDataUri = (url , callback) =>{
 
         <div>
              <Dialog
-               open={this.state.open_remove_confirm}
-               transition={Transition}
-               keepMounted
-               onClose={this.handleClose}
-               aria-labelledby="alert-dialog-slide-title"
-               aria-describedby="alert-dialog-slide-description"
-             >
+                 open={this.state.open_remove_confirm}
+                 transition={Transition}
+                 keepMounted
+                 onClose={this.handleClose}
+                 aria-labelledby="alert-dialog-slide-title"
+                 aria-describedby="alert-dialog-slide-description"
+               >
                <DialogTitle id="alert-dialog-slide-title">
                  {"  Are you sure "}
                </DialogTitle>
@@ -462,120 +483,137 @@ getDataUri = (url , callback) =>{
                  </DialogContentText>
                </DialogContent>
                <DialogActions>
-                 <Button onClick={this.handleCloseRemoveConfirm} color="primary">
-                   Disagree
+                 <Button onClick={this.handleCloseRemoveConfirm} >
+                   Cancel
                  </Button>
-                 <Button onClick={this.handleRemoveUserRequest} color="primary">
+                 <Button onClick={this.handleRemoveUserRequest} color="secondary">
                    Agree
                  </Button>
                </DialogActions>
              </Dialog>
-             <Grid container spacing={24}>
-               <Grid item xs={4}>
-                {
-                   gueststore.users.map(value => (
-                    <ExpansionPanel expanded={false} key={value._id} onChange={() => {this.handleChange(value)}}>
 
-                    <ExpansionPanelSummary >
-                        <div className={styles.column}>
-                            <Avatar alt="" src={`public/assets/avatars/${value.profile.avatar}`} />
-                          </div>
-                          <div className={styles.column_medium}>
-                            <Typography>
-                            {value.identifiant}  {value.profile.name} {value.profile.forname}
-                           </Typography>
-                         </div>
-                         <div className={styles.column}><IconButton className={styles.button} aria-label="PDF" color="primary" onClick={()=>this.exportPDF(value)}><PictureAsPdf/></IconButton></div>
-                      </ExpansionPanelSummary>
-                       </ExpansionPanel>
-            ))}</Grid>
-        <Grid item xs={8}>
+             <Grid container spacing={0}>
+               <Grid item xs={12} sm={5} md={4} style={ListOfGuests}>
+                   <Button color="secondary" raised onClick={() => { this.exportAll()}} style={button}>
+                     Export all badges
+                   </Button>
+                   <Divider />
 
-          <div className={classNames(styles.helper)}>
-           <div className={styles.column}>
-             <Chip label={` Barbados`} className={styles.chip} />
-           </div>
+                    <List className="listGuests" >
+                      {
+                         gueststore.users.map(value => (
+                          <ListItem key={value._id} onChange={() => {this.handleChange(value)}} >
+                            <ListItemAvatar>
+                              <Avatar alt="" src={`public/assets/avatars/${value.profile.avatar}`} />
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={`${value.profile.name} ${value.profile.forname}`}
+                              secondary={value.identifiant}
+                            />
+                            <ListItemSecondaryAction>
+                              <IconButton aria-label="PDF" color="primary" onClick={()=>this.exportPDF(value)}>
+                                <PictureAsPdf/>
+                              </IconButton>
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                          ))}
+                    </List>
+              </Grid>
 
-         </div>
-         <form>
-               <Grid container spacing={24}>
-                  <Grid item xs={6}>
-                    <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.name : ''} />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField name="forname" type="text"  label=" اللقب " onBlur={(event)=>this.updatevalues('name' ,event)} defaultValue={gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.forname : ''}/>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField name="cin" type="text" onBlur={(event)=>this.updateUservalues('cin' ,event)} defaultValue={gueststore.selectedUser!=undefined ? gueststore.selectedUser.cin : ''} label=" رقم بطاقة التعريف الوطنية "/>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField name="tel" type="" onBlur={(event)=>this.updatevalues('tel' ,event)} defaultValue={gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.tel : ''} label=" الهاتف "/>
-                  </Grid>
-                   <Grid item xs={12}>
-                     <Select name ="function"
-                       onChange={(event)=>this.updatevalues('function' ,event)}
-                      label=" الصفة " value=''>
-                     {whatido.map(value => (
-                       <MenuItem
-                         key={value.value}
-                         value={value.label}
-                       >
-                         {value.label}
-                       </MenuItem>
-                     ))}</Select>
-                 </Grid>
-                     <Grid item xs={6}>
-                     <FormControl>
-                   <InputLabel htmlFor="name-multiple" >الولاية</InputLabel>
-                    <Select
-                      onChange={(event)=>this.updatevalues('region' ,event)}
-                      value=''
-                      input={<Input id="name-multiple" />}
+              <Grid item xs={12} sm={7} md={8} style={FormContainer}>
+                  <div className={classNames(styles.helper)}>
+                  </div>
+                  <form>
+                     <Grid container spacing={0}>
 
-                    >
-                      {gouvernement.map(city => (
-                        <MenuItem
-                          key={city.value}
-                          value={city.value}
-                        >
-                          {city.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
-              </FormControl>
-             </Grid>
-             <Grid item xs={6}>
-              <FormControl>
-                <InputLabel htmlFor="name-multiple" >المعتمدية</InputLabel>
-                 <Select
-                   onChange={(event)=>this.updatevalues('gouvernorat' ,event)}
-                   input={<Input id="name-multiple" />}
-                   value=''
-                 >
-                   {this.state.govSource.map(value => (
-                     <MenuItem
-                       key={value}
-                       value={value}
-                     >
-                       {value}
-                     </MenuItem>
-                   ))}
-                 </Select>
-             </FormControl></Grid></Grid>
-               <Button dense color="primary" onClick={this.updateUserWithProfileDataMutationTarget}>
-                 Save
-               </Button>
-               <Button dense color="primary" onClick={() => { this.exportPDF(this.state.selected_user)}}>
-                 export Badge
-               </Button>
-               <Button dense color="primary" onClick={() => { this.exportAll()}}>
-                 Export All
-               </Button>
-               <IconButton onClick={this.handleClickOpenRemoveConfirm} aria-label="Delete" color="primary">
-                 <Delete />
-               </IconButton>
-             </form>
-        </Grid>
+                          <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.name : ''} style={input}/>
+
+
+                          <TextField name="forname" type="text"  label=" اللقب " onBlur={(event)=>this.updatevalues('name' ,event)} defaultValue={gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.forname : ''} style={input}/>
+
+                        <Grid item xs={12}>
+                          <TextField name="cin" type="text" onBlur={(event)=>this.updateUservalues('cin' ,event)} defaultValue={gueststore.selectedUser!=undefined ? gueststore.selectedUser.cin : ''} label=" رقم بطاقة التعريف الوطنية " style={input}/>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField name="tel" type="" onBlur={(event)=>this.updatevalues('tel' ,event)} defaultValue={gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.tel : ''} label=" الهاتف " style={input}/>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                          <FormControl style={select}>
+                           <InputLabel>
+                              الصفة
+                           </InputLabel>
+                             <Select
+                               name ="function"
+                               onChange={(event)=>this.updatevalues('function' ,event)}
+                               label=" الصفة "
+                               value=''>
+                               {whatido.map(value => (
+                                 <MenuItem
+                                   key={value.value}
+                                   value={value.label}
+                                 >
+                                   {value.label}
+                                 </MenuItem>
+                               ))}
+                             </Select>
+                           </FormControl>
+                        </Grid>
+                        <Grid container>
+                          <Grid item xs={12} sm={6} md={4}>
+                          <FormControl style={select}>
+                           <InputLabel htmlFor="name-multiple" >الولاية</InputLabel>
+                            <Select
+                              onChange={(event)=>this.updatevalues('region' ,event)}
+                              value=''
+                              input={<Input id="name-multiple" />}
+
+                            >
+                              {gouvernement.map(city => (
+                                <MenuItem
+                                  key={city.value}
+                                  value={city.value}
+                                >
+                                  {city.label}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                      </FormControl>
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={4}>
+                        <FormControl style={select}>
+                            <InputLabel htmlFor="name-multiple" >المعتمدية</InputLabel>
+                               <Select
+                                 onChange={(event)=>this.updatevalues('gouvernorat' ,event)}
+                                 input={<Input id="name-multiple" />}
+                                 value=''
+                               >
+                                 {this.state.govSource.map(value => (
+                                   <MenuItem
+                                     key={value}
+                                     value={value}
+                                   >
+                                     {value}
+                                   </MenuItem>
+                                 ))}
+                               </Select>
+                            </FormControl>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                       <Button color="secondary" raised onClick={this.updateUserWithProfileDataMutationTarget} style={button}>
+                         Save
+                       </Button>
+                       <Button color="secondary" raised onClick={() => { this.exportPDF(this.state.selected_user)}} style={button}>
+                         export Badge
+                       </Button>
+                       <IconButton onClick={this.handleClickOpenRemoveConfirm} aria-label="Delete" color="accent" style={button}>
+                         <Delete />
+                       </IconButton>
+                       </Grid>
+
+                   </form>
+              </Grid>
             </Grid>
       </div>)
 
