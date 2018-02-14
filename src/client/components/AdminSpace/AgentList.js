@@ -141,7 +141,7 @@ constructor(props){
     render() {
       const { classes } = this.props;
       if(this.props.data.loading==true)
-        return(<div className={classes.root}><CircularProgress color="accent" /></div>);
+        return(<div className={classes.root}><CircularProgress color="primary" /></div>);
         else if (this.props.data.agentusers==null || Object.keys(this.props.data.agentusers).length === 0) {
             return (
                 <div className={classes.root}>

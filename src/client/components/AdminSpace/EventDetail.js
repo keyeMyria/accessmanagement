@@ -186,7 +186,7 @@ class EventDetail extends React.Component{
     const {classes} = this.props;
     if(WorkshopStore.state=='loading'){
       return(
-        <div><CircularProgress className={classes.progress} color="accent" /></div>);
+        <div><CircularProgress className={classes.progress} color="secondary" /></div>);
     }
 
     return(
@@ -214,7 +214,7 @@ class EventDetail extends React.Component{
          </Typography>
          </div>
          <DialogActions>
-           <Button raised color="secondary" onClick={this.startSessionAction}>
+           <Button raised="true" color="secondary" onClick={this.startSessionAction}>
              تسجيل
            </Button>
            <Button onClick={this.handleClose}>
@@ -245,7 +245,7 @@ class EventDetail extends React.Component{
           <WorkShopForm form={form} users={UserStore.users} onSuccess={this.handleClose}/>
         </div>
         <DialogActions>
-          <Button raised onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="secondary">
+          <Button raised="true" onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="secondary">
             إضافة
           </Button>
           <Button onClick={this.handleCloseWorkshop}>
@@ -256,7 +256,7 @@ class EventDetail extends React.Component{
 
       <div className={classes.container}>
       <div className={classes.header}>
-        <Button fab raised color="accent" aria-label="edit Event" className={classes.editButton}>
+        <Button fab raised="true" color="secondary" aria-label="edit Event" className={classes.editButton}>
           <ModeEditIcon />
         </Button>
           <h2 className={classes.title}>

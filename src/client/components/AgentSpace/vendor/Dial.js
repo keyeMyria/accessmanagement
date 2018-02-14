@@ -294,7 +294,7 @@ export default class Dial extends React.Component {
             }}>&times;</a>
         )}
         <ReactCodeInput
-                   //value  = {value}
+                   type  = "password"
                    fields={4}
                    //disabled={true}
                    ref={instance => { this.child = instance; }}
