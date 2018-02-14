@@ -66,6 +66,7 @@ class QrCodeAuthentication extends React.Component{
           if(response.data.signIn.user.role.name=="admin")
             this.props.history.push('/listguests');
         } else {
+          console.log(response.data.errors)
           this.setState({
             errors: response.data.signIn.errors
           });
@@ -92,7 +93,7 @@ class QrCodeAuthentication extends React.Component{
              onSubmit={this.handleSubmit.bind(this)}
              errors={this.state.errors}
              username={user.username}
-             user={this.state.user}
+             user={null}
            />
          </div>
 

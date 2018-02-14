@@ -17,7 +17,7 @@ class UserStore {
     @observable loading = true;
     @observable agent_workshop ={};
     @observable agent_session ={};
-    @observable selectedUser = {};
+    @observable selectedUser = null;
     @computed get selectedId() { return this.selectedUser.id; }
     // In strict mode, only actions can modify mobx state
     @action setUsers = (users) => {this.users = [...users];this.loading=false; }
@@ -82,7 +82,7 @@ class UserStore {
         return role.data.getRoleNameByUserId ;
 
       }
-      @action getUserByID =(userid)=>{
+      @action getUserByID =(userid , callback)=>{
        fetch({
           query:`query userId($id:String){
             userId(id:$id){
@@ -103,6 +103,7 @@ class UserStore {
         }).then(res=>{
           if(res.data!=null){
             this.selectUser(res.data.userId)
+            callback(res.data.userId)
           }
         })
     }
