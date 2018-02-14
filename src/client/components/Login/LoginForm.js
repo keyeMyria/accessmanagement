@@ -117,7 +117,7 @@ class SignInForm extends React.Component{
           {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
           {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" />)}
           <Field name="password" type="password" component={this.renderTextField} label="كلمة  المرور" />
-          <Button raised type="submit" className="btn btn-primary" style={buttonLogin}> الدخول </Button>
+          <Button raised="true" type="submit" className="btn btn-primary" style={buttonLogin}> الدخول </Button>
         </form>
     );
   }
@@ -143,6 +143,6 @@ const validate = (values) => {
 // Decorate the form component
 const Reduxloginform= reduxForm({
   form: 'SignInForm', // a unique name for this form
-  validate
+  //validate
 })(SignInForm);
 export default withStyles(styles)(Reduxloginform)

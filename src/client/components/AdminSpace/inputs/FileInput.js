@@ -1,29 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { observer } from 'mobx-react';
 import {LOCAL_IMPORT_PATH} from '../../../app/config'
+
+@observer
 class FileInput extends React.Component{
 	constructor(props) {
 		super(props);
-
-		this.handleFile = this.handleFile.bind(this);
+		this.state={
+			value:""
+		}
 	}
 
-  handleFile(e) {
+  handleFile=(e)=>{
     var reader = new FileReader();
     var file = e.target.files[0];
 		const data = new FormData();
 		data.set('importedfile',file, file.filename);
     // '/files' is your node.js route that triggers our middleware
     axios.post(LOCAL_IMPORT_PATH, data).then((response) => {
-			this.props.setSuccessResponse(response.data.filename);
+			this.props.form.$('file').value = response.data.originalname
     });
     if (!file) return;
   }
 
   render() {
+		const {field , type , placeholder} = this.props
     return (
-      <input ref="in" type="file" accept="csv/*" onChange={this.handleFile} name="importedfile" />
+      <div><input ref="file" type="file" accept=".js" onChange={this.handleFile} name="importedfile"/>
+			<input type="hidden" {...field.bind()} value={this.state.value} /></div>
     );
   }
 }

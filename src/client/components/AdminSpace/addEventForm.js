@@ -12,6 +12,7 @@ export default observer(({ form , onSuccess }) => (
     <MaterialTextField field={form.$('place')} />
     <MaterialDatePicker field={form.$('start_date')}/>
     <MaterialDatePicker field={form.$('end_date')}/>
+    <FileInput field={form.$('file')} form={form}/>
 
     <br />
     <p>{form.error}</p>

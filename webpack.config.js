@@ -14,7 +14,7 @@ const paths = {
   SRC: path.resolve(__dirname, 'src/client'),
   JS: path.resolve(__dirname, 'src/js'),
 };
-const PUBLIC_PATH = 'http://192.168.2.8:8080/';
+const PUBLIC_PATH = 'http://localhost:8080/';
 
 var config = {
   entry: APP_DIR + '/app/index.jsx',
@@ -98,7 +98,7 @@ devServer: {
     host: '0.0.0.0',
     proxy: {
       '/manage-single-event/*': {
-        target: 'http://192.168.2.8:8080/',
+        target: 'http://localhost:8080/',
         pathRewrite: { '^/manage-single-event': '' },
       }
     }

@@ -133,9 +133,10 @@ class EventStore {
     });
       }
       @action addNewEvent(data){
+        console.log(data)
         fetch({
-          query: `mutation addNewEvent($title :String!, $type:String! , $end_date:String! , $start_date:String! , $numberAttendies:Int!) {
-            addNewEvent(title:$title , type:$type , end_date:$end_date , start_date:$start_date , numberAttendies:$numberAttendies)  {
+          query: `mutation addNewEvent($title :String!, $type:String! , $end_date:String! , $start_date:String! , $file:String!) {
+            addNewEvent(title:$title , type:$type , end_date:$end_date , start_date:$start_date , file:$file)  {
               _id
               title
               type
@@ -149,7 +150,7 @@ class EventStore {
             type : data.type ,
             end_date : data.end_date ,
             start_date : data.start_date ,
-            numberAttendies : data.numberAttendies
+            file : data.file
           }
         }).then(res => {
           this.getEvents()
@@ -294,7 +295,7 @@ class EventStore {
                   forname
                   avatar
                   tel
-                  
+
                 }
               }
             }` ,
