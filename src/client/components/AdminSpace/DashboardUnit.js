@@ -10,7 +10,7 @@ import moment from 'moment'
 import {observer} from 'mobx-react'
 import EventStore from '../../mobx/eventstore';
 import {Link} from 'react-router-dom';
-import Grid from 'material-ui/Grid';
+import './vendor/dashboard.css';
 
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
 const styles = theme => ({
@@ -20,16 +20,16 @@ const styles = theme => ({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  card: {
+  card:{
     margin : '8px',
-  } ,
-  button: {
+  },
+  button:{
     margin:'8px',
-  } ,
-  userItem :{
+  },
+  userItem:{
     width : '50%' ,
     float : 'right'
-  } ,
+  },
   workshopName:{
    color:'#013084',
    fontSize: '2rem',
@@ -53,37 +53,8 @@ const styles = theme => ({
     fontWeight: '500',
     fontFamily: 'Roboto, arial, sans-serif',
   },
-
 });
-const containers={
-  container:{
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  DetailContainer:{
-    alignItems: 'center',
-    // justifyContent: 'center',
-    backgroundColor: '#fff',
-     width: '90vw',
-     maxWidth:'1200px',
-     margin: '8px 16px',
-     padding:'16px',
-     boxShadow: '0 1px 4px 0 rgba(0,0,0,0.14)',
-  },
-   ChartContainer:{
-      justifyContent: 'center',
-   },
-  containerDetail :{
-    // fontSize: 'small',
-    // width : '100%' ,
-    // float : 'left'
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '24px',
-  }
-}
+
 const styleEndTime = {
     borderRight: '1px solid #eee',
 };
@@ -113,9 +84,9 @@ class DashboardUnit extends React.Component{
         }
         let difference = moment.duration(end.diff(start))
         return(
-          <div style={containers.container}>
-          <Grid container style={containers.DetailContainer} key={details._id}>
-            <Grid item xs={12} sm={6} style={containers.ChartContainer}>
+          <div className="DashboardContainer">
+          <div  key={details._id} className="ChartContainer">
+            <div  className="PieContainer">
                 <PieChart width={400} height={400}>
                   <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
                     {
@@ -133,13 +104,13 @@ class DashboardUnit extends React.Component{
                   </Pie>
                   <Tooltip/>
                 </PieChart>
-              </Grid>
-              <Grid item xs={12} sm={6} style={containers.ChartContainer}>
+              </div>
+              <div className="ChartInfosContainer">
                 <div className={classes.cardInfos}>
                   <Typography className={classes.workshopName}>
                     {name}
                   </Typography>
-                  <div style={containers.containerDetail}>
+                  <div className="ChartInfos">
                     <Button fab disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
@@ -157,7 +128,7 @@ class DashboardUnit extends React.Component{
                     </div>)}
                   </div>
                       {
-                        (details.users!=undefined)&&(<div  style={containers.containerDetail}>
+                        (details.users!=undefined)&&(<div  className="ChartInfos">
                       <Button fab disabled>
                         <People color="action"/>
                       </Button>
@@ -177,8 +148,8 @@ class DashboardUnit extends React.Component{
                   حالة الحضور
                 </Button></Link></div>
                 </div>
-              </Grid>
-        </Grid>
+              </div>
+        </div>
       </div>)
   }
 
