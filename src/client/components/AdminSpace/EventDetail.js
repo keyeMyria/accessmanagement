@@ -299,7 +299,7 @@ class EventDetail extends React.Component{
                 <Button onClick={()=>this.stopSessionAction(item._id)}  className={classes.stop}>
                   <div className={classes.startStopSession}>
                     <Stop color="accent" />
-                      stop session
+                    إنهاء الجلسة
                   </div>
                 </Button>
               )}
@@ -327,7 +327,7 @@ class EventDetail extends React.Component{
                     <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
                     <div className={classes.startStopSession}>
                       <PlayArrow />
-                      Start session
+                      تسجيل جلسة
                       </div>
                     </Button>
                 )}
