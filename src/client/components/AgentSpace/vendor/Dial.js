@@ -1,8 +1,9 @@
 import React    from 'react'
 import ReactDOM from 'react-dom'
-import ReactCodeInput from 'react-code-input'
-import Clear from 'material-ui-icons/backspace';
-import Send from 'material-ui-icons/Send'
+import ReactCodeInput from 'react-code-input';
+import Close from 'material-ui-icons/Close';
+import Send from 'material-ui-icons/Send';
+import Button from 'material-ui/Button';
 class DialButton extends React.Component {
   constructor(props) {
     super(props)
@@ -86,16 +87,16 @@ export class DialPad extends React.Component {
       {
         symbol : '9'
       },
-      {
-        icon   : (<Send />),
-        action : 'verify'
-      },
+      // {
+      //   icon   : (z),
+      //   action : 'verify'
+      // },
       {
         symbol : '0'
       },
       {
-        icon   : (<Clear />),
-        action : 'hangup'
+        icon   : (<Close/>),
+        action : 'reset'
       }
     ]
     return (
@@ -135,6 +136,11 @@ export class DialPad extends React.Component {
 
               }} key={i}>
                 <DialButton {...button} compact={compact} />
+                {this.props.increment==4 &&(
+                  <Button >
+                      <Send />
+                    </Button>
+                )}
               </li>
             ))}
           </ol>
@@ -179,24 +185,31 @@ export default class Dial extends React.Component {
   handleClick(button) {
     const { value } = this.state
     if (!button.action) {
-      let i = this.state.increment;
       this.setState({
-        increment:i+1,
+        //increment:i+1,
         value : `${value}${button.symbol}`
       })
     } else if ('call' === button.action) {
-      console.log(`Call number ${value}`)
     } else if ('verify' === button.action) {
       this.props.handleValid(value)
     }
-    let input=this.child.state.input;
+    else if ('reset' === button.action) {
+      this.reset()
+    }
+    if (this.state.increment<=3) {
+      let i = this.state.increment;
+      this.setState({
+          increment:i+1,
+      })
+      let input=this.child.state.input;
 
-    input[this.state.increment]=`${button.symbol}`;
-    this.child.setState({
-      input:input
-    })
-    console.log(this.child.state.input)
-    //this.handleClickPad()
+      input[this.state.increment]=`${button.symbol}`;
+      this.child.setState({
+        input:input
+      })
+      //this.handleClickPad()
+    }
+
   }
   handleKeyPress(e) {
     const { capture, value } = this.state
@@ -244,7 +257,13 @@ export default class Dial extends React.Component {
   }
   reset() {
     this.setState({
-      value : ''
+      value : '',
+      increment : 0
+    })
+    let input =this.child.state.input;
+    input.length=0;
+    this.child.setState({
+      input:input
     })
   }
   handleChange(e) {
@@ -257,7 +276,6 @@ export default class Dial extends React.Component {
   }
   handleClickPad=()=>{
     const element = this.child
-    console.log(element)
     element.handleClickPad()
   }
   render() {
@@ -278,29 +296,47 @@ export default class Dial extends React.Component {
         // 'justifyContent': 'center',
         // 'alignContent': 'center',
       }}>
-        {!!value && (
-          <a
-            href    = '#'
-            onClick = {this.reset.bind(this)}
-            style   = {{
-              'padding'        : '5px 14px',
-              'fontWeight'     : 'bold',
-              'float'          : 'right',
-              'textAlign'      : 'right',
-              'marginTop'      : '11px',
-              'fontSize'       : '30px',
-              'textDecoration' : 'none',
-              'color'          : '#4d4d4d',
-            }}>&times;</a>
-        )}
+        {
+          // !!value && (
+          // <a
+          //   href    = '#'
+          //   onClick = {this.reset.bind(this)}
+          //   style   = {{
+          //     'padding'        : '5px 14px',
+          //     'fontWeight'     : 'bold',
+          //     'float'          : 'right',
+          //     'textAlign'      : 'right',
+          //     'marginTop'      : '11px',
+          //     'fontSize'       : '30px',
+          //     'textDecoration' : 'none',
+          //     'color'          : '#4d4d4d',
+          //   }}>&times;</a>
+        // )
+      }
+        <input className="inputDial"
+          style    = {{
+          // 'border'      : 'none',
+          // 'float'       : 'left',
+          // 'display'     : 'block',
+          // 'width'       : '26vw',
+          // 'fontSize'    : compact ? '24px' : '40px',
+          // 'minHeight'   : '47px',
+          // 'marginBottom': '20px',
+          // 'color'       : '#4d4d4d',
+          // 'maxWidth'    : '311px',
+        }}
+          onChange = {this.handleChange.bind(this)}
+          onFocus  = {this.endCapture.bind(this)}
+          onBlur   = {this.beginCapture.bind(this)}
+          type     = 'hidden'
+          value    = {value} />
         <ReactCodeInput
-                   type  = "password"
-                   fields={4}
-                   //disabled={true}
+                   fields={0}
+                   disabled={true}
                    ref={instance => { this.child = instance; }}
                />
           </div>
-        <DialPad onClick={this.handleClick.bind(this)} compact={compact} />
+        <DialPad increment={this.state.increment} onClick={this.handleClick.bind(this)} compact={compact} />
       </div>
     )
   }
