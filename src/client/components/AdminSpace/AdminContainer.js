@@ -134,36 +134,40 @@ cancelEventDashboardBottomBarElements=()=>{
             </IconButton>
           </div>
           <Divider />
-          <Link to="/manageagents" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
-            <ListItem button>
-              <ListItemIcon>
-                <VerifiedUser/>
-              </ListItemIcon>
-              <ListItemText primary="Manage Agents" />
-            </ListItem>
-          </Link>
-          <Link to="/manageguest" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
-            <ListItem button>
-              <ListItemIcon>
-               <AssignmentInd />
-              </ListItemIcon>
-              <ListItemText primary="Manage Guests" />
-            </ListItem>
-          </Link>
+
           <Link to="/managevents" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
               <ListItemIcon>
                 <Event />
               </ListItemIcon>
-              <ListItemText primary="Manage Events" />
+              <ListItemText primary="ادارة الاحداث" />
             </ListItem>
           </Link>
+
+          <Link to="/manageagents" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
+            <ListItem button>
+              <ListItemIcon>
+                <VerifiedUser/>
+              </ListItemIcon>
+              <ListItemText primary="تعيين الوكلاء" />
+            </ListItem>
+          </Link>
+
+          <Link to="/manageguest" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
+            <ListItem button>
+              <ListItemIcon>
+               <AssignmentInd />
+              </ListItemIcon>
+              <ListItemText primary="ادارة الحضور" />
+            </ListItem>
+          </Link>
+
           <Link to="/adduser" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
               <ListItemIcon>
                 <PersonAdd />
               </ListItemIcon>
-              <ListItemText primary="Add Attendee" />
+              <ListItemText primary="إضافة مستخدم" />
             </ListItem>
           </Link>
 
@@ -172,9 +176,10 @@ cancelEventDashboardBottomBarElements=()=>{
                 <ListItemIcon>
                   <ExitToApp />
                 </ListItemIcon>
-                <ListItemText primary="Log out" />
+                <ListItemText primary="الخروج" />
               </ListItem>
             </Link>
+
         </div>
       </Drawer>
 
