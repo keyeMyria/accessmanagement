@@ -11,7 +11,7 @@ import {observer} from 'mobx-react'
 import EventStore from '../../mobx/eventstore';
 import {Link} from 'react-router-dom';
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
-import Grid from 'material-ui/Grid';
+import './vendor/dashboard.css';
 
 const styles = theme => ({
   cardInfos:{
@@ -20,49 +20,13 @@ const styles = theme => ({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  card: {
+  card:{
     backgroundColor : '#053787',
     color :'white'
-  } ,
+  },
   button: {
     margin:'8px',
-  } ,
-  //appBar: {
-  //  position: 'relative',
-  //},
-  //flex: {
-  //  flex: 1,
-  //},
-
-  //icon :{
-  //  maxWidth :'50%'
-  //} ,
-  //sessionItem :{
-  //  borderLeft : '8px solid #053787' ,
-  //  paddingTop : '5px'
-  //} ,
-  //workshopItem:{
-  //  borderLeft : '8px solid #FC4482' ,
-  //  marginTop : '5px',
-  //  minHeight : '80px'
-  //},
-  //sessionListWork:{
-  //  paddingTop :'0px' ,
-  //  paddingBottom : '0px',
-  //  marginTop : '0px'
-  //},
-  //workshopsessionitem:{
-  //  borderLeft : '8px solid #CECECE' ,
-  //  backgroundColor :'#F5F5F5',
-  //  minHeight : '30px',
-  //  marginLeft : '30px'
-  //},
-  //AddingButton :{
-  //  minHeight : '70px' ,
-  //  margin : '10px',
-  //  textTransform :'none' ,
-  //  fontsize : '0.2em'
-  //},
+  },
   userItem :{
     width : '50%' ,
     float : 'right'
@@ -90,37 +54,8 @@ const styles = theme => ({
     fontWeight: '500',
     fontFamily: 'Roboto, arial, sans-serif',
   },
-
 });
-const containers={
-  container:{
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  DetailContainer:{
-    alignItems: 'center',
-    // justifyContent: 'center',
-    backgroundColor: '#fff',
-     width: '90vw',
-     maxWidth:'1200px',
-     margin: '8px 16px',
-     padding:'16px',
-     boxShadow: '0 1px 4px 0 rgba(0,0,0,0.14)',
-  },
-   ChartContainer:{
-      justifyContent: 'center',
-   },
-  containerDetail :{
-    // fontSize: 'small',
-    // width : '100%' ,
-    // float : 'left'
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '24px',
-  }
-}
+
 const styleEndTime = {
     borderRight: '1px solid #eee',
 };
@@ -151,16 +86,16 @@ class WorkshopUnit extends React.Component{
         }
         let difference = moment.duration(end.diff(start))
         return(
-          <div style={containers.container}>
-            <Grid container style={containers.DetailContainer} key={details._id}>
-              <Grid item xs={12} sm={6} style={containers.ChartContainer}>
+          <div className="DashboardContainer">
+            <div key={details._id} className="ChartContainer">
+              <div className="PieContainer">
                 <PieChart width={400} height={400}>
-                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
+                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius="88%" outerRadius="90%" label>
                     {
                       data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
                     }
                   </Pie>
-                  <Pie data={data} cx="50%" cy="50%" innerRadius={90} outerRadius={115} fill="#00abc7" >
+                  <Pie data={data} cx="50%" cy="50%" innerRadius="60%" outerRadius="70%" fill="#00abc7" >
                     {
                       data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                     }
@@ -171,14 +106,14 @@ class WorkshopUnit extends React.Component{
                   </Pie>
                   <Tooltip/>
                 </PieChart>
-              </Grid>
-              <Grid item xs={12} sm={6} style={containers.ChartContainer}>
+              </div>
+              <div className="ChartInfosContainer">
                 <div className={classes.cardInfos}>
                   <Typography className={classes.workshopName}>
                     {name}
                   </Typography>
-                  <div style={containers.containerDetail}>
-                    <Button fab="true" disabled><QueryBuilder color="action"/>
+                  <div className="ChartInfos">
+                    <Button fab disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
                       <span className={classes.timeDetailText}>
@@ -194,8 +129,8 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
-                      {(details.users!=undefined)&&(<div  style={containers.containerDetail}>
-                      <Button fab="true" disabled>
+                      {(details.users!=undefined)&&(<div className="ChartInfos">
+                      <Button fab disabled>
                         <People color="action"/>
                       </Button>
 
@@ -206,15 +141,15 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{details.users.length}</span>
                       </div>
                     </div>)}
-                    <div><Link to={`/sessionactivity/${details._id}`}><Button raised="true" color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                    <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                      الاطلاع على التحركات
                     </Button></Link>
-                    <Link to={`/listusersbysession/${details._id}`}><Button raised="true" color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                    <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                     حالة الحضور
                   </Button></Link></div>
                 </div>
-              </Grid>
-        </Grid>
+              </div>
+        </div>
       </div>)
       }
   }
@@ -230,7 +165,7 @@ function CustomLabel({viewBox, value1, value2}){
   return (
    <text x={cx} y={cy} className="recharts-text recharts-label" textAnchor="middle" dominantBaseline="central">
       <tspan x={cx} y={cy-13} fontSize="14" fill="#a0a0a0" >{value1}</tspan>
-      <tspan x={cx} y={cy+12} fontSize="20" fill="#000000" font-family="Roboto">{value2}</tspan>
+      <tspan x={cx} y={cy+12} fontSize="20" fill="#000000" fontFamily="Roboto">{value2}</tspan>
    </text>
   )
 }

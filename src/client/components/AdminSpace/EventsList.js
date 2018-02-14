@@ -168,7 +168,7 @@ class EventsList extends React.Component{
 					</li>
          ))}
     </ul>
-    <Button fab="true" color="secondary" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">
+    <Button fab color="secondary" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">
       <Add style={{
         color:'#ffff',
       }}/>
