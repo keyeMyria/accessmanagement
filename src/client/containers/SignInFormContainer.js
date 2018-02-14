@@ -16,7 +16,11 @@ import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
 import ButtonBase from 'material-ui/ButtonBase';
 import './css/SignInFormContainer.css';
-import { CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group';
+import UserStore from '../mobx/gueststore';
+import {observer} from 'mobx-react';
+import {withStyles} from 'material-ui/styles';
+import Avatar from 'material-ui/Avatar';
   // const container = {
   //   display: 'flex' ,
   //   flexDirection: 'row',
@@ -84,30 +88,59 @@ import { CSSTransitionGroup } from 'react-transition-group'
         backgroundColor:'#fff',
         borderRadius:'2px',
         };
-  //
-  //   const formLogin ={
-  //     display: 'flex',
-  //     flexDirection: 'column',
-  //     height: '100vh',
-  //     justifyContent: 'center',
-  //     alignContent: 'center',
-  //     width: '50vw',
-  //   }
-  //   const containerQRcode ={
-  //     width: '50vw',
-  //     display: 'flex',
-  //     flexDirection: 'row',
-  //     justifyContent: 'center',
-  //     alignItems: 'center',
-  //   }
-  //   const QRcode ={
-  //     width: '30vw',
-  //   }
+        const styles = {
+          row: {
+            display: 'flex',
+            justifyContent: 'center',
+          },
+          avatar: {
+            margin: 10,
+          },
+          bigAvatar: {
+            width: 170 ,
+            height: 170
+          },
+          container:{
 
+              backgroundColor: '#013084',
+              width: '100vw',
+              height: '100vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              position: 'absolute',
+              alignItems: 'center',
+              overflow: 'hidden',
+              zIndex: '-1',
+              minHeight: '600px',
+          } ,
+          infoLogin :{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100vh',
+              justifyContent: 'center',
+              alignContent: 'center',
+          }
+        };
+
+@observer
 class SignInFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { errors: [] , user : null  , qrcodeauth : false };
+    if(props.match.params.uid){
+      UserStore.getUserByID(props.match.params.uid , this.setUserData);
+
+    }
+  }
+  setUserData=(user)=>{
+    console.log(user)
+    this.setState({
+      user :user
+    })
+  }
+  ComponentWillReceiveProps=(props)=>{
+
   }
   /**
    * Change the user object.
@@ -162,76 +195,106 @@ class SignInFormContainer extends React.Component {
 
   render() {
     const { classes } = this.props;
-    return (
-      <div>
-        <div className="containerBackground">
-          <div className="topBackLoginC">
-          <TopBackLogin/>
+    if(this.props.match.params.uid){
+      if(this.state.user!=null)
+        return(
+          <div className={classes.container}>
+            <div className={classes.infoLogin}>
+              <Avatar
+               src={`/public/assets/avatars/${this.state.user.profile.avatar}`}
+               className={classes.bigAvatar}
+             />
+             <h3>Identified As</h3>
+             <p>{this.state.user.profile.forname} {this.state.user.profile.name}</p>
+             <LoginForm
+               onSubmit={this.handleSubmit.bind(this)}
+               errors={this.state.errors}
+               username={this.state.user.username}
+               user={this.state.user}
+             />
+           </div>
+
+         </div>)
+         else{
+           return(<div>Loading...</div>)
+         }
+
+
+    }
+    else{
+      return (
+        <div>
+          <div className="containerBackground">
+            <div className="topBackLoginC">
+            <TopBackLogin/>
+            </div>
+            <div className="bottomBackLoginC">
+            <BottomBackLogin/>
+            </div>
           </div>
-          <div className="bottomBackLoginC">
-          <BottomBackLogin/>
-          </div>
+          <div className="container">
+              <div className="section1">
+                <Typography type="display2" style = {styleTypog2}>
+                إدارة الأحداث والحضور
+                </Typography>
+              </div>
+
+                <CSSTransitionGroup
+                  className="section2"
+                  transitionName="qrcode"
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={300}>
+                  <div className="formLogin article">
+                      <Typography type="headline" gutterBottom style={styleTypogTitle}>
+                          تسجيل الدخول
+                      </Typography>
+                      <LoginForm
+                        onSubmit={this.handleSubmit.bind(this)}
+                        errors={this.state.errors}
+                        username={null}
+                        user={this.state.user}
+                      />
+                  </div>
+
+                <div style={QRCodeContainer}>
+                  <div>
+                    {!this.state.qrcodeauth &&(<ButtonBase
+                        focusRipple
+                        style={buttonQRCode}
+                        onClick={this.handleOpenQrCode}
+                      >
+                        <span>
+                          <PhotoCamera style={{ height: 48, width:48 }}/>
+                          <Typography
+                            component="span"
+                            style={buttonQRCodeText}
+                          >
+                          تسجيل الدخول برمز QR
+                          </Typography>
+                        </span>
+                      </ButtonBase>)}
+                    </div>
+
+                    <div className="article">
+                      {(this.state.qrcodeauth)&&( <QrReader
+                       className="QRcode"
+                        delay={this.state.delay}
+                        onError={this.handleError}
+                        onScan={this.handleScan}
+                        facingMode="user"
+                      /> )}
+                    </div>
+
+                  </div>
+
+
+                  </CSSTransitionGroup>
+              </div>
         </div>
-        <div className="container">
-            <div className="section1">
-              <Typography type="display2" style = {styleTypog2}>
-              إدارة الأحداث والحضور
-              </Typography>
-            </div>
-
-              <CSSTransitionGroup
-                className="section2"
-                transitionName="qrcode"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}>
-                <div className="formLogin article">
-                    <Typography type="headline" gutterBottom style={styleTypogTitle}>
-                        تسجيل الدخول
-                    </Typography>
-                    <LoginForm
-                      onSubmit={this.handleSubmit.bind(this)}
-                      errors={this.state.errors}
-                      username={null}
-                      user={this.state.user}
-                    />
-                </div>
-
-              <div style={QRCodeContainer}>
-                <div>
-                  {!this.state.qrcodeauth &&(<ButtonBase
-                      focusRipple
-                      style={buttonQRCode}
-                      onClick={this.handleOpenQrCode}
-                    >
-                      <span>
-                        <PhotoCamera style={{ height: 48, width:48 }}/>
-                        <Typography
-                          component="span"
-                          style={buttonQRCodeText}
-                        >
-                        تسجيل الدخول برمز QR
-                        </Typography>
-                      </span>
-                    </ButtonBase>)}
-                  </div>
-
-                  <div className="article">
-                    {(this.state.qrcodeauth)&&( <QrReader
-                     className="QRcode"
-                      delay={this.state.delay}
-                      onError={this.handleError}
-                      onScan={this.handleScan}
-                      facingMode="user"
-                    /> )}
-                  </div>
-
-                </div>
+      );
+    }
 
 
-                </CSSTransitionGroup>
-            </div>
-      </div>
-    );
   }
 };
 
@@ -266,4 +329,4 @@ const SignInWithDataAndState = connect(
   mapDispatchToProps
 )(SignInWithData);
 
-export default SignInWithDataAndState;
+export default withStyles(styles)(SignInWithDataAndState);

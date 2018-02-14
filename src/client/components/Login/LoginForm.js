@@ -143,6 +143,6 @@ const validate = (values) => {
 // Decorate the form component
 const Reduxloginform= reduxForm({
   form: 'SignInForm', // a unique name for this form
-  //validate
+  validate
 })(SignInForm);
 export default withStyles(styles)(Reduxloginform)

@@ -200,7 +200,7 @@ class App extends React.Component {
         <JssProvider jss={jss}>
         <Switch>
                 <LoginRoute exact path='/' component={SignInFormContainer} />
-                <LoginRoute exact path='/loggedas/:id' component={QrCodeAuthentication} />
+                <LoginRoute exact path='/loggedas/:uid' component={SignInFormContainer} />
                 <Route exact path='/signout' component={LogoutPage} />
                 <PrivateRoute exact path='/capture' component={QReaderComponent} />
   			      	<AgentRoute exact path='/listattendies' component={Attendies} />

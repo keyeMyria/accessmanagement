@@ -78,14 +78,18 @@ const styles = theme => ({
 });
 const role = localStorage.getItem('role');
 const id = localStorage.getItem('loogedin_id');
-UserStore.fetchGuestForAgentWorkshop(id);
 
 @observer
 class VerifyExitComponent extends React.Component{
-  state = {
-    open: false ,
-    displayed : false
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+        open: false,
+        displayed :false
+      };
+    UserStore.fetchGuestForAgentWorkshop(id);
+
+  }
   handleRequestClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -93,6 +97,10 @@ class VerifyExitComponent extends React.Component{
 
     this.setState({ open: false });
   };
+  ComponentWillMount=()=>{
+    UserStore.fetchGuestForAgentWorkshop(id);
+
+  }
   componentDidUpdate(props){
     if(this.props.userToEnter.userId.status=='OUT' && this.state.open==false &&this.state.displayed==false){
       this.setState({

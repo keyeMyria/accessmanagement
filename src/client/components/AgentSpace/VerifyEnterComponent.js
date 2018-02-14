@@ -79,14 +79,19 @@ const styles = theme => ({
 });
 const role = localStorage.getItem('role');
 const id = localStorage.getItem('loogedin_id');
-UserStore.fetchGuestForAgentWorkshop(id);
 
 @observer
 class VerifyEnterComponent extends React.Component{
-  state = {
-      open: false,
-      displayed :false
-    };
+  constructor(props){
+    super(props)
+    this.state = {
+        open: false,
+        displayed :false
+      };
+    UserStore.fetchGuestForAgentWorkshop(id);
+
+  }
+
 
     handleClick = () => {
       this.setState({ open: true });
