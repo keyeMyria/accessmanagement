@@ -178,7 +178,7 @@ class WorkshopUnit extends React.Component{
                     {name}
                   </Typography>
                   <div style={containers.containerDetail}>
-                    <Button fab disabled><QueryBuilder color="action"/>
+                    <Button fab="true" disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
                       <span className={classes.timeDetailText}>
@@ -195,7 +195,7 @@ class WorkshopUnit extends React.Component{
                     </div>)}
                   </div>
                       {(details.users!=undefined)&&(<div  style={containers.containerDetail}>
-                      <Button fab disabled>
+                      <Button fab="true" disabled>
                         <People color="action"/>
                       </Button>
 
@@ -206,10 +206,10 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{details.users.length}</span>
                       </div>
                     </div>)}
-                    <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                    <div><Link to={`/sessionactivity/${details._id}`}><Button raised="true" color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                      الاطلاع على التحركات
                     </Button></Link>
-                    <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                    <Link to={`/listusersbysession/${details._id}`}><Button raised="true" color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                     حالة الحضور
                   </Button></Link></div>
                 </div>

@@ -66,7 +66,6 @@ class QrCodeAuthentication extends React.Component{
           if(response.data.signIn.user.role.name=="admin")
             this.props.history.push('/listguests');
         } else {
-          console.log(response.data.errors)
           this.setState({
             errors: response.data.signIn.errors
           });
@@ -79,7 +78,6 @@ class QrCodeAuthentication extends React.Component{
   render(){
     const { classes } = this.props;
     const user = UserStore.selectedUser;
-    console.log(user)
     if(user.profile!=undefined){
       return(
         <div className={classes.container}>

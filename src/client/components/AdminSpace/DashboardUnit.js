@@ -140,7 +140,7 @@ class DashboardUnit extends React.Component{
                     {name}
                   </Typography>
                   <div style={containers.containerDetail}>
-                    <Button fab disabled><QueryBuilder color="action"/>
+                    <Button fab="true" disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
                       <span className={classes.timeDetailText}>
@@ -158,7 +158,7 @@ class DashboardUnit extends React.Component{
                   </div>
                       {
                         (details.users!=undefined)&&(<div  style={containers.containerDetail}>
-                      <Button fab disabled>
+                      <Button fab="true" disabled>
                         <People color="action"/>
                       </Button>
 
@@ -170,10 +170,10 @@ class DashboardUnit extends React.Component{
                       </div>
                     </div>)
                   }
-                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised="true" color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                    الاطلاع على التحركات
                   </Button></Link>
-                  <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                  <Link to={`/listusersbysession/${details._id}`}><Button raised="true" color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                   حالة الحضور
                 </Button></Link></div>
                 </div>
@@ -184,7 +184,7 @@ class DashboardUnit extends React.Component{
 
   render(){
     const {classes , details , key , users} = this.props;
-        return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", details.users)}</div>)
+        return(<div  key={`dashboard_${details._id}`}>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", details.users)}</div>)
 
 
   }
@@ -194,7 +194,7 @@ function CustomLabel({viewBox, value1, value2}){
   return (
    <text x={cx} y={cy} className="recharts-text recharts-label" textAnchor="middle" dominantBaseline="central">
       <tspan x={cx} y={cy-13} fontSize="14" fill="#a0a0a0" >{value1}</tspan>
-      <tspan x={cx} y={cy+12} fontSize="20" fill="#000000" font-family="Roboto">{value2}</tspan>
+      <tspan x={cx} y={cy+12} fontSize="20" fill="#000000" fontFamily="Roboto">{value2}</tspan>
    </text>
   )
 }

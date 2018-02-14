@@ -30,21 +30,18 @@ const fields = [{
   rules: 'required|date',
 } ,
 {
-  name :'importedfile',
-  label :'Choose a csv file to import your guests list',
-  type :'file'
+  name :'file',
+  type:'hidden',
+  label :'Choose a csv file to import your guests list'
 
 }];
 
 const hooks = {
   onSuccess(form) {
-    // get field values
-    console.log('Form Values!', form.values());
     EventStore.addNewEvent(form.values())
   },
   onError(form) {
     alert('Form has errors!');
-    console.log(form.values())
     // get all form errors
   //  console.log('All form errors', form.errors());
 }

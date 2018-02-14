@@ -1,6 +1,6 @@
 import React    from 'react'
 import ReactDOM from 'react-dom'
-import ReactCodeInput from './react-code-input'
+//import ReactCodeInput from './react-code-input'
 import Clear from 'material-ui-icons/backspace';
 import Send from 'material-ui-icons/Send'
 class DialButton extends React.Component {
@@ -283,11 +283,7 @@ export default class Dial extends React.Component {
               'color'          : '#4d4d4d',
             }}>&times;</a>
         )}
-          <ReactCodeInput
-              value  = {value}
-              fields={4}
-              ref={instance => { this.child = instance; }}
-          />
+
           </div>
         <DialPad onClick={this.handleClick.bind(this)} compact={compact} />
       </div>
