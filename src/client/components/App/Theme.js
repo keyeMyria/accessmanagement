@@ -67,7 +67,13 @@ const theme = createMuiTheme({
         root: {
           paddingBottom:'24px',
         },
-},
+  },
+  MuiListItemText:{
+        primary: {
+          fontFamily: 'Changa',
+          fontWeight:'500',
+        },
+  },
   MuiBottomNavigation :{
       root: {
         // Name of the rule
