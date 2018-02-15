@@ -35,6 +35,10 @@
   flex-direction: column;
 }
 
+.containerAutentified{
+  align-self: 'center';
+}
+
 .section1{
     display: flex;
     align-items: flex-end;

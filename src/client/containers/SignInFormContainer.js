@@ -99,10 +99,10 @@ import Avatar from 'material-ui/Avatar';
           },
           bigAvatar: {
             width: 170 ,
-            height: 170
+            height: 170,
+            margin:'auto',
           },
           container:{
-
               backgroundColor: '#013084',
               width: '100vw',
               height: '100vh',
@@ -114,6 +114,7 @@ import Avatar from 'material-ui/Avatar';
               overflow: 'hidden',
               zIndex: '-1',
               minHeight: '600px',
+              margin:'auto',
           } ,
           infoLogin :{
               display: 'flex',
@@ -199,8 +200,20 @@ class SignInFormContainer extends React.Component {
     if(this.props.match.params.uid){
       if(this.state.user!=null)
         return(
-          <div className={classes.container}>
-            <div className={classes.infoLogin}>
+          <div><div className="containerBackground">
+            <div className="topBackLoginC">
+            <TopBackLogin/>
+            </div>
+            <div className="bottomBackLoginC">
+            <BottomBackLogin/>
+            </div>
+          </div>
+          <div className="container" className="containerAutentified">
+              <div className="section1">
+                <Typography type="display2" style = {styleTypog2}>
+                إدارة الأحداث والحضور
+                </Typography>
+              </div>
               <Avatar
                src={`/public/assets/avatars/${this.state.user.profile.avatar}`}
                className={classes.bigAvatar}
@@ -213,9 +226,7 @@ class SignInFormContainer extends React.Component {
                username={this.state.user.username}
                user={this.state.user}
              />
-           </div>
-
-         </div>)
+           </div></div>)
          else{
            return(<div>Loading...</div>)
          }

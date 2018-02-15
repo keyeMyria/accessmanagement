@@ -50,6 +50,7 @@ import PictureAsPdf from 'material-ui-icons/PictureAsPdf'
 import gueststore from '../../mobx/gueststore'
 // Covered in the MobX Section
 import { observer } from 'mobx-react';
+import GuestCardToManage from './GuestCardToManage'
 // pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.fonts = {
   Roboto: {
@@ -441,6 +442,7 @@ getDataUri = (url , callback) =>{
   }
   else{
     const {expanded} = this.state;
+    console.log(gueststore.selectedUser)
       return (
 
         <div>
@@ -470,113 +472,114 @@ getDataUri = (url , callback) =>{
                  </Button>
                </DialogActions>
              </Dialog>
-             <Grid container spacing={24}>
-               <Grid item xs={4}>
-                {
-                   gueststore.users.map(value => (
-                    <ExpansionPanel expanded={false} key={value._id} onChange={() => {this.handleChange(value)}}>
+             <div className='container'>
+               <div className='container_ui'>
+                 <div className='container_ui__heading'>
 
-                    <ExpansionPanelSummary >
-                        <div className={styles.column}>
-                            <Avatar alt="" src={`public/assets/avatars/${value.profile.avatar}`} />
-                          </div>
-                          <div className={styles.column_medium}>
-                            <Typography>
-                            {value.identifiant}  {value.profile.name} {value.profile.forname}
-                           </Typography>
-                         </div>
-                         <div className={styles.column}><IconButton className={styles.button} aria-label="PDF" color="primary" onClick={()=>this.exportPDF(value)}><PictureAsPdf/></IconButton></div>
-                      </ExpansionPanelSummary>
-                       </ExpansionPanel>
-            ))}</Grid>
-        <Grid item xs={8}>
+                   <h1>
+                     قائمة الحضور
+                   </h1>
 
-          <div className={classNames(styles.helper)}>
-           <div className={styles.column}>
-             <Chip label={` Barbados`} className={styles.chip} />
-           </div>
+                 </div>
+                 {
+                    gueststore.users.map(value => (
 
-         </div>
-         <form>
-               <Grid container spacing={24}>
-                  <Grid item xs={6}>
-                    <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={gueststore.selectedUser!==null && gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.name : ''} />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField name="forname" type="text"  label=" اللقب " onBlur={(event)=>this.updatevalues('name' ,event)} defaultValue={gueststore.selectedUser!==null && gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.forname : ''}/>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField name="cin" type="text" onBlur={(event)=>this.updateUservalues('cin' ,event)} defaultValue={gueststore.selectedUser!==null && gueststore.selectedUser!=undefined ? gueststore.selectedUser.cin : ''} label=" رقم بطاقة التعريف الوطنية "/>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField name="tel" type="" onBlur={(event)=>this.updatevalues('tel' ,event)} defaultValue={gueststore.selectedUser!==null && gueststore.selectedUser.profile!=undefined ? gueststore.selectedUser.profile.tel : ''} label=" الهاتف "/>
-                  </Grid>
-                   <Grid item xs={12}>
-                     <Select name ="function"
-                       onChange={(event)=>this.updatevalues('function' ,event)}
-                      label=" الصفة " value=''>
-                     {whatido.map(value => (
-                       <MenuItem
-                         key={value.value}
-                         value={value.label}
-                       >
-                         {value.label}
-                       </MenuItem>
-                     ))}</Select>
-                 </Grid>
-                     <Grid item xs={6}>
-                     <FormControl>
-                   <InputLabel htmlFor="name-multiple" >الولاية</InputLabel>
-                    <Select
-                      onChange={(event)=>this.updatevalues('region' ,event)}
-                      value=''
-                      input={<Input id="name-multiple" />}
+                      <GuestCardToManage key={value._id} data={value}/>
 
-                    >
-                      {gouvernement.map(city => (
-                        <MenuItem
-                          key={city.value}
-                          value={city.value}
-                        >
-                          {city.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
-              </FormControl>
-             </Grid>
-             <Grid item xs={6}>
-              <FormControl>
-                <InputLabel htmlFor="name-multiple" >المعتمدية</InputLabel>
-                 <Select
-                   onChange={(event)=>this.updatevalues('gouvernorat' ,event)}
-                   input={<Input id="name-multiple" />}
-                   value=''
-                 >
-                   {this.state.govSource.map(value => (
-                     <MenuItem
-                       key={value}
-                       value={value}
-                     >
-                       {value}
-                     </MenuItem>
-                   ))}
-                 </Select>
-             </FormControl></Grid></Grid>
-               <Button dense color="primary" onClick={this.updateUserWithProfileDataMutationTarget}>
-                 Save
-               </Button>
-               <Button dense color="primary" onClick={() => { this.exportPDF(this.state.selected_user)}}>
-                 export Badge
-               </Button>
-               <Button dense color="primary" onClick={() => { this.exportAll()}}>
-                 Export All
-               </Button>
-               <IconButton onClick={this.handleClickOpenRemoveConfirm} aria-label="Delete" color="primary">
-                 <Delete />
-               </IconButton>
-             </form>
-        </Grid>
-            </Grid>
+                         ))}
+                         {gueststore.selectedUser!==null&&(<div className='container_ui__expand' id='close'>
+                           <div className='heading'>
+                             <div className='heading_head'></div>
+                             <label htmlFor={`message-${gueststore.selectedUser._id}`}>
+                               x
+                             </label>
+                           </div>
+                           <div className='body'>
+                             <div className='user'>
+                               <div className='face'>
+                                 <img src={`public/assets/avatars/${gueststore.selectedUser.profile.avatar}`}  />
+                               </div>
+                               <div className='details'>
+                                 <h2>aspca</h2>
+                                 <h3>subj: thanks you are amazing</h3>
+                               </div>
+                             </div>
+                             <div className='content'>
+                               {/* <form>
+                                          <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={data.profile!=undefined ? data.profile.name : ''} />
+
+                                          <TextField name="forname" type="text"  label=" اللقب " onBlur={(event)=>this.updatevalues('name' ,event)} defaultValue={data.profile!=undefined ? data.profile.forname : ''}/>
+
+                                          <TextField name="cin" type="text" onBlur={(event)=>this.updateUservalues('cin' ,event)} defaultValue={data!=undefined ? data.cin : ''} label=" رقم بطاقة التعريف الوطنية "/>
+
+                                          <TextField name="tel" type="" onBlur={(event)=>this.updatevalues('tel' ,event)} defaultValue={data.profile!=undefined ? data.profile.tel : ''} label=" الهاتف "/>
+
+                                           <Select name ="function"
+                                             onChange={(event)=>this.updatevalues('function' ,event)}
+                                            label=" الصفة " value=''>
+                                           {whatido.map(value => (
+                                             <MenuItem
+                                               key={value.value}
+                                               value={value.label}
+                                             >
+                                               {value.label}
+                                             </MenuItem>
+                                           ))}</Select>
+
+                                           <FormControl>
+                                         <InputLabel htmlFor="name-multiple" >الولاية</InputLabel>
+                                          <Select
+                                            onChange={(event)=>this.updatevalues('region' ,event)}
+                                            value=''
+                                            input={<Input id="name-multiple" />}
+
+                                          >
+                                            {gouvernement.map(city => (
+                                              <MenuItem
+                                                key={city.value}
+                                                value={city.value}
+                                              >
+                                                {city.label}
+                                              </MenuItem>
+                                            ))}
+                                          </Select>
+                                    </FormControl>
+
+                                    <FormControl>
+                                      <InputLabel htmlFor="name-multiple" >المعتمدية</InputLabel>
+                                       <Select
+                                         onChange={(event)=>this.updatevalues('gouvernorat' ,event)}
+                                         input={<Input id="name-multiple" />}
+                                         value=''
+                                       >
+                                         {this.state.govSource.map(value => (
+                                           <MenuItem
+                                             key={value}
+                                             value={value}
+                                           >
+                                             {value}
+                                           </MenuItem>
+                                         ))}
+                                       </Select>
+                                   </FormControl>
+                                     <Button dense="true" color="primary" onClick={this.updateUserWithProfileDataMutationTarget}>
+                                       Save
+                                     </Button>
+                                     <Button dense="true" color="primary" onClick={() => { this.exportPDF(this.state.selected_user)}}>
+                                       export Badge
+                                     </Button>
+                                     <Button dense="true" color="primary" onClick={() => { this.exportAll()}}>
+                                       Export All
+                                     </Button>
+                                     <IconButton onClick={this.handleClickOpenRemoveConfirm} aria-label="Delete" color="primary">
+                                       <Delete />
+                                     </IconButton>
+                                   </form> */}
+                             </div>
+                           </div>
+                         </div>)}
+               </div>
+             </div>
       </div>)
 
   }
