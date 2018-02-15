@@ -100,7 +100,20 @@ import Avatar from 'material-ui/Avatar';
           bigAvatar: {
             width: 170 ,
             height: 170,
-            margin:'auto',
+            margin:'24px auto 24px',
+          },
+          textAuthentification: {
+            fontFamily:'Changa',
+            fontWeight:'300',
+            fontSize:'14pt',
+            color:'#fff',
+            marginBottom:'16px',
+          },
+          authentifiedUserName: {
+            fontFamily:'Changa',
+            fontWeight:'300',
+            fontSize:'20pt',
+            color:'#fff',
           },
           container:{
               backgroundColor: '#013084',
@@ -114,7 +127,6 @@ import Avatar from 'material-ui/Avatar';
               overflow: 'hidden',
               zIndex: '-1',
               minHeight: '600px',
-              margin:'auto',
           } ,
           infoLogin :{
               display: 'flex',
@@ -218,8 +230,12 @@ class SignInFormContainer extends React.Component {
                src={`/public/assets/avatars/${this.state.user.profile.avatar}`}
                className={classes.bigAvatar}
              />
-             <h3>Identified As</h3>
-             <p>{this.state.user.profile.forname} {this.state.user.profile.name}</p>
+             <p className={classes.textAuthentification}>
+               Identified As
+             </p>
+             <h2 className={classes.authentifiedUserName}>
+               {this.state.user.profile.forname} {this.state.user.profile.name}
+             </h2>
              <LoginForm
                onSubmit={this.handleSubmit.bind(this)}
                errors={this.state.errors}
