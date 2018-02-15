@@ -35,9 +35,6 @@
   flex-direction: column;
 }
 
-.containerAutentified{
-  align-self: 'center';
-}
 
 .section1{
     display: flex;

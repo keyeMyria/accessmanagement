@@ -51,6 +51,10 @@ const theme = createMuiTheme({
         fontFamily: 'Changa',
         fontWeight:'300',
       },
+      display2: {
+        fontFamily: 'Changa',
+        fontWeight:'300',
+      },
       title: {
         fontFamily: 'Changa',
         fontWeight:'300',
