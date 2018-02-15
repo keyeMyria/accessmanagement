@@ -4,10 +4,14 @@ import WorkshopStore from '../../mobx/workshopstore';
 import  {PieChart, Pie, Legend , Tooltip, Sector, Cell , Label} from 'recharts';
 import { withStyles } from 'material-ui/styles';
 import QueryBuilder from 'material-ui-icons/QueryBuilder';
-import People from 'material-ui-icons/People'
+import People from 'material-ui-icons/People';
+import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
-import moment from 'moment'
+import moment from 'moment';
+import '../AdminSpace/vendor/dashboard.css';
+import {Link} from 'react-router-dom';
+import SwapHoriz from 'material-ui-icons/SwapHoriz';
 
 const styles ={
   boldLabel :{
@@ -39,8 +43,8 @@ class AgentDashboard extends React.Component{
     const in_guests = _.sumBy(users, i => (i.status==="IN"));
     const out_guests = _.sumBy(users, i => (i.status==="OUT"));
     const abscent_guests = _.sumBy(users, i => (i.status==="ABSCENT"));
-    const data = [{name: 'indoor', value: in_guests}, {name: 'Abscent', value: out_guests},
-                  {name: 'outdoor', value: abscent_guests}]
+    const data = [{name: 'داخل الجلسة', value: in_guests}, {name: 'Abscent', value: out_guests},
+                  {name: 'خارج الجلسة', value: abscent_guests}]
                   return data ;
   }
   buildDashboard=(users  , session , workshop)=>{
@@ -53,33 +57,72 @@ class AgentDashboard extends React.Component{
     let end = moment(moment.now())
     let difference = moment.duration(end.diff(start))
     return(
-      <div>
-      <PieChart width={400} height={400}>
-        <Pie data={data} cx="50%" cy="50%" innerRadius={74} outerRadius={80} fill="#00ABC7" label>
-          {
-            data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-          }
-          <Label value="Running Time" position="topcenter" className={classes.boldLabel}/>
-          <Label value={`${difference._data.hours}h${difference._data.minutes}mn`} position="center" className={classes.raffined} />
-        </Pie>
-        <Pie data={data} cx="50%" cy="50%" innerRadius={45} outerRadius={60} fill="#00abc7">
-          {
-            data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-          }
-        </Pie>
+    <div className="DashboardContainerAgent">
+      <div className="ChartContainer">
+        <div  className="PieContainer">
+            <PieChart width={400} height={400}>
+              <Pie data={data} cx="50%" cy="50%" innerRadius={126} outerRadius={130} fill="#00ABC7" label>
+                {
+                  data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                }
+                <Label width={30} position="center"
+                  content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="الوقت المنقضي"/>}>
+                </Label>
+              </Pie>
+              <Pie data={data} cx="50%" cy="50%" innerRadius={90} outerRadius={115} fill="#00abc7">
+                {
+                  data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                }
+              </Pie>
 
-        <Tooltip/>
-      </PieChart>
-      <h3>{workshop!=null?workshop.name:"Session Générale"}</h3>
-      <Button fab disabled><QueryBuilder color="action"/></Button><span>Started At </span><span>{moment(session.start_hour).utcOffset(1, true).format('hh:mm')}</span>
-      <Button fab disabled><People color="action"/></Button><span>Expected Attendies {users.length}</span>
-      <div>
-        <Button className={classes.AddingButton}>
-        Attendies Status
-      </Button>
-      <Button className={classes.AddingButton}>
-      Operations
-    </Button></div>
+              <Tooltip/>
+            </PieChart>
+          </div>
+        <div className="ChartInfosContainer">
+          <div className="cardInfos">
+            <Typography className="workshopName">
+              {name}
+            </Typography>
+            <div className="ChartInfos">
+              <Button fab disabled><QueryBuilder color="action"/>
+              </Button>
+              <div className="timeDetail">
+                <span className="timeDetailText">
+                البداية
+                </span>
+                <span className="timeDetailHour">{moment(session.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+              </div>
+              {(session.end_hour!=null)&&(
+                <div className="timeDetail" style={{...styleEndTime}}>
+                  <span className="timeDetailText">
+                    النهاية
+                  </span>
+                  <span className="timeDetailHour">{moment(session.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+              </div>)}
+            </div>
+                {
+                  (users!=undefined)&&(<div  className="ChartInfos">
+                <Button fab disabled>
+                  <People color="action"/>
+                </Button>
+
+                  <div className="timeDetail">
+                  <span className="timeDetailText">
+                  الحضور المتوقع
+                  </span>
+                  <span className="timeDetailHour">{users.length}</span>
+                </div>
+              </div>)
+            }
+            <div><Link to={`/sessionactivity/${session._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+             الاطلاع على التحركات
+            </Button></Link>
+            <Link to={`/listusersbysession/${session._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+            حالة الحضور
+          </Button></Link></div>
+          </div>
+          </div>
+        </div>
     </div>)
   }
   render(){
@@ -98,6 +141,14 @@ class AgentDashboard extends React.Component{
 
 
   }
+}function CustomLabel({viewBox, value1, value2}){
+  const {cx, cy} = viewBox;
+  return (
+   <text x={cx} y={cy} className="recharts-text recharts-label" textAnchor="middle" dominantBaseline="central">
+      <tspan x={cx} y={cy-13} fontSize="14" fill="#a0a0a0" >{value1}</tspan>
+      <tspan x={cx} y={cy+12} fontSize="20" fill="#000000" font-family="Roboto">{value2}</tspan>
+   </text>
+  )
 }
 
 export default withStyles(styles)(AgentDashboard);

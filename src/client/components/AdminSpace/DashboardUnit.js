@@ -11,48 +11,10 @@ import {observer} from 'mobx-react'
 import EventStore from '../../mobx/eventstore';
 import {Link} from 'react-router-dom';
 import './vendor/dashboard.css';
-
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
+
 const styles = theme => ({
-  cardInfos:{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  card:{
-    margin : '8px',
-  },
-  button:{
-    margin:'8px',
-  },
-  userItem:{
-    width : '50%' ,
-    float : 'right'
-  },
-  workshopName:{
-   color:'#013084',
-   fontSize: '2rem',
-   fontFamily: 'Changa',
-   fontWeight: '300',
-   marginBottom:'24px',
- },
-  timeDetail:{
-    display: 'flex',
-    alignItems:'flex-start',
-    paddingLeft: '10px',
-    flexDirection: 'column',
-    marginLeft: '10px',
-  },
-  timeDetailText:{
-    color: '#959595',
-    marginBottom: '5px',
-  },
-  timeDetailHour:{
-    fontSize: '18pt',
-    fontWeight: '500',
-    fontFamily: 'Roboto, arial, sans-serif',
-  },
+
 });
 
 const styleEndTime = {
@@ -106,25 +68,25 @@ class DashboardUnit extends React.Component{
                 </PieChart>
               </div>
               <div className="ChartInfosContainer">
-                <div className={classes.cardInfos}>
-                  <Typography className={classes.workshopName}>
+                <div className="cardInfos">
+                  <Typography className="workshopName">
                     {name}
                   </Typography>
                   <div className="ChartInfos">
                     <Button fab disabled><QueryBuilder color="action"/>
                     </Button>
-                    <div className={classes.timeDetail}>
-                      <span className={classes.timeDetailText}>
+                    <div className="timeDetail">
+                      <span className="timeDetailText">
                       البداية
                       </span>
-                      <span className={classes.timeDetailHour}>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+                      <span className="timeDetailHour">{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>
                     {(details.end_hour!=null)&&(
-                      <div className={classes.timeDetail} style={{...styleEndTime}}>
-                        <span className={classes.timeDetailText}>
+                      <div className="timeDetail" style={{...styleEndTime}}>
+                        <span className="timeDetailText">
                           النهاية
                         </span>
-                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+                        <span className="timeDetailHour">{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
                       {
@@ -133,18 +95,18 @@ class DashboardUnit extends React.Component{
                         <People color="action"/>
                       </Button>
 
-                        <div className={classes.timeDetail}>
-                        <span className={classes.timeDetailText}>
+                        <div className="timeDetail">
+                        <span className="timeDetailText">
                         الحضور المتوقع
                         </span>
-                        <span className={classes.timeDetailHour}>{details.users.length}</span>
+                        <span className="timeDetailHour">{details.users.length}</span>
                       </div>
                     </div>)
                   }
-                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
                    الاطلاع على التحركات
                   </Button></Link>
-                  <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                  <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
                   حالة الحضور
                 </Button></Link></div>
                 </div>
