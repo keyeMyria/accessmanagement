@@ -4,6 +4,7 @@ import ReactCodeInput from 'react-code-input';
 import Close from 'material-ui-icons/Close';
 import Send from 'material-ui-icons/Send';
 import Button from 'material-ui/Button';
+
 class DialButton extends React.Component {
   constructor(props) {
     super(props)
@@ -136,11 +137,6 @@ export class DialPad extends React.Component {
 
               }} key={i}>
                 <DialButton {...button} compact={compact} />
-                {this.props.increment==4 &&(
-                  <Button >
-                      <Send />
-                    </Button>
-                )}
               </li>
             ))}
           </ol>
@@ -274,6 +270,9 @@ export default class Dial extends React.Component {
       })
     }
   }
+  handleSend=()=>{
+    this.props.handleValid(this.state.value)
+  }
   handleClickPad=()=>{
     const element = this.child
     element.handleClickPad()
@@ -291,28 +290,18 @@ export default class Dial extends React.Component {
         'maxHeight': '487px',
       }}>
 
-      <div style   = {{
-        // 'display': 'flex',
-        // 'justifyContent': 'center',
-        // 'alignContent': 'center',
+      <div
+      style= {{
+        'display': 'flex',
+        'alignItems': 'center',
+        'marginBottom': '10px',
       }}>
-        {
-          // !!value && (
-          // <a
-          //   href    = '#'
-          //   onClick = {this.reset.bind(this)}
-          //   style   = {{
-          //     'padding'        : '5px 14px',
-          //     'fontWeight'     : 'bold',
-          //     'float'          : 'right',
-          //     'textAlign'      : 'right',
-          //     'marginTop'      : '11px',
-          //     'fontSize'       : '30px',
-          //     'textDecoration' : 'none',
-          //     'color'          : '#4d4d4d',
-          //   }}>&times;</a>
-        // )
-      }
+      {this.state.increment== 4 &&(
+        <Button variant="fab" color="primary" aria-label="add"style   = {{'height': '40px', 'minWidth': '50px', 'padding': '0',}}>
+          <Send/>
+        </Button>
+      )}
+
         <input className="inputDial"
           style    = {{
           // 'border'      : 'none',

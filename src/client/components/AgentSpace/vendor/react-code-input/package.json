@@ -1,0 +1,114 @@
+{
+  "_from": "react-code-input",
+  "_id": "react-code-input@3.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-lm6SAX81uzKQGgSO5UhVCEWD4KcD5GV4XNqTk1kFLmAn8IlFmHXN4UIADp5yy8g26ivdSwGAIATV/pcyZ7UPcQ==",
+  "_location": "/react-code-input",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-code-input",
+    "name": "react-code-input",
+    "escapedName": "react-code-input",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-code-input/-/react-code-input-3.0.0.tgz",
+  "_shasum": "7129524b0e8ec1e6b151c3eb0d1b3f09488518bf",
+  "_spec": "react-code-input",
+  "_where": "/Users/MacBook/Documents/subscription/accessmanagement",
+  "author": {
+    "name": "Konstantin Kulinicenko"
+  },
+  "bugs": {
+    "url": "https://github.com/40818419/react-code-input/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "deprecated": false,
+  "description": "React component for entering and validating numbers, text or password.",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-plugin-istanbul": "^3.1.2",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-3": "^6.22.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "chai-enzyme": "^1.0.0-beta.0",
+    "codacy-coverage": "^2.0.0",
+    "create-react-class": "^15.6.2",
+    "css-loader": "^0.25.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint-plugin-react": "^7.5.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "jsdom": "^9.9.1",
+    "jsdom-global": "2.1.1",
+    "json-loader": "^0.5.4",
+    "mocha": "^3.3.0",
+    "mocha-lcov-reporter": "^1.2.0",
+    "node-sass": "^3.11.3",
+    "nyc": "^10.0.0",
+    "postcss-loader": "^1.1.1",
+    "react-addons-test-utils": "^15.5.1",
+    "react-bluekit": "^0.4.4",
+    "react-hot-loader": "1.3.0",
+    "react-markdown": "^2.4.2",
+    "sass-loader": "^4.0.2",
+    "sinon": "^1.17.7",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "homepage": "https://github.com/40818419/react-code-input#readme",
+  "keywords": [
+    "react",
+    "react-component",
+    "react-code-input",
+    "code",
+    "input",
+    "chiffre",
+    "field",
+    "sipher",
+    "PIN",
+    "pin-code"
+  ],
+  "license": "MIT",
+  "main": "lib/ReactCodeInput.js",
+  "name": "react-code-input",
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "peerDependencies": {
+    "react": "^15.5.4 || ^16.2.0",
+    "react-dom": "^15.5.4 || ^16.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/40818419/react-code-input.git"
+  },
+  "scripts": {
+    "build": "gulp bluekit:build && webpack && cd styles && sass style.scss style.css",
+    "start": "gulp bluekit:build && webpack && webpack-dev-server --content-base example/",
+    "test": "NODE_ENV=test nyc --reporter=lcov --reporter=text ./node_modules/.bin/_mocha test/*.js && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage"
+  },
+  "version": "3.0.0"
+}

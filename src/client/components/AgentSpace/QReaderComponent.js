@@ -57,6 +57,7 @@ class QReaderComponent extends Component {
 
   }
   handleEntryNumber(data){
+    console.log(data)
     let id = localStorage.getItem('loogedin_id');
     let fetched_user = UserStore.fetchUserRole(id);
     fetched_user.then(res=>{
