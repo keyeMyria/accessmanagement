@@ -472,7 +472,7 @@ getDataUri = (url , callback) =>{
                  </Button>
                </DialogActions>
              </Dialog>
-             <div className='container'>
+             <div className='containerGuest'>
                <div className='container_ui'>
                  <div className='container_ui__heading'>
 
