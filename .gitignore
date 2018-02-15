@@ -32,8 +32,3 @@ roles.json
 profiles.json
 scripts/test.js
 config/*
-server/index.js
-webpack.config.js
-package.json
-package.json
-webpack.config.js

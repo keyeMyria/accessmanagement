@@ -178,8 +178,8 @@ class UserStore {
   }
   @action alterGuestStatus =(guest , status , agent , workshop)=>{
     fetch({
-      query:`mutation updateUserStatus($id:ID! , $status:String! , $agent:String! , $workshop:String!){
-        updateUserStatus(id:$id  , status:$status , agent:$agent , workshop:$workshop){
+      query:`mutation updateUserStatus($id:ID! , $status:String! , $agent:String! , $workshop:String , $session:String){
+        updateUserStatus(id:$id  , status:$status , agent:$agent , workshop:$workshop , session:$session){
           _id
           username
           status
@@ -194,7 +194,9 @@ class UserStore {
         id : guest ,
         status : status ,
         agent : agent,
-        workshop:workshop
+        workshop:this.agent_workshop!=null? this.agent_workshop._id : null,
+        session :this.agent_session!=null? this.agent_session._id : null,
+
       }
     }).then(res=>{
       //console.log(res)
