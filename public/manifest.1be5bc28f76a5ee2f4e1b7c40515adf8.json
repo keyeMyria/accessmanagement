@@ -32,6 +32,7 @@
     }
   ],
   "name": "My Applications Friendly Name",
+  "offline_enabled":true,
   "short_name": "Application",
   "orientation": "portrait",
   "display": "standalone",
@@ -39,5 +40,8 @@
   "description": "Description!",
   "background_color": "#01579b",
   "theme_color": "#01579b",
-  "theme-color": "#01579b"
+  "theme-color": "#01579b",
+  "permissions": [
+          "storage"
+        ]
 }
