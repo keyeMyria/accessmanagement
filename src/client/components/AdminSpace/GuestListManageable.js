@@ -442,7 +442,6 @@ getDataUri = (url , callback) =>{
   }
   else{
     const {expanded} = this.state;
-    console.log(gueststore.selectedUser)
       return (
 
         <div>
@@ -487,7 +486,7 @@ getDataUri = (url , callback) =>{
                       <GuestCardToManage key={value._id} data={value}/>
 
                          ))}
-                      
+
                </div>
              </div>
       </div>)

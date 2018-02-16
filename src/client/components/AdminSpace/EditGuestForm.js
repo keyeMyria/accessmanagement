@@ -12,9 +12,8 @@ export default observer(({ form , data ,  onSuccess }) => (
     <MaterialTextField field={form.$('cin')} />
     <MaterialTextField field={form.$('tel')}/>
     <MaterialTextField field={form.$('function')}/>
-    <MaterialTextField field={form.$('region')}/>region
-    <MaterialTextField field={form.$('gouvernorat')}/>region
-    <MaterialTextField field={form.$('region')}/>region
+    <MaterialTextField field={form.$('region')}/>
+    <MaterialTextField field={form.$('gouvernorat')}/>
 
 
     <br />

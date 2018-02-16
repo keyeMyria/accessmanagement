@@ -11,7 +11,8 @@ import TextField from 'material-ui/TextField';
 import Select from 'material-ui/Select';
 import Button from 'material-ui/Button';
 import Delete from 'material-ui-icons/Delete';
-
+import EditGuestForm from './EditGuestForm';
+//import editguest from '../../'
 class GuestCardToManage extends React.Component{
   constructor(props){
     super(props);
