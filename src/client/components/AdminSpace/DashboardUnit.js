@@ -14,7 +14,49 @@ import './vendor/dashboard.css';
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
 
 const styles = theme => ({
-
+  cardInfos:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  button:{
+    margin : '8px' ,
+  },
+  workshopName: {
+   color: '#013084',
+   fontSize: '2rem',
+   fontFamily: 'Changa',
+   fontWeight: '300',
+   marginBottom: '24px',
+  },
+  timeDetail:{
+    display: 'flex',
+    alignItems: 'flex-start',
+    paddingLeft: '10px',
+    flexDirection: 'column',
+    marginLeft: '10px',
+  },
+  timeDetailText:{
+    color: '#959595',
+    marginBottom: '5px',
+  },
+  timeDetailHour: {
+    fontBize: '18pt',
+    fontWeight: '500',
+    fontFamily: 'Roboto, arial, sans-serif',
+  },
+  DashboardContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  ChartInfos :{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '24px',
+  },
 });
 
 const styleEndTime = {
@@ -46,7 +88,7 @@ class DashboardUnit extends React.Component{
         }
         let difference = moment.duration(end.diff(start))
         return(
-          <div className="DashboardContainer">
+          <div className={classes.DashboardContainer}>
           <div  key={details._id} className="ChartContainer">
             <div  className="PieContainer">
                 <PieChart width={400} height={400}>
@@ -68,45 +110,45 @@ class DashboardUnit extends React.Component{
                 </PieChart>
               </div>
               <div className="ChartInfosContainer">
-                <div className="cardInfos">
-                  <Typography className="workshopName">
+                <div className={classes.cardInfos}>
+                  <Typography className={classes.workshopName}>
                     {name}
                   </Typography>
-                  <div className="ChartInfos">
+                  <div className={classes.ChartInfos}>
                     <Button variant="fab" disabled><QueryBuilder color="action"/>
                     </Button>
-                    <div className="timeDetail">
-                      <span className="timeDetailText">
+                    <div className={classes.timeDetail}>
+                      <span className={classes.timeDetailText}>
                       البداية
                       </span>
-                      <span className="timeDetailHour">{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+                      <span className={classes.timeDetailHour}>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>
                     {(details.end_hour!=null)&&(
-                      <div className="timeDetail" style={{...styleEndTime}}>
-                        <span className="timeDetailText">
+                      <div className={classes.timeDetail} style={{...styleEndTime}}>
+                        <span className={classes.timeDetailText}>
                           النهاية
                         </span>
-                        <span className="timeDetailHour">{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
                       {
-                        (details.users!=undefined)&&(<div  className="ChartInfos">
+                        (details.users!=undefined)&&(<div  className={classes.ChartInfos}>
                       <Button variant="fab" disabled>
                         <People color="action"/>
                       </Button>
 
-                        <div className="timeDetail">
-                        <span className="timeDetailText">
+                        <div className={classes.timeDetail}>
+                        <span className={classes.timeDetailText}>
                         الحضور المتوقع
                         </span>
-                        <span className="timeDetailHour">{details.users.length}</span>
+                        <span className={classes.timeDetailHour}>{details.users.length}</span>
                       </div>
                     </div>)
                   }
-                  <div><Link to={`/sessionactivity/${details._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+                  <div><Link to={`/sessionactivity/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                    الاطلاع على التحركات
                   </Button></Link>
-                  <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+                  <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                   حالة الحضور
                 </Button></Link></div>
                 </div>

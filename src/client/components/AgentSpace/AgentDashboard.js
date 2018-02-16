@@ -26,7 +26,64 @@ const styles ={
     margin : '10px',
     textTransform :'none' ,
     fontsize : '0.2em',
-    backgroundColor:'#E0E0E0'
+    backgroundColor:'#E0E0E0',
+  },
+  cardInfos:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  card:{
+    margin : '8px',
+  },
+  button:{
+    margin : '8px' ,
+  },
+  userItem: {
+    width : '50%',
+    float : 'right',
+  },
+  workshopName: {
+   color: '#013084',
+   fontSize: '2rem',
+   fontFamily: 'Changa',
+   fontWeight: '300',
+   marginBottom: '24px',
+  },
+  timeDetail:{
+    display: 'flex',
+    alignItems: 'flex-start',
+    paddingLeft: '10px',
+    flexDirection: 'column',
+    marginLeft: '10px',
+  },
+  timeDetailText:{
+    color: '#959595',
+    marginBottom: '5px',
+  },
+  timeDetailHour: {
+    fontBize: '18pt',
+    fontWeight: '500',
+    fontFamily: 'Roboto, arial, sans-serif',
+  },
+  DashboardContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  DashboardContainerAgent: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  ChartInfos :{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '24px',
   },
 }
 @observer
@@ -57,7 +114,7 @@ class AgentDashboard extends React.Component{
     let end = moment(moment.now())
     let difference = moment.duration(end.diff(start))
     return(
-    <div className="DashboardContainerAgent">
+    <div className={classes.DashboardContainerAgent}>
       <div className="ChartContainer">
         <div  className="PieContainer">
             <PieChart width={400} height={400}>
@@ -79,45 +136,45 @@ class AgentDashboard extends React.Component{
             </PieChart>
           </div>
         <div className="ChartInfosContainer">
-          <div className="cardInfos">
-            <Typography className="workshopName">
+          <div className={classes.cardInfos}>
+            <Typography className={classes.workshopName}>
               {name}
             </Typography>
-            <div className="ChartInfos">
+            <div className={classes.ChartInfos}>
               <Button variant="fab" disabled><QueryBuilder color="action"/>
               </Button>
-              <div className="timeDetail">
-                <span className="timeDetailText">
+              <div className={classes.timeDetail}>
+                <span className={classes.timeDetailText}>
                 البداية
                 </span>
-                <span className="timeDetailHour">{moment(session.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+                <span className={classes.timeDetailHour}>{moment(session.start_hour).utcOffset(1, true).format('hh:mm')}</span>
               </div>
               {(session.end_hour!=null)&&(
-                <div className="timeDetail" style={{...styleEndTime}}>
-                  <span className="timeDetailText">
+                <div className={classes.timeDetail} style={{...styleEndTime}}>
+                  <span className={classes.timeDetailText}>
                     النهاية
                   </span>
-                  <span className="timeDetailHour">{moment(session.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+                  <span className={classes.timeDetailHour}>{moment(session.end_hour).utcOffset(1, true).format('hh:mm')}</span>
               </div>)}
             </div>
                 {
-                  (users!=undefined)&&(<div  className="ChartInfos">
+                  (users!=undefined)&&(<div  className={classes.ChartInfos}>
                 <Button variant="fab" disabled>
                   <People color="action"/>
                 </Button>
 
-                  <div className="timeDetail">
-                  <span className="timeDetailText">
+                  <div className={classes.timeDetail}>
+                  <span className={classes.timeDetailText}>
                   الحضور المتوقع
                   </span>
-                  <span className="timeDetailHour">{users.length}</span>
+                  <span className={classes.timeDetailHour}>{users.length}</span>
                 </div>
               </div>)
             }
-            <div><Link to={`/sessionactivity/${session._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+            <div><Link to={`/sessionactivity/${session._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
              الاطلاع على التحركات
             </Button></Link>
-            <Link to={`/listusersbysession/${session._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+            <Link to={`/listusersbysession/${session._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
             حالة الحضور
           </Button></Link></div>
           </div>
@@ -144,7 +201,7 @@ class AgentDashboard extends React.Component{
 }function CustomLabel({viewBox, value1, value2}){
   const {cx, cy} = viewBox;
   return (
-   <text x={cx} y={cy} className="recharts-text recharts-label" textAnchor="middle" dominantBaseline="central">
+   <text x={cx} y={cy} className="recharts-text recharts-label"  textAnchor="middle" dominantBaseline="central">
       <tspan x={cx} y={cy-13} fontSize="14" fill="#a0a0a0" >{value1}</tspan>
       <tspan x={cx} y={cy+12} fontSize="20" fill="#000000" font-family="Roboto">{value2}</tspan>
    </text>
