@@ -20,7 +20,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import  {PieChart, Pie, Legend , Tooltip, Sector, Cell} from 'recharts';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-
+import GuestCardToManage from './GuestCardToManage'
 const styles = theme => ({
   root: {
     width: '100%',
@@ -145,11 +145,23 @@ componentWillReceiveProps(newProps) {
                   placeholder="Search Attendies" onChange={this.filterList}
             />
         </FormControl>
-        <List >
-          {this.state.attendies_list.map(value => (
-          <AttendeeCard  key={value._id} data={value} dense className={classes.listItem}  />
-          ))}
-        </List>
+        <div className='containerGuest'>
+          <div className='container_ui'>
+            <div className='container_ui__heading'>
+
+              <h1>
+                قائمة الحضور
+              </h1>
+
+            </div>
+            {this.state.attendies_list.map(value => (
+
+                 <GuestCardToManage key={value._id} data={value}/>
+
+               ))}
+
+          </div>
+        </div>
       </div>)
   }
   }
