@@ -156,7 +156,7 @@ componentWillReceiveProps(newProps) {
             </div>
             {this.state.attendies_list.map(value => (
 
-                 <GuestCardToManage key={value._id} data={value}/>
+                 <GuestCardToManage key={value._id} data={value} readonly={true}/>
 
                ))}
 

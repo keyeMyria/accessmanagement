@@ -84,7 +84,7 @@ class AgentDashboard extends React.Component{
               {name}
             </Typography>
             <div className="ChartInfos">
-              <Button fab disabled><QueryBuilder color="action"/>
+              <Button variant="fab" disabled><QueryBuilder color="action"/>
               </Button>
               <div className="timeDetail">
                 <span className="timeDetailText">
@@ -102,7 +102,7 @@ class AgentDashboard extends React.Component{
             </div>
                 {
                   (users!=undefined)&&(<div  className="ChartInfos">
-                <Button fab disabled>
+                <Button variant="fab" disabled>
                   <People color="action"/>
                 </Button>
 

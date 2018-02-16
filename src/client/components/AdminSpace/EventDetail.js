@@ -256,7 +256,7 @@ class EventDetail extends React.Component{
 
       <div className={classes.container}>
       <div className={classes.header}>
-        <Button fab raised="true" color="secondary" aria-label="edit Event" className={classes.editButton}>
+        <Button variant="fab" raised="true" color="secondary" aria-label="edit Event" className={classes.editButton}>
           <ModeEditIcon />
         </Button>
           <h2 className={classes.title}>
