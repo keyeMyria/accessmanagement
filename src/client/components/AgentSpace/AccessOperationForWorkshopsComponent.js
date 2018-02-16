@@ -148,7 +148,7 @@ handleExit = async () => {
   render(){
     const {userToEnter , classes} = this.props;
     if(this.props.userToEnter.loading==true)
-      return(<div className={classes.root}><CircularProgress color="accent" /></div>);
+      return(<div className={classes.root}><CircularProgress  color="secondary"   /></div>);
     if(userToEnter.userId==null){
         return(
           <SnackbarContent

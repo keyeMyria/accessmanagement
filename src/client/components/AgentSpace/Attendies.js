@@ -155,7 +155,7 @@ class Attendies extends React.Component {
   render() {
     const { classes } = this.props;
     if(UserStore.loading==true)
-      return(<div className={classes.root}><CircularProgress color="accent" /></div>);
+      return(<div className={classes.root}><CircularProgress  color="secondary"   /></div>);
     else if (UserStore.users==null) {
         return (
               <div elevation={4} className={classes.empty}>

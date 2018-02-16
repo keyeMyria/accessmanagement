@@ -423,7 +423,7 @@ getDataUri = (url , callback) =>{
   }
   render() {
     if(gueststore.loading){
-      return(<div><CircularProgress color="accent" /></div>);
+      return(<div><CircularProgress  color="secondary"   /></div>);
 
     }
       else if (gueststore.users.length === 0 && gueststore.loading==false) {

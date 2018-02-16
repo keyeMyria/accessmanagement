@@ -275,7 +275,7 @@ class Cropper extends React.Component {
             Upload
          <FileUpload />
        </Button>
-       <Button onClick={this.props.onRequestHide} raised color="accent">
+       <Button onClick={this.props.onRequestHide} raised  color="secondary"  >
           Delete
           <Delete />
         </Button>
