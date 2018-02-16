@@ -115,7 +115,7 @@ class DashboardUnit extends React.Component{
                     {name}
                   </Typography>
                   <div className={classes.ChartInfos}>
-                    <Button variant="fab" disabled><QueryBuilder color="action"/>
+                    <Button fab  disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
                       <span className={classes.timeDetailText}>
@@ -133,7 +133,7 @@ class DashboardUnit extends React.Component{
                   </div>
                       {
                         (details.users!=undefined)&&(<div  className={classes.ChartInfos}>
-                      <Button variant="fab" disabled>
+                      <Button fab  disabled>
                         <People color="action"/>
                       </Button>
 

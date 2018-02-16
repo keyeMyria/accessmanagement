@@ -256,7 +256,7 @@ class EventDetail extends React.Component{
 
       <div className={classes.container}>
       <div className={classes.header}>
-        <Button variant="fab" raised="true" color="secondary" aria-label="edit Event" className={classes.editButton}>
+        <Button fab  raised="true" color="secondary" aria-label="edit Event" className={classes.editButton}>
           <ModeEditIcon />
         </Button>
           <h2 className={classes.title}>
@@ -298,7 +298,7 @@ class EventDetail extends React.Component{
               {item.stat=='ON' &&(
                 <Button onClick={()=>this.stopSessionAction(item._id)}  className={classes.stop}>
                   <div className={classes.startStopSession}>
-                    <Stop  color="secondary"   />
+                    <Stop   />
                     إنهاء الجلسة
                   </div>
                 </Button>
@@ -334,7 +334,7 @@ class EventDetail extends React.Component{
                 {item.session_empty==false &&(
                     <Button onClick={()=>this.stopSessionForWorkShop(item._id)}  className={classes.stop}>
                     <div className={classes.startStopSession}>
-                      <Stop  color="secondary"   />
+                      <Stop  />
                       إنهاء الجلسة
                       </div>
                     </Button>

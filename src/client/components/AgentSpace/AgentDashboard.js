@@ -14,35 +14,14 @@ import {Link} from 'react-router-dom';
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
 
 const styles ={
-  boldLabel :{
-    fontSize : '0.8em'
-  },
-  raffined :{
-    fontSize : '0.6em',
-
-  },
-  AddingButton :{
-    minHeight : '30px' ,
-    margin : '10px',
-    textTransform :'none' ,
-    fontsize : '0.2em',
-    backgroundColor:'#E0E0E0',
-  },
   cardInfos:{
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  card:{
-    margin : '8px',
-  },
   button:{
     margin : '8px' ,
-  },
-  userItem: {
-    width : '50%',
-    float : 'right',
   },
   workshopName: {
    color: '#013084',
@@ -66,10 +45,6 @@ const styles ={
     fontBize: '18pt',
     fontWeight: '500',
     fontFamily: 'Roboto, arial, sans-serif',
-  },
-  DashboardContainer: {
-    display: 'flex',
-    justifyContent: 'center',
   },
 
   DashboardContainerAgent: {
@@ -141,7 +116,7 @@ class AgentDashboard extends React.Component{
               {name}
             </Typography>
             <div className={classes.ChartInfos}>
-              <Button variant="fab" disabled><QueryBuilder color="action"/>
+              <Button fab  disabled><QueryBuilder color="action"/>
               </Button>
               <div className={classes.timeDetail}>
                 <span className={classes.timeDetailText}>
@@ -159,7 +134,7 @@ class AgentDashboard extends React.Component{
             </div>
                 {
                   (users!=undefined)&&(<div  className={classes.ChartInfos}>
-                <Button variant="fab" disabled>
+                <Button fab  disabled>
                   <People color="action"/>
                 </Button>
 
