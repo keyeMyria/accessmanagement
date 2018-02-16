@@ -127,7 +127,7 @@ class AgentContainer extends React.Component{
               <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>
-          <ListItemText primary="Sign out" />
+          <ListItemText primary="الخروج" />
         </ListItem></Link>
         </div>
       </Drawer>

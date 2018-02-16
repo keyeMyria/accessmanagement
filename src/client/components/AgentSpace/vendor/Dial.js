@@ -296,8 +296,9 @@ export default class Dial extends React.Component {
         'alignItems': 'center',
         'marginBottom': '10px',
       }}>
+      <div style   = {{'height': '50px',}}></div>
       {this.state.increment== 4 &&(
-        <Button variant="fab" color="primary" aria-label="add"style   = {{'height': '40px', 'minWidth': '50px', 'padding': '0',}}>
+        <Button variant="fab" color="primary" aria-label="add" style   = {{'height': '40px', 'minWidth': '50px', 'padding': '0',}}>
           <Send/>
         </Button>
       )}
