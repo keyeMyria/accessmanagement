@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemSecondaryAction,ListItemIcon, ListItemText } from 'material-ui/List';
 import {Link} from 'react-router-dom';
 import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
+import RemoveCircleOutline from 'material-ui-icons/RemoveCircleOutline';
 import AirlineSeatReclineNormal from 'material-ui-icons/AirlineSeatReclineNormal';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
@@ -12,10 +13,8 @@ import {red , lightblue} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 import Search from 'material-ui-icons/Search';
-import DirectionsRun from 'material-ui-icons/directionsRun';
 import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import idcard from './id-card.svg';
 import NavBarContainer from '../../containers/NavBarContainer';
@@ -28,27 +27,21 @@ const drawerWidth = 240 ;
 const styles = theme => ({
   root: {
     width: '100%',
-    background: theme.palette.background.paper,
-    padding: '60px 16px 0',
+    maxWidth:'1200px',
+    margin:'auto',
+    padding: '60px 16px 8px',
   },
   IN:{
     fill :"#00abc7",
-    '-webkit-transform': 'rotateY(180deg)',
-    '-moz-transform': 'rotateY(180deg)',
-    '-ms-transform': 'rotateY(180deg)',
-    '-o-transform': 'rotateY(180deg)',
-    'transform': 'rotateY(180deg)',
-
-  },
-  search:{
-    width: '100%',
-  },
-  listItem:{
-    paddingRight: 0,
-    paddingLeft: 0,
   },
   OUT:{
     fill :"#ff1850",
+  },
+  ABSCENT:{
+    fill :"#ff1850",
+  },
+  search:{
+    width: '100%',
   },
   listItemText:{
     width:'20%',
@@ -87,7 +80,11 @@ empty_title:{
 },
 empty_description:{
   color: 'rgba(0, 0, 0, 0.56)',
-}
+},
+attendeesListContainer:{
+  background: '#fff',
+  boxShadow:'0 1px 4px 0 rgba(0,0,0,.14)',
+},
 });
 const id = localStorage.getItem('loogedin_id');
 
@@ -155,10 +152,10 @@ class Attendies extends React.Component {
   render() {
     const { classes } = this.props;
     if(UserStore.loading==true)
-      return(<div className={classes.root}><CircularProgress color="accent" /></div>);
+      return(<div className={classes.root}><CircularProgress color="primary" /></div>);
     else if (UserStore.users==null) {
         return (
-              <div elevation={4} className={classes.empty}>
+              <div className={classes.empty}>
                 <div className={classes.empty_img}>
                   <object type="image/svg+xml" data={idcard} className={classes.empty_imgSvg}/>
                 </div>
@@ -186,18 +183,18 @@ else{
             className={classes.search}
               placeholder="Search Attendies" onChange={this.filterList}
             />
-            <List style={{textAlign: 'right',}}>
+            <List style={{textAlign: 'right',}} className={classes.attendeesListContainer}>
               {UserStore.users.map(value => (
-                <ListItem key={value._id} dense button className={classes.listItem}>
+                <ListItem key={value._id} button className={classes.listItem}>
                   <Avatar alt="" src={`/public/assets/avatars/${value.profile.avatar}`} />
                   <ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText} />
-                  <ListItemText primary={`${value.status}door`} className={classes.listItemText} />
-                  { value.status=='ABSCENT' ? <AirlineSeatReclineNormal/> :  `${value.status.toLowerCase()}door`}
+                  <ListItemText secondary={`${value.status}`} className={classes.listItemText} />
+                  { value.status=='ABSCENT' ? <RemoveCircleOutline className={classes.ABSCENT}/> :  `${value.status.toLowerCase()}door`}
 
 					{ value.status =="OUT" && (
                   <DirectionsWalk className={classes.OUT}/>
 					)}
-					{ value.status == <DirectionsRun/> && (
+					{ value.status == <DirectionsWalk/> && (
                   <AirlineSeatReclineNormal className={classes.IN}/>
 					)}
 
