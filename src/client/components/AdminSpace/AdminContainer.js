@@ -137,7 +137,7 @@ cancelEventDashboardBottomBarElements=()=>{
 
           <Link to="/managevents" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon  color="secondary">
                 <Event />
               </ListItemIcon>
               <ListItemText primary="ادارة الاحداث" />
@@ -146,7 +146,7 @@ cancelEventDashboardBottomBarElements=()=>{
 
           <Link to="/manageagents" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon color="secondary">
                 <VerifiedUser/>
               </ListItemIcon>
               <ListItemText primary="تعيين الوكلاء" />
@@ -155,7 +155,7 @@ cancelEventDashboardBottomBarElements=()=>{
 
           <Link to="/manageguest" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon  color="secondary">
                <AssignmentInd />
               </ListItemIcon>
               <ListItemText primary="ادارة الحضور" />
@@ -164,7 +164,7 @@ cancelEventDashboardBottomBarElements=()=>{
 
           <Link to="/adduser" style={{ textDecoration: 'none' }} onClick={this.redirectToEffect}>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon  color="secondary">
                 <PersonAdd />
               </ListItemIcon>
               <ListItemText primary="إضافة مستخدم" />
@@ -173,7 +173,7 @@ cancelEventDashboardBottomBarElements=()=>{
 
             <Link to="/signout" style={{ textDecoration: 'none' }}>
               <ListItem button>
-                <ListItemIcon>
+                <ListItemIcon  color="secondary">
                   <ExitToApp />
                 </ListItemIcon>
                 <ListItemText primary="الخروج" />

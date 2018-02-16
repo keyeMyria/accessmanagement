@@ -73,22 +73,22 @@ var config = {
   //     staticFileGlobsIgnorePatterns: [/\.map$/, /manifest\.json$/]
   //   }
   // ),
-  new WebpackPwaManifest({
-     name: 'My Applications Friendly Name',
-     short_name: 'Application',
-     description: 'Description!',
-     background_color: '#01579b',
-     theme_color: '#01579b',
-     'theme-color': '#01579b',
-     start_url: '/',
-     icons: [
-       {
-         src: path.resolve(BUILD_DIR +'/icon.png'),
-         sizes: [96, 128, 192, 256, 384, 512],
-         destination: path.join('assets', 'icons')
-       }
-     ]
-   })
+  // new WebpackPwaManifest({
+  //    name: 'My Applications Friendly Name',
+  //    short_name: 'Application',
+  //    description: 'Description!',
+  //    background_color: '#01579b',
+  //    theme_color: '#01579b',
+  //    'theme-color': '#01579b',
+  //    start_url: '/',
+  //    icons: [
+  //      {
+  //        src: path.resolve(BUILD_DIR +'/icon.png'),
+  //        sizes: [96, 128, 192, 256, 384, 512],
+  //        destination: path.join('assets', 'icons')
+  //      }
+  //    ]
+  //  })
   ],
   node: {
    fs: "empty"

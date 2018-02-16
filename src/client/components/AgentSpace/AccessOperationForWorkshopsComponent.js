@@ -148,7 +148,7 @@ handleExit = async () => {
   render(){
     const {userToEnter , classes} = this.props;
     if(this.props.userToEnter.loading==true)
-      return(<div className={classes.root}><CircularProgress color="accent" /></div>);
+      return(<div className={classes.root}><CircularProgress  color="secondary"   /></div>);
     if(userToEnter.userId==null){
         return(
           <SnackbarContent
@@ -200,10 +200,10 @@ handleExit = async () => {
                 {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
                 <span className={classNames(classes.styleCommun , classes.profileFunction)}>
                 {this.props.userToEnter.userId.profile.function} </span>
-                <Button className={classes.button} raised color="primary" onClick={this.handleEnter}>
+                <Button className={classes.button}  raised="true"color="primary" onClick={this.handleEnter}>
                        دخول
                 </Button>
-                <Button className={classes.button} raised color="primary" onClick={this.handleExit}>
+                <Button className={classes.button}  raised="true"color="primary" onClick={this.handleExit}>
                      خروج
                 </Button>
                 <span className={classNames(classes.styleCommun , classes.profileCin)}>

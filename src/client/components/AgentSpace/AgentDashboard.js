@@ -84,7 +84,7 @@ class AgentDashboard extends React.Component{
               {name}
             </Typography>
             <div className="ChartInfos">
-              <Button fab disabled><QueryBuilder color="action"/>
+              <Button variant="fab" disabled><QueryBuilder color="action"/>
               </Button>
               <div className="timeDetail">
                 <span className="timeDetailText">
@@ -102,7 +102,7 @@ class AgentDashboard extends React.Component{
             </div>
                 {
                   (users!=undefined)&&(<div  className="ChartInfos">
-                <Button fab disabled>
+                <Button variant="fab" disabled>
                   <People color="action"/>
                 </Button>
 
@@ -114,10 +114,10 @@ class AgentDashboard extends React.Component{
                 </div>
               </div>)
             }
-            <div><Link to={`/sessionactivity/${session._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+            <div><Link to={`/sessionactivity/${session._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
              الاطلاع على التحركات
             </Button></Link>
-            <Link to={`/listusersbysession/${session._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+            <Link to={`/listusersbysession/${session._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
             حالة الحضور
           </Button></Link></div>
           </div>
