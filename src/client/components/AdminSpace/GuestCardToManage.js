@@ -77,7 +77,7 @@ class GuestCardToManage extends React.Component{
                     <Phone />
                     {data.profile.tel}
                   </Button>
-                  <Link to={`/useractivity/${data._id}`}><Button raised color="secondary" ><SwapHoriz />
+                  <Link to={`/useractivity/${data._id}`}><Button  raised="true"color="secondary" ><SwapHoriz />
                    الاطلاع على التحركات
                  </Button></Link></div>
                 )}

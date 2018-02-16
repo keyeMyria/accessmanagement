@@ -103,10 +103,10 @@ class DashboardUnit extends React.Component{
                       </div>
                     </div>)
                   }
-                  <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+                  <div><Link to={`/sessionactivity/${details._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
                    الاطلاع على التحركات
                   </Button></Link>
-                  <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className="button"><SwapHoriz  className="leftIcon" />
+                  <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className="button"><SwapHoriz  className="leftIcon" />
                   حالة الحضور
                 </Button></Link></div>
                 </div>

@@ -197,7 +197,7 @@ class VerifyExitComponent extends React.Component{
             {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
             <span className={classNames(classes.styleCommun , classes.profileFunction)}>
             {this.props.userToEnter.userId.profile.function}</span>
-            <Button className={classes.button} raised color="primary" onClick={this.handleEnter}>
+            <Button className={classes.button}  raised="true"color="primary" onClick={this.handleEnter}>
                  خروج
             </Button>
             <span className={classNames(classes.styleCommun , classes.profileCin)}>

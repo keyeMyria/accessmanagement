@@ -92,11 +92,11 @@ class AttendeeCard extends React.Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
           <div>
-            <Button raised className={classes.numbersButton}  disabled >
+            <Button  raised="true"className={classes.numbersButton}  disabled >
               <Phone  className={classes.leftIcon} />
               {data.profile.tel}
             </Button>
-            <Link to={`/useractivity/${data._id}`}><Button raised color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+            <Link to={`/useractivity/${data._id}`}><Button  raised="true"color="secondary" ><SwapHoriz  className={classes.leftIcon} />
              الاطلاع على التحركات
             </Button></Link>
           </div>

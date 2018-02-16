@@ -271,11 +271,11 @@ class Cropper extends React.Component {
         </div>
 
         <div className='modal-footer'>
-          <Button raised color="default" onClick={this.handleCrop.bind(this)}>
+          <Button  raised="true"color="default" onClick={this.handleCrop.bind(this)}>
             Upload
          <FileUpload />
        </Button>
-       <Button onClick={this.props.onRequestHide} raised  color="secondary"  >
+       <Button onClick={this.props.onRequestHide}  raised="true" color="secondary"  >
           Delete
           <Delete />
         </Button>

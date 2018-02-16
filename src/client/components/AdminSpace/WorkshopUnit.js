@@ -141,10 +141,10 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{details.users.length}</span>
                       </div>
                     </div>)}
-                    <div><Link to={`/sessionactivity/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                    <div><Link to={`/sessionactivity/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                      الاطلاع على التحركات
                     </Button></Link>
-                    <Link to={`/listusersbysession/${details._id}`}><Button raised color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                    <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                     حالة الحضور
                   </Button></Link></div>
                 </div>
