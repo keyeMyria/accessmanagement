@@ -42,7 +42,14 @@ const styles = theme => ({
   },
   OUT:{
     fill :"#ef4035",
-  } ,
+  },
+  containerGuest:{
+    padding:'0 16px',
+    height:'calc(100vh - 209px)',
+  },
+  container_ui:{
+    width:'100%',
+  },
 
 });
 
@@ -145,15 +152,8 @@ componentWillReceiveProps(newProps) {
                   placeholder="Search Attendies" onChange={this.filterList}
             />
         </FormControl>
-        <div className='containerGuest'>
-          <div className='container_ui'>
-            <div className='container_ui__heading'>
-
-              <h1>
-                قائمة الحضور
-              </h1>
-
-            </div>
+        <div className='containerGuest' className={classes.containerGuest}>
+          <div className='container_ui' className={classes.container_ui}>
             {this.state.attendies_list.map(value => (
 
                  <GuestCardToManage key={value._id} data={value} readonly={true}/>
