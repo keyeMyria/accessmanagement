@@ -127,11 +127,11 @@ class EventsList extends React.Component{
 							<span className="year">{dateFormat(item.start_date , 'yyyy')}</span>
 						</time>
 						<div className="info" onClick={() => {this.eventDetail(item)}}>
-							<h2 className="title">{item.title}</h2>
+							<h2 className="titre">{item.title}</h2>
               <p className="type"> {item.type} </p>
               <p className="emplacement"> Hotel Yasmine Hammamet</p>
-              <p className="desc">starts at {dateFormat(item.start_date , 'dd/mm/yyyy')} : {dateFormat(item.start_date , 'hh:mm')} ends at {dateFormat(item.end_date , 'dd/mm/yyyy')} : {dateFormat(item.end_date , 'hh:mm')}</p>
-              <p className="desc"><AccountCircle className="accountIcon"/>{item.numberAttendies} Attendies</p>
+              <p className="desc"> من  {dateFormat(item.start_date , 'dd/mm/yyyy')} , {dateFormat(item.start_date , 'hh:mm')} الى {dateFormat(item.end_date , 'dd/mm/yyyy')} , {dateFormat(item.end_date , 'hh:mm')}</p>
+              <p className="desc"><AccountCircle className="accountIcon"/> الحضور المتوقع {item.numberAttendies}</p>
             </div>
             <div>
             <IconButton

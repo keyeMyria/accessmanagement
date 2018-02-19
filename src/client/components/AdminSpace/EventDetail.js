@@ -29,10 +29,7 @@ import LectureIcon from './vendor/lecture.svg';
 import WorkShopForm from './addWorkShopForm';
 import Add from 'material-ui-icons/Add'
 const styles = theme => ({
-  editButton:{
-    marginBottom: '10px',
-    backgroundColor:'#fff',
-  },
+
   container:{
   },
   header: {
@@ -40,6 +37,9 @@ const styles = theme => ({
     color :'white',
     padding:'24px 16px 72px',
   } ,
+  editIcon:{
+    color:'#00abc7',
+  },
   title:{
     margin: '16px 0',
     fontSize: '30pt',
@@ -71,7 +71,15 @@ const styles = theme => ({
   sessionItem :{
     borderLeft : '3px solid #053787' ,
     minHeight : '80px',
+    display: 'flex',
+    justifyContent: 'space-between',
   } ,
+  datEntreSorti:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
   containerWorkshop:{
     display: 'flex',
     flexDirection: 'column',
@@ -256,8 +264,8 @@ class EventDetail extends React.Component{
 
       <div className={classes.container}>
       <div className={classes.header}>
-        <Button fab  raised="true" color="secondary" aria-label="edit Event" className={classes.editButton}>
-          <ModeEditIcon />
+        <Button fab  raised="true" className="editButton">
+          <ModeEditIcon className={classes.editIcon}/>
         </Button>
           <h2 className={classes.title}>
             {event.title}
@@ -292,17 +300,20 @@ class EventDetail extends React.Component{
         event.session_collection.map((item) => (
           <div  key={item._id} className={classes.listWorkshop}>
             <ListItem className={classes.sessionItem}>
-            <ListItemText primary="General Session" secondary={`starts at : ${dateFormat(item.start_hour , 'hh:mm')} `} />
-            {item.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(item.end_hour , 'hh:mm')}`} />
+            <div className={classes.datEntreSorti}>
+                <ListItemText primary="General Session" secondary={`البداية : ${dateFormat(item.start_hour , 'hh:mm')} `} />
+                {item.stat=='OFF' &&(
+                  <ListItemText  style={{ padding: '0' }} secondary={`النهاية : ${dateFormat(item.end_hour , 'hh:mm')}`} />
+                )}
+            </div>
+            {item.stat=='ON' &&(
+              <Button onClick={()=>this.stopSessionAction(item._id)}  className={classes.stop}>
+                <div className={classes.startStopSession}>
+                  <Stop/>
+                  إنهاء الجلسة
+                </div>
+              </Button>
             )}
-              {item.stat=='ON' &&(
-                <Button onClick={()=>this.stopSessionAction(item._id)}  className={classes.stop}>
-                  <div className={classes.startStopSession}>
-                    <Stop/>
-                    إنهاء الجلسة
-                  </div>
-                </Button>
-              )}
             </ListItem>
         </div>
         ))
@@ -344,9 +355,12 @@ class EventDetail extends React.Component{
                     { item.session_list.map((lol) => (
                         <div key={lol._id}>
                           <ListItem className={classes.workshopsessionitem}>
-                            <ListItemText secondary={`starts at : ${dateFormat(lol.start_hour , 'hh:mm')}`} />
-                              {lol.stat=='OFF' &&(<ListItemText secondary={`closed at : ${dateFormat(lol.end_hour , 'hh:mm')}`} />
+                          <div>
+                            <ListItemText secondary={`البداية : ${dateFormat(lol.start_hour , 'hh:mm')}`} />
+                              {lol.stat=='OFF' &&(
+                                <ListItemText style={{ padding: '0' }} secondary={`النهاية : ${dateFormat(lol.end_hour , 'hh:mm')}`} />
                               )}
+                          </div>
                           </ListItem>
                         </div>
                       ))

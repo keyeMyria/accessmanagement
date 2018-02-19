@@ -81,7 +81,7 @@ text-align: right;
 flex-grow: 3;
 cursor: pointer;
 }
-.event-list > li > .info > .title {
+.event-list > li > .info > .titre {
 font-size: 17pt;
 font-weight: 500;
 font-family: Changa, sans-serif;
@@ -163,6 +163,13 @@ background-color: rgb(200, 200, 200);
 .event-list + .addButton:hover{
   background-color: #00ACC1;
 }
+div > div > .editButton {
+  margin-bottom: 10px;
+  background-color: #fff ;
+}
+div > div > .editButton:hover{
+  background-color: #edfdff;
+},
 div > div > .AddingButton {
   height: 100px;
   width: 150px;
