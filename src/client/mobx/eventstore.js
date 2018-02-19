@@ -31,16 +31,16 @@ class EventStore {
       this.event_sessions.push(session)
     }
     @action setEventSessions = (sessions) => {
-      this.event_sessions.length=0;
-      sessions.map(session=>{
-
-        let users = this.getUserDataForChartOfSession(session._id);
-        users.then(res=>{
-          session.users = res.data.getUserDataForChartOfSession;
-          this.addSessionToEventSessions(session);
-        })
-
-      })
+      //this.event_sessions.length=0;
+      // sessions.map(session=>{
+      //
+      //   let users = this.getUserDataForChartOfSession(session._id);
+      //   users.then(res=>{
+      //     session.users = res.data.getUserDataForChartOfSession;
+      //     this.addSessionToEventSessions(session);
+      //   })
+      //
+      // })
     }
     @action setEventWorkshops = (workshops) => {
       this.event_workshops.length=0;
@@ -90,7 +90,6 @@ class EventStore {
       );
       this.event_workshops =this.selectedEvent.workshops.filter(
         work=>{
-          console.log(work)
           work.session_empty==empty
         }
       );
@@ -254,6 +253,11 @@ class EventStore {
                     start_hour
                     end_hour
                     stat
+                    expected_guests{
+                      _id
+                      username
+
+                    }
                   }
                   workshops{
                     _id

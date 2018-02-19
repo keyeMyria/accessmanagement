@@ -77,6 +77,7 @@ class DashboardUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
+    console.log(users)
                   const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data= this.getUsersStatistics(users);
                   let end ;
@@ -88,8 +89,8 @@ class DashboardUnit extends React.Component{
         }
         let difference = moment.duration(end.diff(start))
         return(
-          <div className={classes.DashboardContainer}>
-          <div  key={details._id} className="ChartContainer">
+          <div key={details._id} className={classes.DashboardContainer}>
+          <div  className="ChartContainer">
             <div  className="PieContainer">
                 <PieChart width={400} height={400}>
                   <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
@@ -141,7 +142,7 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailText}>
                         الحضور المتوقع
                         </span>
-                        <span className={classes.timeDetailHour}>{details.users.length}</span>
+                        <span className={classes.timeDetailHour}>{users.length}</span>
                       </div>
                     </div>)
                   }

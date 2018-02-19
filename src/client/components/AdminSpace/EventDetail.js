@@ -298,7 +298,7 @@ class EventDetail extends React.Component{
               {item.stat=='ON' &&(
                 <Button onClick={()=>this.stopSessionAction(item._id)}  className={classes.stop}>
                   <div className={classes.startStopSession}>
-                    <Stop  color="secondary"   />
+                    <Stop/>
                     إنهاء الجلسة
                   </div>
                 </Button>
