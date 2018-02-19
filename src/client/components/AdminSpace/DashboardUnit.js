@@ -77,7 +77,6 @@ class DashboardUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
-    console.log(users)
                   const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data= this.getUsersStatistics(users);
                   let end ;
@@ -142,7 +141,7 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailText}>
                         الحضور المتوقع
                         </span>
-                        <span className={classes.timeDetailHour}>{users.length}</span>
+                        <span className={classes.timeDetailHour}>{details.expected_guests}</span>
                       </div>
                     </div>)
                   }

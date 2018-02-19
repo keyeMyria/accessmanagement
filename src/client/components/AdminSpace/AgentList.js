@@ -21,6 +21,17 @@ import SessionStore from '../../mobx/sessionstore';
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
 import SessionBox from './SessionBox'
+import Button from 'material-ui/Button';
+import Add from 'material-ui-icons/Add';
+import Form from './AddAgentForm'
+import form from '../../mobx/forms/addAgents'
+import './vendor/events.css';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 const styles = theme => ({
   root: {
@@ -57,7 +68,8 @@ constructor(props){
   this.state={
     sessions : sessions ,
     boxes : agents ,
-    droppedBoxNames: []
+    droppedBoxNames: [] ,
+    open : false
 
   }
   sessions.length=0 ;
@@ -91,10 +103,7 @@ constructor(props){
   })
 
 }
-  componentDidMount=()=>{
 
-    console.log(sessions , agents)
-  }
     isDropped(boxName) {
         return this.state.droppedBoxNames.findIndex(item => boxName === item._id ) > -1
     	}
@@ -130,6 +139,15 @@ constructor(props){
         checked: newChecked,
       });
     }
+    handleCloseDialog=()=>{
+      this.setState({
+        open:false
+      })
+    }
+    handleAddAgent =(event)=>{
+      this.setState({ open: true });
+
+    }
     filterList =(event)=>{
       var updatedList = this.state.attendies_list;
       updatedList = updatedList.filter(function(item){
@@ -160,6 +178,24 @@ constructor(props){
       const { boxes, sessions } = this.state
         return (
           <div>
+            <Dialog
+              open={this.state.open}
+              onClose={this.handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogTitle id="form-dialog-title">إضافة حدث جديد</DialogTitle>
+              <DialogContent className="dialogContent">
+              <Form form={form}/>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={form.onSubmit} color="secondary">
+                  حفظ
+                </Button>
+                <Button onClick={this.handleCloseDialog} >
+                إلغاء
+                </Button>
+              </DialogActions>
+            </Dialog>
     				<div className={classes.wrapper}>
     					{sessions.map(({lastDroppedItem  , list , _id , data }, index) => (
     						<SessionBox
@@ -173,7 +209,11 @@ constructor(props){
     						/>
     					))}
     				</div>
-
+            <Button variant="fab" color="secondary" aria-label="add new event" onClick={this.handleAddAgent} className="addButton">
+              <Add style={{
+                color:'#ffff',
+              }}/>
+            </Button>
     			</div>
           )
     }
