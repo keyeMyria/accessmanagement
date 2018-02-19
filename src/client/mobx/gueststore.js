@@ -202,6 +202,22 @@ class UserStore {
       //console.log(res)
     })
   }
+  @action addAgent=(data)=>{
+    fetch({
+      query :`mutation addUserWithRole($username:String! , $password:String! ,$rolename:String! , $identifiant:String!){
+          addUserWithRole(username:$username , password:$password , rolename:$rolename, identifiant :$identifiant){
+            _id
+            username
+          }
+        }`,
+      variables:{
+        username : data.username ,
+        password:data.password ,
+        rolename:data.rolename ,
+        identifiant: data.identifiant
+      }
+    })
+  }
 }
 const store = new UserStore();
 

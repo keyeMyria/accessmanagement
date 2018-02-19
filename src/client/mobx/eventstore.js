@@ -31,16 +31,28 @@ class EventStore {
       this.event_sessions.push(session)
     }
     @action setEventSessions = (sessions) => {
-      //this.event_sessions.length=0;
-      // sessions.map(session=>{
-      //
-      //   let users = this.getUserDataForChartOfSession(session._id);
-      //   users.then(res=>{
-      //     session.users = res.data.getUserDataForChartOfSession;
-      //     this.addSessionToEventSessions(session);
-      //   })
-      //
-      // })
+      this.event_sessions.length=0;
+      sessions.map(session=>{
+        this.getNumberOfGuestsPerSession(session._id , session)
+        let users = this.getUserDataForChartOfSession(session._id);
+        users.then(res=>{
+          session.users = res.data.getUserDataForChartOfSession;
+          this.addSessionToEventSessions(session);
+        })
+
+      })
+    }
+    @action getNumberOfGuestsPerSession =(sessionId ,session)=>{
+      fetch({
+        query :`query getNumberOfGuestsPerSession($sessionId:String!){
+          getNumberOfGuestsPerSession(sessionId:$sessionId)
+        }`,
+        variables:{
+          sessionId:sessionId
+        }
+      }).then(res=>{
+        session.expected_guests=res.data.getNumberOfGuestsPerSession
+      })
     }
     @action setEventWorkshops = (workshops) => {
       this.event_workshops.length=0;
@@ -132,7 +144,6 @@ class EventStore {
     });
       }
       @action addNewEvent(data){
-        console.log(data)
         fetch({
           query: `mutation addNewEvent($title :String!, $type:String! , $end_date:String! , $start_date:String! , $file:String!) {
             addNewEvent(title:$title , type:$type , end_date:$end_date , start_date:$start_date , file:$file)  {
@@ -253,11 +264,7 @@ class EventStore {
                     start_hour
                     end_hour
                     stat
-                    expected_guests{
-                      _id
-                      username
 
-                    }
                   }
                   workshops{
                     _id
