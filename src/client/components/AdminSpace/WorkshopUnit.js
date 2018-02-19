@@ -31,6 +31,10 @@ const styles = theme => ({
     width : '50%' ,
     float : 'right'
   } ,
+  DashboardContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   workshopName:{
    color:'#013084',
    fontSize: '2rem',
@@ -86,7 +90,7 @@ class WorkshopUnit extends React.Component{
         }
         let difference = moment.duration(end.diff(start))
         return(
-          <div className="DashboardContainer">
+          <div className={classes.DashboardContainer}>
             <div key={details._id} className="ChartContainer">
               <div className="PieContainer">
                 <PieChart width={400} height={400}>
@@ -113,7 +117,7 @@ class WorkshopUnit extends React.Component{
                     {name}
                   </Typography>
                   <div className="ChartInfos">
-                    <Button variant="fab" disabled><QueryBuilder color="action"/>
+                    <Button fab  disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
                       <span className={classes.timeDetailText}>
@@ -130,7 +134,7 @@ class WorkshopUnit extends React.Component{
                     </div>)}
                   </div>
                       {(details.users!=undefined)&&(<div className="ChartInfos">
-                      <Button variant="fab" disabled>
+                      <Button fab  disabled>
                         <People color="action"/>
                       </Button>
 
