@@ -158,7 +158,6 @@ class AgentDashboard extends React.Component{
     </div>)
   }
   render(){
-
     if(WorkshopStore.selectedWorkshop!=null && WorkshopStore.selectedWorkshop.session!=undefined){
       return(<div>{this.buildDashboard(WorkshopStore.users , WorkshopStore.selectedWorkshop.session , WorkshopStore.selectedWorkshop)}</div>)
 

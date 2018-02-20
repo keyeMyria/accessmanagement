@@ -206,7 +206,7 @@ body .container_ui label {
   width: 100%;
   overflow: hidden;
 }
-body .container_ui label:hover > .container_ui__item {
+body .container_ui label:hover > .container_ui__item  {
   background-color: #EAEAEA !important;
 }
 body .container_ui label .container_ui__item {
@@ -294,7 +294,7 @@ body .container_ui__item .itemActions{
 }
 /* end Attendees list only */
 
-body .container_ui__item .face .color_bar {
+body .container_ui__item .face .color_bar  {
   float: right;
   width: 6px;
   height: 104px;
@@ -362,11 +362,11 @@ body .container_ui__expand {
           transition-delay: .2s;
   -webkit-transition-property: left,opacity;
   transition-property: left,opacity;
-  opacity: 0;
+  /* opacity: 0; */
   -webkit-transition-duration: .4s;
           transition-duration: .4s;
   left: 0;
-  z-index: -1;
+  /* z-index: -1; */
   background: white;
 }
 
@@ -374,7 +374,7 @@ body .container_ui__expand .body .content {
   text-align: left;
   position: relative;
   top: 10px;
-  opacity: 0;
+  /* opacity: 0; */
 }
 body .container_ui__expand .body .content p {
   text-align: justify;
@@ -409,7 +409,7 @@ body .container_ui__expand .body .user {
   height: 65px;
 }
 body .container_ui__expand .body .user .details {
-  opacity: 0;
+  /* opacity: 0; */
   top: 10px;
   position: relative;
   float: right;

@@ -26,7 +26,7 @@ class UserStore {
 
     @computed get selectWorkshopAgent() { return this.agent_workshop; }
 
-    @action selectUser = (user) => {this.selectedUser = user; }
+    @action selectUser = (user) => {this.selectedUser = user;}
     // Managing how we clear our observable state
     @action clearSelectedUser = () => { this.selectedUser = {}; }
     // An example that's a little more complex

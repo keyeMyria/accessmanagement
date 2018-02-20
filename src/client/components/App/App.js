@@ -35,6 +35,7 @@ import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 import AgentDashboard from '../AgentSpace/AgentDashboard';
 import SessionActivity from '../AdminSpace/SessionActivity';
 import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter'
+import UserStore from '../../mobx/gueststore'
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;
@@ -166,7 +167,7 @@ const AdminRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props =>
       (isAuthenticated() && isAdmin()? (
-        <AdminContainer><Component {...props} /></AdminContainer>
+        <AdminContainer><Component UserStore={UserStore} {...props} /></AdminContainer>
       ) : (
         <Redirect
           to={{
