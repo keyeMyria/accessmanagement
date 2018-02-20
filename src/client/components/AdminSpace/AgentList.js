@@ -51,7 +51,7 @@ const styles = theme => ({
     fill :"red",
   } ,
   wrapper :{
-    height: '100%',
+    // height: '100%',
     padding: '15px',
     display: 'flex',
     flexDirection: 'row',
@@ -178,24 +178,26 @@ constructor(props){
       const { boxes, sessions } = this.state
         return (
           <div>
-            <Dialog
-              open={this.state.open}
-              onClose={this.handleClose}
-              aria-labelledby="form-dialog-title"
-            >
-              <DialogTitle id="form-dialog-title">إضافة حدث جديد</DialogTitle>
-              <DialogContent className="dialogContent">
-              <Form form={form}/>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={form.onSubmit} color="secondary">
-                  حفظ
-                </Button>
-                <Button onClick={this.handleCloseDialog} >
-                إلغاء
-                </Button>
-              </DialogActions>
-            </Dialog>
+            {
+            //   <Dialog
+            //   open={this.state.open}
+            //   onClose={this.handleClose}
+            //   aria-labelledby="form-dialog-title"
+            // >
+            //   <DialogTitle id="form-dialog-title">إضافة حدث جديد</DialogTitle>
+            //   <DialogContent className="dialogContent">
+            //   <Form form={form}/>
+            //   </DialogContent>
+            //   <DialogActions>
+            //     <Button onClick={form.onSubmit} color="secondary">
+            //       حفظ
+            //     </Button>
+            //     <Button onClick={this.handleCloseDialog} >
+            //     إلغاء
+            //     </Button>
+            //   </DialogActions>
+            // </Dialog>
+          }
     				<div className={classes.wrapper}>
     					{sessions.map(({lastDroppedItem  , list , _id , data }, index) => (
     						<SessionBox
@@ -209,11 +211,13 @@ constructor(props){
     						/>
     					))}
     				</div>
-            <Button variant="fab" color="secondary" aria-label="add new event" onClick={this.handleAddAgent} className="addButton">
-              <Add style={{
-                color:'#ffff',
-              }}/>
-            </Button>
+            {
+            //   <Button variant="fab" color="secondary" aria-label="add new event" onClick={this.handleAddAgent} className="addButton">
+            //   <Add style={{
+            //     color:'#ffff',
+            //   }}/>
+            // </Button>
+          }
     			</div>
           )
     }

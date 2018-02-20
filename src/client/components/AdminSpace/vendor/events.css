@@ -8,7 +8,7 @@ body{
 
 .Btns-filter{
  margin:16px auto 8px;
- width:270px;
+ width:100%;
 }
 
 .Btns-filter .filter-activ{
@@ -43,32 +43,31 @@ transition: all 0.2s cubic-bezier(.25,.8,.25,1);
 }
 
 .event-list > li > time {
-display: inline-block;
-color: rgb(255, 255, 255);
-background-color: #003489;
-padding: 16px 24px;
-text-align: center;
-text-transform: uppercase;
-cursor: pointer;
+  display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background-color: #003489;
+      padding: 16px 24px;
+      text-transform: uppercase;
+      cursor: pointer;
 }
 
 .event-list > li > time > span {
 /* display: none; */
 }
 .event-list > li > time > .day {
-display: block;
 font-size: 38pt;
 font-weight: 100;
 line-height: 1;
 }
 .event-list > li time > .month {
-display: block;
 font-size: 22pt;
 font-weight: 700;
 line-height: 1;
 }
 .event-list > li time > .year {
-display: block;
 font-size: 18pt;
 font-weight: 100;
 }
@@ -85,7 +84,6 @@ cursor: pointer;
 font-size: 17pt;
 font-weight: 500;
 font-family: Changa, sans-serif;
-margin: 0px;
 color: #00abc7;
 }
 .event-list > li > .info > .type {
@@ -102,7 +100,6 @@ padding: 0 10px;
 .event-list > li > .info > .desc {
 font-size: 10pt;
 font-weight: 300;
-margin: 0px;
 display: flex;
 }
 .event-list > li > .info > .desc > .accountIcon{
