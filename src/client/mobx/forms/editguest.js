@@ -55,9 +55,6 @@ const hooks = {
     console.log(form.values())
     // get all form errors
   //  console.log('All form errors', form.errors());
-  },
-  onAddAgent(value  , user , form){
-    console.log(value , user , form)
   }
 
 }

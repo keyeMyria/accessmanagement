@@ -443,8 +443,8 @@ body .container_ui__expand .body .user .face {
 }
 body .container_ui__expand .body .user .face img {
   width: 40px;
-  -webkit-transform: scale(0);
-          transform: scale(0);
+  /* -webkit-transform: scale(0);
+          transform: scale(0); */
   border-radius: 100%;
   border: 2px solid white;
   margin: 10px 25px;

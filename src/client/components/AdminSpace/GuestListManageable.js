@@ -51,6 +51,11 @@ import gueststore from '../../mobx/gueststore'
 // Covered in the MobX Section
 import { observer } from 'mobx-react';
 import GuestCardToManage from './GuestCardToManage'
+import EditGuestForm from './EditGuestForm';
+import form from '../../mobx/forms/editguest'
+
+
+
  pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.fonts = {
   Roboto: {
@@ -506,6 +511,7 @@ getDataUri = (url , callback) =>{
                                   </div>
                                 </div>
                                 <div className='content'>
+                                      <EditGuestForm form={form} formData={this.props.UserStore.selectedUser}/>
                                   {/* <form>
                                              <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={data.profile!=undefined ? data.profile.name : ''} />
 

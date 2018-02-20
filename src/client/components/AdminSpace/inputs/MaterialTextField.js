@@ -14,10 +14,11 @@ const styles ={
   },
 }
 
-export default observer(({ field, type = 'text', placeholder = null }) => (
+export default observer(({ field, type = 'text', placeholder = null , value }) => (
   <div className="measure" style={styles.textFieldContainer}>
     <TextField style={styles.aTextField}
      {...field.bind({ type, placeholder })}
+     value={value}
      helperText={field.error}
    />
   </div>
