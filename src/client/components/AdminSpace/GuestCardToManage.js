@@ -31,6 +31,27 @@ class GuestCardToManage extends React.Component{
 
 
   }
+  handleChange = (user , form) => {
+    UserStore.selectUser(user);
+    form.update({
+          "_id":user._id,
+          "name":user.profile.name ,
+          "forname":user.profile.forname ,
+          "cin": user.cin,
+          "tel" :user.profile.tel ,
+          "function": user.profile.function,
+          "region":user.profile.region ,
+          "gouvernorat":user.profile.gouvernorat});
+
+          console.log(form.values())
+          // this.setState(state => {
+          //   selected_user:user
+          // }, ()=>{
+          //   console.log('clicked')
+          // });
+
+
+     };
   render(){
     const {classes, data , readonly}=this.props
     return(
@@ -39,7 +60,7 @@ class GuestCardToManage extends React.Component{
 
             <div>
               {!readonly &&(
-                <input id={`message-${data._id}`} type='checkbox' onChange={()=>UserStore.selectUser(this.props.data)}/>
+                <input id={`message-${data._id}`} type='checkbox' onChange={()=>this.handleChange(this.props.data , this.props.form)}/>
               )}
             <label htmlFor={`message-${data._id}`} href='#move'>
               <div className='container_ui__item'>

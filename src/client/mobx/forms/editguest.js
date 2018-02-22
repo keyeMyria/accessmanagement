@@ -43,7 +43,9 @@ const fields = [{
   label: 'gouvernorat',
   placeholder: 'Get a gouvernorat',
   rules: 'required|string'
-}];
+}, {
+  name: '_id',
+  type : 'hidden',}];
 
 const hooks = {
   onSuccess(form) {
