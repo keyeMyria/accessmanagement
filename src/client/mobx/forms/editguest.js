@@ -1,5 +1,6 @@
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
+import UserStore from '../gueststore'
 const plugins = { dvr: validatorjs };
 
 const fields = [{
@@ -43,12 +44,13 @@ const fields = [{
   label: 'gouvernorat',
   placeholder: 'Get a gouvernorat',
   rules: 'required|string'
-}];
+}, {
+  name: '_id',
+  type : 'hidden',}];
 
 const hooks = {
   onSuccess(form) {
-    console.log(form.values())
-    //WorkshopStore.addNewWorkshop(form.values())
+    UserStore.UpdateUserInfoWithProfileData(form.values())
   },
   onError(form) {
     alert('Form has errors!');

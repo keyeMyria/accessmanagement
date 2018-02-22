@@ -218,6 +218,42 @@ class UserStore {
       }
     })
   }
+  @action updateSelectedUserField =(fields)=>{
+    for (let key of Object.keys(fields)) {
+      if(this.selectedUser.hasOwnProperty(key))
+      this.selectedUser[key] = fields[key];
+      else{
+        if(this.selectedUser.profile.hasOwnProperty(key))
+        this.selectedUser.profile[key] = fields[key];
+
+      }
+    }
+  }
+  @action UpdateUserInfoWithProfileData=(userObj)=>{
+    this.updateSelectedUserField(userObj);
+    fetch({
+      query : `mutation updateUserWithProfileData($userObj:UserInput) {
+          updateUserWithProfileData(userObj : $userObj) {
+            _id
+            cin
+
+            profile{
+              function
+              name
+              forname
+              avatar
+              tel
+              region
+              gouvernorat
+
+            }
+          }
+        }` ,
+      variables :{
+        userObj : JSON.parse(JSON.stringify(this.selectedUser))
+      }
+    })
+  }
 }
 const store = new UserStore();
 

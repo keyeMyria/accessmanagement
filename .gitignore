@@ -23,11 +23,6 @@ src/index.js
 src/index.js
 *.jpg
 *.png
-src/config.js
-src/index.js
-server/config.js
-scripts/start.js
-scripts/build.js
 roles.json
 profiles.json
 scripts/test.js

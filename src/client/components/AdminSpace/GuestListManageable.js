@@ -154,16 +154,7 @@ class GuestListManageable extends React.Component {
       //this.setState({ open_remove_confirm: false });
     };
 
-  handleChange = (user) => {
-    this.props.UserStore.selectUser(user)
-          // this.setState(state => {
-          //   selected_user:user
-          // }, ()=>{
-          //   console.log('clicked')
-          // });
 
-
-     };
 getArabicText=(value)=>{
   return value.split(" ").reverse().join("  ");
 }
@@ -267,7 +258,6 @@ let  background="data:image/jpeg;base64,/9j/7gAOQWRvYmUAZAAAAAAA/9sAQwABAQEBAQEB
       pdfMake.createPdf(docDefinition).download(`badge${data.identifiant}.pdf`);
     });
   }else{
-    console.log(data)
     let avatar_uri ='data:image/png;base64,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';
       columnsImage .push({
         image :avatar_uri  ,
@@ -447,7 +437,6 @@ getDataUri = (url , callback) =>{
   }
   else{
     const {expanded} = this.state;
-    console.log(this.props.UserStore.selectedUser)
       return (
 
         <div>
@@ -489,7 +478,7 @@ getDataUri = (url , callback) =>{
                  {
                     this.props.UserStore.users.map(value => (
 
-                      <GuestCardToManage key={value._id} data={value} exportPDF={this.exportPDF}/>
+                      <GuestCardToManage key={value._id} data={value} exportPDF={this.exportPDF} form ={form}/>
 
                          ))}
                            {this.props.UserStore.selectedUser &&(
@@ -513,7 +502,10 @@ getDataUri = (url , callback) =>{
                                   </div>
                                 </div>
                                 <div className='content'>
-                                      <EditGuestForm form={form} formData={this.props.UserStore.selectedUser}/>
+                                      <EditGuestForm form={form} user={this.props.UserStore.selectedUser}/>
+                                      <Button dense="true" color="primary" onClick={form.onSubmit}>
+                                        Save
+                                      </Button>
                                   {/* <form>
                                              <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={data.profile!=undefined ? data.profile.name : ''} />
 
