@@ -39,9 +39,9 @@ class GuestCardToManage extends React.Component{
 
             <div>
               {!readonly &&(
-                <input id={`message-${data._id}`} type='checkbox' onChange={()=>UserStore.selectUser(this.props.data)}/>
+                <input id={`message-${data._id}`} type='Checkbox' onChange={()=>UserStore.selectUser(this.props.data)}/>
               )}
-            <label htmlFor={`message-${data._id}`} href='#move'>
+            <label className='labelGuestList' htmlFor={`message-${data._id}`} href='#move'>
               <div className='container_ui__item'>
                 <div className='face'>
                   <img src={`public/assets/avatars/${data.profile.avatar}`} />
