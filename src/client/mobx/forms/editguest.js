@@ -51,7 +51,6 @@ const fields = [{
 const hooks = {
   onSuccess(form) {
     UserStore.UpdateUserInfoWithProfileData(form.values())
-    //WorkshopStore.addNewWorkshop(form.values())
   },
   onError(form) {
     alert('Form has errors!');
