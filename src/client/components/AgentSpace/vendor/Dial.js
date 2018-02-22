@@ -93,11 +93,11 @@ export class DialPad extends React.Component {
       //   action : 'verify'
       // },
       {
-        symbol : '0'
+        icon   : (<Close/>),
+        action : 'reset',
       },
       {
-        icon   : (<Close/>),
-        action : 'reset'
+        symbol : '0'
       }
     ]
     return (
@@ -121,6 +121,7 @@ export class DialPad extends React.Component {
             'gridTemplateColumns': 'repeat(3, 1fr)',
             'gridRowGap': '10px',
             'gridColumnGap': '10px',
+            'fontFamily': 'Roboto',
           }}>
             {buttons.map((button, i) => (
               <li onClick={() => onClick(button)}  className="liNumber"
@@ -180,7 +181,7 @@ export default class Dial extends React.Component {
   }
   handleClick(button) {
     const { value } = this.state
-    if (!button.action) {
+    if ((!button.action)&&('reset' != button.action)) {
       this.setState({
         //increment:i+1,
         value : `${value}${button.symbol}`
@@ -288,17 +289,19 @@ export default class Dial extends React.Component {
         'alignItems': 'center',
         'maxWidth': '691px',
         'maxHeight': '487px',
+        'minWidth': '242px',
       }}>
 
       <div
       style= {{
+        'height': '56px',
         'display': 'flex',
         'alignItems': 'center',
-        'marginBottom': '10px',
+        'marginBottom': '20px',
       }}>
       <div style   = {{'height': '50px',}}></div>
       {this.state.increment== 4 &&(
-        <Button fab  color="primary" aria-label="add" style   = {{'height': '40px', 'minWidth': '50px', 'padding': '0',}}>
+        <Button fab  color="secondary" aria-label="add" style   = {{'marginLeft': '10px', 'padding': '0',}}>
           <Send/>
         </Button>
       )}

@@ -25,7 +25,7 @@ const role = localStorage.getItem('role');
 
 const httpLink = new HttpLink({ uri :  DOMAIN_PATH});
 const apolloFetchUpload = createApolloFetchUpload({
-  uri: REMOTE_DOMAIN_PATH
+  uri: DOMAIN_PATH
 })
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers

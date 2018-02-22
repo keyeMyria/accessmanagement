@@ -1,0 +1,5 @@
+@media screen and (max-width: 378px){
+    div > div > .bottomLabel{
+      padding: 0;
+    }
+}
