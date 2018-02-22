@@ -492,11 +492,13 @@ getDataUri = (url , callback) =>{
                                     <img src={`public/assets/avatars/${gueststore.selectedUser.profile.avatar}`}  />
                                   </div>
                                   <div className='details'>
-                                    <h2> {this.props.UserStore.selectedUser.identifiant}  {this.props.UserStore.selectedUser.profile.name} {this.props.UserStore.selectedUser.profile.forname}</h2>
-                                    <h3>Edit Personal Informations</h3>
-                                       <Button dense="true" raised onClick={() =>{this.exportPDF(this.props.UserStore.selectedUser)}} className="exportBadgeButton">
-                                        export Badge
-                                       </Button>
+                                    <h2>{this.props.UserStore.selectedUser.profile.name} {this.props.UserStore.selectedUser.profile.forname}</h2>
+                                    <h3>{this.props.UserStore.selectedUser.identifiant}</h3>
+                                  </div>
+                                  <div className="exportBtnContainer">
+                                    <Button color="secondary" dense="true" raised onClick={() =>{this.exportPDF(this.props.UserStore.selectedUser)}} className="exportBadgeButton">
+                                     export Badge
+                                    </Button>
                                   </div>
                                 </div>
                                 <div className='content'>

@@ -62,7 +62,7 @@ class GuestCardToManage extends React.Component{
               {!readonly &&(
                 <input id={`message-${data._id}`} type='checkbox' onChange={()=>this.handleChange(this.props.data , this.props.form)}/>
               )}
-            <label htmlFor={`message-${data._id}`} href='#move'>
+            <label className='labelGuestList' htmlFor={`message-${data._id}`} href='#move'>
               <div className='container_ui__item'>
                 <div className='face'>
                   <img src={`public/assets/avatars/${data.profile.avatar}`} />
