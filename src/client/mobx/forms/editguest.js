@@ -1,5 +1,6 @@
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
+import UserStore from '../gueststore'
 const plugins = { dvr: validatorjs };
 
 const fields = [{
@@ -49,7 +50,7 @@ const fields = [{
 
 const hooks = {
   onSuccess(form) {
-    console.log(form.values())
+    UserStore.UpdateUserInfoWithProfileData(form.values())
     //WorkshopStore.addNewWorkshop(form.values())
   },
   onError(form) {
