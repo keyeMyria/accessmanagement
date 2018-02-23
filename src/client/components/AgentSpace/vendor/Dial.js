@@ -193,7 +193,7 @@ export default class Dial extends React.Component {
     else if ('reset' === button.action) {
       this.reset()
     }
-    if (this.state.increment<=3) {
+    if ((this.state.increment<=3) &&('reset' !== button.action)){
       let i = this.state.increment;
       this.setState({
           increment:i+1,
@@ -294,10 +294,10 @@ export default class Dial extends React.Component {
 
       <div
       style= {{
-        'height': '56px',
+        'height': '100px',
         'display': 'flex',
         'alignItems': 'center',
-        'marginBottom': '20px',
+        // 'marginBottom': '20px',
       }}>
       <div style   = {{'height': '50px',}}></div>
       {this.state.increment== 4 &&(
