@@ -10,7 +10,7 @@ import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import PersonAdd from 'material-ui-icons/PersonAdd';
 import GroupWork from 'material-ui-icons/GroupWork';
 import VerifiedUser from 'material-ui-icons/VerifiedUser';
-import AssignmentInd from 'material-ui-icons/AssignmentInd'
+import AssignmentInd from 'material-ui-icons/AssignmentInd';
 import Lock from 'material-ui-icons/Lock';
 import {Link} from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';

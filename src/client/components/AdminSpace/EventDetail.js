@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import AccountCircle from 'material-ui-icons/AccountCircle';
+import AccessTime from 'material-ui-icons/AccessTime';
 import dateFormat from 'dateformat';
 import { withStyles } from 'material-ui/styles';
 import Dialog , {DialogActions} from 'material-ui/Dialog';
@@ -73,7 +74,7 @@ const styles = theme => ({
     minHeight : '80px',
     display: 'flex',
     justifyContent: 'space-between',
-  } ,
+  },
   datEntreSorti:{
     display: 'flex',
     flexDirection: 'column',
@@ -117,9 +118,28 @@ const styles = theme => ({
     marginTop : '0px'
   },
   workshopsessionitem:{
-    borderLeft : '16px solid #F5F5F5' ,
-    backgroundColor :'#F5F5F5',
+    borderLeft : '3px solid #00ABC7' ,
+    backgroundColor :'#F7F7F7',
     minHeight : '30px',
+    padding:'8px 24px 8px 8px'
+  },
+  sessionitemTime:{
+    display:'flex',
+    alignItems:'baseline',
+    fontFamily:'Roboto, Arial, sans-serif',
+    fontSize:'1rem',
+    fontWeight:'300',
+    color:'rgba(0, 0, 0, 0.54)',
+  },
+  sessionitemTimeIcon:{
+    color:'#a0a0a0',
+    height:'16px',
+    width:'16px',
+    marginRight:'8px',
+  },
+  sessionitemTimeEnd:{
+    marginLeft:'8px',
+    paddingLeft:'8px',
   },
   AddButton:{
     display: 'flex',
@@ -306,6 +326,7 @@ class EventDetail extends React.Component{
                   <ListItemText  style={{ padding: '0' }} secondary={`النهاية : ${dateFormat(item.end_hour , 'hh:mm')}`} />
                 )}
             </div>
+
             {item.stat=='ON' &&(
               <Button onClick={()=>this.stopSessionAction(item._id)}  className={classes.stop}>
                 <div className={classes.startStopSession}>
@@ -354,14 +375,16 @@ class EventDetail extends React.Component{
                   <List className={classes.sessionListWork}>
                     { item.session_list.map((lol) => (
                         <div key={lol._id}>
-                          <ListItem className={classes.workshopsessionitem}>
-                          <div>
-                            <ListItemText secondary={`البداية : ${dateFormat(lol.start_hour , 'hh:mm')}`} />
-                              {lol.stat=='OFF' &&(
-                                <ListItemText style={{ padding: '0' }} secondary={`النهاية : ${dateFormat(lol.end_hour , 'hh:mm')}`} />
-                              )}
+                          <div className={classes.workshopsessionitem}>
+                            <div className={classes.sessionitemTime}>
+                              <div>
+                                <AccessTime className={classes.sessionitemTimeIcon}/>
+                                {`البداية : ${dateFormat(lol.start_hour , 'hh:mm')}`}</div>
+                                {lol.stat=='OFF' &&(
+                                  <div className={classes.sessionitemTimeEnd}>{`النهاية : ${dateFormat(lol.end_hour , 'hh:mm')}`}</div>
+                                )}
+                            </div>
                           </div>
-                          </ListItem>
                         </div>
                       ))
                     }
