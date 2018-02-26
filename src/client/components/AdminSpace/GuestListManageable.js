@@ -503,7 +503,7 @@ getDataUri = (url , callback) =>{
                                 </div>
                                 <div className='content'>
                                       <EditGuestForm form={form} user={this.props.UserStore.selectedUser}/>
-                                      <Button dense="true" color="primary" onClick={form.onSubmit}>
+                                      <Button raised color="secondary" onClick={form.onSubmit}>
                                         Save
                                       </Button>
                                   {/* <form>

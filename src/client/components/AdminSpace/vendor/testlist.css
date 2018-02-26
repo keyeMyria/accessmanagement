@@ -345,9 +345,9 @@ body .container_ui__item .face .color_bar h3 {
 
 body .container_ui__item .face .color_bar span {
   opacity: 0;
-  font-size: 12px;
   position: relative;
-  top: -56px;
+  top: -68px;
+  color: white;
 }
 body .container_ui .dot {
   width: 6px;
@@ -381,6 +381,7 @@ body .container_ui__expand {
 }
 
 @media screen and (max-width: 768px) {
+
   body .container_ui__expand {
     width: 100%;
     right: calc(100% + 5px);
@@ -400,6 +401,13 @@ body .container_ui__expand .body .content {
   padding: 16px;
   /* opacity: 0; */
 }
+
+body .container_ui__expand .body{
+  padding-bottom: 12px;
+  border-bottom: 6px solid #003489;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.14);
+}
+
 /*body .container_ui__expand .body .content p {
   text-align: justify;
   font-size: 10px;
@@ -411,7 +419,7 @@ body .container_ui__expand .body .content {
 body .container_ui__expand .body .content p b {
   color: #444444;
 }
-body .container_ui__expand .body .content span {
+/*body .container_ui__expand .body .content span {
   display: block;
   padding: 0px 25px;
   font-weight: 800;
@@ -420,6 +428,7 @@ body .container_ui__expand .body .content span {
   font-size: 10px;
   color: #7d7d7d;
 }
+*/
 body .container_ui__expand .body .content textarea {
   margin: 0px 25px;
   width: 295px;

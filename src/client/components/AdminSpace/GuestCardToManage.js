@@ -11,6 +11,7 @@ import TextField from 'material-ui/TextField';
 import Select from 'material-ui/Select';
 import Button from 'material-ui/Button';
 import Delete from 'material-ui-icons/Delete';
+import AssignmentInd from 'material-ui-icons/AssignmentInd';
 import {Link} from 'react-router-dom';
 import Phone from 'material-ui-icons/Phone';
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
@@ -71,7 +72,7 @@ class GuestCardToManage extends React.Component{
                       <h2>{data.profile.name} {data.profile.forname}</h2>
                       <h3>{data.identifiant}</h3>
                     </div>
-                    <span>Read</span>
+                    <span><AssignmentInd /></span>
 
                   </div>
                 </div>

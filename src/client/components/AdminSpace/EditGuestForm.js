@@ -5,7 +5,13 @@ import MaterialDatePicker from './inputs/MaterialDatePicker';
 import HiddenInput from './inputs/HiddenInput';
 import Button from 'material-ui/Button';
 import gouvernement  , {whatido} from './vendor/states';
-import SelectField from './inputs/SelectField'
+import SelectField from './inputs/SelectField';
+
+const styles ={
+  formEditGuest :{
+    textAlign:'right',
+  },
+}
 
 @observer
 export default class EditGuestForm extends React.Component{
@@ -29,14 +35,14 @@ updateStore =(e)=>{
   render(){
     const { form , data ,  onSuccess , user}=this.props;
     return (
-      <form >
+      <form style={styles.formEditGuest}>
       <MaterialTextField field={form.$('name')} />
       <MaterialTextField field={form.$('forname')}/>
       <MaterialTextField field={form.$('cin')} />
       <MaterialTextField field={form.$('tel')} />
       <SelectField field={form.$('function')} store={whatido} valueKey="label"/>
       <SelectField field={form.$('region')} store={this.state.dataSource} onChange={(event)=>this.updateStore(event)} valueKey="value"/>
-      <SelectField field={form.$('gouvernorat')} store={this.state.govSource}  valueKey="value" />
+      <SelectField field={form.$('gouvernorat')} store={this.state.govSource}  valueKey="value"/>
       <HiddenInput field={form.$('_id')} />
 
       <br />
