@@ -117,6 +117,10 @@ const styles = theme => ({
     paddingBottom : '0px',
     marginTop : '0px'
   },
+  generalSessionitem:{
+    minHeight : '30px',
+    padding:'8px 8px 8px 0px'
+  },
   workshopsessionitem:{
     borderLeft : '3px solid #00ABC7' ,
     backgroundColor :'#F7F7F7',
@@ -135,11 +139,10 @@ const styles = theme => ({
     color:'#a0a0a0',
     height:'16px',
     width:'16px',
-    marginRight:'8px',
+    marginRight:'3px',
   },
   sessionitemTimeEnd:{
     marginLeft:'8px',
-    paddingLeft:'8px',
   },
   AddButton:{
     display: 'flex',
@@ -321,10 +324,20 @@ class EventDetail extends React.Component{
           <div  key={item._id} className={classes.listWorkshop}>
             <ListItem className={classes.sessionItem}>
             <div className={classes.datEntreSorti}>
-                <ListItemText primary="General Session" secondary={`البداية : ${dateFormat(item.start_hour , 'hh:mm')} `} />
-                {item.stat=='OFF' &&(
-                  <ListItemText  style={{ padding: '0' }} secondary={`النهاية : ${dateFormat(item.end_hour , 'hh:mm')}`} />
-                )}
+
+                <ListItemText primary="General Session" />
+
+                <div className={classes.generalSessionitem}>
+                  <div className={classes.sessionitemTime}>
+                    <div>
+                      <AccessTime className={classes.sessionitemTimeIcon}/>
+                      {`التوقيت : من ${dateFormat(item.start_hour , 'hh:mm')} `}</div>
+                      {item.stat=='OFF' &&(
+                        <div className={classes.sessionitemTimeEnd}>{`الى ${dateFormat(item.end_hour , 'hh:mm')}`}</div>
+                      )}
+                  </div>
+                </div>
+
             </div>
 
             {item.stat=='ON' &&(
@@ -379,9 +392,9 @@ class EventDetail extends React.Component{
                             <div className={classes.sessionitemTime}>
                               <div>
                                 <AccessTime className={classes.sessionitemTimeIcon}/>
-                                {`البداية : ${dateFormat(lol.start_hour , 'hh:mm')}`}</div>
+                                {`التوقيت : من ${dateFormat(lol.start_hour , 'hh:mm')}`}</div>
                                 {lol.stat=='OFF' &&(
-                                  <div className={classes.sessionitemTimeEnd}>{`النهاية : ${dateFormat(lol.end_hour , 'hh:mm')}`}</div>
+                                  <div className={classes.sessionitemTimeEnd}>{`الى ${dateFormat(lol.end_hour , 'hh:mm')}`}</div>
                                 )}
                             </div>
                           </div>
