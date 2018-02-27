@@ -58,6 +58,13 @@ const styles = theme => ({
     fontWeight: '500',
     fontFamily: 'Roboto, arial, sans-serif',
   },
+  ChartInfos :{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '24px',
+  },
 });
 
 const styleEndTime = {
@@ -116,7 +123,7 @@ class WorkshopUnit extends React.Component{
                   <Typography className={classes.workshopName}>
                     {name}
                   </Typography>
-                  <div className="ChartInfos">
+                  <div className={classes.ChartInfos}>
                     <Button fab  disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
@@ -133,7 +140,7 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
-                      {(details.users!=undefined)&&(<div className="ChartInfos">
+                      {(details.users!=undefined)&&(<div className={classes.ChartInfos}>
                       <Button fab  disabled>
                         <People color="action"/>
                       </Button>
