@@ -35,10 +35,10 @@ class EventDashboard extends React.Component{
     return(
       <div>
         <div className="Btns-filter">
-              <Button  className={this.state.on_filter ? "filter-activ" :"secondary" } onClick={()=>this.filterWorkshopsAndSessions("ON" , false)}>
+              <Button  className={this.state.on_filter ? "filter-activ" :"filterLink" } onClick={()=>this.filterWorkshopsAndSessions("ON" , false)}>
                 الحالي
               </Button>
-              <Button className={this.state.off_filter ? "filter-activ" :"secondary" } onClick={()=>this.filterWorkshopsAndSessions("OFF" , true)}>
+              <Button className={this.state.off_filter ? "filter-activ" :"filterLink" } onClick={()=>this.filterWorkshopsAndSessions("OFF" , true)}>
                 الفارط
               </Button>
       </div>

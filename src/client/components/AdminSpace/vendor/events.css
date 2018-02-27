@@ -14,6 +14,12 @@ body{
 .Btns-filter .filter-activ{
  background-color: #003489;
  color: #fff;
+ margin: 0 4px;
+}
+
+.Btns-filter .filterLink{
+ color: #00abc7;
+ margin: 0 4px;
 }
 
 .event-list {
