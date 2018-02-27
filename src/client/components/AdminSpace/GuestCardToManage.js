@@ -97,7 +97,7 @@ class GuestCardToManage extends React.Component{
 
                  </div>
 
-            )}
+            
             </label></div>
         )
   }

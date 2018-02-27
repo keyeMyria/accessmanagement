@@ -221,3 +221,37 @@ figure {
   left: auto;
   position: fixed;
 };
+
+
+
+/*EMPTY STATUS STYLES*/
+
+.emptyStatus{
+	min-height: 80vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 10vh 10vw;
+}
+.emptyStatusIcon{
+	width: 40vw;
+	height: auto;
+	min-width: 200px;
+}
+.emptyStatusTitle{
+	font-family: Changa,cursive;
+	font-weight: 300;
+	font-size: 20pt;
+	color: #a0a0a0;
+	margin: 24px 0 24px;
+}
+.emptyStatusDesciption{
+	font-family: Roboto, sans-serif;
+	font-weight: 200;
+	font-size: 14pt;
+	line-height: 20pt;
+	color: #b1b1b1;
+	margin-bottom:16px;
+}

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
-
-import DirectionsRun from 'material-ui-icons/DirectionsRun';
+import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import { graphql } from 'react-apollo';
@@ -12,12 +11,12 @@ import { CircularProgress } from 'material-ui/Progress';
 import dateFormat from 'dateformat';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-
 import Divider from 'material-ui/Divider';
+import EmptyStatusAttendeesIcon from '../App/EmptyStatusAttendees.svg';
+
 const styles = theme => ({
   root: {
     width: '100%',
-    background: theme.palette.background.paper,
   },
   IN:{
     fill :"#00B0FF",
@@ -29,7 +28,7 @@ const styles = theme => ({
 
   },
   OUT:{
-    fill :"red",
+    fill :"#ef4035",
   }
 });
  class AttendeeActivity  extends React.Component{
@@ -39,15 +38,16 @@ const styles = theme => ({
       return(<div className={classes.root}><CircularProgress  color="secondary"   /></div>);
       else if (this.props.data.activity==null || Object.keys(this.props.data.activity).length === 0) {
           return (
-              <div className={classes.root}>
-                <Paper elevation={4}>
-                 <Typography type="body1" component="h3">
+              <div className={classes.root} className="emptyStatus">
+                <div className="emptyStatusIcon">
+                  <EmptyStatusAttendeesIcon/>
+                </div>
+                 <h3 className="emptyStatusTitle">
                    No Activity registered yet
-                 </Typography>
-                 <Typography type="subheader" component="p">
+                 </h3>
+                 <p className="emptyStatusDesciption">
                    You will see the entry and exit of the participants once the agents register them
-                 </Typography>
-               </Paper>
+                 </p>
               </div>
             );
   }
@@ -61,7 +61,7 @@ const styles = theme => ({
               <ListItemText primary={`${value.user.profile.name} ${value.user.profile.forname}`} />
               <ListItemText secondary={`${value.action=="IN" ? "joined" : "left"} the conference`  }/>
               {value.agent &&(<ListItemText secondary={`Registered By ${value.agent.username}`  }/>)}
-              <DirectionsRun className={classes[value.action]}/>
+              <DirectionsWalk className={classes[value.action]}/>
             </ListItem>
             <Divider inset/></div>
           ))}
