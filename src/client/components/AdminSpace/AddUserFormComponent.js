@@ -99,6 +99,15 @@ const backgroundAddUser = {
     zIndex: '-1',
     left: '0',
   };
+
+  const whiteBackground = {
+      backgroundColor:'#fff',
+      position: 'absolute',
+      height: 'calc(100vh - 56px)',
+      width: 'calc(100vw - 0px)',
+      zIndex: '-2',
+    };
+
   const titleAddUser = {
       color:'#fff',
       marginTop: '100px',
@@ -276,6 +285,7 @@ render(){
   return (
     <div style={container}>
     <object type="image/svg+xml" data={BackAddUser} style={backgroundAddUser}/>
+    <div style={whiteBackground}></div>
     <div style={subContainerAddUser}>
       <form onSubmit={handleSubmit} style={formAddUser}>
         <Typography type="display1" gutterBottom style={titleAddUser}>

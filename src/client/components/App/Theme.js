@@ -85,6 +85,7 @@ const theme = createMuiTheme({
         position: 'fixed',
         bottom: '0',
         width: '100%',
+        height:'auto',
         background: 'white',
         borderRadius: 3,
         border: 0,
