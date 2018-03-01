@@ -20,7 +20,9 @@ import { CircularProgress } from 'material-ui/Progress';
 import  {PieChart, Pie, Legend , Tooltip, Sector, Cell} from 'recharts';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import GuestCardToManage from './GuestCardToManage'
+import GuestCardToManage from './GuestCardToManage';
+import EmptyStatusAttendeesIcon from '../App/EmptyStatusAttendees.svg';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -117,13 +119,16 @@ componentWillReceiveProps(newProps) {
       return(<div className={classes.root}><CircularProgress color="primary" /></div>);
       else if (this.props.data.guestusers==null || Object.keys(this.props.data.guestusers).length === 0) {
           return (
-              <div className={classes.root}>
-                 <Typography type="body1" component="h3">
-                   NoBody has presented his pass yet
-                 </Typography>
-                 <Typography type="subheader" component="p">
-                   Use the capture code to register the entry and the exit of the participants
-                 </Typography>
+              <div className={classes.root} className="emptyStatus">
+                 <div className="emptyStatusIcon">
+                   <EmptyStatusAttendeesIcon/>
+                 </div>
+                 <h3 className="emptyStatusTitle">
+                   No guests registred for this event
+                 </h3>
+                 <p className="emptyStatusDesciption">
+                   Edit this event and upload a file with your guest list.
+                 </p>
               </div>
             );
   }
