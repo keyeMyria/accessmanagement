@@ -36,7 +36,6 @@ import Dialog, {
 const styles = theme => ({
   root: {
     width: '100%',
-    background: theme.palette.background.paper,
   },
   IN:{
     // fill :"#00B0FF",
