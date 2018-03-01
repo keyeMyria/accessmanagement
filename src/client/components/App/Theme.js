@@ -13,6 +13,11 @@ const theme = createMuiTheme({
     main: '#00abc7',
     contrastText: '#fff',
     },
+    error:{
+    main: '#ef4035',
+    contrastText: '#fff',
+    },
+    tonalOffset: 0.2,
   },
   status: {
     danger: 'orange',

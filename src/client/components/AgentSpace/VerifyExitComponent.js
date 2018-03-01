@@ -34,7 +34,7 @@ const styles = theme => ({
 
   },
   OUT:{
-    fill :"red",
+    fill :"#ef4035",
   },
   tooltip:{
     'max-width' :"200px"

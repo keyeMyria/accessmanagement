@@ -29,7 +29,7 @@ const styles = theme => ({
 
   },
   OUT:{
-    fill :"red",
+    fill :"#ef4035",
   }
 });
 
