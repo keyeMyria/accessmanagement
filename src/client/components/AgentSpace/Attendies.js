@@ -16,7 +16,7 @@ import Search from 'material-ui-icons/Search';
 import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
-import idcard from './id-card.svg';
+import Idcard from './id-card.svg';
 import NavBarContainer from '../../containers/NavBarContainer';
 import BottomToolbarContainer from '../../containers/BottomToolbarContainer';
 import {observer} from 'mobx-react';
@@ -155,17 +155,17 @@ class Attendies extends React.Component {
       return(<div className={classes.root}><CircularProgress color="primary" /></div>);
     else if (UserStore.users==null) {
         return (
-              <div className={classes.empty}>
-                <div className={classes.empty_img}>
-                  <object type="image/svg+xml" data={idcard} className={classes.empty_imgSvg}/>
-                </div>
-                <Typography type="body1" component="h3" className={classes.empty_title}>
-                   NoBody has presented his pass yet
-                </Typography>
-                <Typography type="subheader" component="p" className={classes.empty_description}>
-                   Use the capture code to register the entry and the exit of the participants
-                </Typography>
-             </div>
+            <div className="emptyStatus">
+              <div className="emptyStatusIcon">
+                <Idcard/>
+              </div>
+              <h3 className="emptyStatusTitle">
+                 NoBody has presented his pass yet
+              </h3>
+              <p className="emptyStatusDesciption">
+                 Use the capture code to register the entry and the exit of the participants
+              </p>
+           </div>
           );
 }
 else{

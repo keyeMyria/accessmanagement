@@ -217,7 +217,7 @@ class EventDetail extends React.Component{
     const {classes} = this.props;
     if(WorkshopStore.state=='loading'){
       return(
-        <div><CircularProgress className={classes.progress} color="secondary" /></div>);
+        <div><CircularProgress className={classes.progress} color="primary" /></div>);
     }
 
     return(
