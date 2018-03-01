@@ -22,7 +22,7 @@ import BottomToolbarContainer from '../../containers/BottomToolbarContainer';
 import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 
-const drawerWidth = 240 ;
+
 
 const styles = theme => ({
   root: {

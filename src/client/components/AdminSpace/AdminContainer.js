@@ -33,7 +33,7 @@ import Directions from 'material-ui-icons/Directions';
 import SupervisorAccount from 'material-ui-icons/SupervisorAccount'
 import ExitToApp from 'material-ui-icons/ExitToApp'
 import Event from 'material-ui-icons/Event'
-const drawerWidth = 240 ;
+
 const container = {
     overflow: 'auto',
     marginBottom: '56px',
