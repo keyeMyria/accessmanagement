@@ -37,18 +37,6 @@ const styles = theme => ({
   root: {
     width: '100%',
   },
-  IN:{
-    // fill :"#00B0FF",
-    // '-webkit-transform': 'rotateY(180deg)',
-    // '-moz-transform': 'rotateY(180deg)',
-    // '-ms-transform': 'rotateY(180deg)',
-    // '-o-transform': 'rotateY(180deg)',
-    // 'transform': 'rotateY(180deg)',
-
-  },
-  OUT:{
-    fill :"#ef4035",
-  } ,
   wrapper :{
     // height: '100%',
     padding: '15px',
@@ -56,6 +44,11 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'flex-start',
     },
+    addButton:{
+      position: 'fixed',
+      bottom: '24px',
+      left: '24px',
+      },
 });
 const sessions =[];
 const agents = [];
@@ -161,15 +154,47 @@ constructor(props){
         return(<div className={classes.root}><CircularProgress color="primary" /></div>);
         else if (this.props.data.agentusers==null || Object.keys(this.props.data.agentusers).length === 0) {
             return (
-                <div className={classes.root}>
-                  <Paper elevation={4}>
-                   <Typography type="body1" component="h3">
-                     NoBody has presented his pass yet
-                   </Typography>
-                   <Typography type="subheader" component="p">
-                     Use the capture code to register the entry and the exit of the participants
-                   </Typography>
-                 </Paper>
+                <div className={classes.root} className="emptyStatus">
+                  <div className="emptyStatusIcon">
+                  </div>
+                   <h3 className="emptyStatusTitle">
+                     Nobody registred as an agent
+                  </h3>
+                   <p className="emptyStatusDesciption">
+                     Use button on the bottom of the page to add an agent.
+                   </p>
+
+                   <div>
+                     {
+                       <Dialog
+                       open={this.state.open}
+                       onClose={this.handleClose}
+                       aria-labelledby="form-dialog-title"
+                     >
+                       <DialogTitle id="form-dialog-title">
+                           إضافة وكيل جديد
+                       </DialogTitle>
+                       <DialogContent className="dialogContent">
+                       <Form form={form}/>
+                       </DialogContent>
+                       <DialogActions>
+                         <Button onClick={form.onSubmit} color="secondary">
+                           حفظ
+                         </Button>
+                         <Button onClick={this.handleCloseDialog} >
+                         إلغاء
+                         </Button>
+                       </DialogActions>
+                     </Dialog>
+                   }
+                     {
+                       <Button fab color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
+                       <Add style={{
+                         color:'#ffff',
+                       }}/>
+                     </Button>
+                   }
+             			</div>
                 </div>
               );
     }
@@ -183,7 +208,9 @@ constructor(props){
               onClose={this.handleClose}
               aria-labelledby="form-dialog-title"
             >
-              <DialogTitle id="form-dialog-title">إضافة حدث جديد</DialogTitle>
+              <DialogTitle id="form-dialog-title">
+                  إضافة وكيل جديد
+              </DialogTitle>
               <DialogContent className="dialogContent">
               <Form form={form}/>
               </DialogContent>
@@ -211,7 +238,7 @@ constructor(props){
     					))}
     				</div>
             {
-              <Button variant="fab" color="secondary" aria-label="add new event" onClick={this.handleAddAgent} className="addButton">
+              <Button fab color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
               <Add style={{
                 color:'#ffff',
               }}/>
