@@ -1,6 +1,7 @@
 import React    from 'react'
 import ReactDOM from 'react-dom'
 import ReactCodeInput from 'react-code-input';
+import { reactCodeInput } from 'react-code-input';
 import Close from 'material-ui-icons/Close';
 import Send from 'material-ui-icons/Send';
 import Button from 'material-ui/Button';
@@ -38,14 +39,19 @@ class DialButton extends React.Component {
     return (
       <p ref='button' style={{
 
-        'color'             : '#fff',
+        'color'             : '#00abc7',
         'fontSize'          : '30px',
-        'letterSpacing'     : '-4px',
-      }}>
+        'fontWeight'        : '100',
+      }}
+
+      >
         <strong>
           {icon}
           {(!icon || !compact) && (
-            <span>&nbsp;{symbol}</span>
+            <span style={{
+              'paddingLeft'      :'8px',
+            }}
+            >&nbsp;{symbol}</span>
           )}
         </strong>
 
@@ -62,36 +68,32 @@ export class DialPad extends React.Component {
     const { onClick, compact } = this.props
     const buttons = [
       {
-        symbol : '1'
+        symbol : '3'
       },
       {
         symbol : '2'
       },
       {
-        symbol : '3'
-      },
-      {
-        symbol : '4'
-      },
-      {
-        symbol : '5'
+        symbol : '1'
       },
       {
         symbol : '6'
       },
       {
-        symbol : '7'
+        symbol : '5'
+      },
+      {
+        symbol : '4'
+      },
+      {
+        symbol : '9'
       },
       {
         symbol : '8'
       },
       {
-        symbol : '9'
+        symbol : '7'
       },
-      // {
-      //   icon   : (z),
-      //   action : 'verify'
-      // },
       {
         icon   : (<Close/>),
         action : 'reset',
@@ -113,7 +115,7 @@ export class DialPad extends React.Component {
           'MozUserSelect'        : 'none',
           'MsUserSelect'         : 'none',
           'userSelect'           : 'none',
-          'fontFamily'           : '"Lucida Grande", Tahoma, Arial, Verdana, sans-serif'
+          'fontFamily'           : 'Roboto, Arial, Verdana, sans-serif'
         }}>
           <ol style={{
             'listStyle'          : 'none',
@@ -122,6 +124,7 @@ export class DialPad extends React.Component {
             'gridRowGap': '10px',
             'gridColumnGap': '10px',
             'fontFamily': 'Roboto',
+            'direction':'rtl',
           }}>
             {buttons.map((button, i) => (
               <li onClick={() => onClick(button)}  className="liNumber"
@@ -279,11 +282,51 @@ export default class Dial extends React.Component {
     element.handleClickPad()
   }
   render() {
+
+    const props = {
+      className: reactCodeInput,
+      style:{
+        fontFamily: 'Roboto',
+        width:'178px',
+        marginLeft:'70px',
+        textAlign:'left',
+      },
+      inputStyle: {
+        fontFamily: 'Roboto',
+        margin:  '2px',
+        MozAppearance: 'textfield',
+        width: '40px',
+        borderRadius: '0px',
+        paddingLeft: '0px',
+        fontSize: '20pt',
+        height: '45px',
+        backgroundColor: 'rgb(238, 238, 238)',
+        color: 'rgb(120, 120, 120)',
+        border:'none',
+        borderBottom: '3px solid #00abc7',
+        textAlign:'center'
+      },
+      inputStyleInvalid: {
+        fontFamily: 'Roboto',
+        margin:  '2px',
+        MozAppearance: 'textfield',
+        width: '15px',
+        borderRadius: '3px',
+        fontSize: '14px',
+        height: '26px',
+        paddingLeft: '7px',
+        backgroundColor: 'black',
+        color: 'red',
+        border: '1px solid red'
+      },
+    }
+
     const { value, compact } = this.state
     return (
       <div ref='container' style={{
         'display': 'flex',
         'flexDirection': 'column',
+        'direction':'ltr',
         // 'width': '65vw',
         'justifyContent': 'center',
         'alignItems': 'center',
@@ -295,41 +338,48 @@ export default class Dial extends React.Component {
       <div
       style= {{
         'height': '100px',
+        'width':'320px',
         'display': 'flex',
         'alignItems': 'center',
         // 'marginBottom': '20px',
       }}>
-      <div style   = {{'height': '50px',}}></div>
-      {this.state.increment== 4 &&(
-        <Button fab  color="secondary" aria-label="add" style   = {{'marginLeft': '10px', 'padding': '0',}}>
-          <Send/>
-        </Button>
-      )}
 
-        <input className="inputDial"
-          style    = {{
-          // 'border'      : 'none',
-          // 'float'       : 'left',
-          // 'display'     : 'block',
-          // 'width'       : '26vw',
-          // 'fontSize'    : compact ? '24px' : '40px',
-          // 'minHeight'   : '47px',
-          // 'marginBottom': '20px',
-          // 'color'       : '#4d4d4d',
-          // 'maxWidth'    : '311px',
-        }}
-          onChange = {this.handleChange.bind(this)}
-          onFocus  = {this.endCapture.bind(this)}
-          onBlur   = {this.beginCapture.bind(this)}
-          type     = 'hidden'
-          value    = {value} />
-        <ReactCodeInput
-                   fields={0}
-                   disabled={true}
-                   ref={instance => { this.child = instance; }}
-               />
-          </div>
+            <input className="inputDial"
+              style    = {{
+              // 'border'      : 'none',
+              // 'float'       : 'left',
+              // 'display'     : 'block',
+              // 'width'       : '26vw',
+              // 'fontSize'    : compact ? '24px' : '40px',
+              // 'minHeight'   : '47px',
+              // 'marginBottom': '20px',
+              // 'color'       : '#4d4d4d',
+              // 'maxWidth'    : '311px',
+            }}
+              onChange = {this.handleChange.bind(this)}
+              onFocus  = {this.endCapture.bind(this)}
+              onBlur   = {this.beginCapture.bind(this)}
+              type     = 'hidden'
+              value    = {value} />
+
+            <ReactCodeInput
+                       fields={0}
+                       disabled={false}
+                       ref={instance => { this.child = instance; }}
+                       {...props}
+            />
+
+            {this.state.increment== 4 &&(
+              <Button fab  color="secondary" aria-label="add" style   = {{'marginLeft': '10px', 'padding': '0',}}>
+                <Send/>
+              </Button>
+            )}
+
+        </div>
+
         <DialPad increment={this.state.increment} onClick={this.handleClick.bind(this)} compact={compact} />
+
+
       </div>
     )
   }
