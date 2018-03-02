@@ -290,6 +290,8 @@ export default class Dial extends React.Component {
         width:'178px',
         marginLeft:'70px',
         textAlign:'left',
+        marginBottom: '16px',
+        cursor:'not-allowed',
       },
       inputStyle: {
         fontFamily: 'Roboto',
@@ -304,40 +306,33 @@ export default class Dial extends React.Component {
         color: 'rgb(120, 120, 120)',
         border:'none',
         borderBottom: '3px solid #00abc7',
-        textAlign:'center'
+        textAlign:'center',
       },
       inputStyleInvalid: {
         fontFamily: 'Roboto',
         margin:  '2px',
         MozAppearance: 'textfield',
-        width: '15px',
-        borderRadius: '3px',
-        fontSize: '14px',
-        height: '26px',
-        paddingLeft: '7px',
-        backgroundColor: 'black',
-        color: 'red',
-        border: '1px solid red'
+        width: '40px',
+        borderRadius: '0px',
+        paddingLeft: '0px',
+        fontSize: '20pt',
+        height: '45px',
+        backgroundColor: 'rgb(238, 238, 238)',
+        color: 'rgb(120, 120, 120)',
+        border:'none',
+        borderBottom: '3px solid #ef4035',
+        textAlign:'center',
       },
     }
 
     const { value, compact } = this.state
     return (
-      <div ref='container' style={{
-        'display': 'flex',
-        'flexDirection': 'column',
-        'direction':'ltr',
-        // 'width': '65vw',
-        'justifyContent': 'center',
-        'alignItems': 'center',
-        'maxWidth': '691px',
-        'maxHeight': '487px',
-        'minWidth': '242px',
-      }}>
+      <div ref='container' className="dialContainer"
+      >
 
       <div
       style= {{
-        'height': '100px',
+        'height': '64px',
         'width':'320px',
         'display': 'flex',
         'alignItems': 'center',
