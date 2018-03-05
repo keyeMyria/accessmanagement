@@ -66,7 +66,7 @@
 .QRcode {
     width: 300px;
   }
-@media (min-width: 480px) and (max-width: 800px) {
+@media /*(min-width: 480px) and*/  (max-width: 800px) {
   .containerBackground {
     min-height: 1000px;
   }
@@ -88,7 +88,7 @@
       order: 1;
     }
 }
-@media (max-width: 320px) {
+/* @media (max-width: 320px) {
   .containerBackground {
     min-height: 1000px;
   }
@@ -133,4 +133,4 @@
 .qrcode-leave.qrcode-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
-}
+} */

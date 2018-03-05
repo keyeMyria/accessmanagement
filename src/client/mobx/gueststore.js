@@ -2,13 +2,13 @@ import { observable, action, computed, useStrict } from 'mobx';
 import axios from 'axios';
 import { createApolloFetch } from 'apollo-fetch';
 import EventStore from './eventstore';
+import {REMOTE_DOMAIN_PATH} from './../app/config'
+
+
 useStrict(true);
-
-
 const fetch = createApolloFetch({
-  uri: 'http://localhost:4000/graphql',
+  uri: REMOTE_DOMAIN_PATH,
 });
-
 
 
 class UserStore {
