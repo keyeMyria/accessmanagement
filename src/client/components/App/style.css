@@ -257,6 +257,7 @@ figure {
 	margin: 24px 0 16px;
 	opacity: 0;
 	animation: slideEmpty 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
+	line-height: 40px;
 }
 .emptyStatusDesciption{
 	font-family: Roboto, sans-serif;

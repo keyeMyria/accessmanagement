@@ -124,10 +124,10 @@ componentWillReceiveProps(newProps) {
                    <EmptyStatusAttendeesIcon/>
                  </div>
                  <h3 className="emptyStatusTitle">
-                   No guests registred for this event
+                   لم يتم تسجيل أي ضيوف لهذا الحدث
                  </h3>
                  <p className="emptyStatusDesciption">
-                   Edit this event and upload a file with your guest list.
+                   عدل هذا الحدث وحمل ملفا بقائمة المدعوين
                  </p>
               </div>
             );

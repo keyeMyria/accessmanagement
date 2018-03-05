@@ -158,10 +158,10 @@ constructor(props){
                   <div className="emptyStatusIcon">
                   </div>
                    <h3 className="emptyStatusTitle">
-                     Nobody registred as an agent
+                     لا أحد مسجل كعامل
                   </h3>
                    <p className="emptyStatusDesciption">
-                     Use button on the bottom of the page to add an agent.
+                     استخدام زر في أسفل الصفحة لإضافة وكيل.
                    </p>
 
                    <div>
