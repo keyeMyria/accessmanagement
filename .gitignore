@@ -27,3 +27,6 @@ roles.json
 profiles.json
 scripts/test.js
 config/*
+src/client/app/*
+webpack.config.js
+public/*

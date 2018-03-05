@@ -359,13 +359,13 @@ export default class Dial extends React.Component {
 
             <ReactCodeInput
                        fields={0}
-                       disabled={false}
+                       disabled={true}
                        ref={instance => { this.child = instance; }}
                        {...props}
             />
 
             {this.state.increment== 4 &&(
-              <Button fab  color="secondary" aria-label="add" style   = {{'marginLeft': '10px', 'padding': '0',}}>
+              <Button fab  color="secondary" aria-label="add" style= {{'marginLeft': '10px', 'padding': '0',}} onClick={this.handleSend.bind(this)}>
                 <Send/>
               </Button>
             )}
