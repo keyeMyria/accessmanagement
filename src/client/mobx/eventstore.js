@@ -1,12 +1,11 @@
 import { observable, action, computed, useStrict } from 'mobx';
 import { createApolloFetch } from 'apollo-fetch';
 import moment from 'moment';
+import {REMOTE_DOMAIN_PATH} from './../app/config'
 
 useStrict(true);
-
-
 const fetch = createApolloFetch({
-  uri: 'http://localhost:4000/graphql',
+  uri: REMOTE_DOMAIN_PATH,
 });
 
 

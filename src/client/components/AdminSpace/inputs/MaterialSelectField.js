@@ -110,7 +110,7 @@ class MaterialSelectField extends React.Component{
               />
             );
           })}
-          <p style={styles.guestCounter}>Selected guests: {this.state.numberguest}</p>
+          <p style={styles.guestCounter}>أضف المشاركين للورشة : {this.state.numberguest}</p>
           </div>
           <ul style={styles.GuestContainer}>
 

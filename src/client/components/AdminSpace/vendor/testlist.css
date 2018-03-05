@@ -225,7 +225,7 @@ body .container_ui .labelGuestList .container_ui__item {
 body .container_ui__item {
   width: 100%;
   float: right;
-  /*height: 74px;*/
+  /* height: 74px; */
   background: #fff;
   cursor: pointer;
   display: flex;
@@ -279,6 +279,7 @@ body .container_ui__item h4 {
   color: #919191;
 }
 body .container_ui__item .face {
+  width: 72px;
   float: right;
   clear: left;
   margin: 0;
@@ -388,7 +389,7 @@ body .container_ui__expand {
   }
 
   body .container_ui__item .face img {
-    padding: 16px;
+    padding: 0;
     margin: 0 -16px;
   }
 
