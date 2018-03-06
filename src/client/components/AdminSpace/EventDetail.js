@@ -208,7 +208,8 @@ class EventDetail extends React.Component{
  }
  handleSubmitAddWorkshop=(event , form)=>{
    form.onSubmit(event);
-   this.handleCloseWorkshop()
+   this.handleCloseWorkshop();
+   WorkshopStore.getWorkshopsForEvent(this.props.match.params.id);
  }
   render(){
     const event = EventStore.selectedEvent;
@@ -360,11 +361,18 @@ class EventDetail extends React.Component{
             <div key={item._id} className={classes.listWorkshop}>
               <ListItem className={classes.workshopItem}>
               <ListItemText primary={item.name} />
-                {item.session_empty==true &&(
+                {(item.session_empty==true) &&(item[`${item._id}_load`]==false) &&(
                     <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
                     <div className={classes.startStopSession}>
                       <PlayArrow />
                       تسجيل جلسة
+                    </div>
+                    </Button>
+                )}
+                {(item.session_empty==true) &&(item[`${item._id}_load`]==true) &&(
+                    <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
+                    <div className={classes.startStopSession}>
+                      <CircularProgress className={classes.progress} color="primary" />
                     </div>
                     </Button>
                 )}

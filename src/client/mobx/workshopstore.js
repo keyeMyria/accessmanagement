@@ -24,6 +24,7 @@ class WorkshopStore {
     // In strict mode, only actions can modify mobx state
     @action setWorkshops = (workshops) => {
       this.workshops.length=0;
+      workshops.map(work=>work[`${work._id}_load`]=false)
       this.workshops = [...workshops]; }
     @action selectWorkshop = (workshop) => {this.selectedWorkshop = workshop;}
     @action setSelectedWorkShopEvent = (event) =>{this.selectedEvent=event}
@@ -37,9 +38,13 @@ class WorkshopStore {
     // Managing how we clear our observable state
     @action clearSelectedWorkshop = () => { this.selectedWorkshop = {}; }
     @action addnewWorkshopToList =(work) =>{this.workshops.push(work);}
-
+    @action setWorkshopAddingStatus=(workshopid , stat)=>{
+      var result = this.workshops.filter(work => work._id ===workshopid);
+      result[`${result._id}_load`]=stat ;
+    }
     // An example that's a little more complex
     @action getWorkshopsForEvent(eventid) {
+      this.setStateAction('loading') ;
   	//Managing Async tasks like ajax calls with Mobx actions
     fetch({
       query: `query workshoplist($eventid :String!) {
@@ -64,6 +69,7 @@ class WorkshopStore {
     });
       }
       @action addNewSessionForWorkShop(workshopid){
+        this.setWorkshopAddingStatus(workshopid , true);
         fetch({
           query: `mutation addSessionForWorkshop($workshopid :String!) {
             addSessionForWorkshop( workshopid : $workshopid)  {

@@ -81,11 +81,10 @@ class WorkshopUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , users)=>{
-                  const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
-                  let data =[]
-                       data= this.getUsersStatistics(users)
-
-                       let end ;
+      const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
+      let data =[]
+      data= this.getUsersStatistics(users)
+      let end ;
       if(details.session_list!=null){
           return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name!=undefined ? details.name : "جلسة عامة" , users)))}</div>)
       }else{
@@ -140,7 +139,7 @@ class WorkshopUnit extends React.Component{
                         <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
                     </div>)}
                   </div>
-                      {(details.users!=undefined)&&(<div className={classes.ChartInfos}>
+                      {(users!=undefined)&&(<div className={classes.ChartInfos}>
                       <Button fab  disabled>
                         <People color="action"/>
                       </Button>
@@ -149,7 +148,7 @@ class WorkshopUnit extends React.Component{
                           <span className={classes.timeDetailText}>
                           الحضور المتوقع
                           </span>
-                        <span className={classes.timeDetailHour}>{details.users.length}</span>
+                        <span className={classes.timeDetailHour}>{users.length}</span>
                       </div>
                     </div>)}
                     <div><Link to={`/sessionactivity/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />

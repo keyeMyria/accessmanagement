@@ -65,11 +65,13 @@ class EventStore {
     @action addWorkShopToCurrentEvent = (workshop)=>{
       this.selectedEvent.workshops.push(workshop)
     }
-    @action comparedates=(date1 , date2)=>{
-      var momentA = moment(date1,"DD/MM/YYYY");
-      var momentB = moment(date2,"DD/MM/YYYY");
-      if (momentA > momentB) return 1;
-      else if (momentA < momentB) return -1;
+    @action comparedates=(date2)=>{
+      var momentA = moment();
+      var momentB = moment(date2);
+      if (momentA > momentB){
+        return -1;
+      }
+      else if (momentA < momentB) return 1;
       else return 0;
     }
     @action filterEventByCurrentDate =(type)=>{
@@ -77,13 +79,13 @@ class EventStore {
         event=>{
           switch (type) {
             case "current":
-            return(this.comparedates(moment() , event.start_date)===0)
+            return(this.comparedates(event.start_date)===0)
               break;
               case  "coming":
-              return(this.comparedates(moment() , event.start_date)==1)
+              return(this.comparedates(event.start_date)==1)
                 break;
                 case  "done":
-                return(this.comparedates(moment() , event.start_date)==-1)
+                return(this.comparedates(event.start_date)==-1)
                   break;
           }
         }
