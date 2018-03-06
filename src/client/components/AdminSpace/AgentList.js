@@ -26,6 +26,7 @@ import Add from 'material-ui-icons/Add';
 import Form from './AddAgentForm'
 import form from '../../mobx/forms/addAgents'
 import './vendor/events.css';
+import EmptyAgentsListIcon from '../App/EmptyAgentsList.svg';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -43,12 +44,15 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    },
+  },
     addButton:{
       position: 'fixed',
       bottom: '24px',
       left: '24px',
-      },
+  },
+  progressCircle:{
+    margin: '16px 0 0 0',
+},
 });
 const sessions =[];
 const agents = [];
@@ -151,19 +155,19 @@ constructor(props){
     render() {
       const { classes } = this.props;
       if(this.props.data.loading==true)
-        return(<div className={classes.root}><CircularProgress color="primary" /></div>);
+        return(<div className={classes.root}><CircularProgress color="primary" className={classes.progressCircle}/></div>);
         else if (this.props.data.agentusers==null || Object.keys(this.props.data.agentusers).length === 0) {
             return (
-                <div className={classes.root} className="emptyStatus">
-                  <div className="emptyStatusIcon">
-                  </div>
-                   <h3 className="emptyStatusTitle">
-                     لا أحد مسجل كعامل
-                  </h3>
-                   <p className="emptyStatusDesciption">
-                     استخدام زر في أسفل الصفحة لإضافة وكيل.
-                   </p>
-
+              <div className={classes.root} className="emptyStatus">
+                <div className="emptyStatusIcon">
+                <EmptyAgentsListIcon/>
+                </div>
+                 <h3 className="emptyStatusTitle">
+                   لم يتم تعيين اي وكيل على المدخل
+                </h3>
+                 <p className="emptyStatusDesciption">
+                   اضغط على الزر في الاسفل لاضافة وكيل
+                 </p>
                    <div>
                      {
                        <Dialog
@@ -224,6 +228,7 @@ constructor(props){
               </DialogActions>
             </Dialog>
           }
+
     				<div className={classes.wrapper}>
     					{sessions.map(({lastDroppedItem  , list , _id , data }, index) => (
     						<SessionBox

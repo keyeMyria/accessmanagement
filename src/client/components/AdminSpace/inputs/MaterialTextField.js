@@ -17,6 +17,8 @@ export default observer(({ field, type = 'text', placeholder = null }) => (
      {...field.bind({ type, placeholder })}
      helperText={field.error}
      value={field.value}
+     label="عنوان الورشة"
+     placeholder= "أضف عنوان الورشة"
    />
   </div>
 ));

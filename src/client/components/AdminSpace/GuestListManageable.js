@@ -52,7 +52,8 @@ import gueststore from '../../mobx/gueststore'
 import { observer } from 'mobx-react';
 import GuestCardToManage from './GuestCardToManage'
 import EditGuestForm from './EditGuestForm';
-import form from '../../mobx/forms/editguest'
+import form from '../../mobx/forms/editguest';
+import IDCardIcon from '../App/id-card.svg';
 
 
 
@@ -73,8 +74,7 @@ pdfMake.fonts = {
 const styles = theme => ({
   root: {
     width: '100%',
-    background: theme.palette.background.paper,
-        marginTop: '100px',
+    marginTop: '100px',
   },
   icon: {
       verticalAlign: 'bottom',
@@ -418,20 +418,21 @@ getDataUri = (url , callback) =>{
   }
   render() {
     if(this.props.UserStore.loading){
-      return(<div><CircularProgress  color="secondary"   /></div>);
+      return(<div><CircularProgress  color="primary"   /></div>);
 
     }
       else if (this.props.UserStore.users.length === 0 && this.props.UserStore.loading==false) {
           return (
-              <div>
-                <Paper elevation={4}>
-                 <Typography type="body1" component="h3">
-                   NoBody has presented his pass yet
-                 </Typography>
-                 <Typography type="subheader" component="p">
-                   Use the capture code to register the entry and the exit of the participants
-                 </Typography>
-               </Paper>
+            <div className="emptyStatus">
+              <div className="emptyStatusIcon">
+                <IDCardIcon />
+              </div>
+               <h3 className="emptyStatusTitle">
+                 لا يوجد مشاركين في هذا الحدث
+              </h3>
+               <p className="emptyStatusDesciption">
+                 اضغط على الزر في الاسفل لاضافة وكيل
+               </p>
               </div>
             );
   }

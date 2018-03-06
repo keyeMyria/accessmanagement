@@ -16,7 +16,7 @@ import Search from 'material-ui-icons/Search';
 import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
-import Idcard from './id-card.svg';
+import EmptyActivityIcon from '../App/EmptyActivityAttendeesForAgents.svg';
 import NavBarContainer from '../../containers/NavBarContainer';
 import BottomToolbarContainer from '../../containers/BottomToolbarContainer';
 import {observer} from 'mobx-react';
@@ -157,7 +157,7 @@ class Attendies extends React.Component {
         return (
             <div className="emptyStatus">
               <div className="emptyStatusIcon">
-                <Idcard/>
+                <EmptyActivityIcon/>
               </div>
               <h3 className="emptyStatusTitle">
                  NoBody has presented his pass yet

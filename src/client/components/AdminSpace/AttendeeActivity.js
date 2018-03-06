@@ -12,7 +12,7 @@ import dateFormat from 'dateformat';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import EmptyStatusAttendeesIcon from '../App/EmptyStatusAttendees.svg';
+import EmptyActivityAttendeesIcon from '../App/EmptyActivityAttendees.svg';
 
 const styles = theme => ({
   root: {
@@ -35,18 +35,18 @@ const styles = theme => ({
   render(){
     const {classes} = this.props;
     if(this.props.data.loading==true)
-      return(<div className={classes.root}><CircularProgress  color="secondary"   /></div>);
+      return(<div className={classes.root}><CircularProgress  color="primary"   /></div>);
       else if (this.props.data.activity==null || Object.keys(this.props.data.activity).length === 0) {
           return (
               <div className={classes.root} className="emptyStatus">
                 <div className="emptyStatusIcon">
-                  <EmptyStatusAttendeesIcon/>
+                  <EmptyActivityAttendeesIcon/>
                 </div>
                  <h3 className="emptyStatusTitle">
-                   No Activity registered yet
+                    لم يتم تسجيل اي دخول بعد
                  </h3>
                  <p className="emptyStatusDesciption">
-                   You will see the entry and exit of the participants once the agents register them
+                   سيتم عرض تحركات المشاركين حال ما يتم تسجيل مرورهم من قبل الوكلاء
                  </p>
               </div>
             );

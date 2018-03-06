@@ -27,10 +27,6 @@ roles.json
 profiles.json
 scripts/test.js
 config/*
-docker-compose.yml
-Dockerfile
-data/*
-data
-src/client/app/config.js
+src/client/app/*
+webpack.config.js
 public/*
-public/bundle.js

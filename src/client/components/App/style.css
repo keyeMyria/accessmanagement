@@ -236,9 +236,10 @@ figure {
 	padding: 10vh 10vw;
 }
 .emptyStatusIcon{
-	width: 40vw;
+	width: 30vw;
 	height: auto;
-	min-width: 200px;
+	min-width: 100px;
+	max-width: 200px;
 	animation: popEmpty 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530)forwards;
 }
 
@@ -251,20 +252,19 @@ figure {
 
 .emptyStatusTitle{
 	font-family: Changa,cursive;
-	font-weight: 300;
+	font-weight: 500;
 	font-size: 20pt;
-	color: #a0a0a0;
+	color: #b4b4b4;
 	margin: 24px 0 16px;
 	opacity: 0;
 	animation: slideEmpty 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
-	line-height: 40px;
 }
 .emptyStatusDesciption{
 	font-family: Roboto, sans-serif;
 	font-weight: 200;
 	font-size: 14pt;
 	line-height: 20pt;
-	color: #b1b1b1;
+	color: #727272;
 	margin-bottom:16px;
 	opacity: 0;
 	animation: slideEmpty 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
