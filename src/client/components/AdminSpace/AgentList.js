@@ -158,6 +158,7 @@ constructor(props){
         return(<div className={classes.root}><CircularProgress color="primary" className={classes.progressCircle}/></div>);
         else if (this.props.data.agentusers==null || Object.keys(this.props.data.agentusers).length === 0) {
             return (
+<<<<<<< HEAD
               <div className={classes.root} className="emptyStatus">
                 <div className="emptyStatusIcon">
                 <EmptyAgentsListIcon/>
@@ -168,6 +169,18 @@ constructor(props){
                  <p className="emptyStatusDesciption">
                    اضغط على الزر في الاسفل لاضافة وكيل
                  </p>
+=======
+                <div className={classes.root} className="emptyStatus">
+                  <div className="emptyStatusIcon">
+                  </div>
+                   <h3 className="emptyStatusTitle">
+                     لا أحد مسجل كعامل
+                  </h3>
+                   <p className="emptyStatusDesciption">
+                     استخدام زر في أسفل الصفحة لإضافة وكيل.
+                   </p>
+
+>>>>>>> 41612ee889aee7f0091f8c4d5687388f593bb00f
                    <div>
                      {
                        <Dialog
