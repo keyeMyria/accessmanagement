@@ -83,6 +83,10 @@ class EventsList extends React.Component{
   deleteEvent=(eventid)=>{
     EventStore.deleteEvent(eventid);
   }
+  addEventOperation=(form)=>{
+    form.onSubmit();
+    this.handleClose()
+  }
   render(){
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
@@ -109,7 +113,7 @@ class EventsList extends React.Component{
           <Form form={form}/>
           </DialogContent>
           <DialogActions>
-            <Button onClick={form.onSubmit} color="secondary">
+            <Button onClick={(form)=>this.addEventOperation(form)} color="secondary">
               حفظ
             </Button>
             <Button onClick={this.handleClose} >

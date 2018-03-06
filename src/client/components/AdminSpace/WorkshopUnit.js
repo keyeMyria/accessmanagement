@@ -96,18 +96,18 @@ class WorkshopUnit extends React.Component{
         }
         let difference = moment.duration(end.diff(start))
         return(
-          <div className={classes.DashboardContainer}>
-            <div key={details._id} className="ChartContainer">
+          <div key={`work_${details._id}`} className={classes.DashboardContainer}>
+            <div className="ChartContainer">
               <div className="PieContainer">
                 <PieChart width={400} height={400}>
                   <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius="88%" outerRadius="90%" label>
                     {
-                      data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
+                      data.map((entry, index) => <Cell key={`first_pie_cell_work_key${index}`}  fill={COLORS[index % COLORS.length]}/>)
                     }
                   </Pie>
-                  <Pie data={data} cx="50%" cy="50%" innerRadius="60%" outerRadius="70%" fill="#00abc7" >
+                  <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius="60%" outerRadius="70%" fill="#00abc7" >
                     {
-                      data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                      data.map((entry, index) => <Cell key={`second_pie_cell_work_key${index}`} fill={COLORS[index % COLORS.length]}/>)
                     }
 
                     <Label width={30} position="center"
@@ -167,7 +167,7 @@ class WorkshopUnit extends React.Component{
   render(){
     const {classes , details , key , users} = this.props;
 
-    return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", users)}</div>)
+    return(<div key={details._id}>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", users)}</div>)
   }
 }
 function CustomLabel({viewBox, value1, value2}){
