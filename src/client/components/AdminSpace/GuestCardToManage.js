@@ -22,6 +22,9 @@ import {observer} from 'mobx-react'
 const styles = theme => ({
   phoneNbr:{
     fontFamily:'Roboto, sans-serif',
+  },
+  phoneNbrText:{
+    marginLeft: '5px',
   }
 
 });
@@ -67,14 +70,16 @@ class GuestCardToManage extends React.Component{
               <div className='container_ui__item'>
                 <div className='face'>
                   <img src={`public/assets/avatars/${data.profile.avatar}`} />
-                  <div className='color_bar one'>
-                    <div className='infosActive'>
-                      <h2>{data.profile.name} {data.profile.forname}</h2>
-                      <h3>{data.identifiant}</h3>
-                    </div>
-                    <span><AssignmentInd /></span>
-
-                  </div>
+                  {
+                  //   <div className='color_bar one'>
+                  //   <div className='infosActive'>
+                  //     <h2>{data.profile.name} {data.profile.forname}</h2>
+                  //     <h3>{data.identifiant}</h3>
+                  //   </div>
+                  //   <span><AssignmentInd /></span>
+                  //
+                  // </div>
+                }
                 </div>
 
                 <div className={!readonly ? "itemInfos" :"itemInfosResponsive"}>
@@ -88,7 +93,7 @@ class GuestCardToManage extends React.Component{
                   <div className="itemActions">
                     <Button disabled className={classes.phoneNbr}>
                       <Phone />
-                      {data.profile.tel}
+                      <p className={classes.phoneNbrText}>{data.profile.tel}</p>
                     </Button>
                     <Link to={`/useractivity/${data._id}`}><Button color="secondary" ><SwapHoriz />
                      الاطلاع على التحركات
@@ -97,7 +102,7 @@ class GuestCardToManage extends React.Component{
 
                  </div>
 
-            
+
             </label></div>
         )
   }

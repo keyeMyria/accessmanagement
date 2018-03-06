@@ -5,34 +5,34 @@ const plugins = { dvr: validatorjs };
 
 const fields = [{
   name: 'title',
-  label: 'Title',
-  placeholder: 'Insert Title',
+  label: 'عنوان الحدث',
+  placeholder: 'أضف عنوان الحدث',
   rules: 'required|string'
 }, {
   name: 'type',
-  label: 'Event Type',
-  placeholder: 'Choose an event type',
+  label: 'نوعية الحدث',
+  placeholder: 'اختر نوع الحدث',
   rules: 'required|string',
 }, {
   name: 'place',
-  label: 'Event Place',
-  placeholder: 'Please type a place for your event',
+  label: 'مكان الحدث',
+  placeholder: 'يرجى كتابة مكان الحدث',
   rules: 'required|string',
 },{
   name: 'start_date',
-  label: 'Start Date',
-  placeholder: 'Choose a starting date',
+  label: 'تاريخ البدء',
+  placeholder: 'اختر تاريخ البدء',
   rules: 'required|date',
 }, {
   name: 'end_date',
-  label: 'End Date',
-  placeholder: 'Choose an Ending date',
+  label: 'تاريخ الانتهاء',
+  placeholder: 'اختر تاريخ الانتهاء',
   rules: 'required|date',
 } ,
 {
   name :'file',
   type:'hidden',
-  label :'Choose a csv file to import your guests list'
+  label :'اختر ملفا لاستيراد قائمة المدعوين'
 
 }];
 

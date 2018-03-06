@@ -103,7 +103,7 @@ const backgroundAddUser = {
   const whiteBackground = {
       backgroundColor:'#fff',
       position: 'absolute',
-      height: 'calc(100vh - 56px)',
+      height: '1010px',
       width: 'calc(100vw - 0px)',
       zIndex: '-2',
     };
@@ -130,6 +130,7 @@ const backgroundAddUser = {
     const styleinputForm ={
       width: '300px',
       marginTop: '24',
+      textAlign:'right',
     };
     const styleBottomForm ={
       marginTop: '24px',
