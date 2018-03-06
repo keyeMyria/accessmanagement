@@ -61,12 +61,12 @@ class EventsList extends React.Component{
     this.setState({ openMenu: false });
   };
 
-  //handleClick = (event)=>{
-  //  this.setState({ openMenu: true});
-    //var x = event.clientX;
-    // var y = event.clientY;
-    //this.setState({top:-x});
-  //}
+  handleClick = (event)=>{
+   this.setState({ openMenu: true});
+    var x = event.clientX;
+    var y = event.clientY;
+    this.setState({top:-x});
+  }
 
   handleClose = () => {
     this.setState({ open: false });
