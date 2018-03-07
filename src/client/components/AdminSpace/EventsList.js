@@ -61,12 +61,12 @@ class EventsList extends React.Component{
     this.setState({ openMenu: false });
   };
 
-  //handleClick = (event)=>{
-  //  this.setState({ openMenu: true});
-    //var x = event.clientX;
-    // var y = event.clientY;
-    //this.setState({top:-x});
-  //}
+  handleClick = (event)=>{
+   this.setState({ openMenu: true});
+    var x = event.clientX;
+    var y = event.clientY;
+    this.setState({top:-x});
+  }
 
   handleClose = () => {
     this.setState({ open: false });
@@ -82,6 +82,10 @@ class EventsList extends React.Component{
   }
   deleteEvent=(eventid)=>{
     EventStore.deleteEvent(eventid);
+  }
+  addEventOperation=(form)=>{
+    form.onSubmit();
+    this.handleClose()
   }
   render(){
     const { from, to } = this.state;
@@ -109,7 +113,7 @@ class EventsList extends React.Component{
           <Form form={form}/>
           </DialogContent>
           <DialogActions>
-            <Button onClick={form.onSubmit} color="secondary">
+            <Button onClick={(form)=>this.addEventOperation(form)} color="secondary">
               حفظ
             </Button>
             <Button onClick={this.handleClose} >

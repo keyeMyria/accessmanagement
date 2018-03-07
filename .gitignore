@@ -19,6 +19,9 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+config/*
+src/client/app/*
 src/index.js
 src/index.js
 *.jpg
@@ -26,6 +29,7 @@ src/index.js
 roles.json
 profiles.json
 scripts/test.js
+
 config/*
 docker-compose.yml
 Dockerfile
@@ -34,3 +38,6 @@ data
 src/client/app/config.js
 public/*
 public/bundle.js
+
+webpack.config.js
+public/*
