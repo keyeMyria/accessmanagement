@@ -9,6 +9,17 @@ import Button from 'material-ui/Button';
 import FileUpload from 'material-ui-icons/FileUpload';
 import Delete from 'material-ui-icons/Delete';
 
+const buttonCropDialog = {
+  margin: '16px 4px',
+};
+
+const styles = theme => ({
+  buttonCropDialog:{
+    margin: '16px 8px',
+    border:'1px solid green',
+  },
+});
+
 var numberableType = (props, propName, componentName) => {
   warning(
     !isNaN(parseInt(props[propName])),
@@ -255,6 +266,8 @@ class Cropper extends React.Component {
   }
 
   render () {
+    const { classes } = this.props;
+    console.log(this.props)
     return (
       <div className="AvatarCropper-canvas">
         <div className="row">
@@ -270,14 +283,13 @@ class Cropper extends React.Component {
 
         </div>
 
-        <div className='modal-footer'>
-          <Button  raised="true"color="default" onClick={this.handleCrop.bind(this)}>
-            Upload
+        <div className='modal-footer' >
+          <Button  raised="true" color="secondary" onClick={this.handleCrop.bind(this)} className={classes.buttonCropDialog} style={buttonCropDialog}>
+            تحميل
          <FileUpload />
        </Button>
-       <Button onClick={this.props.onRequestHide}  raised="true" color="secondary"  >
-          Delete
-          <Delete />
+       <Button onClick={this.props.onRequestHide} color="default" className={classes.buttonCropDialog} style={buttonCropDialog}>
+          إلغاء
         </Button>
 
         </div>
@@ -292,7 +304,7 @@ Cropper.propTypes = {
     height: numberableType,
     zoom: numberableType
 };
-Cropper.defaultProps = { width: 400, height: 400, zoom: 1 };
+Cropper.defaultProps = { width: 400, height: 400, zoom: 1, classes:styles };
 
 class AvatarCropper extends React.Component {
   constructor (props) {
@@ -306,6 +318,7 @@ class AvatarCropper extends React.Component {
 
   render () {
 
+      const { classes } = this.props;
     return (
      <Dialog
           title="Crop it"
@@ -322,7 +335,7 @@ class AvatarCropper extends React.Component {
               width={this.props.width}
               height={this.props.height}
               onCrop={this.props.onCrop}
-
+              classes={this.props.styles}
               onRequestHide={this.props.onRequestHide}
               closeButtonCopy={this.props.closeButtonCopy}
               cropButtonCopy={this.props.cropButtonCopy}
@@ -348,6 +361,6 @@ AvatarCropper.propTypes = {
   onRequestHide: PropTypes.func.isRequired
 };
 AvatarCropper.defaultProps = { width: 400, height: 400, modalSize: "large",
-                               closeButtonCopy: "Close", cropButtonCopy: "Crop and Save"};
+                               closeButtonCopy: "Close", cropButtonCopy: "Crop and Save" , classes:styles};
 
 export default AvatarCropper;
