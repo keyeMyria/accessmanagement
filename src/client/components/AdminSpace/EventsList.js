@@ -19,23 +19,61 @@ import { observer } from 'mobx-react';
 import dateFormat from 'dateformat';
 import AccountCircle from 'material-ui-icons/AccountCircle'
 import {withRouter} from 'react-router-dom';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import Menu, { MenuItem , MenuList} from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 
 const styles= theme => ({
 
 })
+// const options = [
+//   'None',
+//   'Atria',
+//   'Callisto',
+//   'Dione',
+//   'Ganymede',
+//   'Hangouts Call',
+//   'Luna',
+//   'Oberon',
+//   'Phobos',
+//   'Pyxis',
+//   'Sedna',
+//   'Titania',
+//   'Triton',
+//   'Umbriel',
+// ];
 
+const ITEM_HEIGHT = 48;
 @observer
 class EventsList extends React.Component{
+  state = {
+    anchorEl: null,
+  };
 
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  // handleCloseMenu = () => {
+  //   this.setState({ openMenu: false });
+  // };
+
+  // handleClick = (event)=>{
+  //  this.setState({ openMenu: true});
+  // }
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   constructor(props){
     super(props);
     this.state = {
         open: false,
-        openMenu : false,
         from: undefined,
         to: undefined,
       };
@@ -57,20 +95,6 @@ class EventsList extends React.Component{
     console.log(type)
     EventStore.filterEventByCurrentDate(type);
   }
-  handleCloseMenu = () => {
-    this.setState({ openMenu: false });
-  };
-
-  handleClick = (event)=>{
-   this.setState({ openMenu: true});
-    var x = event.clientX;
-    var y = event.clientY;
-    this.setState({top:-x});
-  }
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
   handleAddEvent =(event)=>{
     this.setState({ open: true });
@@ -83,12 +107,12 @@ class EventsList extends React.Component{
   deleteEvent=(eventid)=>{
     EventStore.deleteEvent(eventid);
   }
-  addEventOperation=(form)=>{
-    form.onSubmit();
+  addEventOperation=(e)=>{
+    form.onSubmit(e)
     this.handleClose()
   }
   render(){
-    const { from, to } = this.state;
+    const { from, to, anchorEl } = this.state;
     const modifiers = { start: from, end: to };
     return (
       <div>
@@ -113,7 +137,7 @@ class EventsList extends React.Component{
           <Form form={form}/>
           </DialogContent>
           <DialogActions>
-            <Button onClick={(form)=>this.addEventOperation(form)} color="secondary">
+            <Button onClick={(e)=>this.addEventOperation(e)} color="secondary">
               حفظ
             </Button>
             <Button onClick={this.handleClose} >
@@ -137,38 +161,60 @@ class EventsList extends React.Component{
               <p className="desc"> من  {dateFormat(item.start_date , 'dd/mm/yyyy')} , {dateFormat(item.start_date , 'hh:mm')} الى {dateFormat(item.end_date , 'dd/mm/yyyy')} , {dateFormat(item.end_date , 'hh:mm')}</p>
               <p className="desc"><AccountCircle className="accountIcon"/> الحضور المتوقع {item.numberAttendies}</p>
             </div>
-            <div>
+            {
+            //   <div>
+            // <IconButton
+            //            aria-label="More"
+            //            aria-haspopup="true"
+            //            onClick={this.handleClick}
+            //          >
+            //     <MoreVertIcon />
+            //   </IconButton>
+            //   {console.log(this.state.top)}
+            //   <Menu
+            //         id="long-menu"
+            //         Close={this.handleCloseMenu}
+            //         open={this.state.openMenu}
+            //
+            //         style={{ top:this.state.top , left : -600}}
+            //         PaperProps={{
+            //                       style: {
+            //                               maxHeight: 100,
+            //                               width: 200,
+            //                               top:this.state.top ,
+            //                              },
+            //                      }}
+            //
+            //            >
+            //          <MenuItem onClick={this.handleCloseMenu}>
+            //            Edit Event
+            //          </MenuItem>
+            //          <MenuItem onClick={()=>this.deleteEvent(item._id)}>
+            //            Archive Event
+            //          </MenuItem>
+            //   </Menu>
+            // </div>
+          }
+          <div>
             <IconButton
-                       aria-label="More"
-                       aria-haspopup="true"
-                       onClick={this.handleClick}
-                     >
-                <MoreVertIcon />
-              </IconButton>
-              {console.log(this.state.top)}
-              <Menu
-                    id="long-menu"
-                    Close={this.handleCloseMenu}
-                    open={this.state.openMenu}
+              aria-label="More"
+              aria-owns={anchorEl ? 'long-menu' : null}
+              aria-haspopup="true"
+              onClick={this.handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="long-menu"
+              anchorEl={this.state.anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.handleCloseMenu}
 
-                    style={{ top:this.state.top , left : -600}}
-                    PaperProps={{
-                                  style: {
-                                          maxHeight: 100,
-                                          width: 200,
-                                          top:this.state.top ,
-                                         },
-                                 }}
-
-                       >
-                     <MenuItem onClick={this.handleCloseMenu}>
-                       Edit Event
-                     </MenuItem>
-                     <MenuItem onClick={()=>this.deleteEvent(item._id)}>
-                       Archive Event
-                     </MenuItem>
-              </Menu>
-            </div>
+            >
+                <MenuItem  onClick={this.handleCloseMenu}> Edit Event </MenuItem>
+                <MenuItem  onClick={()=>this.deleteEvent(item._id)}> Archive Event </MenuItem>
+            </Menu>
+          </div>
 					</li>
          ))}
     </ul>
