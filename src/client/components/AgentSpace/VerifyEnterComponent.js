@@ -25,6 +25,9 @@ const styles = theme => ({
     width: '100%',
     background: theme.palette.background.paper,
   },
+  progressCircle:{
+    margin: '16px 0 0 0',
+  },
   IN:{
     fill :"#00B0FF",
     '-webkit-transform': 'rotateY(180deg)',
@@ -32,7 +35,6 @@ const styles = theme => ({
     '-ms-transform': 'rotateY(180deg)',
     '-o-transform': 'rotateY(180deg)',
     'transform': 'rotateY(180deg)',
-
   },
   OUT:{
     fill :"#ef4035",
@@ -146,7 +148,7 @@ handleIconButtonRequestOpen = () => {
   render(){
     const {userToEnter , classes} = this.props;
     if(this.props.userToEnter.loading==true)
-      return(<div className={classes.root}><CircularProgress  color="secondary"   /></div>);
+      return(<div className={classes.root}><CircularProgress  color="primary" className={classes.progressCircle} /></div>);
     if(userToEnter.userId==null){
         return(
           <SnackbarContent

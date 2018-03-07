@@ -76,6 +76,9 @@ const styles = theme => ({
     width: '100%',
     marginTop: '100px',
   },
+  progressCircle:{
+    margin: '16px 0 0 0',
+  },
   icon: {
       verticalAlign: 'bottom',
       height: 20,
@@ -417,8 +420,9 @@ getDataUri = (url , callback) =>{
     }
   }
   render() {
+    const { classes } = this.props;
     if(this.props.UserStore.loading){
-      return(<div><CircularProgress  color="primary"   /></div>);
+      return(<div><CircularProgress  color="primary" className={classes.progressCircle} /></div>);
 
     }
       else if (this.props.UserStore.users.length === 0 && this.props.UserStore.loading==false) {
@@ -651,4 +655,4 @@ GuestListManageable.propTypes = {
 //       name : 'deleteUserWithProfile'
 //     }),
 //   )(GuestListManageable)
-export default GuestListManageable
+export default withStyles(styles) (GuestListManageable)

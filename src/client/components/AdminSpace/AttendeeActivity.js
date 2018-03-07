@@ -29,13 +29,16 @@ const styles = theme => ({
   },
   OUT:{
     fill :"#ef4035",
-  }
+  },
+  progressCircle:{
+    margin: '16px 0 0 0',
+  },
 });
  class AttendeeActivity  extends React.Component{
   render(){
     const {classes} = this.props;
     if(this.props.data.loading==true)
-      return(<div className={classes.root}><CircularProgress  color="primary"   /></div>);
+      return(<div className={classes.root}><CircularProgress  color="primary" className={classes.progressCircle} /></div>);
       else if (this.props.data.activity==null || Object.keys(this.props.data.activity).length === 0) {
           return (
               <div className={classes.root} className="emptyStatus">

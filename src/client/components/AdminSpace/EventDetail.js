@@ -33,6 +33,9 @@ const styles = theme => ({
 
   container:{
   },
+  progressCircle:{
+    margin: '16px 0 0 0',
+  },
   header: {
     backgroundColor : '#053787',
     color :'white',
@@ -221,7 +224,7 @@ class EventDetail extends React.Component{
     const {classes} = this.props;
     if(WorkshopStore.state=='loading'){
       return(
-        <div><CircularProgress className={classes.progress} color="primary" /></div>);
+        <div><CircularProgress color="primary" className={classes.progressCircle}/></div>);
     }
 
     return(
@@ -375,7 +378,7 @@ class EventDetail extends React.Component{
                 {(item.session_empty==true) &&(item[`${item._id}_load`]==true) &&(
                     <Button onClick={()=>this.startSessionForWorkshop(item._id)} className={classes.star}>
                     <div className={classes.startStopSession}>
-                      <CircularProgress className={classes.progress} color="primary" />
+                      <CircularProgress className={classes.progressCircle} color="primary" />
                     </div>
                     </Button>
                 )}
