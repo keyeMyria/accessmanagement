@@ -69,6 +69,9 @@ const styles = theme => ({
   workshopform:{
     margin:'32px 16px 16px',
   },
+  workshopformInputs:{
+    maxWidth:'600px',
+  },
   sessionItem :{
     borderLeft : '3px solid #053787' ,
     minHeight : '80px',
@@ -274,7 +277,7 @@ class EventDetail extends React.Component{
         </AppBar>
         <div className={classes.workshopform}>
           <LectureIcon className={classes.icon}/>
-          <WorkShopForm form={form} users={UserStore.users} onSuccess={this.handleClose}/>
+          <WorkShopForm className={classes.workshopformInputs} form={form} users={UserStore.users} onSuccess={this.handleClose}/>
         </div>
         <DialogActions>
           <Button raised="true" onClick={(event)=>this.handleSubmitAddWorkshop(event , form)} color="secondary">

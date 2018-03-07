@@ -225,7 +225,7 @@ handleExit = async () => {
   }
 }
 const userToEnter = gql`
-  query userToEnter($id: ID!) {
+  query userToEnter($id: String!) {
     userId(id :$id) {
       username
       status
@@ -245,7 +245,7 @@ const userToEnter = gql`
   }
 `;
 const updateUserStatus = gql`
-  mutation updateUserStatus($id: ID! , $status:String! , $agent : String!)  {
+  mutation updateUserStatus($id: String! , $status:String! , $agent : String!)  {
     updateUserStatus(id: $id , status :$status, agent:$agent) {
       id
     }

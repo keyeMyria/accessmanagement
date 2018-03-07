@@ -219,7 +219,7 @@ class VerifyExitComponent extends React.Component{
   }
 }
 const userToEnter = gql`
-  query userToEnter($id: ID!) {
+  query userToEnter($id: String!) {
     userId(id :$id) {
       username
       status
