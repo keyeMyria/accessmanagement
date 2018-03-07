@@ -364,7 +364,7 @@ export default class Dial extends React.Component {
                        {...props}
             />
 
-            {this.state.increment== 4 &&(
+            {this.state.increment >= 3 &&(
               <Button fab  color="secondary" aria-label="add" style= {{'marginLeft': '10px', 'padding': '0',}} onClick={this.handleSend.bind(this)}>
                 <Send/>
               </Button>
