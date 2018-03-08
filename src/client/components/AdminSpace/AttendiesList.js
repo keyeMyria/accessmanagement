@@ -21,7 +21,8 @@ import  {PieChart, Pie, Legend , Tooltip, Sector, Cell} from 'recharts';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import GuestCardToManage from './GuestCardToManage';
-import EmptyStatusAttendeesIcon from '../App/EmptyStatusAttendees.svg';
+import EmptyAttendeesStatusIcon from '../App/EmptyAttenteesStatus.svg';
+import Grow from 'material-ui/transitions/Grow';
 
 const styles = theme => ({
   root: {
@@ -40,7 +41,6 @@ const styles = theme => ({
     '-ms-transform': 'rotateY(180deg)',
     '-o-transform': 'rotateY(180deg)',
     'transform': 'rotateY(180deg)',
-
   },
   OUT:{
     fill :"#ef4035",
@@ -52,7 +52,52 @@ const styles = theme => ({
   container_ui:{
     width:'100%',
   },
-
+  progressCircle:{
+    margin: '16px 0',
+  },
+  fakeContainerGuest:{
+    background: '#f9f9f9',
+    maxWidth:'1200px',
+    margin:'0 16px',
+    overflow:'hidden',
+  },
+  fakeContainer_ui:{
+    display:'flex',
+    padding:'16px',
+    borderBottom:'1px solid #eee',
+  },
+  fakeAvatar:{
+    width:'72px',
+    height:'72px',
+    background:'#eee',
+    borderRadius:'50%',
+    marginRight:'16px',
+  },
+  fakeText:{
+    display:'block',
+    width:'calc(100% - 216px)',
+  },
+  fakeHeading:{
+    height:'26px',
+    width:'25vw',
+    background:'#eee',
+    margin:'10px 0',
+    borderRadius:'13px',
+  },
+  fakeSecondaryText:{
+    height:'16px',
+    width:'10vw',
+    background:'#eee',
+    borderRadius:'8px',
+  },
+  fakeButton:{
+    height:'16px',
+    width:'50px',
+    background:'#eee',
+    borderRadius:'8px',
+    marginLeft:'8px',
+    alignSelf:'flex-end',
+  }
 });
 
 
@@ -116,15 +161,64 @@ componentWillReceiveProps(newProps) {
   render() {
     const { classes } = this.props;
     if(this.props.data.loading==true)
-      return(<div className={classes.root}><CircularProgress color="primary" /></div>);
+      return(
+        <div className={classes.root}>
+          <CircularProgress color="primary" className={classes.progressCircle} />
+
+          <div className="fakeContainerGuest" className={classes.fakeContainerGuest} >
+            <div className="fakeContainer_ui" className={classes.fakeContainer_ui} >
+              <div className="fakeAvatar" className={classes.fakeAvatar} >
+              </div>
+              <div className="fakeText" className={classes.fakeText} >
+                <div className="fakeHeading" className={classes.fakeHeading} >
+                </div>
+                <div className="fakeSecondaryText" className={classes.fakeSecondaryText} >
+                </div>
+              </div>
+              <div className="fakeButton" className={classes.fakeButton} >
+              </div>
+              <div className="fakeButton" className={classes.fakeButton} >
+              </div>
+            </div>
+            <div className="fakeContainer_ui" className={classes.fakeContainer_ui} >
+              <div className="fakeAvatar" className={classes.fakeAvatar} >
+              </div>
+              <div className="fakeText" className={classes.fakeText} >
+                <div className="fakeHeading" className={classes.fakeHeading} >
+                </div>
+                <div className="fakeSecondaryText" className={classes.fakeSecondaryText} >
+                </div>
+              </div>
+              <div className="fakeButton" className={classes.fakeButton} >
+              </div>
+              <div className="fakeButton" className={classes.fakeButton} >
+              </div>
+            </div>
+            <div className="fakeContainer_ui" className={classes.fakeContainer_ui} >
+              <div className="fakeAvatar" className={classes.fakeAvatar} >
+              </div>
+              <div className="fakeText" className={classes.fakeText} >
+                <div className="fakeHeading" className={classes.fakeHeading} >
+                </div>
+                <div className="fakeSecondaryText" className={classes.fakeSecondaryText} >
+                </div>
+              </div>
+              <div className="fakeButton" className={classes.fakeButton} >
+              </div>
+              <div className="fakeButton" className={classes.fakeButton} >
+              </div>
+            </div>
+          </div>
+        </div>);
+
       else if (this.props.data.guestusers==null || Object.keys(this.props.data.guestusers).length === 0) {
           return (
               <div className={classes.root} className="emptyStatus">
                  <div className="emptyStatusIcon">
-                   <EmptyStatusAttendeesIcon/>
+                   <EmptyAttendeesStatusIcon/>
                  </div>
                  <h3 className="emptyStatusTitle">
-                   No guests registred for this event
+                   لا يوجد مشاركين في هذا الحدث
                  </h3>
                  <p className="emptyStatusDesciption">
                    Edit this event and upload a file with your guest list.
@@ -157,16 +251,15 @@ componentWillReceiveProps(newProps) {
                   placeholder="Search Attendies" onChange={this.filterList}
             />
         </FormControl>
-        <div className='containerGuest' className={classes.containerGuest}>
-          <div className='container_ui' className={classes.container_ui}>
-            {this.state.attendies_list.map(value => (
-
-                 <GuestCardToManage key={value._id} data={value} readonly={true}/>
-
-               ))}
-
+        <Grow in={true}>
+          <div className='containerGuest' className={classes.containerGuest}>
+            <div className='container_ui' className={classes.container_ui}>
+                {this.state.attendies_list.map(value => (
+                   <GuestCardToManage key={value._id} data={value} readonly={true}/>
+                 ))}
+               </div>
           </div>
-        </div>
+        </Grow>
       </div>)
   }
   }
