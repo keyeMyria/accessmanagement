@@ -116,6 +116,7 @@ class EventStore {
           _id
           title
           type
+          place
           start_date
           end_date
           numberAttendies
@@ -146,11 +147,12 @@ class EventStore {
       }
       @action addNewEvent(data){
         fetch({
-          query: `mutation addNewEvent($title :String!, $type:String! , $end_date:String! , $start_date:String! , $file:String!) {
-            addNewEvent(title:$title , type:$type , end_date:$end_date , start_date:$start_date , file:$file)  {
+          query: `mutation addNewEvent($title :String!, $type:String!, $place:String!, $end_date:String! , $start_date:String! , $file:String!) {
+            addNewEvent(title:$title , type:$type , place:$place , end_date:$end_date , start_date:$start_date , file:$file)  {
               _id
               title
               type
+              place
               start_date
               end_date
               numberAttendies
@@ -159,6 +161,7 @@ class EventStore {
           variables:{
             title : data.title ,
             type : data.type ,
+            place: data.place,
             end_date : data.end_date ,
             start_date : data.start_date ,
             file : data.file
@@ -224,6 +227,7 @@ class EventStore {
                   _id
                   title
                   type
+                  place
                   start_date
                   end_date
                   numberAttendies
@@ -256,6 +260,7 @@ class EventStore {
                   _id
                   title
                   type
+                  place
                   start_date
                   end_date
                   numberAttendies

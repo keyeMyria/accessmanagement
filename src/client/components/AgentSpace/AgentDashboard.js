@@ -60,6 +60,9 @@ const styles ={
     justifyContent: 'center',
     marginBottom: '24px',
   },
+  progressCircle:{
+    margin: '16px 0 0 0',
+  },
 }
 @observer
 class AgentDashboard extends React.Component{

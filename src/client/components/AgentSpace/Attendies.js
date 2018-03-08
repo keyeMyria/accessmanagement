@@ -31,6 +31,9 @@ const styles = theme => ({
     margin:'auto',
     padding: '60px 16px 8px',
   },
+  progressCircle:{
+    margin: '16px 0 0 0',
+  },
   IN:{
     fill :"#00abc7",
   },
@@ -152,7 +155,7 @@ class Attendies extends React.Component {
   render() {
     const { classes } = this.props;
     if(UserStore.loading==true)
-      return(<div className={classes.root}><CircularProgress color="primary" /></div>);
+      return(<div className={classes.root}><CircularProgress color="primary" className={classes.progressCircle} /></div>);
     else if (UserStore.users==null) {
         return (
             <div className="emptyStatus">

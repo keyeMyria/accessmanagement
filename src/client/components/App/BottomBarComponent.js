@@ -40,7 +40,10 @@ class BottomBarComponent extends React.Component{
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction className="bottomLabel" label="لوحة المراقبة" icon={<DonutLarge />} value="/dashboard"/>)}
         {(role=='agent_in' || role=='agent_out'|| role=='agent_workshop')&&(<BottomNavigationAction className="bottomLabel" label="التحركات" icon={<TransferWithinAStation />} value="/operateonguestlist"/>)}
         {((role=='admin')&&(this.props.addEventItems==true))&&(<BottomNavigationAction label="حالة الحضور" icon={<People />} value="/listguests" />)}
+<<<<<<< HEAD
         {/* {((role=='admin')&&(this.props.addEventItems==true))&&(<BottomNavigationAction label="التحركات" icon={<SwapHoriz />} value="/activitylog"/>)} */}
+=======
+>>>>>>> f08f515d8522484fa75b8e0d778a28f4f0b23bb3
         {((role=='admin') &&(this.props.addEventItems==true))&&(<BottomNavigationAction label="لوحة المراقبة" icon={<DonutLarge />} value={`/event-dashboard/${this.props.eventid}`}/>)}
         {((role=='admin')&&(this.props.addEventItems==true))&&(<BottomNavigationAction label="الجلسات" icon={<GroupWork />} value={`/manage-single-event/${this.props.eventid}`}/>)}
       </BottomNavigation>
