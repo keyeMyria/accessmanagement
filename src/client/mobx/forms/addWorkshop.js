@@ -5,8 +5,8 @@ const plugins = { dvr: validatorjs };
 
 const fields = [{
   name: 'name',
-  label: 'Title',
-  placeholder: 'Insert Title',
+  label: 'عنوان الورشة',
+  placeholder: 'ادخل عنوان الورشة',
   rules: 'required|string'
 },
 {
