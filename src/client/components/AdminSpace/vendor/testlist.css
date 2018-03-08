@@ -31,11 +31,13 @@ body .title_inner h2 {
 }
 body .containerGuest {
   /*width: 800px;*/
-  height: calc(100vh - 112px);
+  height: calc(100vh - 57px);
 
 }
 body .container_ui {
+  position: fixed;
   width: 400px;
+  height: calc(100vh - 57px);
   background: white;
   /*height: 486px;*/
   -webkit-transition-property: opacity,top;
@@ -44,6 +46,7 @@ body .container_ui {
           transition-duration: 0.4s;
   -webkit-animation: pop .5s forwards;
           animation: pop .5s forwards;
+          overflow-y: scroll;
 }
 
 @media screen and (max-width: 768px) {
@@ -368,7 +371,7 @@ body .container_ui__expand {
   width: calc(100vw - 440px);
   right: 420px;
   position: absolute;
-  top: 0;
+  top: 56px;
   -webkit-transition-delay: .2s;
           transition-delay: .2s;
   -webkit-transition-property: left,opacity;
