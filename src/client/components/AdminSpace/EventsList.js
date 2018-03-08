@@ -22,6 +22,7 @@ import {withRouter} from 'react-router-dom';
 import Menu, { MenuItem , MenuList} from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
+import Grow from 'material-ui/transitions/Grow';
 
 const styles= theme => ({
 
@@ -148,6 +149,7 @@ class EventsList extends React.Component{
 
 	     <ul className="event-list">
          {EventStore.unfiltered_events.map((item) => (
+           <Grow in={true}>
             <li key={item._id}>
 						<time dateTime="2014-07-20" onClick={() => {this.eventDetail(item)}}>
 							<span className="day">{dateFormat(item.start_date , 'dd')}</span>
@@ -216,6 +218,7 @@ class EventsList extends React.Component{
             </Menu>
           </div>
 					</li>
+        </Grow>
          ))}
     </ul>
     <Button fab  color="secondary" aria-label="add new event" onClick={this.handleAddEvent} className="addButton">

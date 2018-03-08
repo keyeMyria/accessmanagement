@@ -22,7 +22,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import GuestCardToManage from './GuestCardToManage';
 import EmptyAttendeesStatusIcon from '../App/EmptyAttenteesStatus.svg';
-import Grow from 'material-ui/transitions/Grow';
+import Fade from 'material-ui/transitions/Fade';
 
 const styles = theme => ({
   root: {
@@ -251,7 +251,7 @@ componentWillReceiveProps(newProps) {
                   placeholder="Search Attendies" onChange={this.filterList}
             />
         </FormControl>
-        <Grow in={true}>
+        <Fade in={true}>
           <div className='containerGuest' className={classes.containerGuest}>
             <div className='container_ui' className={classes.container_ui}>
                 {this.state.attendies_list.map(value => (
@@ -259,7 +259,7 @@ componentWillReceiveProps(newProps) {
                  ))}
                </div>
           </div>
-        </Grow>
+        </Fade>
       </div>)
   }
   }
