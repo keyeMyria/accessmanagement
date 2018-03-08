@@ -55,6 +55,18 @@ var config = {
                 ]
 
                 },
+                {
+                  test: /\.(gif|png|jpe?g)$/i,
+                  use: [
+                    'file-loader',
+                    {
+                      loader: 'image-webpack-loader',
+                      options: {
+                        bypassOnDebug: true,
+                      },
+                    },
+                  ],
+                }
     ]
   },
   plugins: [

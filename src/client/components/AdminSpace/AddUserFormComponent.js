@@ -292,7 +292,7 @@ render(){
         <Typography type="display1" gutterBottom style={titleAddUser}>
           إضافة مستخدم
         </Typography>
-        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={styleinputForm , styleSmallInput}/>
+        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={[styleinputForm ,styleSmallInput]}/>
         <Field name="name" type="text" component={this.renderTextField} label=" الأسم " value="" style={styleinputForm}/>
         <Field name="forname" type="text" component={this.renderTextField} label=" اللقب " value="" style={styleinputForm}/>
         <Field name="cin" type="text" component={this.renderTextField} label=" رقم بطاقة التعريف الوطنية " style={styleSmallInput}/>
