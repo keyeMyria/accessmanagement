@@ -48,24 +48,28 @@ const ITEM_HEIGHT = 48;
 @observer
 class EventsList extends React.Component{
   state = {
-    anchorEl: null,
+    anchorEl: [],
   };
 
-  handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleClick = (event , item_id) => {
+    const anchor = this.state.anchorEl;
+    anchor[item_id]= event.currentTarget;
+
+    // update state
+    this.setState({
+      anchorEl:anchor,
+    });
   };
 
-  handleCloseMenu = () => {
-    this.setState({ anchorEl: null });
+  handleCloseMenu = (item_id) => {
+    const anchor = this.state.anchorEl;
+    anchor[item_id]= null;
+
+    // update state
+    this.setState({
+      anchorEl:anchor,
+    });
   };
-
-  // handleCloseMenu = () => {
-  //   this.setState({ openMenu: false });
-  // };
-
-  // handleClick = (event)=>{
-  //  this.setState({ openMenu: true});
-  // }
 
   handleClose = () => {
     this.setState({ open: false });
@@ -79,7 +83,7 @@ class EventsList extends React.Component{
         to: undefined,
       };
     EventStore.getEvents();
-
+    
   }
 
   handleDayClick=(day)=>{
@@ -96,7 +100,16 @@ class EventsList extends React.Component{
     console.log(type)
     EventStore.filterEventByCurrentDate(type);
   }
-
+  componentDidMount=()=>{
+    let arr =[]
+    EventStore.unfiltered_events.map((item) => {
+      i = item._id
+      arr[i] = null
+    })
+    this.setState({
+      anchorEl:arr
+    })
+  }
   handleAddEvent =(event)=>{
     this.setState({ open: true });
 
@@ -163,54 +176,21 @@ class EventsList extends React.Component{
               <p className="desc"> من  {dateFormat(item.start_date , 'dd/mm/yyyy')} , {dateFormat(item.start_date , 'hh:mm')} الى {dateFormat(item.end_date , 'dd/mm/yyyy')} , {dateFormat(item.end_date , 'hh:mm')}</p>
               <p className="desc"><AccountCircle className="accountIcon"/> الحضور المتوقع {item.numberAttendies}</p>
             </div>
-            {
-            //   <div>
-            // <IconButton
-            //            aria-label="More"
-            //            aria-haspopup="true"
-            //            onClick={this.handleClick}
-            //          >
-            //     <MoreVertIcon />
-            //   </IconButton>
-            //   {console.log(this.state.top)}
-            //   <Menu
-            //         id="long-menu"
-            //         Close={this.handleCloseMenu}
-            //         open={this.state.openMenu}
-            //
-            //         style={{ top:this.state.top , left : -600}}
-            //         PaperProps={{
-            //                       style: {
-            //                               maxHeight: 100,
-            //                               width: 200,
-            //                               top:this.state.top ,
-            //                              },
-            //                      }}
-            //
-            //            >
-            //          <MenuItem onClick={this.handleCloseMenu}>
-            //            Edit Event
-            //          </MenuItem>
-            //          <MenuItem onClick={()=>this.deleteEvent(item._id)}>
-            //            Archive Event
-            //          </MenuItem>
-            //   </Menu>
-            // </div>
-          }
+
           <div>
             <IconButton
               aria-label="More"
-              aria-owns={anchorEl ? 'long-menu' : null}
+              aria-owns={anchorEl[item._id] ? 'long-menu' : null}
               aria-haspopup="true"
-              onClick={this.handleClick}
+              onClick={(event)=>this.handleClick(event , item._id)}
             >
               <MoreVertIcon />
             </IconButton>
             <Menu
               id="long-menu"
-              anchorEl={this.state.anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleCloseMenu}
+              anchorEl={this.state.anchorEl[item._id]}
+              open={Boolean(anchorEl[item._id])}
+              onClose={()=>this.handleCloseMenu(item._id)}
 
             >
                 <MenuItem  onClick={this.handleCloseMenu}> Edit Event </MenuItem>
