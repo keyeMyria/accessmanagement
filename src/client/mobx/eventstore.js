@@ -145,7 +145,32 @@ class EventStore {
       this.setUnfilteredEvents(res.data.eventlist)
     });
       }
-      @action addNewEvent(data){
+      @action UpdateEvent=(data)=>{
+        fetch({
+          query: `mutation UpdateEvent($title :String!, $type:String!, $place:String!, $end_date:String! , $start_date:String! , $id:ID!) {
+            UpdateEvent(title:$title , type:$type , place:$place , end_date:$end_date , start_date:$start_date , _id:$id)  {
+              _id
+              title
+              type
+              place
+              start_date
+              end_date
+              numberAttendies
+            }
+          }`,
+          variables:{
+            title : data.title ,
+            type : data.type ,
+            place: data.place,
+            end_date : data.end_date ,
+            start_date : data.start_date ,
+            id : data._id , 
+          }
+        }).then(res => {
+          this.getEvents()
+        });
+      }
+      @action addNewEvent=(data)=>{
         fetch({
           query: `mutation addNewEvent($title :String!, $type:String!, $place:String!, $end_date:String! , $start_date:String! , $file:String!) {
             addNewEvent(title:$title , type:$type , place:$place , end_date:$end_date , start_date:$start_date , file:$file)  {

@@ -47,12 +47,6 @@ class GuestCardToManage extends React.Component{
           "region":user.profile.region ,
           "gouvernorat":user.profile.gouvernorat});
 
-          console.log(form.values())
-          // this.setState(state => {
-          //   selected_user:user
-          // }, ()=>{
-          //   console.log('clicked')
-          // });
 
 
      };

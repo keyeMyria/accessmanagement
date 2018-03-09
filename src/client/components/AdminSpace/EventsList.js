@@ -114,6 +114,19 @@ class EventsList extends React.Component{
     this.setState({ open: true });
 
   }
+  handleEditEvent=(event , item)=>{
+    form.update({
+      "title":item.title,
+      "type": item.type, 
+      "place": item.place,
+      "start_date": item.start_date,
+      "end_date": item.end_date,
+      "_id": item._id 
+
+    });
+    this.setState({ open: true });
+     
+  }
   eventDetail=(item)=>{
     EventStore.selectEvent(item);
     this.props.history.push(`/manage-single-event/${item._id}`);
@@ -193,7 +206,7 @@ class EventsList extends React.Component{
               onClose={()=>this.handleCloseMenu(item._id)}
 
             >
-                <MenuItem  onClick={this.handleCloseMenu}> Edit Event </MenuItem>
+                <MenuItem  onClick={(event)=>this.handleEditEvent(event , item)}> Edit Event </MenuItem>
                 <MenuItem  onClick={()=>this.deleteEvent(item._id)}> Archive Event </MenuItem>
             </Menu>
           </div>

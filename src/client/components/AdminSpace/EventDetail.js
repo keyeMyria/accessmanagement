@@ -12,7 +12,7 @@ import AccountCircle from 'material-ui-icons/AccountCircle';
 import AccessTime from 'material-ui-icons/AccessTime';
 import dateFormat from 'dateformat';
 import { withStyles } from 'material-ui/styles';
-import Dialog , {DialogActions} from 'material-ui/Dialog';
+import Dialog , {DialogActions , DialogTitle , DialogContent} from 'material-ui/Dialog';
 import List, { ListItem, ListItemText , ListItemSecondaryAction } from 'material-ui/List';
 import './vendor/events.css';
 import PlayArrow from 'material-ui-icons/PlayArrow';
@@ -29,6 +29,8 @@ import LectureIcon from './vendor/lecture.svg';
 //import PlayButton from './vendor/playButton.svg';
 import WorkShopForm from './addWorkShopForm';
 import Add from 'material-ui-icons/Add'
+import formEdit from '../../mobx/forms/addevent';
+import Form from './addEventForm';
 const styles = theme => ({
 
   container:{
@@ -175,7 +177,8 @@ class EventDetail extends React.Component{
     super(props);
     this.state = {
      open: false,
-     open_workshop:false
+     open_workshop:false , 
+     open_edit_event:false
    };
    props.handleEventDashboardBottomBarElements(props.match.params.id)
    WorkshopStore.getWorkshopsForEvent(props.match.params.id);
@@ -186,6 +189,29 @@ class EventDetail extends React.Component{
  handleClickOpen = () => {
    this.setState({ open: true });
  };
+ handleClickOpenEditEvent=()=>{
+  formEdit.update({
+    "title":EventStore.selectedEvent.title,
+    "type": EventStore.selectedEvent.type, 
+    "place": EventStore.selectedEvent.place,
+    "start_date": EventStore.selectedEvent.start_date,
+    "end_date": EventStore.selectedEvent.end_date,
+    "_id": EventStore.selectedEvent._id 
+
+  });
+   this.setState({
+    open_edit_event : true
+   })
+ }
+ addEventOperation=(e)=>{
+  formEdit.onSubmit(e)
+  this.handleClickOpenEditEvent()
+}
+ handleClickCloseEditEvent =()=>{
+   this.setState({
+     open_edit_event:false
+   })
+ }
   handleClickOpenWorkshop = ()=>{
     this.setState({ open_workshop: true });
 
@@ -229,6 +255,25 @@ class EventDetail extends React.Component{
 
     return(
       <div>
+          <Dialog
+          open={this.state.open_edit_event}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">تحديث يبانات الحدث</DialogTitle>
+          <DialogContent className="dialogContent">
+          <Form form={formEdit}/>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={(e)=>this.addEventOperation(e)} color="secondary">
+              حفظ
+            </Button>
+            <Button onClick={this.handleClose} >
+            إلغاء
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         <Dialog
          fullScreen
          open={this.state.open}
@@ -294,7 +339,7 @@ class EventDetail extends React.Component{
 
       <div className={classes.container}>
       <div className={classes.header}>
-        <Button fab  raised="true" className="editButton">
+        <Button fab  raised="true" className="editButton" onClick={this.handleClickOpenEditEvent}>
           <ModeEditIcon className={classes.editIcon}/>
         </Button>
           <h2 className={classes.title}>
