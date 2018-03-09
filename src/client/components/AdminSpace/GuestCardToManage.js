@@ -80,7 +80,7 @@ class GuestCardToManage extends React.Component{
                   <h2>
                     {data.profile.name} {data.profile.forname}
                   </h2>
-                  <h3> {data.identifiant} 1234 </h3>
+                  <h3> {data.identifiant} </h3>
                 </div>
 
                 {readonly &&(
