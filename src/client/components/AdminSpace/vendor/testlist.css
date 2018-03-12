@@ -141,7 +141,7 @@ body .container_ui input[type="checkbox"]:checked + .labelGuestList > .container
   -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   pointer-events: none;
 }
-body .container_ui .container_ui__expand .labelGuestList {
+body .container_ui__expand .labelGuestList {
   width: 10px;
   position: absolute;
   right: 10px;
@@ -150,7 +150,7 @@ body .container_ui .container_ui__expand .labelGuestList {
   font-weight: 700;
   color: #a6a6a6;
 }
-body .container_ui .container_ui__expand .labelGuestList:hover {
+body .container_ui__expand .labelGuestList:hover {
   color: #444444;
 }
 body .container_ui input[type="checkbox"]:checked + .labelGuestList > .container_ui__expand .labelGuestList {
@@ -484,8 +484,11 @@ body .container_ui__expand .body .user .exportBtnContainer {
 }
 
 body .container_ui__expand .body .user .face {
-  /*float: right;*/
+  width: 72px;
+  border-radius: 50%;
+  margin-left: 10px;
 }
+
 body .container_ui__expand .body .user .face img {
   width: 54px;
   /*-webkit-transform: scale(0);
