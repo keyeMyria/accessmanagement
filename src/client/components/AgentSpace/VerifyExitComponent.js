@@ -42,23 +42,19 @@ const styles = theme => ({
     'max-width' :"200px"
   },
   bigAvatar: {
-    width: '40%',
-    height: '40%',
-    'max-width': '300px',
+    width: 220,
+    height: 220,
+    maxWidth:'220px',
     margin: '30px 0',
   },
   verfExit:{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    'padding-top': '50px',
   },
   button:{
     color: '#fff',
-    'fontSize': '32px',
+    fontSize: '32px',
     width: '60%',
     lineHeight: '3em',
-    'max-width': '550px',
+    maxWidth: '550px',
   },
   styleCommun:{
     'margin-bottom':'20px',
@@ -189,7 +185,8 @@ class VerifyExitComponent extends React.Component{
                     ]}
                   />
         )}
-        <div className={classes.verfExit}>
+        <div className={classes.verfExit} className="verfExit">
+          <div style={{ display: 'flex', flexDirection :'column'}}>
             <Avatar
             alt=""
             src={`/public/assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
@@ -199,19 +196,23 @@ class VerifyExitComponent extends React.Component{
             {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
             <span className={classNames(classes.styleCommun , classes.profileFunction)}>
             {this.props.userToEnter.userId.profile.function}</span>
-            <Button className={classes.button}  raised="true"color="primary" onClick={this.handleEnter}>
+          </div>
+          <div style={{ position:'relative', width:'400px'}}>
+            <Button className={classes.button} raised="true" color="secondary" onClick={this.handleEnter}>
                  خروج
             </Button>
-            <span className={classNames(classes.styleCommun , classes.profileCin)}>
-            {this.props.userToEnter.userId.cin}  </span>
-            <div style={{ display: 'flex', width: '90%', 'justifyContent': 'space-between', fontSize:'18px', 'height': '50px', marginTop:'115px'}}>
+            <div className="buttonSuccess">
+            </div>
+          </div>
+
+            <div style={{ display: 'flex', width: '90%', 'justifyContent': 'space-between', fontSize:'18px', 'height': '50px', marginTop:'56px'}}>
               <div style={{ display: 'flex', flexDirection:'column'}}>
-                  <span style={{ color: '#9E9E9E', }}> بطاقة تعريف وطنية </span>
-                  <span> {this.props.userToEnter.userId.cin} </span>
+                  <span style={{ color: '#9E9E9E'}}> بطاقة تعريف وطنية </span>
+                  <span style={{ textAlign: 'right'}}> {this.props.userToEnter.userId.cin} </span>
               </div>
               <div style={{ display: 'flex', flexDirection:'column'}}>
-                  <span style={{ color: '#9E9E9E', }}> المعرف </span>
-                  <span>{this.props.userToEnter.userId.identifiant}</span>
+                  <span style={{ color: '#9E9E9E'}}> المعرف </span>
+                  <span style={{ textAlign: 'left'}}>{this.props.userToEnter.userId.identifiant}</span>
               </div>
               </div>
             </div>

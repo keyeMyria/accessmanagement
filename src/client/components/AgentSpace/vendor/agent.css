@@ -1,3 +1,42 @@
+.verfExit{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+  background: #fff;
+  padding: 64px 16px;
+}
+
+/*.verfExit .buttonSuccess{
+  width: 10px;
+  height: 10px;
+  background: #50bb556b;
+  color: #fff;
+  opacity: 1;
+  position: absolute;
+  top: 54px;
+  right: 200px;
+  transform-origin: 50% 50%;
+  transform: scaleX(10) scaleY(5);
+  border-radius: 20%;
+  animation: expandSuccess 0.5s ease-out infinite;
+}*/
+
+@media screen and (max-height: 768px){
+
+  .verfExit{
+    height: auto;
+    justify-content: space-between;
+  }
+
+}
+
+@keyframes expandSuccess {
+  0{ opacity: 1; transform: scaleX(10) scaleY(5); }
+  100{ opacity: 0; transform: scaleX(100) scaleY(52); }
+}
+
 .containerQrcodeDail{
   display: flex;
   height: 100%;
