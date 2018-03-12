@@ -70,7 +70,7 @@ body .container_ui__heading .header_icon img {
 }
 body .container_ui__heading h1 {
   color: #aeb1d8;
-  text-transform: uppercase;
+  font-family: Changa, cursive;
   font-weight: 700;
   height: 10px;
   margin: 0;
@@ -218,7 +218,7 @@ body .container_ui .labelGuestList {
 }
 
 body .container_ui .labelGuestList:hover > .container_ui__item  {
-  background-color: #EAEAEA !important;
+  background-color: #eee !important;
 }
 
 body .container_ui .labelGuestList .container_ui__item {
