@@ -295,6 +295,9 @@ class EventStore {
                     start_hour
                     end_hour
                     stat
+                    closed_in
+                    closed_out
+                    closed_abscent
 
                   }
                   workshops{
@@ -306,6 +309,9 @@ class EventStore {
                       start_hour
                       end_hour
                       stat
+                      closed_in
+                      closed_out
+                      closed_abscent
                     }
                     users{
                       _id
