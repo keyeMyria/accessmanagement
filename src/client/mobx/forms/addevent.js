@@ -34,11 +34,17 @@ const fields = [{
   type:'hidden',
   label :'اختر ملفا لاستيراد قائمة المدعوين'
 
+}, {
+  name: '_id',
+  type : 'hidden'
 }];
 
 const hooks = {
   onSuccess(form) {
-    EventStore.addNewEvent(form.values())
+    if(form.values()._id!=null && form.values()._id!=undefined  && form.values()._id!="" )
+      EventStore.UpdateEvent(form.values())
+    else
+      EventStore.addNewEvent(form.values())
   },
   onError(form) {
     alert('Form has errors!');

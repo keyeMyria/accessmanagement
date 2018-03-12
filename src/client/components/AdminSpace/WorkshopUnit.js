@@ -83,6 +83,12 @@ class WorkshopUnit extends React.Component{
   buildContentBasedOnData =(details , classes , name , users)=>{
       const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
       let data =[]
+      if(details.stat=="OFF")
+      data = [
+        {name: 'indoor', value: details.closed_in},
+        {name: 'Abscent', value: details.closed_abscent},
+        {name: 'outdoor', value: details.closed_out}];
+     else
       data= this.getUsersStatistics(users)
       let end ;
       if(details.session_list!=null){

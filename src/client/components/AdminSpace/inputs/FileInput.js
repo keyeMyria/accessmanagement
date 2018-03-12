@@ -20,7 +20,7 @@ class FileInput extends React.Component{
 		data.set('importedfile',file, file.filename);
     // '/files' is your node.js route that triggers our middleware
     axios.post(LOCAL_IMPORT_PATH, data).then((response) => {
-			this.props.form.$('file').value = response.data.originalname
+			this.props.form.$('file').value = response.data.filename
     });
     if (!file) return;
   }
