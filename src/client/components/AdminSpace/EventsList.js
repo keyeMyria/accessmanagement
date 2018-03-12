@@ -158,6 +158,7 @@ class EventsList extends React.Component{
 						</time>
 						<div className="info" onClick={() => {this.eventDetail(item)}}>
 							<h2 className="titre">{item.title}</h2>
+              {console.log(item._id)}
               <p className="type"> {item.type} </p>
               <p className="emplacement"> {item.place}</p>
               <p className="desc"> من  {dateFormat(item.start_date , 'dd/mm/yyyy')} , {dateFormat(item.start_date , 'hh:mm')} الى {dateFormat(item.end_date , 'dd/mm/yyyy')} , {dateFormat(item.end_date , 'hh:mm')}</p>
@@ -204,15 +205,14 @@ class EventsList extends React.Component{
               aria-haspopup="true"
               onClick={this.handleClick}
             >
+            {console.log(item._id)}
               <MoreVertIcon />
             </IconButton>
             <Menu
               id="long-menu"
               anchorEl={this.state.anchorEl}
               open={Boolean(anchorEl)}
-              onClose={this.handleCloseMenu}
-
-            >
+              onClose={this.handleCloseMenu}>
                 <MenuItem  onClick={this.handleCloseMenu}> Edit Event </MenuItem>
                 <MenuItem  onClick={()=>this.deleteEvent(item._id)}> Archive Event </MenuItem>
             </Menu>

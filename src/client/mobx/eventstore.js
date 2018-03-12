@@ -207,6 +207,7 @@ class EventStore {
             })
           }
           @action deleteEvent(eventid){
+            console.log(eventid);
             fetch({
               query :`mutation removeEvent($eventid:String!){
                 removeEvent(eventid : $eventid){
