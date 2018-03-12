@@ -41,7 +41,7 @@ const fields = [{
 
 const hooks = {
   onSuccess(form) {
-    if(form.values()._id!=null && form.values()._id!=undefined )
+    if(form.values()._id!=null && form.values()._id!=undefined  && form.values()._id!="" )
       EventStore.UpdateEvent(form.values())
     else
       EventStore.addNewEvent(form.values())

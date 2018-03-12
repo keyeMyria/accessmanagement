@@ -133,10 +133,12 @@ class WorkshopStore {
                 _id
                 start_hour
                 end_hour
+                stat
               }
               workshop{
                 _id
                 name
+                session_empty
                 users{
                   _id
                   status

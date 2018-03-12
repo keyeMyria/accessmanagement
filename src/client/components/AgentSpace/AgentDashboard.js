@@ -162,11 +162,19 @@ class AgentDashboard extends React.Component{
   }
   render(){
     if(WorkshopStore.selectedWorkshop!=null && WorkshopStore.selectedWorkshop.session!=undefined){
+      if(!WorkshopStore.selectedWorkshop.session_empty)
       return(<div>{this.buildDashboard(WorkshopStore.users , WorkshopStore.selectedWorkshop.session , WorkshopStore.selectedWorkshop)}</div>)
-
+      else{
+        return(<div>You're not allowed to access this ...No Session is active yet</div>)
+        
+      }
     }else{
       if(WorkshopStore.agent_session!=null){
+        if(WorkshopStore.agent_session.stat=="ON")
         return(<div>{this.buildDashboard(WorkshopStore.users , WorkshopStore.agent_session , null)}</div>)
+        else{
+          return(<div>You're not allowed to access this ...No Session is active yet</div>)
+        }
       }
       else{
         return(<div className={classes.root}>You haven't been affected to any workshop</div>)
