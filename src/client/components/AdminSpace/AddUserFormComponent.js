@@ -88,8 +88,23 @@ function renderInput(inputProps) {
     />
   );
 }
-
-
+// divavatar
+// width: 50%;
+// height: 100%;
+// display: flex;
+// flex-direction: column;
+// align-items: flex-end;
+// padding: 0px 20px 20px;
+// .avatar-photo, .avatar-photo-edit {
+//     height: 200px;
+//     width: 200px;
+//     overflow: hidden;
+//     border-radius: 2px;
+//     box-shadow: 0 0 0 6px #fff, 0 0 0 7px #ccc;
+//     z-index: 3;
+//     position: relative;
+//     margin-top: 40px;
+// }
 const backgroundAddUser = {
     width: '100vw',
     backgroundColor:'#003489',
@@ -124,9 +139,9 @@ const backgroundAddUser = {
       maxWidth: '800px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      position: 'relative',
+      display: 'flex';
+      flexDirection: 'row';
     };
-
     const styleinputForm ={
       width: '300px',
       marginTop: '24',
@@ -292,7 +307,7 @@ render(){
         <Typography type="display1" gutterBottom style={titleAddUser}>
           إضافة مستخدم
         </Typography>
-        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={[styleinputForm ,styleSmallInput]}/>
+        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={[styleinputForm ,styleSmallInput ]}/>
         <Field name="name" type="text" component={this.renderTextField} label=" الأسم " value="" style={styleinputForm}/>
         <Field name="forname" type="text" component={this.renderTextField} label=" اللقب " value="" style={styleinputForm}/>
         <Field name="cin" type="text" component={this.renderTextField} label=" رقم بطاقة التعريف الوطنية " style={styleSmallInput}/>
@@ -334,8 +349,8 @@ render(){
                  </MenuItem>
                ))}
              </Select>
-       </FormControl>
-       <FormControl className={classes.formControl}  style={styleinputForm}>
+          </FormControl>
+          <FormControl className={classes.formControl}  style={styleinputForm}>
          <InputLabel htmlFor="name-multiple">المعتمدية</InputLabel>
           <Select
             value={this.state.region}
@@ -359,18 +374,17 @@ render(){
               </MenuItem>
             ))}
           </Select>
-     </FormControl>
-        <Button  raised="true"type="submit" color="secondary" style={styleBottomForm}>
-         حفظ المستخدم
-      </Button>
-
-        <AvatarCropper
-          		av_photo = "avatar-photo"
-              av_edit="avatar-edit"
-              width = {400}
-              height={400}
-              setSuccessResponse={this.setSuccessResponse}/>
+          </FormControl>
+          <Button  raised="true"type="submit" color="secondary" style={styleBottomForm}>
+            حفظ المستخدم
+           </Button>
       </form>
+      <AvatarCropper
+            av_photo = "avatar-photo"
+            av_edit="avatar-edit"
+            width = {400}
+            height={400}
+            setSuccessResponse={this.setSuccessResponse}/>
     </div>
   </div>
 

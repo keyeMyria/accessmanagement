@@ -18,7 +18,7 @@ import SwapHoriz from 'material-ui-icons/SwapHoriz';
 import { withStyles } from 'material-ui/styles';
 import UserStore from '../../mobx/gueststore';
 import {observer} from 'mobx-react';
-import noavatar from './no-avatar.png'
+// import noavatar from './no-avatar.png'
 const styles = theme => ({
   phoneNbr:{
     fontFamily:'Roboto, sans-serif',

@@ -164,7 +164,7 @@ class EventStore {
             place: data.place,
             end_date : data.end_date ,
             start_date : data.start_date ,
-            id : data._id , 
+            id : data._id ,
           }
         }).then(res => {
           this.getEvents()
@@ -232,7 +232,6 @@ class EventStore {
             })
           }
           @action deleteEvent(eventid){
-            console.log(eventid);
             fetch({
               query :`mutation removeEvent($eventid:String!){
                 removeEvent(eventid : $eventid){
