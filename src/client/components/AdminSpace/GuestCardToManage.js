@@ -18,7 +18,7 @@ import SwapHoriz from 'material-ui-icons/SwapHoriz';
 import { withStyles } from 'material-ui/styles';
 import UserStore from '../../mobx/gueststore';
 import {observer} from 'mobx-react';
-// import noavatar from './no-avatar.png'
+import Noavatar from '../App/defaultAvatar.svg';
 const styles = theme => ({
   phoneNbr:{
     fontFamily:'Roboto, sans-serif',
@@ -57,13 +57,17 @@ class GuestCardToManage extends React.Component{
 
 
             <div>
+
               {!readonly &&(
                 <input id={`message-${data._id}`} type='checkbox' onChange={()=>this.handleChange(this.props.data , this.props.form)}/>
               )}
             <label className='labelGuestList' htmlFor={`message-${data._id}`} href='#move'>
-              <div className='container_ui__item'>
+             {(data.profile!==null) &&(<div className='container_ui__item'>
                 <div className='face'>
-                     <img src={data.profile.avatar!=='' ? `public/assets/avatars/${data.profile.avatar}` :  noavatar} />
+                  {data.profile.avatar!=='' ?
+                     <img src={`public/assets/avatars/${data.profile.avatar}`} /> :
+                     <Noavatar/>
+                   }
                     {
                   //   <div className='color_bar one'>
                   //   <div className='infosActive'>
@@ -94,9 +98,7 @@ class GuestCardToManage extends React.Component{
                     </Button></Link></div>
                   )}
 
-                 </div>
-
-
+                 </div>)}
             </label></div>
         )
   }
