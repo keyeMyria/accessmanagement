@@ -139,8 +139,8 @@ const backgroundAddUser = {
       maxWidth: '800px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      display: 'flex';
-      flexDirection: 'row';
+      display: 'flex',
+      flexDirection: 'row'
     };
     const styleinputForm ={
       width: '300px',
