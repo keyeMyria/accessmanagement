@@ -64,7 +64,7 @@ class AvatarCropperWidget extends React.Component{
         <div className={av_photo}>
           <FileInput setSuccessResponse ={this.setSuccessResponse} handleFileChange ={this.handleFileChange} name={this.props.key} />
           <div className={av_edit}>
-            <span>Click to Pick Avatar</span>
+            <span>انقر لاختيار الصورة</span>
             <i className="fa fa-camera"></i>
           </div>
           <img src={this.state.croppedImg} />
