@@ -1,15 +1,13 @@
 
 .avatar-photo {
-  position: absolute;
-  background-color: #666;
   height: 200px;
   width: 200px;
   overflow: hidden;
   border-radius: 2px;
   box-shadow: 0 0 0 6px #fff, 0 0 0 7px #ccc;
   z-index: 3;
-  left: 15px;
-  top: 42px;
+  position: relative;
+  margin-top: 40px;
 }
 .avatar-photo-edit {
   position: relative;

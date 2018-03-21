@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import BackAddUser from './BackAddUser.svg';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
+import "./vendor/addUser.css";
 import Input, { InputLabel, InputAdornment  } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
@@ -19,6 +20,7 @@ import gouvernement  , {whatido} from './vendor/states'
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
+
 
 
 
@@ -69,7 +71,6 @@ const container = {
 };
 
 
-
 function renderInput(inputProps) {
   const { classes, autoFocus, value, ref, ...other } = inputProps;
 
@@ -88,59 +89,46 @@ function renderInput(inputProps) {
     />
   );
 }
-// divavatar
-// width: 50%;
-// height: 100%;
-// display: flex;
-// flex-direction: column;
-// align-items: flex-end;
-// padding: 0px 20px 20px;
-// .avatar-photo, .avatar-photo-edit {
-//     height: 200px;
-//     width: 200px;
-//     overflow: hidden;
-//     border-radius: 2px;
-//     box-shadow: 0 0 0 6px #fff, 0 0 0 7px #ccc;
-//     z-index: 3;
-//     position: relative;
-//     margin-top: 40px;
-// }
+
 const backgroundAddUser = {
     width: '100vw',
     backgroundColor:'#003489',
     position: 'absolute',
     height: '160px',
     top: '56px',
-    zIndex: '-1',
     left: '0',
   };
 
   const whiteBackground = {
       backgroundColor:'#fff',
-      position: 'absolute',
-      height: '1010px',
-      width: 'calc(100vw - 0px)',
-      zIndex: '-2',
+      position: 'fixed',
+      height: '112px',
+      width: '100vw',
+      bottom:'0',
     };
 
   const titleAddUser = {
       color:'#fff',
       marginTop: '100px',
       textAlign: 'right',
+      zIndex: '0',
     };
     const formAddUser = {
+      width: '80vw',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'flex-start',
-      padding: '0 20px 20px',
-    };
-    const subContainerAddUser = {
-      maxWidth: '800px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      display: 'flex';
-      flexDirection: 'row';
+    };
+
+    const subContainerAddUser = {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      backgroundColor: '#fff',
+      display: 'flex',
+      flexDirection: 'row',
     };
     const styleinputForm ={
       width: '300px',
@@ -304,10 +292,18 @@ render(){
     <div style={whiteBackground}></div>
     <div style={subContainerAddUser}>
       <form onSubmit={handleSubmit} style={formAddUser}>
+      <div className='containerTypoAvatar'>
         <Typography type="display1" gutterBottom style={titleAddUser}>
           إضافة مستخدم
         </Typography>
-        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={[styleinputForm ,styleSmallInput ]}/>
+        <AvatarCropper
+              av_photo = "avatar-photo"
+              av_edit="avatar-edit"
+              width = {400}
+              height={400}
+              setSuccessResponse={this.setSuccessResponse}/>
+        </div>
+        <Field name="identifiant" type="text" component={this.renderTextField} label=" الرقم " value="" style={styleSmallInput}/>
         <Field name="name" type="text" component={this.renderTextField} label=" الأسم " value="" style={styleinputForm}/>
         <Field name="forname" type="text" component={this.renderTextField} label=" اللقب " value="" style={styleinputForm}/>
         <Field name="cin" type="text" component={this.renderTextField} label=" رقم بطاقة التعريف الوطنية " style={styleSmallInput}/>
@@ -379,12 +375,7 @@ render(){
             حفظ المستخدم
            </Button>
       </form>
-      <AvatarCropper
-            av_photo = "avatar-photo"
-            av_edit="avatar-edit"
-            width = {400}
-            height={400}
-            setSuccessResponse={this.setSuccessResponse}/>
+
     </div>
   </div>
 

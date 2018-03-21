@@ -4,6 +4,7 @@ import Add from 'material-ui-icons/Add';
 import TextField from 'material-ui/TextField';
 import green from 'material-ui/colors/green';
 
+import Dialog, { DialogActions, DialogContent, DialogContentText, DialogTitle } from 'material-ui/Dialog';
 import './vendor/events.css';
 import 'react-day-picker/lib/style.css';
 import form from '../../mobx/forms/addevent';
