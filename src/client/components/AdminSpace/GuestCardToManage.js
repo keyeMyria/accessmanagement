@@ -68,16 +68,6 @@ class GuestCardToManage extends React.Component{
                      <img src={`public/assets/avatars/${data.profile.avatar}`} /> :
                      <Noavatar/>
                    }
-                    {
-                  //   <div className='color_bar one'>
-                  //   <div className='infosActive'>
-                  //     <h2>{data.profile.name} {data.profile.forname}</h2>
-                  //     <h3>{data.identifiant}</h3>
-                  //   </div>
-                  //   <span><AssignmentInd /></span>
-                  //
-                  // </div>
-                }
                 </div>
 
                 <div className={!readonly ? "itemInfos" :"itemInfosResponsive"}>
