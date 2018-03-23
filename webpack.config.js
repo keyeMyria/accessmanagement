@@ -3,8 +3,9 @@ const WebpackRTLPlugin = require('webpack-rtl-plugin');
 /* Import webpack-manifest-plugin */
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-var path = require('path');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
+var path = require('path');
 var BUILD_DIR = path.resolve(__dirname, './public');
 var APP_DIR = path.resolve(__dirname, 'src/client');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // Import our plugin -> ADDED IN THIS STEP
@@ -75,32 +76,67 @@ var config = {
     }),
     new ExtractTextPlugin('css/[name].css') ,
     new WebpackRTLPlugin(),
-  //   new SWPrecacheWebpackPlugin(
-  //   {
-  //     cacheId: 'my-domain-cache-id',
-  //     dontCacheBustUrlsMatching: /\.\w{8}\./,
-  //     filename: 'service-worker.js',
-  //     minify: true,
-  //     navigateFallback: PUBLIC_PATH + 'index.html',
-  //     staticFileGlobsIgnorePatterns: [/\.map$/, /manifest\.json$/]
-  //   }
-  // ),
-  // new WebpackPwaManifest({
-  //    name: 'My Applications Friendly Name',
-  //    short_name: 'Application',
-  //    description: 'Description!',
-  //    background_color: '#01579b',
-  //    theme_color: '#01579b',
-  //    'theme-color': '#01579b',
-  //    start_url: '/',
-  //    icons: [
-  //      {
-  //        src: path.resolve(BUILD_DIR +'/icon.png'),
-  //        sizes: [96, 128, 192, 256, 384, 512],
-  //        destination: path.join('assets', 'icons')
-  //      }
-  //    ]
-  //  })
+    new WorkboxPlugin.InjectManifest({
+      swSrc: BUILD_DIR+'/sw.js',
+      swDest: 'sw.js'
+    })
+    // new WorkboxPlugin.GenerateSW({
+    //   runtimeCaching: [{
+    //     // Match any same-origin request that contains 'api'.
+    //     urlPattern: /localhost:8080/,
+    //     // Apply a network-first strategy.
+    //     handler: 'networkFirst',
+    //     options: {
+    //       // Fall back to the cache after 10 seconds.
+    //       networkTimeoutSeconds: 10,
+    //       // Use a custom cache name for this route.
+    //       cacheName: 'my-api-cache',
+    //       // Configure custom cache expiration.
+    //       expiration: {
+    //         maxEntries: 5,
+    //         maxAgeSeconds: 60,
+    //       },
+    //       // Configure which responses are considered cacheable.
+    //       cacheableResponse: {
+    //         statuses: [0, 200],
+    //         headers: {'x-test': 'true'},
+    //       },
+    //       // Configure the broadcast cache update plugin.
+    //       broadcastUpdate: {
+    //         channelName: 'my-update-channel',
+    //       },
+         
+    //     },
+    //   }, {
+    //     // To match cross-origin requests, use a RegExp that matches
+    //     // the start of the origin:
+    //     urlPattern: new RegExp('^/'),
+    //     handler: 'staleWhileRevalidate',
+    //     options: {
+    //       cacheableResponse: {
+    //         statuses: [0, 200]
+    //       }
+    //     }
+    //   }]
+    // }),
+    // new WorkboxPlugin.InjectManifest(),
+    // new WebpackPwaManifest({
+    //   name: 'My Applications Friendly Name',
+    //   short_name: 'Application',
+    //   description: 'Description!',
+    //   background_color: '#01579b',
+    //   theme_color: '#01579b',
+    //   'theme-color': '#01579b',
+    //   start_url: '/',
+    //   icons: [
+    //     {
+    //       src: path.resolve(BUILD_DIR +'/icon.png'),
+    //       sizes: [96, 128, 192, 256, 384, 512],
+    //       destination: path.join('assets', 'icons')
+    //     }
+    //   ]
+    // })
+
   ],
   node: {
    fs: "empty"
