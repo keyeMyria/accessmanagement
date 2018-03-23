@@ -10,22 +10,27 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { print } from 'graphql/language/printer'
-import registerServiceWorker from './registerServiceWorker';
-
 import { createApolloFetchUpload } from 'apollo-fetch-upload'
+import { WebSocketLink } from 'apollo-link-ws';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { getOperationAST } from 'graphql';
+
 //import './index.css';
+import registerServiceWorker from './registerServiceWorker';
 import authReducer from '../reducers/authReducer';
 import { AUTH_SIGNIN , SET_ROLE } from '../actions';
 import RequireAuth from '../containers/RequireAuth';
 import App from '../components/App/App';
-import DOMAIN_PATH ,{REMOTE_DOMAIN_PATH} from './config'
+import DOMAIN_PATH ,{REMOTE_DOMAIN_PATH , LOCAL_WEBSOCKET_ENDPOINT} from './config'
+
+
 const token = localStorage.getItem('token');
 const role = localStorage.getItem('role');
 
-const httpLink = new HttpLink({ uri :  DOMAIN_PATH});
-const apolloFetchUpload = createApolloFetchUpload({
-  uri: DOMAIN_PATH
-})
+// const httpLink = new HttpLink({ uri :  DOMAIN_PATH});
+// const apolloFetchUpload = createApolloFetchUpload({
+//   uri: DOMAIN_PATH
+// })
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext({
@@ -36,18 +41,35 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
   return forward(operation);
 })
+// const wsclient = new SubscriptionClient(LOCAL_WEBSOCKET_ENDPOINT , {
+//   reconnect:true
+// });
+// const SocketLink = new WebSocketLink(wsclient)
+
+
+const link = ApolloLink.split(
+  operation => {
+    const operationAST = getOperationAST(operation.query, operation.operationName);
+    return !!operationAST && operationAST.operation === 'subscription';
+  },
+  new WebSocketLink({
+    uri: LOCAL_WEBSOCKET_ENDPOINT,
+    options: {
+      reconnect: true, //auto-reconnect
+      // // carry login state (should use secure websockets (wss) when using this)
+      // connectionParams: {
+      //   authToken: localStorage.getItem("Meteor.loginToken")
+      // }
+    }
+  }),
+  new HttpLink({ uri: DOMAIN_PATH })
+);
+
+const cache = new InMemoryCache(window.__APOLLO_STATE);
 
 const client = new ApolloClient({
-  networkInterface: {
-  query: request => apolloFetchUpload({
-    ...request,
-    query: print(request.query)
-  })
-},
-  link: concat(authMiddleware, httpLink),
-  cache: new InMemoryCache({
-    addTypename: false
-  })
+  link: concat(authMiddleware, link ),
+  cache:cache
 
 });
 

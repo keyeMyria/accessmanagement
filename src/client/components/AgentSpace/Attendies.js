@@ -99,7 +99,6 @@ class Attendies extends React.Component {
 			unfiltered_list: []
 		};
 		UserStore.fetchGuestForAgentWorkshop(id);
-		console.log(UserStore.users);
 	}
 
 	componentWillReceiveProps(newProps) {

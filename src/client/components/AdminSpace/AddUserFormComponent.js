@@ -140,7 +140,7 @@ const backgroundAddUser = {
       marginLeft: 'auto',
       marginRight: 'auto',
       display: 'flex',
-      flexDirection: 'row'
+      flexDirection: 'row' 
     };
     const styleinputForm ={
       width: '300px',

@@ -7,6 +7,8 @@ import DirectionsRun from 'material-ui-icons/DirectionsRun';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import moment from 'moment';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const styles = theme => ({
   root: {
@@ -25,35 +27,101 @@ const styles = theme => ({
   OUT:{
     fill :"#ef4035",
   }
-});
-@observer
+   });
+// @observer
 class SessionActivity extends React.Component{
   constructor(props){
     super(props);
-    SessionStore.getEntriesBySessionId(props.match.params.id)
+    // SessionStore.getEntriesBySessionId(props.match.params.id)
+  }
+  componentWillMount=()=>{
+    this.props.data.subscribeToMore({
+      document : entrySubscription,
+      variables: {
+        sessionId: this.props.match.params.id,
+      },
+      updateQuery :(prev , {subscriptionData})=>{
+        if(!subscriptionData.data){
+          return prev;
+        }
+        const newEntry = subscriptionData.data.newEntry;
+        if(!prev.activitylistbysessionID.find((item)=> item.entryId==newEntry.entryId)){
+          return Object.assign({} , prev ,{
+            activitylistbysessionID :[...prev.activitylistbysessionID, newEntry]
+          })
+        }else{
+          return prev;
+        }
+      }
+    });
   }
   render(){
     const {classes} = this.props;
-
-    if(SessionStore.sessionEntries!=null){
+    if(this.props.data.activitylistbysessionID!=null){
       return(<div>
         <ul>
-          {SessionStore.sessionEntries.map(entry=>{
+          {this.props.data.activitylistbysessionID.map(entry=>{
             return(
-              <li><ListItem key={entry.id} dense>
-                <Avatar src={entry.user.profile.avatar} />
+            <div key={entry.entryId}><ListItem  dense>
+                <Avatar src={`/public/assets/avatars/${entry.user.profile.avatar}`} />
                 <ListItemText secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('hh:mm:ss')}`}  />
                 <ListItemText primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
                 <ListItemText secondary={`${entry.action=="IN" ? "joined" : "left"} the conference`  }/>
                 {entry.agent &&(<ListItemText secondary={`Registered By ${entry.agent.username}`  }/>)}
                 <DirectionsRun className={classes[entry.action]}/>
               </ListItem>
-              <Divider inset/></li>
+              <Divider inset/></div>
             )
           })}
         </ul>
       </div>)
+    }else{
+      return(<div>No Items to display</div>)
     }
   }
 }
-export default withStyles(styles)(SessionActivity);
+export const listEntriesBySession = gql`
+  query activitylistbysessionID($sessionId:ID){
+            activitylistbysessionID(sessionId:$sessionId){
+              entryId
+              dateEntry
+              action
+              agent{
+                username
+              }
+              user{
+                _id
+                profile{
+                  name
+                  forname
+                  avatar
+                }
+              }
+            }
+          } 
+`
+const entrySubscription = gql`
+          subscription {
+            newEntry{
+              entryId
+              dateEntry
+              action
+              agent{
+                username
+              }
+              user{
+                _id
+                profile{
+                  name
+                  forname
+                  avatar
+                }
+              }
+            }
+           
+          }
+`
+export default withStyles(styles)(graphql(listEntriesBySession, {
+  
+  options: (props)=>({ variables: { sessionId: props.match.params.id } }),
+})(SessionActivity));
