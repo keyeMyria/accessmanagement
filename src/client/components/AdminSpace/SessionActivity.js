@@ -40,7 +40,8 @@ class SessionActivity extends React.Component{
         <ul>
           {SessionStore.sessionEntries.map(entry=>{
             return(
-              <li><ListItem key={entry.id} dense>
+              <li>
+              <ListItem key={entry.id} dense>
                 <Avatar src={entry.user.profile.avatar} />
                 <ListItemText secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('hh:mm:ss')}`}  />
                 <ListItemText primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
@@ -48,7 +49,8 @@ class SessionActivity extends React.Component{
                 {entry.agent &&(<ListItemText secondary={`Registered By ${entry.agent.username}`  }/>)}
                 <DirectionsRun className={classes[entry.action]}/>
               </ListItem>
-              <Divider inset/></li>
+              <Divider inset/>
+              </li>
             )
           })}
         </ul>
