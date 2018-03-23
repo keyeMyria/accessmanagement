@@ -3,6 +3,16 @@ import AvatarCropper from './vendor/AvatarCropper';
 //import "./css/font-awesome-4.7.0/css/font-awesome.min.css";
 import FileInput from './vendor/FileInput';
 import toFile from 'data-uri-to-file'
+
+const avatarAddUser ={
+    // width: '50%',
+    // height: '247px',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'flex-end',
+    // padding: '0px 20px',
+};
+
 class AvatarCropperWidget extends React.Component{
 	constructor(props) {
 		super(props);
@@ -50,11 +60,11 @@ class AvatarCropperWidget extends React.Component{
 		const {av_photo , width , height , av_edit } = this.props ;
 
 		return (
-      <div>
+      <div style={avatarAddUser}>
         <div className={av_photo}>
           <FileInput setSuccessResponse ={this.setSuccessResponse} handleFileChange ={this.handleFileChange} name={this.props.key} />
           <div className={av_edit}>
-            <span>Click to Pick Avatar</span>
+            <span>انقر لاختيار الصورة</span>
             <i className="fa fa-camera"></i>
           </div>
           <img src={this.state.croppedImg} />
