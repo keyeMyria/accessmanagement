@@ -9,6 +9,7 @@ import { withStyles } from 'material-ui/styles';
 import moment from 'moment';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
   root: {
@@ -63,7 +64,7 @@ class SessionActivity extends React.Component{
           {this.props.data.activitylistbysessionID.map(entry=>{
             return(
             <div key={entry.entryId}><ListItem  dense>
-                <Avatar src={`/public/assets/avatars/${entry.user.profile.avatar}`} />
+                <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
                 <ListItemText secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('hh:mm:ss')}`}  />
                 <ListItemText primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
                 <ListItemText secondary={`${entry.action=="IN" ? "joined" : "left"} the conference`  }/>

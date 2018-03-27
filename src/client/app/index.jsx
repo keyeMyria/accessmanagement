@@ -67,7 +67,7 @@ const link = ApolloLink.split(
 
 const cache = new InMemoryCache(window.__APOLLO_STATE);
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: concat(authMiddleware, link ),
   cache:cache
 

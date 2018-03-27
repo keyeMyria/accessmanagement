@@ -19,6 +19,9 @@ import { withStyles } from 'material-ui/styles';
 import UserStore from '../../mobx/gueststore';
 import {observer} from 'mobx-react';
 import Noavatar from '../App/defaultAvatar.svg';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
+
+ 
 const styles = theme => ({
   phoneNbr:{
     fontFamily:'Roboto, sans-serif',
@@ -65,7 +68,7 @@ class GuestCardToManage extends React.Component{
              {(data.profile!==null) &&(<div className='container_ui__item'>
                 <div className='face'>
                   {data.profile.avatar!=='' ?
-                     <img src={`public/assets/avatars/${data.profile.avatar}`} /> :
+                     <img src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} /> :
                      <Noavatar/>
                    }
                 </div>

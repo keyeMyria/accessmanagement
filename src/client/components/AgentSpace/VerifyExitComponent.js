@@ -18,6 +18,7 @@ import classNames from 'classnames';
 import Avatar from 'material-ui/Avatar';
 import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
   root: {
@@ -189,7 +190,7 @@ class VerifyExitComponent extends React.Component{
           <div style={{ display: 'flex', flexDirection :'column'}}>
             <Avatar
             alt=""
-            src={`/public/assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
+            src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
             className={classNames(classes.bigAvatar)}
             />
             <span className={classNames(classes.styleCommun , classes.profileName)}>
