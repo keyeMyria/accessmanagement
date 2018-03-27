@@ -18,13 +18,13 @@ const styles ={
   },
 }
 
-export default observer(({ field, store , onChange , valueKey  }) => (
+export default observer(({ field, store , onChange , valueKey   }) => (
   <div  style={styles.textFieldContainer}>
     <Select
       {...field.bind()}
       onChange={onChange}
       style={styles.selectField}
-     autoWidth={true}
+      autoWidth={true}
       >
     {store.map(value => (
       <MenuItem

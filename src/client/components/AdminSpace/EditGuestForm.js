@@ -31,7 +31,11 @@ updateStore =(e)=>{
   this.setState({
     govSource : item[0].govs
   })
+    this.handleupdateValue('region' , e.target.value)
 }
+  handleupdateValue =(field , value)=>{
+    this.props.form.$(field).value = value;
+  }
   render(){
     const { form , data ,  onSuccess , user}=this.props;
     return (
@@ -40,9 +44,9 @@ updateStore =(e)=>{
       <MaterialTextField field={form.$('forname')}/>
       <MaterialTextField field={form.$('cin')} />
       <MaterialTextField field={form.$('tel')} />
-      <SelectField field={form.$('function')} store={whatido} valueKey="label"/>
-      <SelectField field={form.$('region')} store={this.state.dataSource} onChange={(event)=>this.updateStore(event)} valueKey="value"/>
-      <SelectField field={form.$('gouvernorat')} store={this.state.govSource}  valueKey="value"/>
+      <SelectField field={form.$('function')} store={whatido} onChange={(event)=>this.handleupdateValue('function' , event.target.value)} valueKey="label"/>
+      <SelectField field={form.$('region')} store={this.state.dataSource}  value={user.profile.region} onChange={(event)=>this.updateStore(event)} valueKey="value"/>
+      <SelectField field={form.$('gouvernorat')} store={this.state.govSource}   onChange={(event)=>this.handleupdateValue('gouvernorat' , event.target.value)} valueKey="value"/>
       <HiddenInput field={form.$('_id')} />
 
       <br />

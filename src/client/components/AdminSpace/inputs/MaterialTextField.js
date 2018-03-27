@@ -11,10 +11,10 @@ const styles ={
   },
 }
 
-export default observer(({ field, type = 'text', placeholder = null }) => (
+export default observer(({ field, placeholder = null }) => (
   <div  style={styles.textFieldContainer}>
     <TextField style={styles.aTextField}
-     {...field.bind({ type, placeholder })}
+     {...field.bind()}
      helperText={field.error}
      value={field.value}
    />
