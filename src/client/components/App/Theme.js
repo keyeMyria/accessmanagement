@@ -27,11 +27,10 @@ const theme = createMuiTheme({
     MuiAppBar: {
       // Name of the styleSheet
       root: {
-        // Name of the rule
-        background: '#003489',
-        borderRadius: 0,
-        border: 0,
-        color: 'white',
+        backgroundColor: '#003489',
+        // borderRadius: 0,
+        // border: 0,
+        // color: 'white',
         height: 56,
         boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .16)',
       },

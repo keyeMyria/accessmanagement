@@ -99,7 +99,7 @@ export const listEntriesBySession = gql`
                 }
               }
             }
-          } 
+          }
 `
 const entrySubscription = gql`
           subscription {
@@ -119,10 +119,10 @@ const entrySubscription = gql`
                 }
               }
             }
-           
+
           }
 `
 export default withStyles(styles)(graphql(listEntriesBySession, {
-  
+
   options: (props)=>({ variables: { sessionId: props.match.params.id } }),
 })(SessionActivity));

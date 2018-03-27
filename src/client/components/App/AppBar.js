@@ -118,29 +118,31 @@ class AppBarComponent extends React.Component{
                   onClick={this.props.handleDrawerOpen}
                    className={classes.styleButton}
                   >
-              <MenuIcon />
-            </IconButton>
-            {/* {authenticated && this.isAnActiveSession()&&(<Chip
-    				  avatar={
-    					  <Avatar className={classes.styleChip}>
-    						<GroupWork />
-    					  </Avatar>
-    					}
-    					label={`session opened ${dateFormat(this.props.activeSession.activeSession.start_hour , 'd/m/yy')} : ${dateFormat(this.props.activeSession.activeSession.start_hour , 'hh:mm')}`}
-    					className={classes.styleChip}
-    				/>)} */}
-            {/* {authenticated && this.isAClosedSession()&& !this.isAnActiveSession() &&(<Chip
-              avatar={
-                <Avatar className={classes.styleChip}>
-                <GroupWork />
-                </Avatar>
+                <MenuIcon />
+              </IconButton>
+              {
+              //   {authenticated && this.isAnActiveSession()&&(<Chip
+      				//   avatar={
+      				// 	  <Avatar className={classes.styleChip}>
+      				// 		<GroupWork />
+      				// 	  </Avatar>
+      				// 	}
+      				// 	label={`session opened ${dateFormat(this.props.activeSession.activeSession.start_hour , 'd/m/yy')} : ${dateFormat(this.props.activeSession.activeSession.start_hour , 'hh:mm')}`}
+      				// 	className={classes.styleChip}
+      				// />)}
+              //   {authenticated && this.isAClosedSession()&& !this.isAnActiveSession() &&(<Chip
+              //   avatar={
+              //     <Avatar className={classes.styleChip}>
+              //     <GroupWork />
+              //     </Avatar>
+              //   }
+              //   label={`session closed ${dateFormat(this.props.closedSession.closedSession.end_hour , 'd/m/yy')} : ${dateFormat(this.props.closedSession.closedSession.end_hour , 'hh:mm')}`}
+              //   className={classes.styleChip}
+              // />)
               }
-              label={`session closed ${dateFormat(this.props.closedSession.closedSession.end_hour , 'd/m/yy')} : ${dateFormat(this.props.closedSession.closedSession.end_hour , 'hh:mm')}`}
-              className={classes.styleChip}
-            />)*/}
-            <IconButton onClick={this.goBack} aria-label="Menu" className={classes.styleButton}>
-              <ArrowBack />
-            </IconButton>
+              <IconButton onClick={this.goBack} aria-label="Menu" className={classes.styleButton}>
+                <ArrowBack />
+              </IconButton>
           </Toolbar>
           </AppBar>
         )}</div>
