@@ -21,7 +21,7 @@ import {observer} from 'mobx-react';
 import Noavatar from '../App/defaultAvatar.svg';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
- 
+
 const styles = theme => ({
   phoneNbr:{
     fontFamily:'Roboto, sans-serif',
@@ -68,11 +68,7 @@ class GuestCardToManage extends React.Component{
              {(data.profile!==null) &&(<div className='container_ui__item'>
                 <div className='face'>
                   {data.profile.avatar!=='' ?
-<<<<<<< HEAD
-                     <img src={`http://localhost:4000/images/${data.profile.avatar}`} /> :
-=======
                      <img src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} /> :
->>>>>>> 00711355f268bcf98e3d870667b4a82036fc0cff
                      <Noavatar/>
                    }
                 </div>

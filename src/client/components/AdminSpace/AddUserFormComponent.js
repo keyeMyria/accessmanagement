@@ -128,12 +128,7 @@ const backgroundAddUser = {
       marginRight: 'auto',
       backgroundColor: '#fff',
       display: 'flex',
-<<<<<<< HEAD
-      flexDirection: 'row'
-
-=======
       flexDirection: 'row' 
->>>>>>> 00711355f268bcf98e3d870667b4a82036fc0cff
     };
     const styleinputForm ={
       width: '300px',
