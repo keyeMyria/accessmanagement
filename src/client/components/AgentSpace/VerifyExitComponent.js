@@ -126,7 +126,7 @@ class VerifyExitComponent extends React.Component{
     let status = "OUT";
     let agent = localStorage.getItem('loogedin_id');
 
-          await UserStore.alterGuestStatus(id , status , agent, UserStore.selectWorkshopAgent._id)
+          await UserStore.alterGuestStatus(id , status , agent)
           // .then(res=>{
             this.props.history.push('/agent');
           // });
