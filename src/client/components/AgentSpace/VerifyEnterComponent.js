@@ -132,7 +132,7 @@ handleIconButtonRequestOpen = () => {
     let status = "IN";
     let agent = localStorage.getItem('loogedin_id');
 
-      await UserStore.alterGuestStatus(id , status , agent, UserStore.selectWorkshopAgent._id)
+      await UserStore.alterGuestStatus(id , status , agent)
         this.props.history.push('/agent');
   //
   //   await this.props.updateUserStatus({

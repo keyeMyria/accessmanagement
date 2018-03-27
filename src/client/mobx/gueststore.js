@@ -176,7 +176,8 @@ class UserStore {
      }
    })
   }
-  @action alterGuestStatus =(guest , status , agent , workshop)=>{
+  @action alterGuestStatus =(guest , status , agent)=>{
+   
     fetch({
       query:`mutation updateUserStatus($id:ID! , $status:String! , $agent:String! , $workshop:String , $session:String){
         updateUserStatus(id:$id  , status:$status , agent:$agent , workshop:$workshop , session:$session){
