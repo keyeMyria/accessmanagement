@@ -62,7 +62,7 @@ const link = ApolloLink.split(
       // }
     }
   }),
-  new HttpLink({ uri: DOMAIN_PATH })
+  new HttpLink({ uri: REMOTE_DOMAIN_PATH })
 );
 
 const cache = new InMemoryCache(window.__APOLLO_STATE);
