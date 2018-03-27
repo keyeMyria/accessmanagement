@@ -65,7 +65,7 @@ class GuestCardToManage extends React.Component{
              {(data.profile!==null) &&(<div className='container_ui__item'>
                 <div className='face'>
                   {data.profile.avatar!=='' ?
-                     <img src={`public/assets/avatars/${data.profile.avatar}`} /> :
+                     <img src={`http://localhost:4000/images/${data.profile.avatar}`} /> :
                      <Noavatar/>
                    }
                 </div>
