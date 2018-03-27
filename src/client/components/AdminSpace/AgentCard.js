@@ -116,7 +116,7 @@ class AgentCard extends React.Component {
     return (value=='agent_out')
   }
   agentINOUTCheckedControl = (value)=>{
-    return (value=='agent_workshop')
+    return (value=='agent_in_out')
   }
   componentDidMount=()=>{
     if(!this.state.setted)

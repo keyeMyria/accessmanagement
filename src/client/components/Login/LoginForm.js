@@ -66,7 +66,7 @@ const style = {
 const renderErrors = (errors) => (
   <div className="alert alert-danger" role="alert">
     {errors.map((error, index) => {
-      error.graphQLErrors.map(err=>(<p>{err.message}</p>))
+      return error.graphQLErrors.map(err=>(<p>{err.message}</p>))
     })}
   </div>
 );
@@ -110,6 +110,7 @@ class SignInForm extends React.Component{
   render(){
     const { handleSubmit , classes , username } = this.props;
     const errors = this.props.errors <= 0 ? null : renderErrors(this.props.errors);
+    console.log(errors)
     return (
         <form onSubmit={handleSubmit}
         className={classes.formLogin}

@@ -13,6 +13,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import EmptyActivityAttendeesIcon from '../App/EmptyActivityAttendees.svg';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
   root: {
@@ -59,7 +60,7 @@ const styles = theme => ({
         <List>
           {this.props.data.activity.map(value => (
             <div><ListItem key={value.id} dense>
-              <Avatar src={value.user.profile.avatar} />
+              <Avatar src={`${REMOTE_ASSETS_PATH}/${value.user.profile.avatar}`} />
               <ListItemText secondary={`${dateFormat(value.dateEntry , 'hh:mm:ss')}`} />
               <ListItemText primary={`${value.user.profile.name} ${value.user.profile.forname}`} />
               <ListItemText secondary={`${value.action=="IN" ? "joined" : "left"} the conference`  }/>
