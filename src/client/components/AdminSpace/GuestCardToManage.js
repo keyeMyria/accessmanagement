@@ -21,7 +21,7 @@ import {observer} from 'mobx-react';
 import Noavatar from '../App/defaultAvatar.svg';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
- 
+
 const styles = theme => ({
   phoneNbr:{
     fontFamily:'Roboto, sans-serif',

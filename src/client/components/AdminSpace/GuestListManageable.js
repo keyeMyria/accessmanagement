@@ -524,85 +524,88 @@ getDataUri = (url , callback) =>{
                                    </div>
                                    <div className="exportBtnContainer">
                                      <Button color="secondary" dense="true" raised onClick={() =>{this.exportPDF(this.props.UserStore.selectedUser)}} className="exportBadgeButton">
-                                      export Badge
+                                      اخراج البادج
                                      </Button>
                                    </div>
                                  </div>
                                  <div className='content'>
                                        <EditGuestForm form={form} user={this.props.UserStore.selectedUser}/>
                                        <Button raised color="secondary" onClick={form.onSubmit}>
-                                         Save
+                                         تحديث
                                        </Button>
-                                   {/* <form>
-                                              <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={data.profile!=undefined ? data.profile.name : ''} />
-
-                                              <TextField name="forname" type="text"  label=" اللقب " onBlur={(event)=>this.updatevalues('name' ,event)} defaultValue={data.profile!=undefined ? data.profile.forname : ''}/>
-
-                                              <TextField name="cin" type="text" onBlur={(event)=>this.updateUservalues('cin' ,event)} defaultValue={data!=undefined ? data.cin : ''} label=" رقم بطاقة التعريف الوطنية "/>
-
-                                              <TextField name="tel" type="" onBlur={(event)=>this.updatevalues('tel' ,event)} defaultValue={data.profile!=undefined ? data.profile.tel : ''} label=" الهاتف "/>
-
-                                               <Select name ="function"
-                                                 onChange={(event)=>this.updatevalues('function' ,event)}
-                                                label=" الصفة " value=''>
-                                               {whatido.map(value => (
-                                                 <MenuItem
-                                                   key={value.value}
-                                                   value={value.label}
-                                                 >
-                                                   {value.label}
-                                                 </MenuItem>
-                                               ))}</Select>
-
-                                               <FormControl>
-                                             <InputLabel htmlFor="name-multiple" >الولاية</InputLabel>
-                                              <Select
-                                                onChange={(event)=>this.updatevalues('region' ,event)}
-                                                value=''
-                                                input={<Input id="name-multiple" />}
-
-                                              >
-                                                {gouvernement.map(city => (
-                                                  <MenuItem
-                                                    key={city.value}
-                                                    value={city.value}
-                                                  >
-                                                    {city.label}
-                                                  </MenuItem>
-                                                ))}
-                                              </Select>
-                                        </FormControl>
-
-                                        <FormControl>
-                                          <InputLabel htmlFor="name-multiple" >المعتمدية</InputLabel>
-                                           <Select
-                                             onChange={(event)=>this.updatevalues('gouvernorat' ,event)}
-                                             input={<Input id="name-multiple" />}
-                                             value=''
-                                           >
-                                             {this.state.govSource.map(value => (
-                                               <MenuItem
-                                                 key={value}
-                                                 value={value}
-                                               >
-                                                 {value}
-                                               </MenuItem>
-                                             ))}
-                                           </Select>
-                                       </FormControl>
-                                         <Button dense="true" color="primary" onClick={this.updateUserWithProfileDataMutationTarget}>
-                                           Save
-                                         </Button>
-                                         <Button dense="true" color="primary" onClick={() => { this.exportPDF(this.state.selected_user)}}>
-                                           export Badge
-                                         </Button>
-                                         <Button dense="true" color="primary" onClick={() => { this.exportAll()}}>
-                                           Export All
-                                         </Button>
-                                         <IconButton onClick={this.handleClickOpenRemoveConfirm} aria-label="Delete" color="primary">
-                                           <Delete />
-                                         </IconButton>
-                                       </form> */}
+                                   {
+                                      // <form>
+                                      //         <TextField name="name" type="text"  label=" الأسم " onBlur={(event)=>this.updatevalues('forname' ,event)} defaultValue={data.profile!=undefined ? data.profile.name : ''} />
+                                      //
+                                      //         <TextField name="forname" type="text"  label=" اللقب " onBlur={(event)=>this.updatevalues('name' ,event)} defaultValue={data.profile!=undefined ? data.profile.forname : ''}/>
+                                      //
+                                      //         <TextField name="cin" type="text" onBlur={(event)=>this.updateUservalues('cin' ,event)} defaultValue={data!=undefined ? data.cin : ''} label=" رقم بطاقة التعريف الوطنية "/>
+                                      //
+                                      //         <TextField name="tel" type="" onBlur={(event)=>this.updatevalues('tel' ,event)} defaultValue={data.profile!=undefined ? data.profile.tel : ''} label=" الهاتف "/>
+                                      //
+                                      //          <Select name ="function"
+                                      //            onChange={(event)=>this.updatevalues('function' ,event)}
+                                      //           label=" الصفة " value=''>
+                                      //          {whatido.map(value => (
+                                      //            <MenuItem
+                                      //              key={value.value}
+                                      //              value={value.label}
+                                      //            >
+                                      //              {value.label}
+                                      //            </MenuItem>
+                                      //          ))}
+                                      //          </Select>
+                                      //
+                                      //          <FormControl>
+                                      //              <InputLabel htmlFor="name-multiple" >الولاية</InputLabel>
+                                      //               <Select
+                                      //                 onChange={(event)=>this.updatevalues('region' ,event)}
+                                      //                 value=''
+                                      //                 input={<Input id="name-multiple" />}
+                                      //               >
+                                      //                 {gouvernement.map(city => (
+                                      //                   <MenuItem
+                                      //                     key={city.value}
+                                      //                     value={city.value}
+                                      //                   >
+                                      //                     {city.label}
+                                      //                   </MenuItem>
+                                      //                 ))}
+                                      //               </Select>
+                                      //         </FormControl>
+                                      //
+                                      //   <FormControl>
+                                      //     <InputLabel htmlFor="name-multiple" >المعتمدية</InputLabel>
+                                      //      <Select
+                                      //        onChange={(event)=>this.updatevalues('gouvernorat' ,event)}
+                                      //        input={<Input id="name-multiple" />}
+                                      //        value=''
+                                      //      >
+                                      //        {this.state.govSource.map(value => (
+                                      //          <MenuItem
+                                      //            key={value}
+                                      //            value={value}
+                                      //          >
+                                      //            {value}
+                                      //          </MenuItem>
+                                      //        ))}
+                                      //      </Select>
+                                      //  </FormControl>
+                                      //    <Button dense="true" color="primary" onClick={this.updateUserWithProfileDataMutationTarget}>
+                                      //      Save
+                                      //    </Button>
+                                      //
+                                      //    <Button dense="true" color="primary" onClick={() => { this.exportPDF(this.state.selected_user)}}>
+                                      //      export Badge
+                                      //    </Button>
+                                      //    <Button dense="true" color="primary" onClick={() => { this.exportAll()}}>
+                                      //      Export All
+                                      //    </Button>
+                                      //    <IconButton onClick={this.handleClickOpenRemoveConfirm} aria-label="Delete" color="primary">
+                                      //      <Delete />
+                                      //    </IconButton>
+                                      //  </form>
+                                       }
                                  </div>
                              </div>
                            </div>
