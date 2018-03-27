@@ -19,6 +19,7 @@ import Avatar from 'material-ui/Avatar';
 
 import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
   root: {
@@ -131,7 +132,7 @@ handleIconButtonRequestOpen = () => {
     let status = "IN";
     let agent = localStorage.getItem('loogedin_id');
 
-      await UserStore.alterGuestStatus(id , status , agent, UserStore.selectWorkshopAgent._id)
+      await UserStore.alterGuestStatus(id , status , agent)
         this.props.history.push('/agent');
   //
   //   await this.props.updateUserStatus({
@@ -194,7 +195,7 @@ handleIconButtonRequestOpen = () => {
             <div className={classNames(classes.verfEnter)}>
                 <Avatar
                   alt=""
-                  src={`/public/assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
+                  src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
                   className={classNames(classes.bigAvatar)}
                 />
                 <span className={classNames(classes.styleCommun , classes.profileName)}>

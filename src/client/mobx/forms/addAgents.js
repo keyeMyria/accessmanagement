@@ -10,6 +10,7 @@ const fields = [{
   rules: 'required|string'
 }, {
   name: 'password',
+  type:'password',
   label: 'اختر كلمة المرور',
   placeholder: 'اختر كلمة المرور',
   rules: 'required|string',

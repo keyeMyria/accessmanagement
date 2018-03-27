@@ -57,6 +57,7 @@ import EditGuestForm from './EditGuestForm';
 import form from '../../mobx/forms/editguest';
 import IDCardIcon from '../App/id-card.svg';
 import Noavatar from '../App/defaultAvatar.svg';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 
 
@@ -507,7 +508,7 @@ getDataUri = (url , callback) =>{
                                    <div className='face'>
 
                                      {gueststore.selectedUser.profile.avatar!=='' ?
-                                       <img src={`public/assets/avatars/${gueststore.selectedUser.profile.avatar}`}  /> :
+                                       <img src={`${REMOTE_ASSETS_PATH}/${gueststore.selectedUser.profile.avatar}`} />  :
                                        <div>
                                          <Button fab aria-label="upload picture" className={classes.addPhotoGuest}>
                                           <AddAPhoto/>

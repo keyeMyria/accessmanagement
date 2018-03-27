@@ -33,12 +33,7 @@ const fields = [{
   name: 'region',
   label: 'region',
   placeholder: 'Get a region',
-  rules: 'required|string'
-},{
-  name: 'gouvernorat',
-  label: 'gouvernorat',
-  placeholder: 'Get a gouvernorat',
-  rules: 'required|string'
+  rules: 'required|integer'
 },{
   name: 'gouvernorat',
   label: 'gouvernorat',
@@ -54,7 +49,7 @@ const hooks = {
   },
   onError(form) {
     alert('Form has errors!');
-    console.log(form.values())
+    console.log(form.errors())
     // get all form errors
   //  console.log('All form errors', form.errors());
   }

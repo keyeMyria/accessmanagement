@@ -186,7 +186,6 @@ class SignInFormContainer extends React.Component {
   handleSubmit(values) {
     this.props.mutate({ variables: values })
       .then((response) => {
-        console.log(response)
         if (!response.data.hasOwnProperty('errors')) {
 
           this.props.signInDispatcher(response.data.signIn.token , response.data.signIn.user._id);
@@ -196,14 +195,17 @@ class SignInFormContainer extends React.Component {
           if(response.data.signIn.user.role.name=="admin")
             this.props.history.push('/listguests');
         } else {
-          console.log(response.data.errors)
+          console.log(response.errors)
           this.setState({
             errors: response.data.signIn.errors
           });
         }
       })
       .catch((err) => {
-        console.error(err);
+        this.setState({
+          errors:[...this.state.errors , err]
+        })
+        console.log(this.state);
       });
   }
 

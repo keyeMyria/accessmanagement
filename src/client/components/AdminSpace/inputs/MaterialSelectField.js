@@ -7,6 +7,8 @@ import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import Paper from 'material-ui/Paper';
 import update from 'immutability-helper'
+import {REMOTE_ASSETS_PATH} from '../../../app/config'
+
 // styles
 const $input = 'input-reset ba b--black-10 br1 pa2 mb2 db w-100 f6';
 const $label = 'f7 db mb2 mt3 light-silver';
@@ -95,41 +97,43 @@ class MaterialSelectField extends React.Component{
   render(){
     const { field , placeholder , type ,form} = this.props;
     return(
-<Fragment>
-      <div>
-        <div style={styles.chipsContainer}>
+        <Fragment>
+              <div>
+                <div style={styles.chipsContainer}>
 
-          {this.state.chipData.map((data , index) => {
-            return (
-              <Chip
-                key={`{chip${data._id}}`}
-                avatar={<Avatar src={`public/assets/avatars/${data.profile.avatar}`} />}
-                label={`${data.profile.name} ${data.profile.forname}`}
-                onDelete={()=>this.handleDeleteChip(data , index)}
-                style={styles.guestChip}
-              />
-            );
-          })}
-          <p style={styles.guestCounter}>أضف المشاركين للورشة : {this.state.numberguest}</p>
-          </div>
-          <ul style={styles.GuestContainer}>
+                  {this.state.chipData.map((data , index) => {
 
-                {this.state.invited.map((item , index) => (
+                        <Chip
+                        key={`{chip${data._id}}`}
+                        avatar={<Avatar src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} />}
+                        label={`${data.profile.name} ${data.profile.forname}`}
+                        onDelete={()=>this.handleDeleteChip(data , index)}
+                        style={styles.guestChip}
+                      />
+                    
+                    
+                  })}
+                  <p style={styles.guestCounter}>أضف المشاركين للورشة : {this.state.numberguest}</p>
+                  </div>
+                  <ul style={styles.GuestContainer}>
 
-                  <li onClick={()=>this.handleAddGuest(item , index)} key={item._id} style={styles.guestItem}>
-                          <Avatar
-                            src={`public/assets/avatars/${item.profile.avatar}`}
-                            style={styles.avatarGuest}
-                          />
-                          <p style={styles.guestName}> {item.profile.name} {item.profile.forname}</p>
-                  </li>
+                        {this.state.invited.map((item , index) => (
 
-                ))}
-              </ul>
-              <Input {...field.bind({type})} value={this.state.names}/>
-            </div>
-      </Fragment>
-    )
+                          <li onClick={()=>this.handleAddGuest(item , index)} key={item._id} style={styles.guestItem}>
+                                  {(item.profile!=null)&&(
+                                  <Avatar
+                                    src={`${REMOTE_ASSETS_PATH}/${item.profile.avatar}`}
+                                    style={styles.avatarGuest}
+                                  />)}
+                                  {(item.profile!=null)&&(<p style={styles.guestName}> {item.profile.name} {item.profile.forname}</p>)}
+                          </li>
+
+                        ))}
+                      </ul>
+                      <Input {...field.bind({type})} value={this.state.names}/>
+                    </div>
+              </Fragment>
+            )
   }
 }
 export default MaterialSelectField;

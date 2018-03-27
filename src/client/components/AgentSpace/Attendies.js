@@ -21,6 +21,7 @@ import NavBarContainer from '../../containers/NavBarContainer';
 import BottomToolbarContainer from '../../containers/BottomToolbarContainer';
 import { observer } from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = (theme) => ({
 	root: {
@@ -185,7 +186,7 @@ class Attendies extends React.Component {
 							if (value.profile != null) {
 								return (
 									<ListItem key={value._id} button className={classes.listItem}>
-										<Avatar alt="" src={`/public/assets/avatars/${value.profile.avatar}`} />
+										<Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
 										<ListItemText
 											primary={`${value.profile.name} ${value.profile.forname}`}
 											className={classes.listItemText}

@@ -16,6 +16,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import { compose } from 'react-apollo';
 import classNames from 'classnames';
 import Avatar from 'material-ui/Avatar';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
   root: {
@@ -196,7 +197,7 @@ handleExit = async () => {
             <div className={classNames(classes.verfEnter)}>
                 <Avatar
                   alt="radhoin benhaj"
-                  src={`../assets/avatars/${this.props.userToEnter.userId.profile.avatar}`}
+                  src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
                   className={classNames(classes.bigAvatar)}
                 />
                 <span className={classNames(classes.styleCommun , classes.profileName)}>
