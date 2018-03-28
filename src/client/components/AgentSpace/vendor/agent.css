@@ -1,4 +1,4 @@
-.verfExit{
+.verf{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -7,7 +7,36 @@
   background: #fff;
   padding: 64px 16px;
 }
-
+.profileGuest
+{
+  display: flex;
+  flex-direction :column;
+}
+.containerIdentifiant{
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  font-size:18px;
+  height : 50px ;
+  margin-top: 56px;
+}
+.CIN
+{
+  display: flex;
+  flex-direction: column;
+}
+.labelIdentifiant
+{
+   color: #9E9E9E;
+}
+.cin
+{
+   text-align: right;
+}
+.id
+{
+   text-align: left;
+}
 /*.verfExit .buttonSuccess{
   width: 10px;
   height: 10px;
@@ -25,7 +54,7 @@
 
 @media screen and (max-height: 768px){
 
-  .verfExit{
+  .verf{
     height: auto;
     justify-content: space-between;
   }

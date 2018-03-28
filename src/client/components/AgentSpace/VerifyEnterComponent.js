@@ -46,37 +46,37 @@ const styles = theme => ({
   bigAvatar: {
     width: '40%',
     height: '40%',
-    'max-width': '300px',
+    maxWidth: '300px',
     margin: '30px 0',
   },
-  verfEnter:{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    'padding-top': '50px',
+  bigAvatar: {
+    width: 220,
+    height: 220,
+    maxWidth:'220px',
+    margin: '30px 0',
   },
   button:{
     color: '#fff',
-    'fontSize': '32px',
-    width: '60%',
+    fontSize : '32px',
+    width: '240px',
     lineHeight: '3em',
-    'max-width': '550px',
+    maxWidth: '550px',
   },
   styleCommun:{
-    'margin-bottom':'20px',
-    'font-family': 'Cairo',
+    marginBottom:'20px',
+    fontFamily: 'Cairo',
   },
   profileName:{
-    'font-size': '30px',
+    fontSize: '30px',
     color: '#212121',
   },
   profileFunction:{
-    'font-size': '24px',
+    fontSize: '24px',
     color: '#757575',
 
   },
   profileCin:{
-    'font-size': '18px',
+    fontSize: '18px',
     color: '#212121',
   },
 });
@@ -192,7 +192,8 @@ handleIconButtonRequestOpen = () => {
                     ]}
                   />
         )}
-            <div className={classNames(classes.verfEnter)}>
+            <div className="verf">
+              <div className="profileGuest">
                 <Avatar
                   alt=""
                   src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
@@ -202,22 +203,21 @@ handleIconButtonRequestOpen = () => {
                 {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
                 <span className={classNames(classes.styleCommun , classes.profileFunction)}>
                 {this.props.userToEnter.userId.profile.function}</span>
-                <Button className={classes.button} color="primary" onClick={this.handleEnter}>
+                </div>
+                <Button className={classes.button}raised="true"  color="secondary" onClick={this.handleEnter}>
                        دخول
                 </Button>
-                <span className={classNames(classes.styleCommun , classes.profileCin)}>
-                {this.props.userToEnter.userId.cin}  </span>
-                <div style={{ display: 'flex', width: '90%', 'justifyContent': 'space-between', fontSize:'18px', 'height': '50px', marginTop:'115px'}}>
-                  <div style={{ display: 'flex', flexDirection:'column'}}>
-                      <span style={{ color: '#9E9E9E', }}> بطاقة تعريف وطنية </span>
-                      <span>   {this.props.userToEnter.userId.cin} </span>
+                <div className="containerIdentifiant">
+                  <div className="infoIdentifiant">
+                      <span className="labelIdentifiant"> بطاقة تعريف وطنية </span>
+                      <span className="cin"> {this.props.userToEnter.userId.cin} </span>
                   </div>
-                  <div style={{ display: 'flex', flexDirection:'column'}}>
-                      <span style={{ color: '#9E9E9E', }}> المعرف </span>
-                      <span>  {this.props.userToEnter.userId.identifiant}</span>
+                  <div className="infoIdentifiant">
+                      <span className="labelIdentifiant"> المعرف </span>
+                      <span className="id">{this.props.userToEnter.userId.identifiant}</span>
+                  </div>
                   </div>
                 </div>
-            </div>
       </div>)
     }
 
