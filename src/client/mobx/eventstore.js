@@ -145,6 +145,9 @@ class EventStore {
       this.setUnfilteredEvents(res.data.eventlist)
     });
       }
+      @action initSelectedEventStateOFSession =(state)=>{
+        this.selectedEvent.session_empty = state;
+      }
       @action UpdateEvent=(data)=>{
         fetch({
           query: `mutation UpdateEvent($title :String!, $type:String!, $place:String!, $end_date:String! , $start_date:String! , $id:ID!) {
@@ -228,6 +231,7 @@ class EventStore {
                 eventid : eventid
               }
             }).then(res=>{
+              this.initSelectedEventStateOFSession(false);              
               this.getEventByID(eventid)
             })
           }
@@ -242,6 +246,7 @@ class EventStore {
                 eventid : eventid
               }
             }).then(res=>{
+              this.initSelectedEventStateOFSession(true);              
               this.getEvents();
             })
           }

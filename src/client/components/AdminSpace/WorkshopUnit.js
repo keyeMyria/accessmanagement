@@ -172,7 +172,7 @@ class WorkshopUnit extends React.Component{
 
   render(){
     const {classes , details , key , users} = this.props;
-
+    console.log(users.length)
     return(<div key={details._id}>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة", users)}</div>)
   }
 }

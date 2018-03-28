@@ -72,8 +72,8 @@ class DashboardUnit extends React.Component{
     const in_guests = _.sumBy(users, i => (i.status==="IN"));
     const out_guests = _.sumBy(users, i => (i.status==="OUT"));
     const abscent_guests = _.sumBy(users, i => (i.status==="ABSCENT"));
-    let data = [{name: 'indoor', value: in_guests}, {name: 'Abscent', value: out_guests},
-                  {name: 'outdoor', value: abscent_guests}]
+    let data = [{name: 'indoor', value: in_guests}, {name: 'Abscent', value:  abscent_guests},
+                  {name: 'outdoor', value:out_guests }]
 
                   return data ;
   }
