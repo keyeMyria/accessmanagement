@@ -8,7 +8,7 @@ import Chip from 'material-ui/Chip';
 import Paper from 'material-ui/Paper';
 import update from 'immutability-helper'
 import {REMOTE_ASSETS_PATH} from '../../../app/config'
-
+import TemporaryStore  from '../../../mobx/tempStore'
 // styles
 const $input = 'input-reset ba b--black-10 br1 pa2 mb2 db w-100 f6';
 const $label = 'f7 db mb2 mt3 light-silver';
@@ -61,6 +61,7 @@ class MaterialSelectField extends React.Component{
     this.props.items.map(item=>{
       invited.push(item);
     });
+    TemporaryStore.initGuestList(this.props.items);
     this.state = {
       chipData: [],
       invited : invited,
@@ -71,29 +72,23 @@ class MaterialSelectField extends React.Component{
     };
   }
   handleAddGuest = (item , index) => {
-    this.setState((prevState) => ({
-      invited: update(prevState.invited, {$splice: [[index, 1]]}) ,
-      chipData : update(prevState.chipData, {$push: [ item ]}) ,
-      names : update(prevState.names, {$push: [ item._id ]}) ,
-      numberguest : prevState.numberguest+1
+    TemporaryStore.addGuest(item , index);
+  //   this.setState((prevState) => ({
+  //     invited: update(prevState.invited, {$splice: [[index, 1]]}) ,
+  //     chipData : update(prevState.chipData, {$push: [ item ]}) ,
+  //     names : update(prevState.names, {$push: [ item._id ]}) ,
+  //     numberguest : prevState.numberguest+1
 
-  }))
-  console.log(this.state)
+  // }))
   
-  this.props.form.$('users').value = this.state.names
+  this.props.form.$('users').value = TemporaryStore.names
 
  };
  handleDeleteChip = (item , index) => {
 
-   this.setState((prevState) => ({
-     chipData: update(prevState.chipData, {$splice: [[index, 1]]}) ,
-     invited : update(prevState.invited, {$push: [ item ]}) ,
-     names: prevState.names.filter(i => {
-       return i !== item._id
-     }),
-     numberguest : prevState.numberguest-1
- }))
- this.props.form.$('users').value = this.state.names
+  TemporaryStore.removeGuest(item);
+
+  this.props.form.$('users').value = TemporaryStore.names
 };
 
   render(){
@@ -103,23 +98,23 @@ class MaterialSelectField extends React.Component{
               <div>
                 <div style={styles.chipsContainer}>
 
-                  {this.state.chipData.map((data , index) => {
-
-                        <Chip
-                        key={`{chip${data._id}}`}
-                        avatar={<Avatar src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} />}
-                        label={`${data.profile.name} ${data.profile.forname}`}
-                        onDelete={()=>this.handleDeleteChip(data , index)}
-                        style={styles.guestChip}
-                      />
+                  {TemporaryStore.chipData.map((data , index) => {
+//console.log(data)
+                        return(<Chip
+                          key={`{chip${data._id}}`}
+                          avatar={<Avatar src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} />}
+                          label={`${data.profile.name} ${data.profile.forname}`}
+                          onDelete={()=>this.handleDeleteChip(data , index)}
+                          style={styles.guestChip}
+                        />)
                     
                     
                   })}
-                  <p style={styles.guestCounter}>أضف المشاركين للورشة : {this.state.numberguest}</p>
+                  <p style={styles.guestCounter}>أضف المشاركين للورشة : {TemporaryStore.number_guests}</p>
                   </div>
                   <ul style={styles.GuestContainer}>
 
-                        {this.state.invited.map((item , index) => (
+                        {TemporaryStore.invited_guests.map((item , index) => (
 
                           <li onClick={()=>this.handleAddGuest(item , index)} key={item._id} style={styles.guestItem}>
                                   {(item.profile!=null)&&(
