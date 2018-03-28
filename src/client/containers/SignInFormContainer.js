@@ -21,6 +21,8 @@ import UserStore from '../mobx/gueststore';
 import {observer} from 'mobx-react';
 import {withStyles} from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
+import {REMOTE_ASSETS_PATH} from '../app/config'
+
   // const container = {
   //   display: 'flex' ,
   //   flexDirection: 'row',
@@ -205,7 +207,6 @@ class SignInFormContainer extends React.Component {
         this.setState({
           errors:[...this.state.errors , err]
         })
-        console.log(this.state);
       });
   }
 
@@ -229,7 +230,7 @@ class SignInFormContainer extends React.Component {
                 </Typography>
               </div>
               <Avatar
-               src={`/public/assets/avatars/${this.state.user.profile.avatar}`}
+               src={`${REMOTE_ASSETS_PATH}/${this.state.user.profile.avatar}`}
                className={classes.bigAvatar}
              />
              <p className={classes.textAuthentification}>
