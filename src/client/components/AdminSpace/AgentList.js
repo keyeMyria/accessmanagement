@@ -83,20 +83,22 @@ constructor(props){
     this.setState({
       boxes : agents
     })
-  })
-  SessionStore.getSessions().then(res=>{
+  }).then(res=>{
+    SessionStore.getSessions().then(res=>{
 
-    res.data.getActiveSessions.map(item=>{
-      let list =[] ;
-      item.agents.map(agent=>{
-        list.push(agent);
+      res.data.getActiveSessions.map(item=>{
+        let list =[] ;
+        item.agents.map(agent=>{
+          list.push(agent);
+        })
+        sessions.push({lastDroppedItem: null , list :list , _id : item._id , data : item})
+      });
+      this.setState({
+        sessions: sessions
       })
-      sessions.push({lastDroppedItem: null , list :list , _id : item._id , data : item})
-    });
-    this.setState({
-      sessions: sessions
     })
   })
+
 
 }
 
