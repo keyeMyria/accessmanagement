@@ -78,6 +78,8 @@ class MaterialSelectField extends React.Component{
       numberguest : prevState.numberguest+1
 
   }))
+  console.log(this.state)
+  
   this.props.form.$('users').value = this.state.names
 
  };
