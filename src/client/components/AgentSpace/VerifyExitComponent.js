@@ -48,12 +48,10 @@ const styles = theme => ({
     maxWidth:'220px',
     margin: '30px 0',
   },
-  verfExit:{
-  },
   button:{
     color: '#fff',
     fontSize: '32px',
-    width: '60%',
+    width: '240px',
     lineHeight: '3em',
     maxWidth: '550px',
   },
@@ -160,7 +158,8 @@ class VerifyExitComponent extends React.Component{
     else{
       const { vertical, horizontal, open } = this.state;
       const {classes} = this.props;
-      return(<div>
+      return(
+        <div>
         {open && (<Snackbar
                     anchorOrigin={{
                       vertical: 'top',
@@ -186,8 +185,8 @@ class VerifyExitComponent extends React.Component{
                     ]}
                   />
         )}
-        <div className={classes.verfExit} className="verfExit">
-          <div style={{ display: 'flex', flexDirection :'column'}}>
+        <div className="verf">
+          <div className="profileGuest">
             <Avatar
             alt=""
             src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
@@ -196,29 +195,25 @@ class VerifyExitComponent extends React.Component{
             <span className={classNames(classes.styleCommun , classes.profileName)}>
             {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
             <span className={classNames(classes.styleCommun , classes.profileFunction)}>
-            {this.props.userToEnter.userId.profile.function}</span>
+            {this.props.userToEnter.userId.profile.function}
+            </span>
           </div>
-          <div style={{ position:'relative', width:'400px'}}>
-            <Button className={classes.button} raised="true" color="secondary" onClick={this.handleEnter}>
-                 خروج
-            </Button>
-            <div className="buttonSuccess">
-            </div>
-          </div>
-
-            <div style={{ display: 'flex', width: '90%', 'justifyContent': 'space-between', fontSize:'18px', 'height': '50px', marginTop:'56px'}}>
-              <div style={{ display: 'flex', flexDirection:'column'}}>
-                  <span style={{ color: '#9E9E9E'}}> بطاقة تعريف وطنية </span>
-                  <span style={{ textAlign: 'right'}}> {this.props.userToEnter.userId.cin} </span>
+          <Button className={classes.button} raised="true" color="secondary" onClick={this.handleEnter}>
+              خروج
+          </Button>
+            <div className="containerIdentifiant">
+              <div className="infoIdentifiant">
+                  <span className="labelIdentifiant"> بطاقة تعريف وطنية </span>
+                  <span className="cin"> {this.props.userToEnter.userId.cin} </span>
               </div>
-              <div style={{ display: 'flex', flexDirection:'column'}}>
-                  <span style={{ color: '#9E9E9E'}}> المعرف </span>
-                  <span style={{ textAlign: 'left'}}>{this.props.userToEnter.userId.identifiant}</span>
+              <div className="infoIdentifiant">
+                  <span className="labelIdentifiant"> المعرف </span>
+                  <span className="id">{this.props.userToEnter.userId.identifiant}</span>
               </div>
               </div>
             </div>
-      </div>)
-    }
+      </div>
+    )}
 
   }
 }
