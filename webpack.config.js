@@ -76,10 +76,10 @@ var config = {
     }),
     new ExtractTextPlugin('css/[name].css') ,
     new WebpackRTLPlugin(),
-    new WorkboxPlugin.InjectManifest({
-      swSrc: BUILD_DIR+'/sw.js',
-      swDest: 'sw.js'
-    })
+    // new WorkboxPlugin.InjectManifest({
+    //   swSrc: BUILD_DIR+'/sw.js',
+    //   swDest: 'sw.js'
+    // })
     // new WorkboxPlugin.GenerateSW({
     //   runtimeCaching: [{
     //     // Match any same-origin request that contains 'api'.
@@ -105,7 +105,7 @@ var config = {
     //       broadcastUpdate: {
     //         channelName: 'my-update-channel',
     //       },
-         
+
     //     },
     //   }, {
     //     // To match cross-origin requests, use a RegExp that matches
