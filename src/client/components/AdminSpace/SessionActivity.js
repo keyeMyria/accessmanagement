@@ -48,7 +48,7 @@ class SessionActivity extends React.Component{
         const newEntry = subscriptionData.data.newEntry;
         if(!prev.activitylistbysessionID.find((item)=> item.entryId==newEntry.entryId)){
           return Object.assign({} , prev ,{
-            activitylistbysessionID :[...prev.activitylistbysessionID, newEntry]
+            activitylistbysessionID :[newEntry , ...prev.activitylistbysessionID]
           })
         }else{
           return prev;
