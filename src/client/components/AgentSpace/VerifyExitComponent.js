@@ -152,7 +152,7 @@ class VerifyExitComponent extends React.Component{
           // <Typography variant="display3" gutterBottom>
           //   رمز هذا الشخص غير معروف
           // </Typography>
-          }
+        }
           <QRcodeUnknown/>
           </div>
         );
@@ -225,7 +225,8 @@ class VerifyExitComponent extends React.Component{
 }
 const userToEnter = gql`
   query userToEnter($id: String!) {
-    userId(id :$id) {
+    userId(id :$id){
+    _id
       username
       status
       identifiant
