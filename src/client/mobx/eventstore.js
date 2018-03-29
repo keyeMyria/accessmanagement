@@ -1,16 +1,18 @@
-import { observable, action, computed, useStrict } from 'mobx';
+import { observable, action, computed, useStrict , extendObservable} from 'mobx';
 import { createApolloFetch } from 'apollo-fetch';
 import moment from 'moment';
+import gql from 'graphql-tag';
+import graphql from 'mobx-apollo';
 import DOMAIN_PATH, {REMOTE_DOMAIN_PATH} from './../app/config'
-
+import {client} from '../app/index.jsx'
 useStrict(true);
 const fetch = createApolloFetch({
   uri: DOMAIN_PATH,
 });
 
 
-
 class EventStore {
+  
     // Values marked as 'observable' can be watched by 'observers'
     @observable unfiltered_events = [];
     @observable events =[];
