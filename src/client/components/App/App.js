@@ -177,6 +177,21 @@ const AdminRoute = ({ component: Component, ...rest }) => (
       ))}
   />
 );
+const CommonAuthenticatedRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      (isAuthenticated() && (isAdmin() || (isINAgent() || isOUTAgent() || isWorkshopAgent()))? (
+        <AdminContainer><Component UserStore={UserStore} {...props} /></AdminContainer>
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/signout',
+          }}
+        />
+      ))}
+  />
+);
 const LoginRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -211,10 +226,10 @@ class App extends React.Component {
                 <AdminRoute exact path='/manageguest' component={GuestListManageable} />
                 <AdminRoute exact path='/listguests' component={AttendiesList} />
 								<AdminRoute exact path='/activitylog' component={PaginatedEntriesContainer} />
-                <AdminRoute exact path='/listusersbysession/:id' component={ListGuestBYSessionFilter} />
+                <CommonAuthenticatedRoute exact path='/listusersbysession/:id' component={ListGuestBYSessionFilter} />
                 <AdminRoute exact path='/adduser' component={AddUserFormContainer} />
 								<AdminRoute exact path="/useractivity/:id" component={AttendeeActivity} />
-                <AdminRoute exact path="/sessionactivity/:id" component={SessionActivity} />
+                <CommonAuthenticatedRoute exact path="/sessionactivity/:id" component={SessionActivity} />
                 <AdminRoute exact path="/manageagents" component={AgentList} />
                 <AdminRoute exact path="/managevents" component={EventsList} />
                 <AdminRoute exact path="/manage-single-event/:id"  name="event-detail" component={EventDetail} />
