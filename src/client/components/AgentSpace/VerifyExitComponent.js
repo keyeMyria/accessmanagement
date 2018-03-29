@@ -20,6 +20,7 @@ import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 import QRcodeUnknown from './vendor/QRcodeUnknown.svg';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   root: {
@@ -121,6 +122,7 @@ class VerifyExitComponent extends React.Component{
   handleEnter = async () => {
     // let id = this.props.match.params.id ;
     let id = this.props.userToEnter.userId._id;
+
     let status = "OUT";
     let agent = localStorage.getItem('loogedin_id');
 
@@ -145,7 +147,14 @@ class VerifyExitComponent extends React.Component{
       return(<div className={classes.root}><CircularProgress  color="primary" className={classes.progressCircle}/></div>);
     if(userToEnter.userId==null){
         return(
+          <div>
+          {
+          // <Typography variant="display3" gutterBottom>
+          //   رمز هذا الشخص غير معروف
+          // </Typography>
+          }
           <QRcodeUnknown/>
+          </div>
         );
     }
     else{
@@ -217,7 +226,6 @@ class VerifyExitComponent extends React.Component{
 const userToEnter = gql`
   query userToEnter($id: String!) {
     userId(id :$id) {
-      _id
       username
       status
       identifiant
