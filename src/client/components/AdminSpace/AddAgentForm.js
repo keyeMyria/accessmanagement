@@ -15,7 +15,7 @@ const roles=[{
   "value":"agent_in_out"
 }]
 export default observer(({ form , onSuccess }) => (
-  <form onSubmit={form.onSubmit}>
+  <form onSubmit={form.onSubmit} >
     <MaterialTextField field={form.$('username')} />
     <MaterialTextField field={form.$('password')} />
     <RadioGroupField field={form.$('rolename')} data={roles} />

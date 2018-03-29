@@ -121,7 +121,6 @@ class VerifyExitComponent extends React.Component{
   handleEnter = async () => {
     // let id = this.props.match.params.id ;
     let id = this.props.userToEnter.userId._id;
-
     let status = "OUT";
     let agent = localStorage.getItem('loogedin_id');
 
@@ -218,6 +217,7 @@ class VerifyExitComponent extends React.Component{
 const userToEnter = gql`
   query userToEnter($id: String!) {
     userId(id :$id) {
+      _id
       username
       status
       identifiant

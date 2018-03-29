@@ -139,6 +139,16 @@ class UserStore {
            _id
            start_hour
            end_hour
+           expected_guests{
+            _id
+            username
+            status
+            profile{
+              name
+              forname
+              avatar
+            }
+           }
          }
          workshop{
            _id
@@ -168,11 +178,13 @@ class UserStore {
 
      }
      if(res.data.getWorkshopByUserId.session!=null){
+       
        this.setSession(res.data.getWorkshopByUserId.session);
-       let users = EventStore.getUserDataForChartOfSession(res.data.getWorkshopByUserId.session._id);
-       users.then(res=>{
-         this.setUsers(res.data.getUserDataForChartOfSession)
-       })
+      //  let users = EventStore.getUserDataForChartOfSession(res.data.getWorkshopByUserId.session._id);
+      //  users.then(res=>{
+         this.setUsers(res.data.getWorkshopByUserId.session.expected_guests);
+         console.log(this.users)
+      //  })
      }
    })
   }
