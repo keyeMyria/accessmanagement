@@ -244,6 +244,7 @@ body .container_ui__item h2, body .container_ui__item h3, body .container_ui__it
 
 body .container_ui__item .itemInfos{
   text-align: right;
+      width: 60%;
 }
 
 

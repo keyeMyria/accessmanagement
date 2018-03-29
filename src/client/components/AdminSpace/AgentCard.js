@@ -59,7 +59,13 @@ const profileStyle = {
 const styleAvatar = {
     margin: '0 10px',
 };
-
+const styleRadio ={
+  width:'30px',
+};
+const stylechekbox = {
+  marginRight: '6px',
+  marginLeft:  '20px',
+};
 const styleListAction = {
     position: 'static',
     marginTop: '0',
@@ -177,37 +183,43 @@ class AgentCard extends React.Component {
                     { ...( data.workshop==null && { value:0 } ) }
                   /> */}
                   <FormControlLabel
+                    style={{ ...stylechekbox}}
                     control={
                       <Radio
                         ref="in"
                         checked={this.state.enter}
                         onChange={this.updateAgentFunction('enter' , data._id)}
                         disabled={this.state.disabled_in}
+                        style={{ ...styleRadio}}
                       />
                     }
                     label="الدخول"
                   />
                   <FormControlLabel
+                  style={{ ...stylechekbox}}
                     control={
                       <Radio
                         checked={this.state.exit}
                         onChange={this.updateAgentFunction('exit' , data._id)}
                         disabled ={this.state.disable_out}
+                        style={{ ...styleRadio}}
                       />
 
                     }
                     label="الخروج"
                   />
                   <FormControlLabel
+                  style={{ ...stylechekbox}}
                     control={
                       <Radio
                         checked={this.state.in_out}
                         onChange={this.updateAgentFunction('in_out' , data._id)}
                         disabled ={this.state.disable_do}
+                        style={{ ...styleRadio}}
                       />
 
                     }
-                    label="in/out"
+                    label="دخول وخروج"
                   />
           </ListItemSecondaryAction>
 

@@ -47,6 +47,9 @@ const styles = theme => ({
         backgroundColor: "#ffffff",
     }
   },
+  msgError:{
+    color : 'red',
+  },
   formLogin:{
     display: 'flex',
    'flexDirection': 'column',
@@ -115,7 +118,7 @@ class SignInForm extends React.Component{
         <form onSubmit={handleSubmit}
         className={classes.formLogin}
         >
-          {errors}
+          <div className={classes.msgError}>{errors}</div>
           {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
           {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" />)}
           <Field name="password" type="password" component={this.renderTextField} label="كلمة  المرور" />
