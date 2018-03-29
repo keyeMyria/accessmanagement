@@ -128,21 +128,7 @@ class AgentCard extends React.Component {
     });
 
   }
-  initSwitchers=(val)=>{
-    if(val!='5a3d8b08fb6a630ce0804848'){
-      this.setState({
-        disabled_in:true ,
-        disabled_out :true ,
-        disabled_do : falsse
-      })
-    }else{
-      this.setState({
-        disabled_in:false ,
-        disabled_out :false ,
-        disabled_do : true
-      })
-    }
-  }
+
   handleWorkshopChange =(_id) => event => {
     let val =event.target.value;
     this.props.SwitchAgentWorkshop({
