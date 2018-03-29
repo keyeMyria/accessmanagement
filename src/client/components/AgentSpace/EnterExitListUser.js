@@ -25,19 +25,24 @@ class EnterExitListUser extends React.Component{
     if(UserStore.users!=null){
       return(<div>
         <List>
-        {UserStore.users.map(value => (
-          <ListItem key={value._id} dense button>
-            <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
-            <ListItemText primary={`${value.profile.name} ${value.profile.forname}`}/>
-            <ListItemText primary={`${value.status}`} />
-            {(role=='agent_in' || role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , id , UserStore.selectWorkshopAgent._id )}>
-                   دخول
-            </Button>)}
-            {(role=='agent_out' || role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , id , UserStore.selectWorkshopAgent._id)}>
-                 خروج
-            </Button>)}
-          </ListItem>
-        ))}
+        {UserStore.users.map(value => {
+          return(
+            <div key={value._id}>{value.profile!=null &&(
+              <ListItem  dense button>
+              <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
+              <ListItemText primary={`${value.profile.name} ${value.profile.forname}`}/>
+              <ListItemText primary={`${value.status}`} />
+              {(role=='agent_in' || role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , id , UserStore.selectWorkshopAgent._id )}>
+                     دخول
+              </Button>)}
+              {(role=='agent_out' || role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , id , UserStore.selectWorkshopAgent._id)}>
+                   خروج
+              </Button>)}
+            </ListItem>)}</div>
+          )
+        }
+         
+        )}
       </List>
   </div>)
 }else{
