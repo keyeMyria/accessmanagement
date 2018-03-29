@@ -70,6 +70,10 @@ constructor(props){
   }
   sessions.length=0 ;
   agents.length=0;
+  this.initAgentBoxes();
+
+}
+initAgentBoxes=()=>{
   SessionStore.getUnaffectedAgents().then(res=>{
     res.data.getUnaffectedAgents.map(agent=>{
       agents.push(agent);
@@ -99,9 +103,13 @@ constructor(props){
     })
   })
 
-
 }
-
+addUnaffectedAgentBox =(data)=>{
+  sessions[0].push(data);
+  this.setState({
+    sessions:sessions
+  })
+}
     isDropped(boxName) {
         return this.state.droppedBoxNames.findIndex(item => boxName === item._id ) > -1
     	}
@@ -174,7 +182,7 @@ constructor(props){
                      {
                        <Dialog
                        open={this.state.open}
-                       onClose={this.handleClose}
+                       onClose={this.handleCloseDialog}
                        aria-labelledby="form-dialog-title"
                      >
                        <DialogTitle id="form-dialog-title">
@@ -211,17 +219,17 @@ constructor(props){
             {
               <Dialog
               open={this.state.open}
-              onClose={this.handleClose}
+              onClose={this.handleCloseDialog}
               aria-labelledby="form-dialog-title"
             >
               <DialogTitle id="form-dialog-title">
                   إضافة وكيل جديد
               </DialogTitle>
               <DialogContent className="dialogContent">
-              <Form form={form}/>
+              <Form form={form} successCallback={this.addUnaffectedAgentBox}/>
               </DialogContent>
               <DialogActions>
-                <Button onClick={form.onSubmit} color="secondary">
+                <Button onClick={(e) => this.addAgentOperation(e)} color="secondary">
                   حفظ
                 </Button>
                 <Button onClick={this.handleCloseDialog} >
@@ -245,7 +253,7 @@ constructor(props){
     					))}
     				</div>
             {
-              <Button fab color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
+              <Button fab color="secondary" aria-label="add new agent" onClick={this.handleAddAgent} className={classes.addButton}>
               <Add style={{
                 color:'#ffff',
               }}/>
@@ -254,6 +262,10 @@ constructor(props){
     			</div>
           )
     }
+}
+addAgentOperation =(e)=>{
+    form.onSubmit(e);
+    this.handleCloseDialog();
 }
 }
 AgentList.propTypes = {
