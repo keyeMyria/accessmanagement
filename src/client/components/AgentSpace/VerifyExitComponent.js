@@ -19,6 +19,7 @@ import Avatar from 'material-ui/Avatar';
 import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
+import QRcodeUnknown from './vendor/QRcodeUnknown.svg';
 
 const styles = theme => ({
   root: {
@@ -99,7 +100,7 @@ class VerifyExitComponent extends React.Component{
 
   }
   componentDidUpdate(props){
-    if(this.props.userToEnter.userId.status=='OUT' && this.state.open==false &&this.state.displayed==false){
+    if(this.props.userToEnter.userId!=null && this.props.userToEnter.userId.status=='OUT' && this.state.open==false &&this.state.displayed==false){
       this.setState({
         open:true ,
         displayed : true
@@ -145,14 +146,7 @@ class VerifyExitComponent extends React.Component{
       return(<div className={classes.root}><CircularProgress  color="primary" className={classes.progressCircle}/></div>);
     if(userToEnter.userId==null){
         return(
-          <SnackbarContent
-         className={classes.snackbar}
-         message={
-           'The QRcode of this person is unknown. \
-           Please contact an orgonizer before allowing the passage'
-         }
-
-       />
+          <QRcodeUnknown/>
         );
     }
     else{
@@ -185,33 +179,37 @@ class VerifyExitComponent extends React.Component{
                     ]}
                   />
         )}
-        <div className="verf">
-          <div className="profileGuest">
-            <Avatar
-            alt=""
-            src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
-            className={classNames(classes.bigAvatar)}
-            />
-            <span className={classNames(classes.styleCommun , classes.profileName)}>
-            {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
-            <span className={classNames(classes.styleCommun , classes.profileFunction)}>
-            {this.props.userToEnter.userId.profile.function}
-            </span>
-          </div>
-          <Button className={classes.button} raised="true" color="secondary" onClick={this.handleEnter}>
-              خروج
-          </Button>
-            <div className="containerIdentifiant">
-              <div className="infoIdentifiant">
-                  <span className="labelIdentifiant"> بطاقة تعريف وطنية </span>
-                  <span className="cin"> {this.props.userToEnter.userId.cin} </span>
-              </div>
-              <div className="infoIdentifiant">
-                  <span className="labelIdentifiant"> المعرف </span>
-                  <span className="id">{this.props.userToEnter.userId.identifiant}</span>
-              </div>
-              </div>
+        {this.props.userToEnter.userId!=null && (
+
+          <div className="verf">
+            <div className="profileGuest">
+              <Avatar
+              alt=""
+              src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
+              className={classNames(classes.bigAvatar)}
+              />
+              <span className={classNames(classes.styleCommun , classes.profileName)}>
+              {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
+              <span className={classNames(classes.styleCommun , classes.profileFunction)}>
+              {this.props.userToEnter.userId.profile.function}
+              </span>
             </div>
+            <Button className={classes.button} raised="true" color="secondary" onClick={this.handleEnter}>
+                خروج
+            </Button>
+              <div className="containerIdentifiant">
+                <div className="infoIdentifiant">
+                    <span className="labelIdentifiant"> بطاقة تعريف وطنية </span>
+                    <span className="cin"> {this.props.userToEnter.userId.cin} </span>
+                </div>
+                <div className="infoIdentifiant">
+                    <span className="labelIdentifiant"> المعرف </span>
+                    <span className="id">{this.props.userToEnter.userId.identifiant}</span>
+                </div>
+                </div>
+              </div>
+        )}
+
       </div>
     )}
 
