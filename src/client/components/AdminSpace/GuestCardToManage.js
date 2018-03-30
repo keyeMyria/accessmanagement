@@ -68,9 +68,10 @@ class GuestCardToManage extends React.Component{
              {(data.profile!==null) &&(<div className='container_ui__item'>
                 <div className='face'>
                   {data.profile.avatar!=='' ?
-                     <img src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} /> :
+                     <img id={`avatar_${data.identifiant}`} src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} /> :
                      <Noavatar/>
                    }
+                   <canvas height={0} width={0} id={`canvas_${data.identifiant}`}></canvas>
                 </div>
 
                 <div className={!readonly ? "itemInfos" :"itemInfosResponsive"}>
