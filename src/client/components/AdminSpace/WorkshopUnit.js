@@ -85,9 +85,9 @@ class WorkshopUnit extends React.Component{
       let data =[]
       if(details.stat=="OFF")
       data = [
-        {name: 'indoor', value: details.closed_in},
-        {name: 'Abscent', value: details.closed_abscent},
-        {name: 'outdoor', value: details.closed_out}];
+        {name: 'داخل الورشة', value: details.closed_in},
+        {name: 'غائب', value: details.closed_abscent},
+        {name: 'خارج الورشة', value: details.closed_out}];
      else
       data= this.getUsersStatistics(users)
       let end ;
@@ -106,18 +106,20 @@ class WorkshopUnit extends React.Component{
             <div className="ChartContainer">
               <div className="PieContainer">
                 <PieChart width={400} height={400}>
-                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius="88%" outerRadius="90%" label>
+                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
                     {
                       data.map((entry, index) => <Cell key={`first_pie_cell_work_key${index}`}  fill={COLORS[index % COLORS.length]}/>)
                     }
                   </Pie>
-                  <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius="60%" outerRadius="70%" fill="#00abc7" >
+                  <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={90} outerRadius={115} fill="#00abc7" >
                     {
                       data.map((entry, index) => <Cell key={`second_pie_cell_work_key${index}`} fill={COLORS[index % COLORS.length]}/>)
                     }
 
                     <Label width={30} position="center"
-                      content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="الوقت المنقضي"/>}>
+                      content={
+                        <CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `} value1=" الوقت المنقضي "/>
+                    }>
                     </Label>
                   </Pie>
                   <Tooltip/>

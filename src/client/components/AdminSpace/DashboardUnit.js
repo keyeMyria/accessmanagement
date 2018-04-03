@@ -42,7 +42,7 @@ const styles = theme => ({
     marginBottom: '5px',
   },
   timeDetailHour: {
-    fontBize: '18pt',
+    fontSize: '18pt',
     fontWeight: '500',
     fontFamily: 'Roboto, arial, sans-serif',
   },
@@ -82,9 +82,9 @@ class DashboardUnit extends React.Component{
                   let data;
                   if(details.stat=="OFF")
                    data = [
-                     {name: 'indoor', value: details.closed_in},
-                     {name: 'Abscent', value: details.closed_abscent},
-                     {name: 'outdoor', value: details.closed_out}];
+                     {name: 'داخل الورشة', value: details.closed_in},
+                     {name: 'غائب', value: details.closed_abscent},
+                     {name: 'خارج الورشة', value: details.closed_out}];
                   else
                     data= this.getUsersStatistics(users);
                   let end ;
@@ -111,7 +111,7 @@ class DashboardUnit extends React.Component{
                     }
 
                     <Label width={30} position="center"
-                      content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="الوقت المنقضي"/>}>
+                      content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `} value1=" الوقت المنقضي"/>}>
                     </Label>
                   </Pie>
                   <Tooltip/>
@@ -123,8 +123,7 @@ class DashboardUnit extends React.Component{
                     {name}
                   </Typography>
                   <div className={classes.ChartInfos}>
-                    <Button fab  disabled><QueryBuilder color="action"/>
-                    </Button>
+                    <Button fab  disabled><QueryBuilder color="action"/></Button>
                     <div className={classes.timeDetail}>
                       <span className={classes.timeDetailText}>
                       البداية

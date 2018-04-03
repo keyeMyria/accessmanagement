@@ -43,7 +43,7 @@ class QReaderComponent extends Component {
           this.props.history.push('/verifyenter/'+data);
           if(role==="agent_out")
           this.props.history.push('/verifyexit/'+data);
-          if(role==="agent_workshop"){
+          if(role==="agent_in_out"){
             this.props.history.push('/accessoperation/'+data);
           }
         }
@@ -71,7 +71,7 @@ class QReaderComponent extends Component {
           this.props.history.push('/verifyenter/'+data);
           if(role==="agent_out")
           this.props.history.push('/verifyexit/'+data);
-          if(role==="agent_workshop"){
+          if(role==="agent_in_out"){
             this.props.history.push('/accessoperation/'+data);
           }
         }
