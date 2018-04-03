@@ -17,7 +17,7 @@ class WorkshopStore {
     @observable workshops = [];
     @observable users = [];
     @observable selectedWorkshop = {};
-    @observable selectedEvent = {};
+    @observable selectedEvent = null;
     @computed get selectedId() { return this.selectedWorkshop._id; }
     @action setStateAction = (state) => {this.state=state }
     @observable agent_session ={};

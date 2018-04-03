@@ -3,23 +3,155 @@ import { createApolloFetch } from 'apollo-fetch';
 import moment from 'moment';
 import gql from 'graphql-tag';
 import graphql from 'mobx-apollo';
-import DOMAIN_PATH, {REMOTE_DOMAIN_PATH} from './../app/config'
-import {client} from '../app/index.jsx'
+import { getOperationAST } from 'graphql';
+
+import { WebSocketLink } from 'apollo-link-ws';
+import DOMAIN_PATH ,{REMOTE_DOMAIN_PATH , LOCAL_WEBSOCKET_ENDPOINT} from '../app/config'
+
+import { ApolloLink, concat } from 'apollo-link';
+import ApolloClient from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
+
 useStrict(true);
 const fetch = createApolloFetch({
   uri: DOMAIN_PATH,
 });
 
+const link = ApolloLink.split(
+  operation => {
+    const operationAST = getOperationAST(operation.query, operation.operationName);
+    return !!operationAST && operationAST.operation === 'subscription';
+  },
+  new WebSocketLink({
+    uri: LOCAL_WEBSOCKET_ENDPOINT,
+    options: {
+      reconnect: true, //auto-reconnect
+      // // carry login state (should use secure websockets (wss) when using this)
+      // connectionParams: {
+      //   authToken: localStorage.getItem("Meteor.loginToken")
+      // }
+    }
+  }),
+  new HttpLink({ uri: REMOTE_DOMAIN_PATH })
+);
+
+const cache = new InMemoryCache(window.__APOLLO_STATE);
+ const client = new ApolloClient({
+  link:  link ,
+  cache:cache
+
+});
+const  getEventById = gql`query getEventByID($eventid:String!) {
+  getEventByID(eventid:$eventid){
+    _id
+    title
+    type
+    place   
+    start_date
+    end_date
+    numberAttendies
+    session_empty
+    session_collection{
+      _id
+      start_hour
+      end_hour
+      stat
+      closed_in
+      closed_out
+      closed_abscent
+
+    }
+    workshops{
+      _id
+      name
+      session_empty
+      session_list {
+        _id
+        start_hour
+        end_hour
+        stat
+        closed_in
+        closed_out
+        closed_abscent
+      }
+      users{
+        _id
+        status
+      }
+
+    }
+
+  }
+}`
+
+const getFullEventById=gql`query getEventByID($eventid:String!) {
+  getEventByID(eventid:$eventid){
+    _id
+    title
+    type
+    place   
+    start_date
+    end_date
+    numberAttendies
+    session_empty
+    session_collection{
+      _id
+      start_hour
+      end_hour
+      stat
+      closed_in
+      closed_out
+      closed_abscent
+
+    }
+    workshops{
+      _id
+      name
+      session_empty
+      session_list {
+        _id
+        start_hour
+        end_hour
+        stat
+        closed_in
+        closed_out
+        closed_abscent
+      }
+      users{
+        _id
+        status
+      }
+
+    }
+
+  }
+}`
 
 class EventStore {
-  
+  constructor(){
+    extendObservable(this , {
+      get getEventByIdExecute(){
+        return graphql({ client, query: getEventById , variables:{eventid:this.eventid}});            
+      }
+   
+  })
+  }
+
+
     // Values marked as 'observable' can be watched by 'observers'
     @observable unfiltered_events = [];
+    @observable eventid = "default";
     @observable events =[];
+    @observable loading = true;
     @observable selectedEvent = {};
     @observable event_sessions =[];
     @observable event_workshops=[];
     // In strict mode, only actions can modify mobx state
+    @action setEventId = (eventid)=>{
+      this.eventid = eventid
+    }
     @action setEvents = (events) => {
       this.events.length=0;
       this.events = [...events];
@@ -59,7 +191,7 @@ class EventStore {
       this.event_workshops.length=0;
       this.event_workshops = [...workshops]; }
 
-    @action selectEvent = (event) => {this.selectedEvent = event; }
+    @action selectEvent = (event) => {this.selectedEvent = event;  }
     // Managing how we clear our observable state
     @action clearSelectedEvent = () => { this.selectedEvent = {}; }
     // An example that's a little more complex
@@ -250,92 +382,6 @@ class EventStore {
             }).then(res=>{
               this.initSelectedEventStateOFSession(true);              
               this.getEvents();
-            })
-          }
-          @action getEventByID(eventid){
-            fetch({
-              query: `query getEventByID($eventid:String!) {
-                getEventByID(eventid : $eventid){
-                  _id
-                  title
-                  type
-                  place
-                  start_date
-                  end_date
-                  numberAttendies
-                  session_empty
-                  session_collection{
-                    _id
-                    start_hour
-                    end_hour
-                    stat
-                  }
-                  workshops{
-                    _id
-                    name
-                    session_empty
-                  }
-
-                }
-              }`,
-              variables :{
-                eventid :eventid
-              }
-            }).then(res=>{
-              this.selectEvent(res.data.getEventByID)
-            })
-          }
-          @action getFullEventDetailsByID(eventid){
-            fetch({
-              query: `query getEventByID($eventid:String!) {
-                getEventByID(eventid : $eventid){
-                  _id
-                  title
-                  type
-                  place
-                  start_date
-                  end_date
-                  numberAttendies
-                  session_empty
-                  session_collection{
-                    _id
-                    start_hour
-                    end_hour
-                    stat
-                    closed_in
-                    closed_out
-                    closed_abscent
-
-                  }
-                  workshops{
-                    _id
-                    name
-                    session_empty
-                    session_list {
-                      _id
-                      start_hour
-                      end_hour
-                      stat
-                      closed_in
-                      closed_out
-                      closed_abscent
-                    }
-                    users{
-                      _id
-                      status
-                    }
-
-                  }
-
-                }
-              }`,
-              variables :{
-                eventid :eventid
-              }
-            }).then(res=>{
-              this.selectEvent(res.data.getEventByID);
-              this.setEventSessions(res.data.getEventByID.session_collection);
-              this.setEventWorkshops(res.data.getEventByID.workshops);
             })
           }
           @action getUserDataForChartOfSession = async (sessionId)=>{
