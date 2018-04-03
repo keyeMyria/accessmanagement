@@ -63,15 +63,14 @@ const styles = theme => ({
 const styleEndTime = {
     borderRight: '1px solid #eee',
 };
-const users=null ;
 
 @inject('SessionStore')
 @observer
-class DashboardUnit extends React.Component{
+class Unit extends React.Component{
   constructor(props){
     super(props);
     props.SessionStore.setSessionId(props.details._id);
-		props.SessionStore.subscribe(props.details._id)
+    props.SessionStore.subscribe(props.details._id)
     
   }
   getUsersStatistics =()=>{
@@ -84,8 +83,13 @@ class DashboardUnit extends React.Component{
 
                   return data ;
   }
-  buildContentBasedOnData =(details , classes , name , users)=>{
-                  const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
+
+  render(){
+    const {classes , details ,name } = this.props;
+    if(this.props.SessionStore.sessions[details._id]!=undefined){
+        
+            
+            const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data;
                   if(details.stat=="OFF")
                    data = [
@@ -93,7 +97,7 @@ class DashboardUnit extends React.Component{
                      {name: 'Abscent', value: details.closed_abscent},
                      {name: 'outdoor', value: details.closed_out}];
                   else
-                    data= this.getUsersStatistics(users);
+                    data= this.getUsersStatistics();
                   let end ;
                   let start = moment(moment(details.start_hour))
         if(details.end_hour!=null)
@@ -169,13 +173,7 @@ class DashboardUnit extends React.Component{
                 </div>
               </div>
         </div>
-      </div>)
-  }
-
-  render(){
-    const {classes , details , key} = this.props;
-    if(this.props.SessionStore.sessions[details._id]!=undefined)
-        return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة")}</div>)
+      </div>)}
     else{
       return(	<div>
         <CircularProgress color="primary" />
@@ -193,4 +191,4 @@ function CustomLabel({viewBox, value1, value2}){
    </text>
   )
 }
-export default withStyles(styles)(DashboardUnit);
+export default withStyles(styles)(Unit);

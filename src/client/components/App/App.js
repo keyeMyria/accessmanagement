@@ -7,6 +7,7 @@ import Theme from './Theme';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Redirect } from 'react-router-dom';
 import { Route, Switch  } from 'react-router';
+import {Provider} from 'mobx-react';
 import Attendies from '../AgentSpace/Attendies';
 import AgentContainer from '../AgentSpace/AgentContainer';
 import AdminContainer from '../AdminSpace/AdminContainer';
@@ -36,6 +37,9 @@ import AgentDashboard from '../AgentSpace/AgentDashboard';
 import SessionActivity from '../AdminSpace/SessionActivity';
 import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter'
 import UserStore from '../../mobx/gueststore'
+import EventStore from '../../mobx/eventstore'
+import SessionStore from '../../mobx/sessionstore'
+
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;
@@ -213,6 +217,7 @@ class App extends React.Component {
 		return (
     <BrowserRouter>
 			<MuiThemeProvider theme={Theme}>
+      <Provider UserStore={UserStore} EventStore={EventStore} SessionStore={SessionStore}>
         <JssProvider jss={jss}>
         <Switch>
                 <LoginRoute exact path='/' component={SignInFormContainer} />
@@ -241,6 +246,7 @@ class App extends React.Component {
 
 			  </Switch>
       </JssProvider>
+      </Provider>
 			</MuiThemeProvider>
     </BrowserRouter>
 		);
