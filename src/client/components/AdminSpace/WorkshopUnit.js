@@ -77,11 +77,11 @@ const styleEndTime = {
 class WorkshopUnit extends React.Component{
   constructor(props){
     super(props);
-    
+
   }
- 
+
   buildContentBasedOnData =(details , classes , name )=>{
-     
+
       if(details.session_list!=null){
           return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name)))}</div>)
       }else{
