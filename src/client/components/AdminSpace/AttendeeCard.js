@@ -22,6 +22,7 @@ import ExpansionPanel, {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
 } from 'material-ui/ExpansionPanel';
+import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
   card: {
@@ -79,8 +80,9 @@ class AttendeeCard extends React.Component {
     return (
       <div>
         <ExpansionPanel className={classes.expandedPanelContainer}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}  style={ExpansionContainer}>
-            <Avatar src={`/public/assets/avatars/${data.profile.avatar}`} style={avatarExpansion}/>
+        {data.profile!=null &&( <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}  style={ExpansionContainer}>
+          <Avatar src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} style={avatarExpansion}/>
+            
             <div>
               <Typography type="title" gutterBottom>
                 {data.profile.name} {data.profile.forname}
@@ -89,8 +91,8 @@ class AttendeeCard extends React.Component {
                 { data.status=='ABSCENT' ? 'Abscent' : `${data.status.toLowerCase()} since ${data.Time}`}
               </Typography>
             </div>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          </ExpansionPanelSummary>)}
+          {data.profile!=null &&(<ExpansionPanelDetails>
           <div>
             <Button  raised="true"className={classes.numbersButton}  disabled >
               <Phone  className={classes.leftIcon} />
@@ -100,7 +102,7 @@ class AttendeeCard extends React.Component {
              الاطلاع على التحركات
             </Button></Link>
           </div>
-          </ExpansionPanelDetails>
+          </ExpansionPanelDetails>)}
         </ExpansionPanel>
       </div>
     );

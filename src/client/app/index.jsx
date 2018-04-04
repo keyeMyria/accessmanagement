@@ -67,12 +67,11 @@ const link = ApolloLink.split(
 
 const cache = new InMemoryCache(window.__APOLLO_STATE);
 
-export const client = new ApolloClient({
+export  const client = new ApolloClient({
   link: concat(authMiddleware, link ),
   cache:cache
 
 });
-
 const composeEnhancers =
   typeof window === 'object' &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
@@ -97,3 +96,4 @@ ReactDOM.render(<Provider store={store}>
         <App />
     </ApolloProvider></Provider>, document.getElementById('app'));
 registerServiceWorker();
+export default client;

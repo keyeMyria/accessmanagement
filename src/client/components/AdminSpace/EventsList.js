@@ -123,7 +123,7 @@ class EventsList extends React.Component {
 					{EventStore.unfiltered_events.map((item) => <EventCard {...item} key={item._id} form={form} handleOpen={this.openDialog}/>)}
 				</ul>
 				<Button
-					fab
+					 fab={true} 
 					color="secondary"
 					aria-label="add new event"
 					onClick={this.handleAddEvent}

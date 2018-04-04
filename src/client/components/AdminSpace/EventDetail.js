@@ -332,7 +332,7 @@ class EventDetail extends React.Component {
 
 					<div className={classes.container}>
 						<div className={classes.header}>
-							<Button fab raised="true" className="editButton" onClick={this.handleClickOpenEditEvent}>
+							<Button  fab={true}  raised="true" className="editButton" onClick={this.handleClickOpenEditEvent}>
 								<ModeEditIcon className={classes.editIcon} />
 							</Button>
 							<h2 className={classes.title}>{event.title}</h2>
