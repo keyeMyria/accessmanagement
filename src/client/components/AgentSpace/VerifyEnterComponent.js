@@ -16,7 +16,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import { compose } from 'react-apollo';
 import classNames from 'classnames';
 import Avatar from 'material-ui/Avatar';
-
+import QRcodeUnknown from './vendor/QRcodeUnknown.svg';
 import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
@@ -78,6 +78,11 @@ const styles = theme => ({
   profileCin:{
     fontSize: '18px',
     color: '#212121',
+  },
+  msgError:{
+    'font-size': '36px',
+    color: '#757575',
+    height: '50px',
   },
 });
 const role = localStorage.getItem('role');
@@ -152,14 +157,10 @@ handleIconButtonRequestOpen = () => {
       return(<div className={classes.root}><CircularProgress  color="primary" className={classes.progressCircle} /></div>);
     if(userToEnter.userId==null){
         return(
-          <SnackbarContent
-         className={classes.snackbar}
-         message={
-           'The QRcode of this person is unknown. \
-           Please contact an orgonizer before allowing the passage'
-         }
-
-       />
+          <div>
+            <QRcodeUnknown/>
+            <p className={classNames(classes.msgError)}>  رمز هذا الشخص غير معروف </p>
+          </div>
         );
     }
     else{

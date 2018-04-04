@@ -7,6 +7,7 @@ import Badge from 'material-ui/Badge';
 import Tooltip from 'material-ui/Tooltip';
 import NotificationsActive from 'material-ui-icons/NotificationsActive';
 import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
@@ -20,7 +21,6 @@ import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 import QRcodeUnknown from './vendor/QRcodeUnknown.svg';
-import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   root: {
@@ -73,6 +73,11 @@ const styles = theme => ({
   profileCin:{
     'font-size': '18px',
     color: '#212121',
+  },
+  msgError:{
+    'font-size': '36px',
+    color: '#757575',
+    height: '50px',
   },
 });
 const role = localStorage.getItem('role');
@@ -148,12 +153,8 @@ class VerifyExitComponent extends React.Component{
     if(userToEnter.userId==null){
         return(
           <div>
-          {
-          // <Typography variant="display3" gutterBottom>
-          //   رمز هذا الشخص غير معروف
-          // </Typography>
-        }
           <QRcodeUnknown/>
+          <p className={classNames(classes.msgError)}>  رمز هذا الشخص غير معروف </p>
           </div>
         );
     }
@@ -198,7 +199,7 @@ class VerifyExitComponent extends React.Component{
               />
               <span className={classNames(classes.styleCommun , classes.profileName)}>
               {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
-              <span className={classNames(classes.styleCommun , classes.profileFunction)}>
+              <span className={classNames(classes.styleCommun , classes.profileFunctionmsgError)}>
               {this.props.userToEnter.userId.profile.function}
               </span>
             </div>
