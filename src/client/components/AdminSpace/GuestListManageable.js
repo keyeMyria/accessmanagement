@@ -341,11 +341,11 @@ getDataUri = (id , callback) =>{
   //url = 'remy.jpg';
     var img = document.getElementById(`avatar_${id}`);
       var canvas = document.getElementById(`canvas_${id}`);
-      canvas.width = this.naturalWidth; 
+      canvas.width = this.naturalWidth;
       canvas.height = this.naturalHeight;
       canvas.getContext('2d').drawImage(img, 0, 0);
       console.log(canvas)
-     
+
      callback(canvas.toDataURL('image/png'));
 
 }
@@ -364,7 +364,7 @@ getDataUri = (id , callback) =>{
 
       var dataURL = canvas.toDataURL("image/png");
        callback(dataURL)
-      
+
   };
 
   img.src = url;
