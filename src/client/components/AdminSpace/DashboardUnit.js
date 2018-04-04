@@ -72,13 +72,13 @@ class DashboardUnit extends React.Component{
     super(props);
     props.SessionStore.setSessionId(props.details._id);
 		props.SessionStore.subscribe(props.details._id)
-    
+
   }
   getUsersStatistics =()=>{
     let in_length = this.props.SessionStore.sessions[this.props.details._id]["in"]["data"]["getSessionStats"];
     let out_length = this.props.SessionStore.sessions[this.props.details._id]["out"]["data"]["getSessionStats"];
     let abscent_length = this.props.SessionStore.sessions[this.props.details._id]["abscent"]["data"]["getSessionStats"];
-    
+
     let data = [{name: 'indoor', value: in_length}, {name: 'Abscent', value:abscent_length},
                   {name: 'outdoor', value:out_length }]
 
@@ -116,9 +116,11 @@ class DashboardUnit extends React.Component{
                     {
                       data.map((entry, index) => <Cell key={`second_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
                     }
-
                     <Label width={30} position="center"
-                      content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `} value1=" الوقت المنقضي"/>}>
+                      content={<CustomLabel value1={`الوقت المنقضي`}/>}>
+                    </Label>
+                    <Label width={30} position="center"
+                      content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `}/>}>
                     </Label>
                   </Pie>
                   <Tooltip/>

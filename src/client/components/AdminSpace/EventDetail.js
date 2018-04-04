@@ -180,7 +180,7 @@ class EventDetail extends React.Component {
 		// WorkshopStore.getWorkshopsForEvent(props.match.params.id);
 		UserStore.getUsers();
 		WorkshopStore.setSelectedWorkShopEvent(props.match.params.id);
-		props.EventStore.setEventId(props.match.params.id);    
+		props.EventStore.setEventId(props.match.params.id);
 	}
 
 	handleClickOpen = () => {
@@ -267,7 +267,7 @@ class EventDetail extends React.Component {
 							<Button onClick={this.handleClose}>إلغاء</Button>
 						</DialogActions>
 					</Dialog>
-	
+
 					<Dialog fullScreen open={this.state.open} onClose={this.handleClose} transition={Transition}>
 						<AppBar className={classes.appBar}>
 							<Toolbar>
@@ -292,7 +292,7 @@ class EventDetail extends React.Component {
 							<Button onClick={this.handleClose}>إلغاء</Button>
 						</DialogActions>
 					</Dialog>
-	
+
 					<Dialog
 						fullScreen
 						open={this.state.open_workshop}
@@ -329,7 +329,7 @@ class EventDetail extends React.Component {
 							<Button onClick={this.handleCloseWorkshop}>إلغاء</Button>
 						</DialogActions>
 					</Dialog>
-	
+
 					<div className={classes.container}>
 						<div className={classes.header}>
 							<Button  fab={true}  raised="true" className="editButton" onClick={this.handleClickOpenEditEvent}>
@@ -347,7 +347,7 @@ class EventDetail extends React.Component {
 								<AccountCircle /> {event.numberAttendies} الحضور المتوقع{' '}
 							</p>
 						</div>
-	
+
 						<Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
 							<div className={classes.AddButton}>
 								<Add />
@@ -376,24 +376,23 @@ class EventDetail extends React.Component {
 									<div key={item._id} className={classes.listWorkshop}>
 										<ListItem className={classes.sessionItem}>
 											<div className={classes.datEntreSorti}>
-												<ListItemText primary="General Session" />
-	
+												<ListItemText primary="جلسة عامة" />
+
 												<div className={classes.generalSessionitem}>
 													<div className={classes.sessionitemTime}>
 														<div>
 															<AccessTime className={classes.sessionitemTimeIcon} />
-															{`التوقيت : من ${dateFormat(item.start_hour, 'HH:mm')} `}
+															{` أفتتحت من الساعة ${dateFormat(item.start_hour, 'HH:mm')} `}
 														</div>
 														{item.stat == 'OFF' && (
-															<div className={classes.sessionitemTimeEnd}>{`الى ${dateFormat(
-																item.end_hour,
-																'HH:mm'
-															)}`}</div>
+															<div className={classes.sessionitemTimeEnd}>
+															{` اغلقت على الساعة ${dateFormat(item.end_hour,'HH:mm')}`}
+															</div>
 														)}
 													</div>
 												</div>
 											</div>
-	
+
 											{item.stat == 'ON' && (
 												<Button
 													onClick={() => this.stopSessionAction(item._id)}
@@ -490,7 +489,7 @@ class EventDetail extends React.Component {
 				</div>
 			);
 		}
-		
+
 	}
 }
 export default withStyles(styles)(EventDetail);
