@@ -67,8 +67,8 @@ class EventCard extends React.Component {
 						<p className="desc">
 							{' '}
 							من {dateFormat(this.props.start_date, 'dd/mm/yyyy')} ,{' '}
-							{dateFormat(this.props.start_date, 'hh:mm')} الى{' '}
-							{dateFormat(this.props.end_date, 'dd/mm/yyyy')} , {dateFormat(this.props.end_date, 'hh:mm')}
+							{dateFormat(this.props.start_date, 'HH:mm')} الى{' '}
+							{dateFormat(this.props.end_date, 'dd/mm/yyyy')} , {dateFormat(this.props.end_date, 'HH:mm')}
 						</p>
 						<p className="desc">
 							<AccountCircle className="accountIcon" /> الحضور المتوقع {this.props.numberAttendies}

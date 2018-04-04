@@ -65,7 +65,7 @@ class SessionActivity extends React.Component{
             return(
             <div key={entry.entryId}><ListItem  dense>
                 <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
-                <ListItemText secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('hh:mm:ss')}`}  />
+                <ListItemText secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}`}  />
                 <ListItemText primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
                 <ListItemText secondary={`${entry.action=="IN" ? "joined" : "left"} the conference`  }/>
                 {entry.agent &&(<ListItemText secondary={`Registered By ${entry.agent.username}`  }/>)}

@@ -125,14 +125,14 @@ class AgentDashboard extends React.Component{
                 <span className={classes.timeDetailText}>
                 البداية
                 </span>
-                <span className={classes.timeDetailHour}>{moment(session.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+                <span className={classes.timeDetailHour}>{moment(session.start_hour).utcOffset(1, true).format('HH:mm')}</span>
               </div>
               {(session.end_hour!=null)&&(
                 <div className={classes.timeDetail} style={{...styleEndTime}}>
                   <span className={classes.timeDetailText}>
                     النهاية
                   </span>
-                  <span className={classes.timeDetailHour}>{moment(session.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+                  <span className={classes.timeDetailHour}>{moment(session.end_hour).utcOffset(1, true).format('HH:mm')}</span>
               </div>)}
             </div>
                 {

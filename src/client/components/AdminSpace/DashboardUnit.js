@@ -138,14 +138,14 @@ class DashboardUnit extends React.Component{
                       <span className={classes.timeDetailText}>
                       البداية
                       </span>
-                      <span className={classes.timeDetailHour}>{moment(details.start_hour).utcOffset(1, true).format('hh:mm')}</span>
+                      <span className={classes.timeDetailHour}>{moment(details.start_hour).utcOffset(1, true).format('HH:mm')}</span>
                     </div>
                     {(details.end_hour!=null)&&(
                       <div className={classes.timeDetail} style={{...styleEndTime}}>
                         <span className={classes.timeDetailText}>
                           النهاية
                         </span>
-                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('hh:mm')}</span>
+                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('HHS:mm')}</span>
                     </div>)}
                   </div>
                       {
