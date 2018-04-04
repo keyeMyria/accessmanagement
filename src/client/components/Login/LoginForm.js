@@ -113,7 +113,6 @@ class SignInForm extends React.Component{
   render(){
     const { handleSubmit , classes , username } = this.props;
     const errors = this.props.errors <= 0 ? null : renderErrors(this.props.errors);
-    console.log(errors)
     return (
         <form onSubmit={handleSubmit}
         className={classes.formLogin}

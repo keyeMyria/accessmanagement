@@ -17,6 +17,7 @@ import  {PieChart, Pie, Legend} from 'recharts';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import {observer } from 'mobx-react';
+import { default as TouchBackend } from 'react-dnd-touch-backend';
 import SessionStore from '../../mobx/sessionstore';
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
@@ -56,7 +57,7 @@ const styles = theme => ({
 });
 const sessions =[];
 const agents = [];
-@DragDropContext(HTML5Backend)
+@DragDropContext(TouchBackend)
 @observer
 class AgentList extends React.Component {
 constructor(props){
@@ -202,7 +203,7 @@ addUnaffectedAgentBox =(data)=>{
                      </Dialog>
                    }
                      {
-                       <Button fab color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
+                       <Button  fab={true}  color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
                        <Add style={{
                          color:'#ffff',
                        }}/>
@@ -253,7 +254,7 @@ addUnaffectedAgentBox =(data)=>{
     					))}
     				</div>
             {
-              <Button fab color="secondary" aria-label="add new agent" onClick={this.handleAddAgent} className={classes.addButton}>
+              <Button  fab={true}  color="secondary" aria-label="add new agent" onClick={this.handleAddAgent} className={classes.addButton}>
               <Add style={{
                 color:'#ffff',
               }}/>

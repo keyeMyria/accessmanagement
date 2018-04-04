@@ -16,7 +16,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 useStrict(true);
 const fetch = createApolloFetch({
-  uri: DOMAIN_PATH,
+  uri: REMOTE_DOMAIN_PATH,
 });
 
 const link = ApolloLink.split(
