@@ -66,6 +66,9 @@ class SessionStore {
       },
       get getSessionStatsAbscent(){
         return this.sessions[this.sessionid]["abscent"]=graphql({ client, query: getSessionStats , variables:{sessionId:this.sessionid , status:"ABSCENT"}})         
+      },
+      get getSessionStatsIntruders(){
+        return this.sessions[this.sessionid]["intruders"]=graphql({ client, query: getSessionStats , variables:{sessionId:this.sessionid , status:"INTRU"}})         
       }
     })
     

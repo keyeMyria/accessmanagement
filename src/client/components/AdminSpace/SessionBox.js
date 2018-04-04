@@ -91,13 +91,13 @@ class SessionBox extends Component {
 				{(data!=null && data.workshop==null)&&(
 					<div style={{...textStyle}}>
 						<p style={{...titleBox}}>جلسة عامة</p>
-						<p style={{...descBox}}> بدأت الجلسة على الساعة {moment(data.start_hour).utcOffset(1, true).format('hh:mm')}</p>
+						<p style={{...descBox}}> بدأت الجلسة على الساعة {moment(data.start_hour).utcOffset(1, true).format('HH:mm')}</p>
 					</div>
 				)}
 				{(data!=null && data.workshop!=null)&&(
 					<div style={{...textStyle}}>
 						<p style={{...titleBox}}>{data.workshop.name}</p>
-						<p style={{...descBox}}>  بدأت الجلسة على الساعة  {moment(data.start_hour).utcOffset(1, true).format('hh:mm')}</p>
+						<p style={{...descBox}}>  بدأت الجلسة على الساعة  {moment(data.start_hour).utcOffset(1, true).format('HH:mm')}</p>
 					</div>
 				)}
 				{cards.map((card, i) => {

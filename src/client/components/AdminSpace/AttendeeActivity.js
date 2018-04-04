@@ -61,7 +61,7 @@ const styles = theme => ({
           {this.props.data.activity.map(value => (
             <div><ListItem key={value.id} dense>
               <Avatar src={`${REMOTE_ASSETS_PATH}/${value.user.profile.avatar}`} />
-              <ListItemText secondary={`${dateFormat(value.dateEntry , 'hh:mm:ss')}`} />
+              <ListItemText secondary={`${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
               <ListItemText primary={`${value.user.profile.name} ${value.user.profile.forname}`} />
               <ListItemText secondary={`${value.action=="IN" ? "joined" : "left"} the conference`  }/>
               {value.agent &&(<ListItemText secondary={`Registered By ${value.agent.username}`  }/>)}

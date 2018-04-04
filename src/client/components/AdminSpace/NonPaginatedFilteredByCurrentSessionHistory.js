@@ -57,7 +57,7 @@ let virtualizingList = []
            content = virtualizingList[index].node
            rendered_content = <div key={`item_${content.entryId}`  }><ListItem key={content.entryId} dense>
                                   <Avatar alt="" src={`../assets/avatars/${content.user.profile.avatar}`} />
-                                  <ListItemText secondary={`${dateFormat(content.dateEntry , 'hh:mm:ss')}`} />
+                                  <ListItemText secondary={`${dateFormat(content.dateEntry , 'HH:mm:ss')}`} />
                                   <ListItemText primary={`${content.user.profile.name} ${content.user.profile.forname}`} />
                                   <ListItemText secondary={`${content.action=="IN" ? "joined" : "left"} the conference`  }/>
                                   {content.agent &&(<ListItemText secondary={`Registered By ${content.agent.username}`  }/>)}

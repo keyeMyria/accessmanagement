@@ -120,26 +120,13 @@ class VerifyExitComponent extends React.Component{
     this.setState({ open: true });
   };
   handleEnter = async () => {
-    // let id = this.props.match.params.id ;
     let id = this.props.userToEnter.userId._id;
 
     let status = "OUT";
     let agent = localStorage.getItem('loogedin_id');
+    await UserStore.alterGuestStatus(id , status , agent)
+    this.props.history.push('/agent');
 
-          await UserStore.alterGuestStatus(id , status , agent)
-          // .then(res=>{
-            this.props.history.push('/agent');
-          // });
-  //   await this.props.updateUserStatus({
-  //   variables: {
-  //     id ,
-  //     status,
-  //     agent
-  //
-  //   }
-  // }).then(res=>{
-  //   this.props.history.push('/agent');
-  // })
 }
   render(){
     const {userToEnter , classes} = this.props;

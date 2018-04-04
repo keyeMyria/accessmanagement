@@ -382,12 +382,12 @@ class EventDetail extends React.Component {
 													<div className={classes.sessionitemTime}>
 														<div>
 															<AccessTime className={classes.sessionitemTimeIcon} />
-															{`التوقيت : من ${dateFormat(item.start_hour, 'hh:mm')} `}
+															{`التوقيت : من ${dateFormat(item.start_hour, 'HH:mm')} `}
 														</div>
 														{item.stat == 'OFF' && (
 															<div className={classes.sessionitemTimeEnd}>{`الى ${dateFormat(
 																item.end_hour,
-																'hh:mm'
+																'HH:mm'
 															)}`}</div>
 														)}
 													</div>
@@ -470,12 +470,12 @@ class EventDetail extends React.Component {
 														<div className={classes.sessionitemTime}>
 															<div>
 																<AccessTime className={classes.sessionitemTimeIcon} />
-																{`التوقيت : من ${dateFormat(lol.start_hour, 'hh:mm')}`}
+																{`التوقيت : من ${dateFormat(lol.start_hour, 'HH:mm')}`}
 															</div>
 															{lol.stat == 'OFF' && (
 																<div
 																	className={classes.sessionitemTimeEnd}
-																>{`الى ${dateFormat(lol.end_hour, 'hh:mm')}`}</div>
+																>{`الى ${dateFormat(lol.end_hour, 'HH:mm')}`}</div>
 															)}
 														</div>
 													</div>

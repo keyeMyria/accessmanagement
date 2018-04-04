@@ -211,7 +211,7 @@ class UserStore {
 
       }
     }).then(res=>{
-      //console.log(res)
+      console.log(res)
     })
   }
   @action addAgent=(data)=>{
