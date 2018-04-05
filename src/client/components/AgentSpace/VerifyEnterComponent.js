@@ -114,7 +114,7 @@ class VerifyEnterComponent extends React.Component{
     };
 
   componentDidUpdate(props){
-    if(this.props.userToEnter.hasOwnProperty('userId')&&this.props.userToEnter.userId.status=='IN' && this.state.open==false && this.state.displayed==false){
+    if(this.props.userToEnter.userId!=null &&this.props.userToEnter.userId.status=='IN' && this.state.open==false && this.state.displayed==false){
       this.setState({
         open:true ,
         displayed : true
