@@ -344,7 +344,7 @@ class EventDetail extends React.Component {
 							</p>
 							<p className={classes.numberAttend}>
 								{' '}
-								<AccountCircle /> {event.numberAttendies} الحضور المتوقع{' '}
+								<AccountCircle /> {event.guests_number} الحضور المتوقع{' '}
 							</p>
 						</div>
 
