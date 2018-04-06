@@ -84,7 +84,8 @@ class SignInForm extends React.Component{
   renderTextField = ({
     input,
     label,
-    type
+    type,
+    autoFocus
   }) =>{
     return (
 
@@ -101,6 +102,7 @@ class SignInForm extends React.Component{
         <Input
                   type={type}
                   {...input}
+                  autoFocus={autoFocus}
                    classes={{
                     inkbar: this.props.classes.inputInkbar
                     }}
@@ -119,7 +121,7 @@ class SignInForm extends React.Component{
         >
           <div className={classes.msgError}>{errors}</div>
           {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
-          {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" />)}
+          {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" autoFocus />)}
           <Field name="password" type="password" component={this.renderTextField} label="كلمة  المرور" />
           <Button raised="true" type="submit" className="btn btn-primary" style={buttonLogin}> الدخول </Button>
         </form>
