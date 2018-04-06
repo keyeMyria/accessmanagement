@@ -27,6 +27,19 @@ const styles = theme => ({
   },
   OUT:{
     fill :"#ef4035",
+  },
+  nameProfil:{
+    flexGrow:'2',
+    maxWidth: '408px',
+  },
+  ListProfil:{
+    backgroundColor:"#fff",
+  },
+  List:{
+    marginTop: '10px',
+  },
+  listeItem:{
+    flexGrow: '1',
   }
    });
 // @observer
@@ -60,15 +73,16 @@ class SessionActivity extends React.Component{
     const {classes} = this.props;
     if(this.props.data.activitylistbysessionID!=null){
       return(<div>
-        <ul>
+        <ul className={classes.List}>
           {this.props.data.activitylistbysessionID.map(entry=>{
             return(
-            <div key={entry.entryId}><ListItem  dense>
+            <div key={entry.entryId}>
+             <ListItem className={classes.ListProfil} dense>
                 <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
-                <ListItemText secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}`}  />
-                <ListItemText primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
-                <ListItemText secondary={`${entry.action=="IN" ? "joined" : "left"} the conference`  }/>
-                {entry.agent &&(<ListItemText secondary={`Registered By ${entry.agent.username}`  }/>)}
+                <ListItemText className={classes.listeItem} secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}`}  />
+                <ListItemText className={classes.nameProfil} primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
+                <ListItemText className={classes.listeItem} secondary={`${entry.action=="IN" ? " حاضر داخل " : "غادر(ت)"} الجلسة `  }/>
+                {entry.agent &&(<ListItemText className={classes.listeItem} secondary={` مسجل بواسطة :  ${entry.agent.username}`  }/>)}
                 <DirectionsRun className={classes[entry.action]}/>
               </ListItem>
               <Divider inset/></div>
