@@ -54,7 +54,7 @@ class EventDashboard extends React.Component{
         </div>
           {(event.session_collection!== undefined)&&
             event.session_collection.map(gen_session=>{
-              return(<DashboardUnit key={gen_session._id} details={gen_session} />);
+              return(<DashboardUnit key={gen_session._id} details={gen_session} size={event.guests_number} />);
             })}
           {(event.workshops!== undefined)&& event.workshops.map(work=>{
               //work.session_list.map(session=>{

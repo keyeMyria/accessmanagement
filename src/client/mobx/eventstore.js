@@ -51,7 +51,6 @@ const  getEventById = gql`query getEventByID($eventid:String!) {
     place   
     start_date
     end_date
-    numberAttendies
     session_empty
     session_collection{
       title
@@ -97,7 +96,6 @@ const getFullEventById=gql`query getEventByID($eventid:String!) {
     place   
     start_date
     end_date
-    numberAttendies
     session_empty
     session_collection{
       title
@@ -130,7 +128,7 @@ const getFullEventById=gql`query getEventByID($eventid:String!) {
       }
 
     }
-
+    guests_number
   }
 }`
 
