@@ -82,13 +82,16 @@ class AttendeeCard extends React.Component {
         <ExpansionPanel className={classes.expandedPanelContainer}>
         {data.profile!=null &&( <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}  style={ExpansionContainer}>
           <Avatar src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} style={avatarExpansion}/>
-            
+
             <div>
               <Typography type="title" gutterBottom>
                 {data.profile.name} {data.profile.forname}
               </Typography>
               <Typography type="subheading" gutterBottom style={subheading}>
-                { data.status=='ABSCENT' ? 'Abscent' : `${data.status.toLowerCase()} since ${data.Time}`}
+                { data.status == 'ABSCENT'&& 'غائب (ة)'}
+                {console.log (data.status)}
+                { data.status == 'IN' && 'حاضر (ة) داخل القاعة'}
+                { data.status == 'OUT' && 'غادر (ة) القاعة'}
               </Typography>
             </div>
           </ExpansionPanelSummary>)}
@@ -98,9 +101,11 @@ class AttendeeCard extends React.Component {
               <Phone  className={classes.leftIcon} />
               {data.profile.tel}
             </Button>
-            <Link to={`/useractivity/${data._id}`}><Button  raised="true"color="secondary" ><SwapHoriz  className={classes.leftIcon} />
-             الاطلاع على التحركات
-            </Button></Link>
+            <Link to={`/useractivity/${data._id}`}>
+              <Button  raised="true"color="secondary" ><SwapHoriz  className={classes.leftIcon} />
+               الاطلاع على التحركات
+              </Button>
+            </Link>
           </div>
           </ExpansionPanelDetails>)}
         </ExpansionPanel>

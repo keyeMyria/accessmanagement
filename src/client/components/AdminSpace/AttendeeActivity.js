@@ -34,6 +34,9 @@ const styles = theme => ({
   progressCircle:{
     margin: '16px 0 0 0',
   },
+  ListProfil:{
+    backgroundColor:"#fff",
+  },
 });
  class AttendeeActivity  extends React.Component{
   render(){
@@ -59,7 +62,8 @@ const styles = theme => ({
     return(<div className={classes.root}>
         <List>
           {this.props.data.activity.map(value => (
-            <div><ListItem key={value.id} dense>
+            <div>
+            <ListItem className={classes.ListProfil} key={value.id} dense>
               <Avatar src={`${REMOTE_ASSETS_PATH}/${value.user.profile.avatar}`} />
               <ListItemText secondary={`${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
               <ListItemText primary={`${value.user.profile.name} ${value.user.profile.forname}`} />
