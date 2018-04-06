@@ -17,6 +17,7 @@ export default observer(({ field, placeholder = null }) => (
      {...field.bind()}
      helperText={field.error}
      value={field.value}
+     defaultValue={field.default}
    />
   </div>
 ));

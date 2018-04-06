@@ -104,7 +104,7 @@ class MaterialDatePicker extends Component {
 
   render() {
     const { selectedDate } = this.state;
-    const {name} = this.props;
+    const {name , minDate} = this.props;
     return (
       <Fragment>
         <div className="picker">
@@ -112,6 +112,7 @@ class MaterialDatePicker extends Component {
             autoSubmit={false}
             value={selectedDate}
             name={name}
+            minDate={minDate}
             onChange={this.handleDateChange}
             renderDay={this.renderCustomDayForDateTime}
             leftArrowIcon= {<KeyboardArrowLeft />}

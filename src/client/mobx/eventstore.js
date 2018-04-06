@@ -54,6 +54,7 @@ const  getEventById = gql`query getEventByID($eventid:String!) {
     numberAttendies
     session_empty
     session_collection{
+      title
       _id
       start_hour
       end_hour
@@ -69,6 +70,7 @@ const  getEventById = gql`query getEventByID($eventid:String!) {
       session_empty
       session_list {
         _id
+        title
         start_hour
         end_hour
         stat
@@ -98,6 +100,7 @@ const getFullEventById=gql`query getEventByID($eventid:String!) {
     numberAttendies
     session_empty
     session_collection{
+      title
       _id
       start_hour
       end_hour
@@ -113,6 +116,7 @@ const getFullEventById=gql`query getEventByID($eventid:String!) {
       session_empty
       session_list {
         _id
+        title
         start_hour
         end_hour
         stat
@@ -338,20 +342,21 @@ class EventStore {
           /**
           startSessionForEvent implementation
           **/
-          @action startSessionForEvent(eventid){
+          @action startSessionForEvent(data){
             fetch({
-              query :`mutation addSessionForEvent($eventid :String!){
-                addSessionForEvent(eventid : $eventid){
+              query :`mutation addSessionForEvent($eventid :String! , $title:String!){
+                addSessionForEvent(eventid : $eventid , title:$title){
                   _id
                   start_hour
                   stat
                 }
               }` ,
               variables :{
-                eventid : eventid
+                eventid : data.eventid,
+                title:data.title
               }
             }).then(res=>{
-              this.getEventByID(eventid)
+              this.getEventByID(data.eventid)
             })
           }
           @action stopSessionForEvent(sessionid , eventid){

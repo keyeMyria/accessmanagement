@@ -62,7 +62,6 @@ class EventsList extends React.Component {
 		});
 	};
 	filterEventByCurrentDate = (type) => {
-		console.log(type);
 		EventStore.filterEventByCurrentDate(type);
 	};
 	// componentDidMount=()=>{
@@ -123,7 +122,7 @@ class EventsList extends React.Component {
 					{EventStore.unfiltered_events.map((item) => <EventCard {...item} key={item._id} form={form} handleOpen={this.openDialog}/>)}
 				</ul>
 				<Button
-					 fab={true} 
+					  variant="fab"  
 					color="secondary"
 					aria-label="add new event"
 					onClick={this.handleAddEvent}

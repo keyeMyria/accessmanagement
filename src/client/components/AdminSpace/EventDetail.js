@@ -30,7 +30,10 @@ import LectureIcon from './vendor/lecture.svg';
 import WorkShopForm from './addWorkShopForm';
 import Add from 'material-ui-icons/Add';
 import formEdit from '../../mobx/forms/addevent';
+import formSessionAdd from '../../mobx/forms/addSession';
+
 import Form from './addEventForm';
+import SessionForm from './addSessionForm'
 const styles = (theme) => ({
 	container: {},
 	progressCircle: {
@@ -236,6 +239,9 @@ class EventDetail extends React.Component {
 		this.handleCloseWorkshop();
 		WorkshopStore.getWorkshopsForEvent(this.props.match.params.id);
 	};
+	handleAddSessionForEvent=(event , form)=>{
+		form.onSubmit(event)
+	}
 	render() {
 		const workshoplist = WorkshopStore.workshops;
 		 event = this.props.EventStore.getEventByIdExecute.data.getEventByID;
@@ -281,12 +287,10 @@ class EventDetail extends React.Component {
 						</AppBar>
 						<div>
 							<PlayButton className={classes.icon} />
-							<Typography type="display1" className={classes.titleDialogContent}>
-								جلسة عامة جديدة
-							</Typography>
+							<SessionForm form={formSessionAdd} eventid={event._id} />
 						</div>
 						<DialogActions>
-							<Button raised="true" color="secondary" onClick={this.startSessionAction}>
+							<Button raised="true" color="secondary" onClick={(e)=>this.handleAddSessionForEvent(e ,formSessionAdd)}>
 								تسجيل
 							</Button>
 							<Button onClick={this.handleClose}>إلغاء</Button>
@@ -332,7 +336,7 @@ class EventDetail extends React.Component {
 
 					<div className={classes.container}>
 						<div className={classes.header}>
-							<Button  fab={true}  raised="true" className="editButton" onClick={this.handleClickOpenEditEvent}>
+							<Button   variant="fab"   raised="true" className="editButton" onClick={this.handleClickOpenEditEvent}>
 								<ModeEditIcon className={classes.editIcon} />
 							</Button>
 							<h2 className={classes.title}>{event.title}</h2>
@@ -376,7 +380,7 @@ class EventDetail extends React.Component {
 									<div key={item._id} className={classes.listWorkshop}>
 										<ListItem className={classes.sessionItem}>
 											<div className={classes.datEntreSorti}>
-												<ListItemText primary="جلسة عامة" />
+												<ListItemText primary={item.title} />
 
 												<div className={classes.generalSessionitem}>
 													<div className={classes.sessionitemTime}>

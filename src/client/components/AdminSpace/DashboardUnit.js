@@ -132,7 +132,7 @@ class DashboardUnit extends React.Component{
                     {name}
                   </Typography>
                   <div className={classes.ChartInfos}>
-                    <Button  fab={true}   disabled><QueryBuilder color="action"/>
+                    <Button   variant="fab"    disabled><QueryBuilder color="action"/>
                     </Button>
                     <div className={classes.timeDetail}>
                       <span className={classes.timeDetailText}>
@@ -150,7 +150,7 @@ class DashboardUnit extends React.Component{
                   </div>
                       {
                         (details.users!=undefined)&&(<div  className={classes.ChartInfos}>
-                      <Button  fab={true}   disabled>
+                      <Button   variant="fab"    disabled>
                         <People color="action"/>
                       </Button>
 
@@ -177,7 +177,7 @@ class DashboardUnit extends React.Component{
   render(){
     const {classes , details , key} = this.props;
     if(this.props.SessionStore.sessions[details._id]!=undefined)
-        return(<div>{this.buildContentBasedOnData(details , classes ,details.name!=undefined ? details.name : "جلسة عامة")}</div>)
+        return(<div>{this.buildContentBasedOnData(details , classes ,details.title!=undefined ? details.title : "جلسة عامة")}</div>)
     else{
       return(	<div>
         <CircularProgress color="primary" />

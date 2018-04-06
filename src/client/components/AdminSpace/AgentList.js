@@ -203,7 +203,7 @@ addUnaffectedAgentBox =(data)=>{
                      </Dialog>
                    }
                      {
-                       <Button  fab={true}  color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
+                       <Button   variant="fab"   color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
                        <Add style={{
                          color:'#ffff',
                        }}/>
@@ -254,7 +254,7 @@ addUnaffectedAgentBox =(data)=>{
     					))}
     				</div>
             {
-              <Button  fab={true}  color="secondary" aria-label="add new agent" onClick={this.handleAddAgent} className={classes.addButton}>
+              <Button   variant="fab"   color="secondary" aria-label="add new agent" onClick={this.handleAddAgent} className={classes.addButton}>
               <Add style={{
                 color:'#ffff',
               }}/>
