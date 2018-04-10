@@ -1,17 +1,30 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+import { withStyles } from 'material-ui/styles';
 import UserStore from '../../mobx/gueststore';
 import List, { ListItem, ListItemSecondaryAction,ListItemIcon, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
+const styles = theme => ({
+  containerLists:{
+    margin:'70px auto',
+    backgroundColor: 'white',
+    width: '95%',
+    boxShadow: '0 1px 0 rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.07)',
+  },
+  profileName:{
+    maxWidth: '500px',
+    marginLeft: '0',
+  },
+});
 
 @observer
 class EnterExitListUser extends React.Component{
   constructor(props){
     super(props)
-    let id = localStorage.getItem('loogedin_id');    
+    let id = localStorage.getItem('loogedin_id');
     UserStore.fetchGuestForAgentWorkshop(id);
     let fetched_user = UserStore.fetchUserRole(id);
     fetched_user.then(res=>{
@@ -25,27 +38,30 @@ class EnterExitListUser extends React.Component{
   }
 
   render(){
-
+    const {classes}=this.props
     if(UserStore.users!=null){
-      return(<div>
-        <List>
+      return(
+        <div>
+        <List className={classes.containerLists}>
         {UserStore.users.map(value => {
           return(
             <div key={value._id}>{value.profile!=null &&(
               <ListItem  dense button>
               <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
-              <ListItemText primary={`${value.profile.name} ${value.profile.forname}`}/>
-              <ListItemText primary={`${value.status}`} />
+              <ListItemText className={classes.profileName} primary={`${value.profile.name} ${value.profile.forname}`}/>
+              <ListItemText primary={value.status== "IN" && ' حاضر(ة) داخل الجلسة' || value.status== "OUT" && ' غادر(ة) الجلسة ' || value.status== "ABSCENT" && ' غائب(ة) '} />
+
               {(this.state.role=='agent_in' || this.state.role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , id , UserStore.selectWorkshopAgent._id )}>
                      دخول
               </Button>)}
               {(this.state.role=='agent_out' || this.state.role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , id , UserStore.selectWorkshopAgent._id)}>
                    خروج
               </Button>)}
-            </ListItem>)}</div>
+            </ListItem>)}
+            </div>
           )
         }
-         
+
         )}
       </List>
   </div>)
@@ -55,4 +71,4 @@ class EnterExitListUser extends React.Component{
 
   }
 }
-export default EnterExitListUser;
+export default withStyles(styles)(EnterExitListUser);
