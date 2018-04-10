@@ -179,11 +179,12 @@ class EventDetail extends React.Component {
 			open_workshop: false,
 			open_edit_event: false
     };
-		 props.handleEventDashboardBottomBarElements(props.match.params.id);
-		// WorkshopStore.getWorkshopsForEvent(props.match.params.id);
+		props.handleEventDashboardBottomBarElements(props.match.params.id);
+		WorkshopStore.getWorkshopsForEvent(props.match.params.id);
 		UserStore.getUsers();
 		WorkshopStore.setSelectedWorkShopEvent(props.match.params.id);
 		props.EventStore.setEventId(props.match.params.id);
+		props.EventStore.getFullEventDetailsByID(props.match.params.id);
 	}
 
 	handleClickOpen = () => {
@@ -240,12 +241,14 @@ class EventDetail extends React.Component {
 		WorkshopStore.getWorkshopsForEvent(this.props.match.params.id);
 	};
 	handleAddSessionForEvent=(event , form)=>{
-		form.onSubmit(event)
+		form.onSubmit(event);
+		this.handleClose();
+		this.props.EventStore.getFullEventDetailsByID(this.props.match.params.id);
+		
 	}
 	render() {
 		const workshoplist = WorkshopStore.workshops;
-		 event = this.props.EventStore.getEventByIdExecute.data.getEventByID;
-
+		 event = EventStore.selectedEvent
 		const { classes } = this.props;
 		if (event == undefined) {
 			return (
@@ -413,13 +416,13 @@ class EventDetail extends React.Component {
 								))}
 							</List>
 						)}
-						{event.workshops !== undefined && (
+						{workshoplist !== undefined && (
 							<List className={classes.containerWorkshop}>
-								{event.workshops.map((item) => (
+								{workshoplist.map((item) => (
 									<div key={item._id} className={classes.listWorkshop}>
 										<ListItem className={classes.workshopItem}>
 											<ListItemText primary={item.name} />
-											{item.session_empty == true && (
+											{item.session_empty == true &&(
 												<Button
 													onClick={() => this.startSessionForWorkshop(item._id)}
 													className={classes.star}
@@ -430,19 +433,12 @@ class EventDetail extends React.Component {
 													</div>
 												</Button>
 											)}
-											{item.session_empty == true &&(
-												<Button
-													onClick={() => this.startSessionForWorkshop(item._id)}
-													className={classes.star}
-												>
-													<div className={classes.startStopSession}>
+											{ `${item._id}_load` ==true &&(<div className={classes.startStopSession}>
 														<CircularProgress
 															className={classes.progressCircle}
 															color="primary"
 														/>
-													</div>
-												</Button>
-											)}
+													</div>)}
 											{item.session_empty == null && (
 												<Button
 													onClick={() => this.startSessionForWorkshop(item._id)}

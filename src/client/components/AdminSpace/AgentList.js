@@ -34,6 +34,9 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import MultiBackend, { TouchTransition } from 'react-dnd-multi-backend';
+
+
 
 const styles = theme => ({
   root: {
@@ -57,8 +60,19 @@ const styles = theme => ({
 });
 const sessions =[];
 const agents = [];
-@DragDropContext(TouchBackend)
-@DragDropContext(HTML5Backend)
+const HTML5toTouch = {
+  backends: [
+    {
+      backend: HTML5Backend
+    },
+    {
+      backend: TouchBackend({enableMouseEvents: true}), // Note that you can call your backends with options
+      preview: true,
+      transition: TouchTransition
+    }
+  ]
+};
+@DragDropContext(MultiBackend(HTML5toTouch))
 @observer
 class AgentList extends React.Component {
 constructor(props){

@@ -93,6 +93,13 @@ class SessionStore {
         this.updateSessionStatsValue(sessionid , "abscent" , subscriptionData.data.refreshedSessionStats.abscent)
       }
     });
+    this.getSessionStatsIntruders.ref.subscribeToMore({
+      document:sessionSubscription ,
+      updateQuery : (current , {subscriptionData})=>{
+        this.updateSessionStatsValue(sessionid , "intruders" , subscriptionData.data.refreshedSessionStats.intruders)
+        
+      }
+    })
    }
    @action updateSessionStatsValue=(sessionid , ref , value)=>{
      console.log(this.sessions[sessionid])

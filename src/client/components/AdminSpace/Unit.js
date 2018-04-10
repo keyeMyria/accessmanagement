@@ -170,6 +170,7 @@ class Unit extends React.Component{
                   <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                   حالة الحضور
                 </Button></Link></div>
+                <p>intrudeers {this.props.SessionStore.sessions[this.props.details._id]["intruders"]["data"]["getSessionStats"]}</p>
                 </div>
               </div>
         </div>

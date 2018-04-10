@@ -346,6 +346,7 @@ class EventStore {
                   session_empty
                   session_collection{
                     _id
+                    title
                     start_hour
                     end_hour
                     stat
@@ -360,6 +361,7 @@ class EventStore {
                     session_empty
                     session_list {
                       _id
+                      title
                       start_hour
                       end_hour
                       stat
@@ -373,7 +375,8 @@ class EventStore {
                     }
 
                   }
-
+                guests_number
+                  
                 }
               }`,
               variables :{
@@ -402,7 +405,7 @@ class EventStore {
                 title:data.title
               }
             }).then(res=>{
-              this.getEventByID(data.eventid)
+              this.getFullEventDetailsByID(data.eventid)
             })
           }
           @action stopSessionForEvent(sessionid , eventid){
@@ -420,7 +423,7 @@ class EventStore {
               }
             }).then(res=>{
               this.initSelectedEventStateOFSession(false);              
-              this.getEventByID(eventid)
+              this.getFullEventDetailsByID(eventid)
             })
           }
           @action deleteEvent(eventid){
