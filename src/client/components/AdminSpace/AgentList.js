@@ -58,6 +58,7 @@ const styles = theme => ({
 const sessions =[];
 const agents = [];
 @DragDropContext(TouchBackend)
+@DragDropContext(HTML5Backend)
 @observer
 class AgentList extends React.Component {
 constructor(props){

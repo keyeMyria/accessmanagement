@@ -85,7 +85,6 @@ class DashboardUnit extends React.Component{
                   return data ;
   }
   buildContentBasedOnData =(details , classes , name , size )=>{
-    console.log(size)
                   const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data;
                   if(details.stat=="OFF")
@@ -146,7 +145,7 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailText}>
                           النهاية
                         </span>
-                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('HHS:mm')}</span>
+                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('HH:mm')}</span>
                     </div>)}
                   </div>
                      <div  className={classes.ChartInfos}>
@@ -176,6 +175,7 @@ class DashboardUnit extends React.Component{
 
   render(){
     const {classes , details , key , size} = this.props;
+    console.log(size)
     if(this.props.SessionStore.sessions[details._id]!=undefined)
         return(<div>{this.buildContentBasedOnData(details , classes ,details.title!=undefined ? details.title : "جلسة عامة" , size)}</div>)
     else{
