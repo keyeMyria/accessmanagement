@@ -26,7 +26,6 @@ const styles = theme => ({
     '-ms-transform': 'rotateY(180deg)',
     '-o-transform': 'rotateY(180deg)',
     'transform': 'rotateY(180deg)',
-
   },
   OUT:{
     fill :"#ef4035",
@@ -36,6 +35,9 @@ const styles = theme => ({
   },
   ListProfil:{
     backgroundColor:"#fff",
+    maxWidth:'1200px',
+    margin:'0 auto 16px',
+    boxShadow:'0 1px 4px 0 rgba(0,0,0,.14)',
   },
 });
  class AttendeeActivity  extends React.Component{
@@ -60,18 +62,25 @@ const styles = theme => ({
   }
   else{
     return(<div className={classes.root}>
-        <List>
+
+
+      {/*<div>
+        <Avatar src={`${REMOTE_ASSETS_PATH}/${value.user.profile.avatar}`} />
+        <h2>`${value.user.profile.name} ${value.user.profile.forname}`</h2>
+      </div>*/}
+
+
+        <List className={classes.ListProfil}>
           {this.props.data.activity.map(value => (
             <div>
-            <ListItem className={classes.ListProfil} key={value.id} dense>
+            <ListItem key={value.id} dense>
               <Avatar src={`${REMOTE_ASSETS_PATH}/${value.user.profile.avatar}`} />
-              <ListItemText secondary={`${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
-              <ListItemText primary={`${value.user.profile.name} ${value.user.profile.forname}`} />
-              <ListItemText secondary={`${value.action=="IN" ? "joined" : "left"} the conference`  }/>
-              {value.agent &&(<ListItemText secondary={`Registered By ${value.agent.username}`  }/>)}
+              <ListItemText secondary={`${value.user.profile.name} ${value.user.profile.forname}`} />
+              <ListItemText primary={`${value.action=="IN" ? "دخل" : "غادر"} الجلسة,  ${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
+              {value.agent &&(<ListItemText secondary={`سجل من قبل ${value.agent.username}`  }/>)}
               <DirectionsWalk className={classes[value.action]}/>
             </ListItem>
-            <Divider inset/></div>
+            </div>
           ))}
         </List>
       </div>)
