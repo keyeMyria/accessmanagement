@@ -85,7 +85,9 @@ const styles = (theme) => ({
 	},
 	attendeesListContainer: {
 		background: '#fff',
-		boxShadow: '0 1px 4px 0 rgba(0,0,0,.14)'
+		boxShadow: '0 1px 4px 0 rgba(0,0,0,.14)',
+		textAlign: 'left',
+		marginBottom: '70px'
 	}
 });
 const id = localStorage.getItem('loogedin_id');
@@ -181,7 +183,7 @@ class Attendies extends React.Component {
 						placeholder="Search Attendies"
 						onChange={this.filterList}
 					/>
-					<List style={{ textAlign: 'right' }} className={classes.attendeesListContainer}>
+					<List className={classes.attendeesListContainer}>
 						{UserStore.users.map((value) => {
 							if (value.profile != null) {
 								return (
@@ -189,9 +191,16 @@ class Attendies extends React.Component {
 										<Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
 										<ListItemText
 											primary={`${value.profile.name} ${value.profile.forname}`}
-											className={classes.listItemText}
-										/>
-										<ListItemText secondary={`${value.status}`} className={classes.listItemText} />
+											className={classes.listItemText}/>
+										{
+										// if (value.status == 'ABSCENT') {
+										// 	<ListItemText secondary={'غائب (ة)'} className={classes.listItemText} />
+										// }else if (value.status == 'IN') {
+										// 	<ListItemText secondary={'حاضر (ة) داخل القاعة'} className={classes.listItemText} />
+										// }else {
+										// 	<ListItemText secondary={'غادر (ة) القاعة'} className={classes.listItemText} />
+										// }
+										}
 										{value.status == 'ABSCENT' ? (
 											<RemoveCircleOutline className={classes.ABSCENT} />
 										) : (

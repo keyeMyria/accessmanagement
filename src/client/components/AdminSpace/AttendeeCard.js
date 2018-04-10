@@ -89,7 +89,6 @@ class AttendeeCard extends React.Component {
               </Typography>
               <Typography type="subheading" gutterBottom style={subheading}>
                 { data.status == 'ABSCENT'&& 'غائب (ة)'}
-                {console.log (data.status)}
                 { data.status == 'IN' && 'حاضر (ة) داخل القاعة'}
                 { data.status == 'OUT' && 'غادر (ة) القاعة'}
               </Typography>

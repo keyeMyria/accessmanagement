@@ -79,8 +79,10 @@ class DashboardUnit extends React.Component{
     let out_length = this.props.SessionStore.sessions[this.props.details._id]["out"]["data"]["getSessionStats"];
     let abscent_length = this.props.SessionStore.sessions[this.props.details._id]["abscent"]["data"]["getSessionStats"];
 
-    let data = [{name: 'indoor', value: in_length}, {name: 'Abscent', value:abscent_length},
-                  {name: 'outdoor', value:out_length }]
+    let data = [
+      {name: 'داخل الورشة', value: in_length},
+      {name: 'غائب', value:abscent_length},
+      {name: 'خارج الورشة', value:out_length }]
 
                   return data ;
   }
@@ -106,7 +108,7 @@ class DashboardUnit extends React.Component{
           <div key={details._id} className={classes.DashboardContainer}>
           <div  className="ChartContainer">
             <div  className="PieContainer">
-                <PieChart width={400} height={400}>
+                <PieChart width={400} height={350}>
                   <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
                     {
                       data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
@@ -125,6 +127,20 @@ class DashboardUnit extends React.Component{
                   </Pie>
                   <Tooltip/>
                 </PieChart>
+                <div className="containerLegand">
+                  <div className="subContaineLegand">
+                    <p>غائب</p>
+                    <div className="legandChart abscent"></div>
+                  </div>
+                  <div className="subContaineLegand">
+                    <p> داخل القاعة </p>
+                    <div  className="legandChart in"></div>
+                  </div>
+                  <div className="subContaineLegand">
+                    <p> غادر القاعة </p>
+                    <div  className="legandChart out"></div>
+                   </div>
+                </div>
               </div>
               <div className="ChartInfosContainer">
                 <div className={classes.cardInfos}>
