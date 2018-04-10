@@ -10,12 +10,38 @@
 }
 
 .ChartInfosContainer, .PieContainer{
-  display:flex;
-  flex-direction: row;
-  width:50%;
-  justify-content:center;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
 }
-
+.legandChart{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 7px;
+}
+.abscent{
+    background-color: #676976;
+}
+.in{
+  background-color: #00abc7;
+}
+.out{
+  background-color: #dcdcdc;
+}
+.subContaineLegand{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+}
+.containerLegand{
+  display: flex;
+  margin-bottom: 50px;
+}
 @media screen and (max-width: 800px) {
   .ChartContainer{
     flex-direction: column;

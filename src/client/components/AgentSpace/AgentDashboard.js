@@ -13,7 +13,7 @@ import '../AdminSpace/vendor/dashboard.css';
 import {Link} from 'react-router-dom';
 import SwapHoriz from 'material-ui-icons/SwapHoriz';
 
-const styles ={
+const styles = theme => ({
   cardInfos:{
     display: 'flex',
     flexDirection: 'column',
@@ -42,16 +42,14 @@ const styles ={
     marginBottom: '5px',
   },
   timeDetailHour: {
-    fontBize: '18pt',
+    fontSize: '18pt',
     fontWeight: '500',
     fontFamily: 'Roboto, arial, sans-serif',
   },
-
-  DashboardContainerAgent: {
+  DashboardContainer: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
+    paddingTop: '70px',
   },
   ChartInfos :{
     display: 'flex',
@@ -60,10 +58,11 @@ const styles ={
     justifyContent: 'center',
     marginBottom: '24px',
   },
-  progressCircle:{
-    margin: '16px 0 0 0',
-  },
-}
+});
+
+const styleEndTime = {
+    borderRight: '1px solid #eee',
+};
 @observer
 class AgentDashboard extends React.Component{
   constructor(props){
@@ -78,40 +77,58 @@ class AgentDashboard extends React.Component{
     const in_guests = _.sumBy(users, i => (i.status==="IN"));
     const out_guests = _.sumBy(users, i => (i.status==="OUT"));
     const abscent_guests = _.sumBy(users, i => (i.status==="ABSCENT"));
-    const data = [{name: 'داخل الجلسة', value: in_guests}, {name: 'Abscent', value: out_guests},
+    const data = [
+                  {name: 'داخل الجلسة', value: in_guests},
+                  {name: 'غائب', value: out_guests},
                   {name: 'خارج الجلسة', value: abscent_guests}]
                   return data ;
   }
   buildDashboard=(users  , session , workshop)=>{
     console.log(users)
     const {classes}=this.props
-      const COLORS = ['#93EB82', '#434348' , '#7EB6EA'];
+      const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
     let data = this.getUsersStatistics(users);
 
     let start = moment(moment(session.start_hour))
     let end = moment(moment.now())
     let difference = moment.duration(end.diff(start))
     return(
-    <div className={classes.DashboardContainerAgent}>
+    <div className={classes.DashboardContainer}>
       <div className="ChartContainer">
         <div  className="PieContainer">
-            <PieChart width={400} height={400}>
-              <Pie data={data} cx="50%" cy="50%" innerRadius={126} outerRadius={130} fill="#00ABC7" label>
+            <PieChart width={400} height={350}>
+              <Pie data={data} cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
                 {
                   data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                 }
-                <Label width={30} position="center"
-                  content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="الوقت المنقضي"/>}>
-                </Label>
               </Pie>
               <Pie data={data} cx="50%" cy="50%" innerRadius={90} outerRadius={115} fill="#00abc7">
                 {
                   data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                 }
+                <Label width={30} position="center"
+                  content={<CustomLabel value1={`الوقت المنقضي`}/>}>
+                </Label>
+                <Label width={30} position="center"
+                  content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `}/>}>
+                </Label>
               </Pie>
-
               <Tooltip/>
             </PieChart>
+            <div className="containerLegand">
+              <div className="subContaineLegand">
+                <p>غائب</p>
+                <div className="legandChart abscent"></div>
+              </div>
+              <div className="subContaineLegand">
+                <p> داخل القاعة </p>
+                <div  className="legandChart in"></div>
+              </div>
+              <div className="subContaineLegand">
+                <p> غادر القاعة </p>
+                <div  className="legandChart out"></div>
+               </div>
+            </div>
           </div>
         <div className="ChartInfosContainer">
           <div className={classes.cardInfos}>
@@ -166,7 +183,7 @@ class AgentDashboard extends React.Component{
       return(<div>{this.buildDashboard(WorkshopStore.users , WorkshopStore.selectedWorkshop.session , WorkshopStore.selectedWorkshop)}</div>)
       else{
         return(<div>You're not allowed to access this ...No Session is active yet</div>)
-        
+
       }
     }else{
       if(WorkshopStore.agent_session!=null){

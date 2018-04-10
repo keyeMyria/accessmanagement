@@ -71,15 +71,17 @@ class Unit extends React.Component{
     super(props);
     props.SessionStore.setSessionId(props.details._id);
     props.SessionStore.subscribe(props.details._id)
-    
+
   }
   getUsersStatistics =()=>{
     let in_length = this.props.SessionStore.sessions[this.props.details._id]["in"]["data"]["getSessionStats"];
     let out_length = this.props.SessionStore.sessions[this.props.details._id]["out"]["data"]["getSessionStats"];
     let abscent_length = this.props.SessionStore.sessions[this.props.details._id]["abscent"]["data"]["getSessionStats"];
-    
-    let data = [{name: 'indoor', value: in_length}, {name: 'Abscent', value:abscent_length},
-                  {name: 'outdoor', value:out_length }]
+
+    let data = [
+      {name: 'داخل الورشة', value: in_length},
+      {name: 'غائب', value:abscent_length},
+      {name: 'خارج الورشة', value:out_length }]
 
                   return data ;
   }
@@ -87,15 +89,15 @@ class Unit extends React.Component{
   render(){
     const {classes , details ,name } = this.props;
     if(this.props.SessionStore.sessions[details._id]!=undefined){
-        
-            
+
+
             const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data;
                   if(details.stat=="OFF")
                    data = [
-                     {name: 'indoor', value: details.closed_in},
-                     {name: 'Abscent', value: details.closed_abscent},
-                     {name: 'outdoor', value: details.closed_out}];
+                     {name: 'داخل الورشة', value: details.closed_in},
+                     {name: 'غائب', value: details.closed_abscent},
+                     {name: 'خارج الورشة', value: details.closed_out}];
                   else
                     data= this.getUsersStatistics();
                   let end ;
@@ -110,7 +112,7 @@ class Unit extends React.Component{
           <div key={details._id} className={classes.DashboardContainer}>
           <div  className="ChartContainer">
             <div  className="PieContainer">
-                <PieChart width={400} height={400}>
+                <PieChart width={400} height={350}>
                   <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
                     {
                       data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
@@ -122,11 +124,28 @@ class Unit extends React.Component{
                     }
 
                     <Label width={30} position="center"
-                      content={<CustomLabel value2={`${difference._data.hours}h${difference._data.minutes}mn`} value1="الوقت المنقضي"/>}>
+                      content={<CustomLabel value1={`الوقت المنقضي`}/>}>
+                    </Label>
+                    <Label width={30} position="center"
+                      content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `}/>}>
                     </Label>
                   </Pie>
                   <Tooltip/>
                 </PieChart>
+                <div className="containerLegand">
+                  <div className="subContaineLegand">
+                    <p>غائب</p>
+                    <div className="legandChart abscent"></div>
+                  </div>
+                  <div className="subContaineLegand">
+                    <p> داخل القاعة </p>
+                    <div  className="legandChart in"></div>
+                  </div>
+                  <div className="subContaineLegand">
+                    <p> غادر القاعة </p>
+                    <div  className="legandChart out"></div>
+                   </div>
+                </div>
               </div>
               <div className="ChartInfosContainer">
                 <div className={classes.cardInfos}>
