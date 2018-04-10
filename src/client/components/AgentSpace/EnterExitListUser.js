@@ -6,15 +6,19 @@ import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
-const role = localStorage.getItem('role');
-const id = localStorage.getItem('loogedin_id');
 
 @observer
 class EnterExitListUser extends React.Component{
   constructor(props){
     super(props)
+    let id = localStorage.getItem('loogedin_id');    
     UserStore.fetchGuestForAgentWorkshop(id);
-
+    let fetched_user = UserStore.fetchUserRole(id);
+    fetched_user.then(res=>{
+      this.setState({
+        role:res.role.name
+      })
+    })
   }
   addOperationToGuest =(guest , operation , agent , workshop)=>{
     UserStore.alterGuestStatus(guest , operation , agent, workshop);
@@ -32,10 +36,10 @@ class EnterExitListUser extends React.Component{
               <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
               <ListItemText primary={`${value.profile.name} ${value.profile.forname}`}/>
               <ListItemText primary={`${value.status}`} />
-              {(role=='agent_in' || role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , id , UserStore.selectWorkshopAgent._id )}>
+              {(this.state.role=='agent_in' || this.state.role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , id , UserStore.selectWorkshopAgent._id )}>
                      دخول
               </Button>)}
-              {(role=='agent_out' || role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , id , UserStore.selectWorkshopAgent._id)}>
+              {(this.state.role=='agent_out' || this.state.role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , id , UserStore.selectWorkshopAgent._id)}>
                    خروج
               </Button>)}
             </ListItem>)}</div>

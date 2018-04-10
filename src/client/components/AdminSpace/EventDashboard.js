@@ -15,9 +15,11 @@ class EventDashboard extends React.Component{
     super(props);
     this.state={
       on_filter :false ,
-      off_filter : false
+      off_filter : false,
+      initiated : false
     }
-    props.EventStore.setEventId(props.match.params.id);    
+    props.EventStore.setEventId(props.match.params.id);  
+    props.EventStore.getFullEventDetailsByID(props.match.params.id)  ;
   };
   filterWorkshopsAndSessions =(stat , empty)=>{
     EventStore.filterWorkshopsAndSessions(stat , empty);
@@ -32,8 +34,18 @@ class EventDashboard extends React.Component{
       off_filter : true
     })
   }
+  componentDidUpdate=(props)=>{
+    
+    if(this.state.initiated==false)
+      {
+        props.EventStore.initEventVars();
+        this.setState({
+          initiated:true
+        })
+      }
+  }
   render(){
-		 event = this.props.EventStore.getEventByIdExecute.data.getEventByID;
+		event = this.props.EventStore.getEventByIdExecute.data.getEventByID;
      if (event == undefined) {
 			return (
 				<div>
@@ -42,6 +54,7 @@ class EventDashboard extends React.Component{
 			);
     }
     else {
+      
       return(
         <div>
           <div className="Btns-filter">
@@ -52,11 +65,11 @@ class EventDashboard extends React.Component{
                   الفارط
                 </Button>
         </div>
-          {(event.session_collection!== undefined)&&
-            event.session_collection.map(gen_session=>{
-              return(<DashboardUnit key={gen_session._id} details={gen_session} />);
+          {(this.props.EventStore.event_sessions!== undefined)&&
+            this.props.EventStore.event_sessions.map(gen_session=>{
+              return(<DashboardUnit key={gen_session._id} details={gen_session} size={event.guests_number} />);
             })}
-          {(event.workshops!== undefined)&& event.workshops.map(work=>{
+          {(this.props.EventStore.event_workshops!== undefined)&& this.props.EventStore.event_workshops.map(work=>{
               //work.session_list.map(session=>{
                 return(<WorkshopUnit key={work._id} details={work} users={work.users}/>);
               //})

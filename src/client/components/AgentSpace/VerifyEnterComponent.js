@@ -96,6 +96,7 @@ class VerifyEnterComponent extends React.Component{
         open: false,
         displayed :false
       };
+      console.log(id)
     UserStore.fetchGuestForAgentWorkshop(id);
 
   }

@@ -86,7 +86,7 @@ class DashboardUnit extends React.Component{
 
                   return data ;
   }
-  buildContentBasedOnData =(details , classes , name , users)=>{
+  buildContentBasedOnData =(details , classes , name , size )=>{
                   const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data;
                   if(details.stat=="OFF")
@@ -95,7 +95,7 @@ class DashboardUnit extends React.Component{
                      {name: 'غائب', value: details.closed_abscent},
                      {name: 'خارج الورشة', value: details.closed_out}];
                   else
-                    data= this.getUsersStatistics(users);
+                    data= this.getUsersStatistics();
                   let end ;
                   let start = moment(moment(details.start_hour))
         if(details.end_hour!=null)
@@ -161,11 +161,10 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailText}>
                           النهاية
                         </span>
-                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('HHS:mm')}</span>
+                        <span className={classes.timeDetailHour}>{moment(details.end_hour).utcOffset(1, true).format('HH:mm')}</span>
                     </div>)}
                   </div>
-                      {
-                        (details.users!=undefined)&&(<div  className={classes.ChartInfos}>
+                     <div  className={classes.ChartInfos}>
                       <Button   variant="fab"    disabled>
                         <People color="action"/>
                       </Button>
@@ -174,10 +173,10 @@ class DashboardUnit extends React.Component{
                         <span className={classes.timeDetailText}>
                         الحضور المتوقع
                         </span>
-                        <span className={classes.timeDetailHour}>{details.expected_guests}</span>
+                        <span className={classes.timeDetailHour}>{size}</span>
                       </div>
-                    </div>)
-                  }
+                    </div>
+                  
                   <div><Link to={`/sessionactivity/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                    الاطلاع على التحركات
                   </Button></Link>
@@ -191,9 +190,10 @@ class DashboardUnit extends React.Component{
   }
 
   render(){
-    const {classes , details , key} = this.props;
+    const {classes , details , key , size} = this.props;
+    console.log(size)
     if(this.props.SessionStore.sessions[details._id]!=undefined)
-        return(<div>{this.buildContentBasedOnData(details , classes ,details.title!=undefined ? details.title : "جلسة عامة")}</div>)
+        return(<div>{this.buildContentBasedOnData(details , classes ,details.title!=undefined ? details.title : "جلسة عامة" , size)}</div>)
     else{
       return(	<div>
         <CircularProgress color="primary" />

@@ -51,11 +51,10 @@ const  getEventById = gql`query getEventByID($eventid:String!) {
     place   
     start_date
     end_date
-    numberAttendies
     session_empty
     session_collection{
-      title
       _id
+      title
       start_hour
       end_hour
       stat
@@ -97,11 +96,10 @@ const getFullEventById=gql`query getEventByID($eventid:String!) {
     place   
     start_date
     end_date
-    numberAttendies
     session_empty
     session_collection{
-      title
       _id
+      title
       start_hour
       end_hour
       stat
@@ -130,7 +128,7 @@ const getFullEventById=gql`query getEventByID($eventid:String!) {
       }
 
     }
-
+    guests_number
   }
 }`
 
@@ -140,10 +138,9 @@ class EventStore {
       get getEventByIdExecute(){
         return graphql({ client, query: getEventById , variables:{eventid:this.eventid}});            
       }
-   
   })
-  }
 
+  }
 
     // Values marked as 'observable' can be watched by 'observers'
     @observable unfiltered_events = [];
@@ -168,17 +165,17 @@ class EventStore {
     @action addSessionToEventSessions =(session)=>{
       this.event_sessions.push(session)
     }
-    @action setEventSessions = (sessions) => {
-      this.event_sessions.length=0;
-      sessions.map(session=>{
-        this.getNumberOfGuestsPerSession(session._id , session)
-        let users = this.getUserDataForChartOfSession(session._id);
-        users.then(res=>{
-          session.users = res.data.getUserDataForChartOfSession;
-          this.addSessionToEventSessions(session);
-        })
 
-      })
+  @action initEventVars =()=>{
+    if(this.getEventByIdExecute.data.getEventByID!=undefined){
+      this.setEventSessions(this.getEventByIdExecute.data.getEventByID.session_collection)
+      this.setEventWorkshops (this.getEventByIdExecute.data.getEventByID.workshops) ; 
+      }
+  }
+    @action setEventSessions = (sessions) => {
+
+      this.event_sessions.length=0;
+      this.event_sessions = sessions;
     }
     @action getNumberOfGuestsPerSession =(sessionId ,session)=>{
       fetch({
@@ -232,16 +229,12 @@ class EventStore {
       );
     }
     @action filterWorkshopsAndSessions(status , empty) {
-      this.event_sessions = this.selectedEvent.session_collection.filter(
+      this.event_sessions = this.getEventByIdExecute.data.getEventByID.session_collection.filter(
         session => {
-            let users = this.getUserDataForChartOfSession(session._id);
-            users.then(res=>{
-              session.users = res.data.getUserDataForChartOfSession;
-            })
           return session.stat===status
         }
       );
-      this.event_workshops =this.selectedEvent.workshops.filter(
+      this.event_workshops =this.getEventByIdExecute.data.getEventByID.workshops.filter(
         work=>{
           work.session_empty==empty
         }
@@ -338,6 +331,59 @@ class EventStore {
         }).then(res => {
           this.getEvents()
         });
+          }
+          @action getFullEventDetailsByID(eventid){
+            fetch({
+              query: `query getEventByID($eventid:String!) {
+                getEventByID(eventid : $eventid){
+                  _id
+                  title
+                  type
+                  place
+                  start_date
+                  end_date
+                  numberAttendies
+                  session_empty
+                  session_collection{
+                    _id
+                    start_hour
+                    end_hour
+                    stat
+                    closed_in
+                    closed_out
+                    closed_abscent
+
+                  }
+                  workshops{
+                    _id
+                    name
+                    session_empty
+                    session_list {
+                      _id
+                      start_hour
+                      end_hour
+                      stat
+                      closed_in
+                      closed_out
+                      closed_abscent
+                    }
+                    users{
+                      _id
+                      status
+                    }
+
+                  }
+
+                }
+              }`,
+              variables :{
+                eventid :eventid
+              }
+            }).then(res=>{
+              this.selectEvent(res.data.getEventByID);
+              this.setEventSessions(res.data.getEventByID.session_collection);
+              this.setEventWorkshops(res.data.getEventByID.workshops);
+            })
           }
           /**
           startSessionForEvent implementation

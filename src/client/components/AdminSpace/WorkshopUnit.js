@@ -77,7 +77,6 @@ const styleEndTime = {
 class WorkshopUnit extends React.Component{
   constructor(props){
     super(props);
-
   }
 
   buildContentBasedOnData =(details , classes , name )=>{
