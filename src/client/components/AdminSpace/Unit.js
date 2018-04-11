@@ -87,7 +87,7 @@ class Unit extends React.Component{
   }
 
   render(){
-    const {classes , details ,name } = this.props;
+    const {classes , details ,name , users } = this.props;
     if(this.props.SessionStore.sessions[details._id]!=undefined){
 
 
@@ -170,7 +170,7 @@ class Unit extends React.Component{
                     </div>)}
                   </div>
                       {
-                        (details.users!=undefined)&&(<div  className={classes.ChartInfos}>
+                        users!=undefined &&(<div  className={classes.ChartInfos}>
                       <Button   variant="fab"    disabled>
                         <People color="action"/>
                       </Button>
@@ -179,7 +179,7 @@ class Unit extends React.Component{
                         <span className={classes.timeDetailText}>
                         الحضور المتوقع
                         </span>
-                        <span className={classes.timeDetailHour}>{details.expected_guests}</span>
+                        <span className={classes.timeDetailHour}>{users}</span>
                       </div>
                     </div>)
                   }

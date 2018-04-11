@@ -81,7 +81,7 @@ const  getEventById = gql`query getEventByID($eventid:String!) {
         _id
         status
       }
-
+      guests_number
     }
     guests_number
 
@@ -126,7 +126,7 @@ const getFullEventById=gql`query getEventByID($eventid:String!) {
         _id
         status
       }
-
+      guests_number
     }
     guests_number
   }
@@ -369,6 +369,7 @@ class EventStore {
                       closed_out
                       closed_abscent
                     }
+                    guests_number
                     users{
                       _id
                       status

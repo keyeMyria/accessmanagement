@@ -79,21 +79,20 @@ class WorkshopUnit extends React.Component{
     super(props);
   }
 
-  buildContentBasedOnData =(details , classes , name )=>{
-
+  buildContentBasedOnData =(details , classes , name , users )=>{
       if(details.session_list!=null){
-          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name)))}</div>)
+          return(<div>{details.session_list.map(session=>(this.buildContentBasedOnData(session , classes , details.name , users)))}</div>)
       }else{
         return(
           <div key={`work_${details._id}`} className={classes.DashboardContainer}>
-            <Unit details={details} name={name} />
+            <Unit details={details} name={name} users={users} />
       </div>)
       }
   }
 
   render(){
-    const {classes , details , key } = this.props;
-    return(<div key={details._id}>{this.buildContentBasedOnData(details , classes ,details.name)}</div>)
+    const {classes , details , key ,users} = this.props;
+    return(<div key={details._id}>{this.buildContentBasedOnData(details , classes ,details.name , users)}</div>)
   }
 }
 function CustomLabel({viewBox, value1, value2}){

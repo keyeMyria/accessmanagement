@@ -71,7 +71,7 @@ class EventDashboard extends React.Component{
             })}
           {(this.props.EventStore.event_workshops!== undefined)&& this.props.EventStore.event_workshops.map(work=>{
               //work.session_list.map(session=>{
-                return(<WorkshopUnit key={work._id} details={work} users={work.users}/>);
+                return(<WorkshopUnit key={work._id} details={work} users={work.guests_number}/>);
               //})
             })
           }
