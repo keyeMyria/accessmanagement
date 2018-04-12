@@ -5,6 +5,7 @@ import List, { ListItem, ListItemSecondaryAction, ListItemIcon, ListItemText } f
 import { Link } from 'react-router-dom';
 import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
 import RemoveCircleOutline from 'material-ui-icons/RemoveCircleOutline';
+import Done from 'material-ui-icons/Done';
 import AirlineSeatReclineNormal from 'material-ui-icons/AirlineSeatReclineNormal';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
@@ -42,11 +43,14 @@ const styles = (theme) => ({
 	ABSCENT: {
 		fill: '#ff1850'
 	},
+	IN:{
+		color: '#2E7D32'
+	},
 	search: {
 		width: '100%'
 	},
 	listItemText: {
-		width: '20%'
+		maxWidth: '500px'
 	},
 	empty_img: {
 		display: 'flex',
@@ -189,22 +193,12 @@ class Attendies extends React.Component {
 								return (
 									<ListItem key={value._id} button className={classes.listItem}>
 										<Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
-										<ListItemText
-											primary={`${value.profile.name} ${value.profile.forname}`}
-											className={classes.listItemText}/>
-										{
-										// if (value.status == 'ABSCENT') {
-										// 	<ListItemText secondary={'غائب (ة)'} className={classes.listItemText} />
-										// }else if (value.status == 'IN') {
-										// 	<ListItemText secondary={'حاضر (ة) داخل القاعة'} className={classes.listItemText} />
-										// }else {
-										// 	<ListItemText secondary={'غادر (ة) القاعة'} className={classes.listItemText} />
-										// }
-										}
+										<ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText}/>
+										<ListItemText secondary={value.status=='ABSCENT' ?   'غائب(ة)'  : 'حاضر(ة)'}/>
 										{value.status == 'ABSCENT' ? (
 											<RemoveCircleOutline className={classes.ABSCENT} />
 										) : (
-											`${value.status.toLowerCase()}door`
+											<Done className={classes.IN}/>
 										)}
 
 										{value.status == 'OUT' && <DirectionsWalk className={classes.OUT} />}

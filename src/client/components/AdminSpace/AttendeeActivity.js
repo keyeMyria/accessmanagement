@@ -5,6 +5,7 @@ import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-
 import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { CircularProgress } from 'material-ui/Progress';
@@ -35,10 +36,30 @@ const styles = theme => ({
   },
   ListProfil:{
     backgroundColor:"#fff",
-    maxWidth:'1200px',
+    maxWidth:'700px',
     margin:'0 auto 16px',
     boxShadow:'0 1px 4px 0 rgba(0,0,0,.14)',
   },
+  chip: {
+    backgroundColor: '#003489',
+    width: '700px',
+    marginLeft: '50%',
+    transform: 'translateX(-50%)',
+    color: '#fff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatar:{
+      margin: '10px',
+  },
+  name:{
+    color: 'white',
+    fontSize: '15px',
+  },
+  time:{
+    maxWidth: '42%',
+  }
 });
  class AttendeeActivity  extends React.Component{
   render(){
@@ -61,53 +82,48 @@ const styles = theme => ({
             );
   }
   else{
-    return(<div className={classes.root}>
-
-
-      {/*<div>
-        <Avatar src={`${REMOTE_ASSETS_PATH}/${value.user.profile.avatar}`} />
-        <h2>`${value.user.profile.name} ${value.user.profile.forname}`</h2>
-      </div>*/}
-
-
+    return(
+      <div className={classes.root}>
+       <div className={classes.chip}>
+          <Avatar className={classes.avatar} src={`${REMOTE_ASSETS_PATH}/${this.props.data.activity[0].user.profile.avatar}`}/>
+          <p className={classes.name} >{this.props.data.activity[0].user.profile.name} {this.props.data.activity[0].user.profile.forname}</p>
+        </div>
         <List className={classes.ListProfil}>
           {this.props.data.activity.map(value => (
             <div>
-            <ListItem key={value.id} dense>
-              <Avatar src={`${REMOTE_ASSETS_PATH}/${value.user.profile.avatar}`} />
-              <ListItemText secondary={`${value.user.profile.name} ${value.user.profile.forname}`} />
-              <ListItemText primary={`${value.action=="IN" ? "دخل" : "غادر"} الجلسة,  ${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
-              {value.agent &&(<ListItemText secondary={`سجل من قبل ${value.agent.username}`  }/>)}
-              <DirectionsWalk className={classes[value.action]}/>
-            </ListItem>
+              <ListItem key={value.id} dense>
+                <ListItemText className={classes.time} primary={`${value.action=="IN" ? "دخل" : "غادر"} الجلسة,  ${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
+                {value.agent &&(<ListItemText secondary={`سجل من قبل ${value.agent.username}`  }/>)}
+                <DirectionsWalk className={classes[value.action]}/>
+              </ListItem>
             </div>
           ))}
         </List>
       </div>)
   }
-
   }
 }
-const historylist = gql`
-  query historylist($id: String!) {
-    activity(id :$id) {
-      entryId
-      dateEntry
-      action
-      user{
-        username
-        profile{
-          name
-          forname
-          tel
-          avatar
-        }
-      }
-      agent{username}
 
+  const historylist = gql`
+    query historylist($id: String!) {
+      activity(id :$id) {
+        entryId
+        dateEntry
+        action
+        user{
+          username
+          profile{
+            name
+            forname
+            tel
+            avatar
+          }
+        }
+        agent{username}
+
+      }
     }
-  }
-`;
+  `;
 
 
 const AttendeeActivityWithData = graphql(historylist ,  {

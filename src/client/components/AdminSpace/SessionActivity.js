@@ -9,6 +9,7 @@ import { withStyles } from 'material-ui/styles';
 import moment from 'moment';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Grow from 'material-ui/transitions/Grow';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
@@ -76,7 +77,11 @@ class SessionActivity extends React.Component{
         <ul className={classes.List}>
           {this.props.data.activitylistbysessionID.map(entry=>{
             return(
+
             <div key={entry.entryId}>
+            {
+              // <Grow in={true}>
+            }
              <ListItem className={classes.ListProfil} dense>
                 <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
                 <ListItemText className={classes.listeItem} secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}`}  />
@@ -85,7 +90,12 @@ class SessionActivity extends React.Component{
                 {entry.agent &&(<ListItemText className={classes.listeItem} secondary={` مسجل بواسطة :  ${entry.agent.username}`  }/>)}
                 <DirectionsRun className={classes[entry.action]}/>
               </ListItem>
-              <Divider inset/></div>
+              <Divider inset/>
+              {
+                // </Grow>
+              }
+              </div>
+
             )
           })}
         </ul>

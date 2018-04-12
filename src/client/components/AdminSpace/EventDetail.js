@@ -244,7 +244,7 @@ class EventDetail extends React.Component {
 		form.onSubmit(event);
 		this.handleClose();
 		this.props.EventStore.getFullEventDetailsByID(this.props.match.params.id);
-		
+
 	}
 	render() {
 		const workshoplist = WorkshopStore.workshops;
@@ -384,7 +384,6 @@ class EventDetail extends React.Component {
 										<ListItem className={classes.sessionItem}>
 											<div className={classes.datEntreSorti}>
 												<ListItemText primary={item.title} />
-
 												<div className={classes.generalSessionitem}>
 													<div className={classes.sessionitemTime}>
 														<div>
@@ -425,8 +424,7 @@ class EventDetail extends React.Component {
 											{item.session_empty == true &&(
 												<Button
 													onClick={() => this.startSessionForWorkshop(item._id)}
-													className={classes.star}
-												>
+													className={classes.star}>
 													<div className={classes.startStopSession}>
 														<PlayArrow />
 														تسجيل جلسة
