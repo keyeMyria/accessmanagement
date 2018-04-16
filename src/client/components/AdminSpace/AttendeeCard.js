@@ -25,6 +25,11 @@ import ExpansionPanel, {
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
+  container:{
+    maxWidth: '1200px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   card: {
   },
   expand: {
@@ -78,7 +83,7 @@ class AttendeeCard extends React.Component {
   render() {
     const { classes , data} = this.props;
     return (
-      <div>
+      <div className={classes.container}>
         <ExpansionPanel className={classes.expandedPanelContainer}>
         {data.profile!=null &&( <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}  style={ExpansionContainer}>
           <Avatar src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} style={avatarExpansion}/>
