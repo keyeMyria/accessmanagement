@@ -58,6 +58,9 @@ const styles = theme => ({
     justifyContent: 'center',
     marginBottom: '24px',
   },
+  leftIcon:{
+    marginRight: '4px',
+  },
 });
 
 const styleEndTime = {
@@ -80,8 +83,8 @@ class Unit extends React.Component{
 
     let data = [
       {name: 'داخل الورشة', value: in_length},
-      {name: 'غائب', value:abscent_length},
-      {name: 'خارج الورشة', value:out_length }]
+      {name: 'خارج الورشة', value:out_length },
+      {name: 'غائب', value:abscent_length}]
 
                   return data ;
   }
@@ -96,8 +99,8 @@ class Unit extends React.Component{
                   if(details.stat=="OFF")
                    data = [
                      {name: 'داخل الورشة', value: details.closed_in},
-                     {name: 'غائب', value: details.closed_abscent},
-                     {name: 'خارج الورشة', value: details.closed_out}];
+                     {name: 'خارج الورشة', value:out_length },
+                     {name: 'غائب', value: details.closed_abscent}];
                   else
                     data= this.getUsersStatistics();
                   let end ;
@@ -112,7 +115,8 @@ class Unit extends React.Component{
           <div key={details._id} className={classes.DashboardContainer}>
           <div  className="ChartContainer">
             <div  className="PieContainer">
-                <PieChart width={400} height={350}>
+                <PieChart width={300} height={320}>
+                  <Tooltip wrapperStyle={{border:'none', borderRadius: '2px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.08)'}}/>
                   <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
                     {
                       data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
@@ -130,21 +134,20 @@ class Unit extends React.Component{
                       content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `}/>}>
                     </Label>
                   </Pie>
-                  <Tooltip/>
                 </PieChart>
-                <div className="containerLegand">
-                  <div className="subContaineLegand">
-                    <p>غائب</p>
-                    <div className="legandChart abscent"></div>
-                  </div>
-                  <div className="subContaineLegand">
+                <div className="containerLegend">
+                  <div className="subContaineLegend">
                     <p> داخل القاعة </p>
-                    <div  className="legandChart in"></div>
+                    <div  className="legendChart in"></div>
                   </div>
-                  <div className="subContaineLegand">
+                  <div className="subContaineLegend">
                     <p> غادر القاعة </p>
-                    <div  className="legandChart out"></div>
-                   </div>
+                    <div  className="legendChart out"></div>
+                  </div>
+                  <div className="subContaineLegend">
+                    <p>غائب</p>
+                    <div className="legendChart abscent"></div>
+                  </div>
                 </div>
               </div>
               <div className="ChartInfosContainer">
@@ -186,7 +189,7 @@ class Unit extends React.Component{
                   <div><Link to={`/sessionactivity/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                    الاطلاع على التحركات
                   </Button></Link>
-                  <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
+                  <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><People  className={classes.leftIcon} />
                   حالة الحضور
                 </Button></Link></div>
                 <p>intrudeers {this.props.SessionStore.sessions[this.props.details._id]["intruders"]["data"]["getSessionStats"]}</p>
