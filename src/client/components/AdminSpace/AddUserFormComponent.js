@@ -121,7 +121,8 @@ const backgroundAddUser = {
       alignItems: 'flex-start',
       marginLeft: 'auto',
       marginRight: 'auto',
-      maxWidth: '1200px',
+      maxWidth: '700px',
+      paddingBottom: '10px',
     };
 
     const subContainerAddUser = {
