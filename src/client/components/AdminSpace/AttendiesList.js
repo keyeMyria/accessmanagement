@@ -48,6 +48,7 @@ const styles = theme => ({
   containerGuest:{
     padding:'0 16px',
     height:'calc(100vh - 209px)',
+    maxWidth: '1200px',
   },
   container_ui:{
     width:'100%',

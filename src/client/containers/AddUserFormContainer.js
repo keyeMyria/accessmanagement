@@ -4,11 +4,18 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import {reset} from 'redux-form';
+import { withStyles } from 'material-ui/styles';
 import AddUserFormComponent from '../components/AdminSpace/AddUserFormComponent';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 
+const styles = (theme) => ({
+
+    container:{
+      backgroundColor: 'white',
+    }
+})
 class AddUserFormContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -75,7 +82,7 @@ class AddUserFormContainer extends React.Component {
   render() {
     const {classes} = this.props
     return (
-      <div>
+      <div className={classes.container}>
         <Snackbar
        anchorOrigin={{
          vertical: 'bottom',
@@ -124,4 +131,4 @@ const addUserWithProfileMutation = gql`
 `;
 
 const AddUserFormContainerWithData = graphql(addUserWithProfileMutation)(withRouter(AddUserFormContainer));
-export default AddUserFormContainerWithData;
+export default withStyles(styles) (AddUserFormContainerWithData);
