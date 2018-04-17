@@ -45,7 +45,7 @@ const styles = (theme) => ({
 	header: {
 		backgroundColor: '#053787',
 		color: 'white',
-		padding: '24px 16px 72px'
+		padding: '8px 16px 72px'
 	},
 	EventAvatar: {
 		color: '#fff'
@@ -54,7 +54,7 @@ const styles = (theme) => ({
 		color: '#00abc7',
 	},
 	title: {
-		margin: '16px 56px',
+		margin: '16px 40px',
 		fontSize: '30pt',
 		lineHeight: '30pt'
 	},
@@ -376,7 +376,7 @@ class EventDetail extends React.Component {
 							</div>
 							<div className={classes.typeEvent}>
 								<Chip label={event.type} className={classes.chipEventType} />
-								</div>
+							</div>
 							<p className={classes.numberAttend}>
 								{' '}<AccountCircle style={{opacity:'0.5'}}/>
 								  الحضور المتوقع{' : '}  {event.guests_number}

@@ -3,9 +3,11 @@ import React from 'react';
 import Menu, { MenuItem, MenuList } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
+import Chip from 'material-ui/Chip';
 import Grow from 'material-ui/transitions/Grow';
 import dateFormat from 'dateformat';
 import AccountCircle from 'material-ui-icons/AccountCircle';
+import Place from 'material-ui-icons/Place';
 import './vendor/events.css';
 import { withRouter } from 'react-router-dom';
 import EventStore from '../../mobx/eventstore';
@@ -15,11 +17,11 @@ class EventCard extends React.Component {
     state = {
         anchorEl: null,
       };
-    
+
       handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
       };
-    
+
       handleClose = () => {
         this.setState({ anchorEl: null });
       };
@@ -35,7 +37,7 @@ class EventCard extends React.Component {
         });
         this.props.handleOpen()
 	};
-    
+
 	eventDetail = (item) => {
 		EventStore.selectEvent(item);
 		this.props.history.push(`/manage-single-event/${item._id}`);
@@ -62,14 +64,14 @@ class EventCard extends React.Component {
 						}}
 					>
 						<h2 className="titre">{this.props.title}</h2>
-						<p className="type"> {this.props.type} </p>
-						<p className="emplacement"> {this.props.place}</p>
 						<p className="desc">
 							{' '}
 							من {dateFormat(this.props.start_date, 'dd/mm/yyyy')} ,{' '}
 							{dateFormat(this.props.start_date, 'HH:mm')} الى{' '}
 							{dateFormat(this.props.end_date, 'dd/mm/yyyy')} , {dateFormat(this.props.end_date, 'HH:mm')}
 						</p>
+            <p className="emplacement"> <Place color="disabled" /> {this.props.place}</p>
+            <Chip label={this.props.type} className="type" />
 						<p className="desc">
 							<AccountCircle className="accountIcon" /> الحضور المتوقع {this.props.guests_number}
 						</p>
@@ -92,7 +94,7 @@ class EventCard extends React.Component {
 					>
 						<MenuItem onClick={() => this.handleEditEvent(this.props)}> Edit Event </MenuItem>
 						<MenuItem onClick={() => this.deleteEvent(this.props._id)}> Archive Event </MenuItem>
-					</Menu> 
+					</Menu>
 					</div>
 				</li>
 			</Grow>

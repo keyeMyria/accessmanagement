@@ -81,35 +81,36 @@ font-weight: 100;
 width: 100%;
 }
 .event-list > li > .info {
-padding: 10px;
+padding: 16px 16px 12px 0;
 text-align: right;
 flex-grow: 3;
 cursor: pointer;
 }
 .event-list > li > .info > .titre {
-font-size: 17pt;
+font-size: 20pt;
 font-weight: 500;
 font-family: Changa, sans-serif;
 color: #00abc7;
 }
 .event-list > li > .info > .type {
-display: inline-block;
+/*display: inline-block;
 font-size: 12pt;
 font-weight: 300;
 color: #6f6f6f;
 background-color: #e0e0e0;
 border-radius: 2px;
-margin-top: 10px;
-padding: 0 10px;
+padding: 0 10px;*/
+margin-top: 16px;
 }
 
 .event-list > li > .info > .desc {
-font-size: 10pt;
-font-weight: 300;
-display: flex;
+  font-size: 12pt;
+  font-weight: 300;
+  display: flex;
+  margin: 8px 0 4px;
 }
 .event-list > li > .info > .desc > .accountIcon{
-  color: #9E9E9E;
+  color: #bdbdbd;
   width: 20px ;
   height: 20px ;
   margin-left: 6px;
@@ -117,6 +118,10 @@ display: flex;
 
 .event-list > li > .iconButton{
       width: 20px;
+}
+.emplacement{
+  display: flex;
+  align-items: center;
 }
 
 .event-list > li > .info > ul,
