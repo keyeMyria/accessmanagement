@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import { FormControl } from 'material-ui/Form';
 import purple from 'material-ui/colors/purple';
 import Button from 'material-ui/Button';
+import ErrorOutline from 'material-ui-icons/ErrorOutline';
 
   const buttonLogin = {
     marginTop: '24px',
@@ -48,7 +49,17 @@ const styles = theme => ({
     }
   },
   msgError:{
-    color : 'red',
+    color: '#fff',
+    backgroundColor: '#EF5350',
+    width: '100%',
+    height: '45px',
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconError:{
+    marginRight: '10px',
   },
   formLogin:{
     display: 'flex',
@@ -119,7 +130,12 @@ class SignInForm extends React.Component{
         <form onSubmit={handleSubmit}
         className={classes.formLogin}
         >
-          <div className={classes.msgError}>{errors}</div>
+        { (errors!= null) &&
+          (<div className={classes.msgError}>
+            {errors}
+            <ErrorOutline className={classes.iconError}/>
+          </div>)
+        }
           {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
           {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" autoFocus />)}
           <Field name="password" type="password" component={this.renderTextField} label="كلمة  المرور" />
