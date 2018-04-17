@@ -167,12 +167,14 @@ background-color: rgb(200, 200, 200);
   background-color: #00ACC1;
 }
 div > div > .editButton {
+  position: absolute;
+  left: 8px;
   margin-bottom: 10px;
   background-color: #fff ;
 }
-div > div > .editButton:hover{
-  background-color: #edfdff;
-},
+/*div > div > .editButton:hover{
+  background-color: #00abc7;
+},*/
 div > div > .AddingButton {
   height: 100px;
   width: 150px;
