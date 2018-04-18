@@ -101,25 +101,24 @@ class SignInForm extends React.Component{
     return (
 
         <FormControl style={formControl}>
-        <InputLabel
-                  FormControlClasses={{
-                    root : this.props.classes.inputLabelFocused,
-                    focused: this.props.classes.inputLabelFocused
-                  }}
-                  htmlFor="custom-color-input"
-                >
-                  {label}
-                </InputLabel>
-        <Input
-                  type={type}
-                  {...input}
-                  autoFocus={autoFocus}
-                   classes={{
-                    inkbar: this.props.classes.inputInkbar
-                    }}
-        style={style}
-       />
-
+            <InputLabel
+                      FormControlClasses={{
+                        root : this.props.classes.inputLabelFocused,
+                        focused: this.props.classes.inputLabelFocused
+                      }}
+                      htmlFor="custom-color-input"
+                    >
+                      {label}
+            </InputLabel>
+            <Input
+                      type={type}
+                      {...input}
+                      autoFocus={autoFocus}
+                       classes={{
+                        inkbar: this.props.classes.inputInkbar
+                        }}
+            style={style}
+           />
       </FormControl>
   );
 }
@@ -130,9 +129,11 @@ class SignInForm extends React.Component{
         <form onSubmit={handleSubmit}
         className={classes.formLogin}
         >
-        { (errors!= null) &&
+        { ((errors!= null)) &&
           (<div className={classes.msgError}>
-            {errors}
+            {
+              errors
+            }
             <ErrorOutline className={classes.iconError}/>
           </div>)
         }
