@@ -188,7 +188,6 @@ class SignInFormContainer extends React.Component {
   handleSubmit(values) {
     this.props.mutate({ variables: values })
       .then((response) => {
-          console.log(response)
         if (!response.data.hasOwnProperty('errors')) {
 
           this.props.signInDispatcher(response.data.signIn.token , response.data.signIn.user._id);
@@ -198,8 +197,7 @@ class SignInFormContainer extends React.Component {
           if(response.data.signIn.user.role.name=="admin")
             this.props.history.push('/listguests');
         } else {
-
-
+          console.log(response.errors)
           this.setState({
             errors: response.data.signIn.errors
           });
@@ -207,7 +205,7 @@ class SignInFormContainer extends React.Component {
       })
       .catch((err) => {
         this.setState({
-          errors:[...this.state.errors , err]
+          errors:[err]
         })
       });
   }
@@ -231,16 +229,18 @@ class SignInFormContainer extends React.Component {
                 إدارة الأحداث والحضور
                 </Typography>
               </div>
-              <Avatar
-               src={`${REMOTE_ASSETS_PATH}/${this.state.user.profile.avatar}`}
-               className={classes.bigAvatar}
-             />
-             <p className={classes.textAuthentification}>
-               Identified As
-             </p>
-             <h2 className={classes.authentifiedUserName}>
-               {this.state.user.profile.forname} {this.state.user.profile.name}
-             </h2>
+              {(this.state.user.profile != null)&&
+                (
+                  <Avatar
+                   src={`${REMOTE_ASSETS_PATH}/${this.state.user.profile.avatar}`}
+                   className={classes.bigAvatar}/>
+                 <p className={classes.textAuthentification}>
+                   Identified As
+                 </p>
+                 <h2 className={classes.authentifiedUserName}>
+                   {this.state.user.profile.forname} {this.state.user.profile.name}
+                 </h2>
+                )}
              <LoginForm
                onSubmit={this.handleSubmit.bind(this)}
                errors={this.state.errors}
