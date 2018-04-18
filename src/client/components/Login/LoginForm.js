@@ -50,16 +50,20 @@ const styles = theme => ({
   },
   msgError:{
     color: '#fff',
-    backgroundColor: '#EF5350',
+    backgroundColor: '#eb514a',
     width: '100%',
     height: '45px',
     display: 'flex',
-    flexDirection: 'row-reverse',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    padding: '8px',
+    borderRadius: '2px',
+    margin: '16px 0 8px',
+    textShadow: '0 1px 5px rgba(0, 0, 0, 0.2)',
   },
   iconError:{
-    marginRight: '10px',
+    marginRight: '8px',
   },
   formLogin:{
     display: 'flex',
@@ -132,8 +136,7 @@ class SignInForm extends React.Component{
         >
         { (errors!= null) &&
           (<div className={classes.msgError}>
-            {errors}
-            <ErrorOutline className={classes.iconError}/>
+            <ErrorOutline className={classes.iconError}/> {errors}
           </div>)
         }
           {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
