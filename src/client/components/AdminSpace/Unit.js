@@ -69,8 +69,8 @@ const styleEndTime = {
 class Unit extends React.Component{
   constructor(props){
     super(props);
-    props.SessionStore.setSessionId(props.details._id);
-    props.SessionStore.subscribe(props.details._id)
+    this.props.SessionStore.setSessionId(props.details._id);
+    this.props.SessionStore.subscribe(props.details._id)
 
   }
   getUsersStatistics =()=>{
@@ -189,7 +189,7 @@ class Unit extends React.Component{
                   <Link to={`/listusersbysession/${details._id}`}><Button  raised="true"color="secondary" className={classes.button}><SwapHoriz  className={classes.leftIcon} />
                   حالة الحضور
                 </Button></Link></div>
-                <p>intrudeers {this.props.SessionStore.sessions[this.props.details._id]["intruders"]["data"]["getSessionStats"]}</p>
+                {/* <p>intrudeers {store.sessions[this.props.details._id]["intruders"]["data"]["getSessionStats"]}</p> */}
                 </div>
               </div>
         </div>

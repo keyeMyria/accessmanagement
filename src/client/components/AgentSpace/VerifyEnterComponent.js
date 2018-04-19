@@ -20,6 +20,7 @@ import QRcodeUnknown from './vendor/QRcodeUnknown.svg';
 import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -85,8 +86,7 @@ const styles = theme => ({
     height: '50px',
   },
 });
-const role = localStorage.getItem('role');
-const id = localStorage.getItem('loogedin_id');
+
 
 @observer
 class VerifyEnterComponent extends React.Component{
@@ -96,8 +96,7 @@ class VerifyEnterComponent extends React.Component{
         open: false,
         displayed :false
       };
-      console.log(id)
-    UserStore.fetchGuestForAgentWorkshop(id);
+    UserStore.fetchGuestForAgentWorkshop(props.userid);
 
   }
 
@@ -136,9 +135,8 @@ handleIconButtonRequestOpen = () => {
     // let id = this.props.match.params.id ;
     let id = this.props.userToEnter.userId._id;
     let status = "IN";
-    let agent = localStorage.getItem('loogedin_id');
 
-      await UserStore.alterGuestStatus(id , status , agent)
+      await UserStore.alterGuestStatus(id , status , this.props.userid)
         this.props.history.push('/agent');
   //
   //   await this.props.updateUserStatus({
@@ -263,5 +261,9 @@ const VerifyEnterComponentWithData =  compose(
     name: 'updateUserStatus'
   })
 )(VerifyEnterComponent)
+function mapStateToProps(state) {
+  return { userid: state.auth.userid ,
+  role:state.auth.role};
+}
 
-export default withStyles(styles)(VerifyEnterComponentWithData);
+export default withStyles(styles)(connect(mapStateToProps)(VerifyEnterComponentWithData));

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Typography from 'material-ui/Typography';
 import classNames from 'classnames';
 import LoginForm from '../components/Login/LoginForm';
-import { signIn , setrole } from '../actions';
+import { signIn , setrole , setuserid} from '../actions';
 import TopBackLogin from './topBackLogin';
 import BottomBackLogin from './bottomBackLogin';
 import QrReader from 'react-qr-reader';
@@ -192,6 +192,8 @@ class SignInFormContainer extends React.Component {
 
           this.props.signInDispatcher(response.data.signIn.token , response.data.signIn.user._id);
           this.props.setRoleDispatcher(response.data.signIn.user.role.name);
+          this.props.userIdDispatcher(response.data.signIn.user._id);
+          
           if(response.data.signIn.user.role.name=="agent_in" || response.data.signIn.user.role.name=="agent_out" || response.data.signIn.user.role.name=="agent_workshop")
             this.props.history.push('/agent');
           if(response.data.signIn.user.role.name=="admin")
@@ -352,6 +354,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setRoleDispatcher(role) {
     dispatch(setrole(role));
+  },
+  userIdDispatcher(_id){
+    dispatch(setuserid(_id))
   }
 });
 

@@ -21,7 +21,7 @@ import {observer} from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 import QRcodeUnknown from './vendor/QRcodeUnknown.svg';
-
+import { connect } from 'react-redux';
 const styles = theme => ({
   root: {
     width: '100%',
@@ -80,9 +80,6 @@ const styles = theme => ({
     height: '50px',
   },
 });
-const role = localStorage.getItem('role');
-const id = localStorage.getItem('loogedin_id');
-
 @observer
 class VerifyExitComponent extends React.Component{
   constructor(props){
@@ -91,8 +88,7 @@ class VerifyExitComponent extends React.Component{
         open: false,
         displayed :false
       };
-      console.log(id)
-    UserStore.fetchGuestForAgentWorkshop(id);
+    UserStore.fetchGuestForAgentWorkshop(props.userid);
 
   }
   handleRequestClose = (event, reason) => {
@@ -102,10 +98,7 @@ class VerifyExitComponent extends React.Component{
 
     this.setState({ open: false });
   };
-  ComponentWillMount=()=>{
-    UserStore.fetchGuestForAgentWorkshop(id);
 
-  }
   componentDidUpdate(props){
     if(this.props.userToEnter.userId!=null && this.props.userToEnter.userId.status=='OUT' && this.state.open==false &&this.state.displayed==false){
       this.setState({
@@ -129,8 +122,7 @@ class VerifyExitComponent extends React.Component{
     let id = this.props.userToEnter.userId._id;
 
     let status = "OUT";
-    let agent = localStorage.getItem('loogedin_id');
-    await UserStore.alterGuestStatus(id , status , agent)
+    await UserStore.alterGuestStatus(id , status , this.props.userid)
     this.props.history.push('/agent');
 
 }
@@ -249,5 +241,10 @@ const VerifyExitComponentWithData =  compose(
     name: 'updateUserStatus'
   })
 )(VerifyExitComponent)
+function mapStateToProps(state) {
+  return { userid: state.auth.userid ,
+  role:state.auth.role};
+}
 
-export default withStyles(styles)(VerifyExitComponentWithData);
+
+export default withStyles(styles)(connect(mapStateToProps)(VerifyExitComponentWithData));
