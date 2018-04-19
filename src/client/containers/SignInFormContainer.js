@@ -235,14 +235,15 @@ class SignInFormContainer extends React.Component {
                 (
                   <Avatar
                    src={`${REMOTE_ASSETS_PATH}/${this.state.user.profile.avatar}`}
-                   className={classes.bigAvatar}/>
-                 <p className={classes.textAuthentification}>
+                   className={classes.bigAvatar}/> )}
+                  <p className={classes.textAuthentification}>
                    Identified As
-                 </p>
-                 <h2 className={classes.authentifiedUserName}>
+                  </p>
+                  {(this.state.user.profile != null)&&
+                (<h2 className={classes.authentifiedUserName}>
                    {this.state.user.profile.forname} {this.state.user.profile.name}
-                 </h2>
-                )}
+                 </h2>)}
+               
              <LoginForm
                onSubmit={this.handleSubmit.bind(this)}
                errors={this.state.errors}
