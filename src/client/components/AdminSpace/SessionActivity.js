@@ -9,6 +9,7 @@ import { withStyles } from 'material-ui/styles';
 import moment from 'moment';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Grow from 'material-ui/transitions/Grow';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
@@ -25,12 +26,17 @@ const styles = theme => ({
     'transform': 'rotateY(180deg)',
 
   },
+  container:{
+    maxWidth: '1200px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   OUT:{
     fill :"#ef4035",
   },
   nameProfil:{
     flexGrow:'2',
-    maxWidth: '408px',
+    maxWidth: '350px',
   },
   ListProfil:{
     backgroundColor:"#fff",
@@ -40,6 +46,9 @@ const styles = theme => ({
   },
   listeItem:{
     flexGrow: '1',
+  },
+  line:{
+    margin: 0,
   }
    });
 // @observer
@@ -72,11 +81,16 @@ class SessionActivity extends React.Component{
   render(){
     const {classes} = this.props;
     if(this.props.data.activitylistbysessionID!=null){
-      return(<div>
-        <ul className={classes.List}>
+      return(
+        <div className={classes.container}>
+          <ul className={classes.List}>
           {this.props.data.activitylistbysessionID.map(entry=>{
             return(
+
             <div key={entry.entryId}>
+            {
+              // <Grow in={true}>
+            }
              <ListItem className={classes.ListProfil} dense>
                 <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
                 <ListItemText className={classes.listeItem} secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}`}  />
@@ -85,7 +99,12 @@ class SessionActivity extends React.Component{
                 {entry.agent &&(<ListItemText className={classes.listeItem} secondary={` مسجل بواسطة :  ${entry.agent.username}`  }/>)}
                 <DirectionsRun className={classes[entry.action]}/>
               </ListItem>
-              <Divider inset/></div>
+              <Divider className={classes.line}inset/>
+              {
+                // </Grow>
+              }
+              </div>
+
             )
           })}
         </ul>

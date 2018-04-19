@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import AccountCircle from 'material-ui-icons/AccountCircle';
+import Place from 'material-ui-icons/Place';
 import AccessTime from 'material-ui-icons/AccessTime';
 import dateFormat from 'dateformat';
 import { withStyles } from 'material-ui/styles';
@@ -17,10 +18,12 @@ import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-
 import './vendor/events.css';
 import PlayArrow from 'material-ui-icons/PlayArrow';
 import Stop from 'material-ui-icons/Stop';
+import Event from 'material-ui-icons/Event';
 import Divider from 'material-ui/Divider';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import Slide from 'material-ui/transitions/Slide';
@@ -42,19 +45,38 @@ const styles = (theme) => ({
 	header: {
 		backgroundColor: '#053787',
 		color: 'white',
-		padding: '24px 16px 72px'
+		padding: '8px 16px 72px'
+	},
+	EventAvatar: {
+		color: '#fff'
 	},
 	editIcon: {
-		color: '#00abc7'
+		color: '#00abc7',
 	},
 	title: {
-		margin: '16px 0',
-		fontSize: '30pt'
+		margin: '16px 40px',
+		fontSize: '30pt',
+		lineHeight: '30pt'
 	},
 	dateEvent: {
 		fontSize: '14pt',
 		lineHeight: '24pt',
 		margin: '8px'
+	},
+	placeEvent: {
+		display:'flex',
+		justifyContent:'center',
+		alignItems: 'center',
+		fontSize: '14pt',
+		lineHeight: '24pt',
+	},
+	typeEvent: {
+		marginTop:'36px',
+		marginBottom:'8px'
+	},
+	chipEventType: {
+		background: 'rgba(255, 255, 255, 0.14)',
+    color: '#a9bad5',
 	},
 	appBar: {
 		position: 'relative'
@@ -244,7 +266,7 @@ class EventDetail extends React.Component {
 		form.onSubmit(event);
 		this.handleClose();
 		this.props.EventStore.getFullEventDetailsByID(this.props.match.params.id);
-		
+
 	}
 	render() {
 		const workshoplist = WorkshopStore.workshops;
@@ -339,20 +361,27 @@ class EventDetail extends React.Component {
 
 					<div className={classes.container}>
 						<div className={classes.header}>
-							<Button   variant="fab"   raised="true" className="editButton" onClick={this.handleClickOpenEditEvent}>
+							<div className={classes.headerContent}>
+							<Button className="editButton" onClick={this.handleClickOpenEditEvent} fab mini>
 								<ModeEditIcon className={classes.editIcon} />
 							</Button>
 							<h2 className={classes.title}>{event.title}</h2>
-							<h3>{event.type}</h3>
-							<span>{event.place}</span>
 							<p className={classes.dateEvent}>
 								{`من : ${dateFormat(event.start_date, 'dd/mm/yyyy')}`}{' '}
 								{`، الى : ${dateFormat(event.end_date, 'dd/mm/yyyy')}`}
 							</p>
+							<div className={classes.placeEvent}>
+								<Place style={{opacity:'0.5'}}/>
+								<p>{event.place}</p>
+							</div>
+							<div className={classes.typeEvent}>
+								<Chip label={event.type} className={classes.chipEventType} />
+							</div>
 							<p className={classes.numberAttend}>
-								{' '}
-								<AccountCircle /> {event.guests_number} الحضور المتوقع{' '}
+								{' '}<AccountCircle style={{opacity:'0.5'}}/>
+								  الحضور المتوقع{' : '}  {event.guests_number}
 							</p>
+						</div>
 						</div>
 
 						<Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
@@ -384,7 +413,6 @@ class EventDetail extends React.Component {
 										<ListItem className={classes.sessionItem}>
 											<div className={classes.datEntreSorti}>
 												<ListItemText primary={item.title} />
-
 												<div className={classes.generalSessionitem}>
 													<div className={classes.sessionitemTime}>
 														<div>
@@ -425,8 +453,7 @@ class EventDetail extends React.Component {
 											{item.session_empty == true &&(
 												<Button
 													onClick={() => this.startSessionForWorkshop(item._id)}
-													className={classes.star}
-												>
+													className={classes.star}>
 													<div className={classes.startStopSession}>
 														<PlayArrow />
 														تسجيل جلسة

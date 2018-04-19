@@ -102,7 +102,7 @@ const backgroundAddUser = {
   const whiteBackground = {
       backgroundColor:'#fff',
       position: 'fixed',
-      height: '112px',
+      height: '50vh',
       width: '100vw',
       bottom:'0',
     };
@@ -121,6 +121,8 @@ const backgroundAddUser = {
       alignItems: 'flex-start',
       marginLeft: 'auto',
       marginRight: 'auto',
+      maxWidth: '700px',
+      paddingBottom: '10px',
     };
 
     const subContainerAddUser = {
@@ -128,7 +130,7 @@ const backgroundAddUser = {
       marginRight: 'auto',
       backgroundColor: '#fff',
       display: 'flex',
-      flexDirection: 'row' 
+      flexDirection: 'row'
     };
     const styleinputForm ={
       width: '300px',
@@ -289,7 +291,9 @@ render(){
   return (
     <div style={container}>
     <object type="image/svg+xml" data={BackAddUser} style={backgroundAddUser}/>
-    <div style={whiteBackground}></div>
+    {
+      <div style={whiteBackground}></div>
+    }
     <div style={subContainerAddUser}>
       <form onSubmit={handleSubmit} style={formAddUser}>
       <div className='containerTypoAvatar'>

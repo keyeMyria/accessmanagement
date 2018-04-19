@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import { FormControl } from 'material-ui/Form';
 import purple from 'material-ui/colors/purple';
 import Button from 'material-ui/Button';
+import ErrorOutline from 'material-ui-icons/ErrorOutline';
 
   const buttonLogin = {
     marginTop: '24px',
@@ -48,7 +49,21 @@ const styles = theme => ({
     }
   },
   msgError:{
-    color : 'red',
+    color: '#fff',
+    backgroundColor: '#eb514a',
+    width: '100%',
+    height: '45px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: '8px',
+    borderRadius: '2px',
+    margin: '16px 0 8px',
+    textShadow: '0 1px 5px rgba(0, 0, 0, 0.2)',
+  },
+  iconError:{
+    marginRight: '8px',
   },
   formLogin:{
     display: 'flex',
@@ -90,25 +105,24 @@ class SignInForm extends React.Component{
     return (
 
         <FormControl style={formControl}>
-        <InputLabel
-                  FormControlClasses={{
-                    root : this.props.classes.inputLabelFocused,
-                    focused: this.props.classes.inputLabelFocused
-                  }}
-                  htmlFor="custom-color-input"
-                >
-                  {label}
-                </InputLabel>
-        <Input
-                  type={type}
-                  {...input}
-                  autoFocus={autoFocus}
-                   classes={{
-                    inkbar: this.props.classes.inputInkbar
-                    }}
-        style={style}
-       />
-
+            <InputLabel
+                      FormControlClasses={{
+                        root : this.props.classes.inputLabelFocused,
+                        focused: this.props.classes.inputLabelFocused
+                      }}
+                      htmlFor="custom-color-input"
+                    >
+                      {label}
+            </InputLabel>
+            <Input
+                      type={type}
+                      {...input}
+                      autoFocus={autoFocus}
+                       classes={{
+                        inkbar: this.props.classes.inputInkbar
+                        }}
+            style={style}
+           />
       </FormControl>
   );
 }
@@ -119,7 +133,11 @@ class SignInForm extends React.Component{
         <form onSubmit={handleSubmit}
         className={classes.formLogin}
         >
-          <div className={classes.msgError}>{errors}</div>
+        { ((errors!= null)) &&
+          (<div className={classes.msgError}>
+            <ErrorOutline className={classes.iconError}/> {errors}
+          </div>)
+        }
           {(username!=null) &&(<Field name="username" type="username" component={this.renderHiddenField} classes={classes}  value={username} />)}
           {(username==null) &&(<Field name="username" type="username" component={this.renderTextField} classes={classes} label="اسم المستخدم" value="" autoFocus />)}
           <Field name="password" type="password" component={this.renderTextField} label="كلمة  المرور" />
