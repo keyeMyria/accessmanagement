@@ -238,20 +238,18 @@ class SignInFormContainer extends React.Component {
                      <h2 className={classes.authentifiedUserName}>
                        {this.state.user.profile.forname} {this.state.user.profile.name}
                      </h2>
+                     <LoginForm
+                       onSubmit={this.handleSubmit.bind(this)}
+                       errors={this.state.errors}
+                       username={this.state.user.username}
+                       user={this.state.user}
+                     />
                    </div>
                )}
-             <LoginForm
-               onSubmit={this.handleSubmit.bind(this)}
-               errors={this.state.errors}
-               username={this.state.user.username}
-               user={this.state.user}
-             />
            </div></div>)
          else{
            return(<div>Loading...</div>)
          }
-
-
     }
     else{
       return (
@@ -287,39 +285,34 @@ class SignInFormContainer extends React.Component {
                         user={this.state.user}
                       />
                   </div>
-
-                <div style={QRCodeContainer}>
-                  <div>
-                    {!this.state.qrcodeauth &&(<ButtonBase
-                        focusRipple
-                        style={buttonQRCode}
-                        onClick={this.handleOpenQrCode}
-                      >
-                        <span>
-                          <PhotoCamera style={{ height: 48, width:48 }}/>
-                          <Typography
-                            component="span"
-                            style={buttonQRCodeText}
-                          >
-                          تسجيل الدخول برمز QR
-                          </Typography>
-                        </span>
-                      </ButtonBase>)}
+                  <div style={QRCodeContainer}>
+                    <div>
+                      {!this.state.qrcodeauth &&(<ButtonBase
+                          focusRipple
+                          style={buttonQRCode}
+                          onClick={this.handleOpenQrCode}
+                        >
+                          <span>
+                            <PhotoCamera style={{ height: 48, width:48 }}/>
+                            <Typography
+                              component="span"
+                              style={buttonQRCodeText}
+                            >
+                            تسجيل الدخول برمز QR
+                            </Typography>
+                          </span>
+                        </ButtonBase>)}
+                      </div>
+                      <div className="article">
+                        {(this.state.qrcodeauth)&&( <QrReader
+                         className="QRcode"
+                          delay={this.state.delay}
+                          onError={this.handleError}
+                          onScan={this.handleScan}
+                          facingMode="user"
+                        /> )}
+                      </div>
                     </div>
-
-                    <div className="article">
-                      {(this.state.qrcodeauth)&&( <QrReader
-                       className="QRcode"
-                        delay={this.state.delay}
-                        onError={this.handleError}
-                        onScan={this.handleScan}
-                        facingMode="user"
-                      /> )}
-                    </div>
-
-                  </div>
-
-
                   </CSSTransitionGroup>
               </div>
         </div>

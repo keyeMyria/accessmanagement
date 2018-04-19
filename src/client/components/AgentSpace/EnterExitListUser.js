@@ -5,6 +5,7 @@ import UserStore from '../../mobx/gueststore';
 import List, { ListItem, ListItemSecondaryAction,ListItemIcon, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
+import { connect } from 'react-redux';
 import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
@@ -24,11 +25,10 @@ const styles = theme => ({
 class EnterExitListUser extends React.Component{
   constructor(props){
     super(props)
-    let id = localStorage.getItem('loogedin_id');
-    UserStore.fetchGuestForAgentWorkshop(id);
-    let fetched_user = UserStore.fetchUserRole(id);
+    UserStore.fetchGuestForAgentWorkshop(props.userid);
+    let fetched_user = UserStore.fetchUserRole(props.userid);
     fetched_user.then(res=>{
-      this.setState({
+      this.setStagte({
         role:res.role.name
       })
     })
@@ -71,4 +71,10 @@ class EnterExitListUser extends React.Component{
 
   }
 }
-export default withStyles(styles)(EnterExitListUser);
+function mapStateToProps(state) {
+  return { userid: state.auth.userid ,
+  role:state.auth.role};
+}
+
+
+export default withStyles(styles)(connect(mapStateToProps)(EnterExitListUser));

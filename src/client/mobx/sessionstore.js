@@ -93,16 +93,15 @@ class SessionStore {
         this.updateSessionStatsValue(sessionid , "abscent" , subscriptionData.data.refreshedSessionStats.abscent)
       }
     });
-    this.getSessionStatsIntruders.ref.subscribeToMore({
-      document:sessionSubscription ,
-      updateQuery : (current , {subscriptionData})=>{
-        this.updateSessionStatsValue(sessionid , "intruders" , subscriptionData.data.refreshedSessionStats.intruders)
+    // this.getSessionStatsIntruders.ref.subscribeToMore({
+    //   document:sessionSubscription ,
+    //   updateQuery : (current , {subscriptionData})=>{
+    //     this.updateSessionStatsValue(sessionid , "intruders" , subscriptionData.data.refreshedSessionStats.intruders)
         
-      }
-    })
+    //   }
+    // })
    }
    @action updateSessionStatsValue=(sessionid , ref , value)=>{
-     console.log(this.sessions[sessionid])
      this.sessions[sessionid][ref].data.getSessionStats = value;
    }
     // Values marked as 'observable' can be watched by 'observers'
@@ -115,7 +114,7 @@ class SessionStore {
     @computed get selectedId() { return this.selectedSession.id; }
     @action setSessionId=(sessionid)=>{
       this.sessionid = sessionid;
-      this.sessions[this.sessionid]=[]
+      this.sessions[sessionid]=[]
     }
     // In strict mode, only actions can modify mobx state
     @action setSessions = (sessions) => {
@@ -226,6 +225,5 @@ class SessionStore {
       })
     }
 }
-
 const store = new SessionStore();
 export default store;

@@ -67,14 +67,13 @@ const styleEndTime = {
     borderRight: '1px solid #eee',
 };
 const users=null ;
-
 @inject('SessionStore')
 @observer
 class DashboardUnit extends React.Component{
   constructor(props){
     super(props);
-    props.SessionStore.setSessionId(props.details._id);
-		props.SessionStore.subscribe(props.details._id)
+     this.props.SessionStore.setSessionId(props.details._id);
+     this.props.SessionStore.subscribe(props.details._id)
 
   }
   getUsersStatistics =()=>{
@@ -194,7 +193,7 @@ class DashboardUnit extends React.Component{
 
   render(){
     const {classes , details , key , size} = this.props;
-    console.log(size)
+
     if(this.props.SessionStore.sessions[details._id]!=undefined)
         return(<div>{this.buildContentBasedOnData(details , classes ,details.title!=undefined ? details.title : "جلسة عامة" , size)}</div>)
     else{
