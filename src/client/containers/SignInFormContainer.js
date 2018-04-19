@@ -150,7 +150,6 @@ class SignInFormContainer extends React.Component {
     }
   }
   setUserData=(user)=>{
-    console.log(user)
     this.setState({
       user :user
     })
@@ -231,16 +230,16 @@ class SignInFormContainer extends React.Component {
               </div>
               {(this.state.user.profile != null)&&
                 (
-                  <Avatar
-                   src={`${REMOTE_ASSETS_PATH}/${this.state.user.profile.avatar}`}
-                   className={classes.bigAvatar}/>
-                 <p className={classes.textAuthentification}>
-                   Identified As
-                 </p>
-                 <h2 className={classes.authentifiedUserName}>
-                   {this.state.user.profile.forname} {this.state.user.profile.name}
-                 </h2>
-                )}
+                  <div>
+                    <Avatar
+                     src={`${REMOTE_ASSETS_PATH}/${this.state.user.profile.avatar}`}
+                     className={classes.bigAvatar}/>
+                     <p className={classes.textAuthentification}> Identified As </p>
+                     <h2 className={classes.authentifiedUserName}>
+                       {this.state.user.profile.forname} {this.state.user.profile.name}
+                     </h2>
+                   </div>
+               )}
              <LoginForm
                onSubmit={this.handleSubmit.bind(this)}
                errors={this.state.errors}
