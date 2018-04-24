@@ -2,6 +2,7 @@ import React from 'react' ;
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 import Snackbar, { SnackbarContent } from 'material-ui/Snackbar';
 import Badge from 'material-ui/Badge';
 import Button from 'material-ui/Button';
@@ -158,7 +159,7 @@ handleIconButtonRequestOpen = () => {
         return(
           <div>
             <QRcodeUnknown/>
-            <p className={classNames(classes.msgError)}>  رمز هذا الشخص غير معروف </p>
+            <Typography type="display1">  رمز هذا الشخص غير معروف </Typography>
           </div>
         );
     }

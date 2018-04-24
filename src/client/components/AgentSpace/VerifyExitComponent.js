@@ -133,8 +133,8 @@ class VerifyExitComponent extends React.Component{
     if(userToEnter.userId==null){
         return(
           <div>
-          <QRcodeUnknown/>
-          <p className={classNames(classes.msgError)}>  رمز هذا الشخص غير معروف </p>
+            <QRcodeUnknown/>
+            <Typography type="display1">  رمز هذا الشخص غير معروف </Typography>
           </div>
         );
     }

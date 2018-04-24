@@ -6,8 +6,8 @@ import QrCodeAuthentication from '../../components/Login/QrCodeAuthentication';
 import Theme from './Theme';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Redirect } from 'react-router-dom';
-import { Route, Switch  } from 'react-router';
-import {Provider} from 'mobx-react';
+import { Route, Switch } from 'react-router';
+import { Provider } from 'mobx-react';
 import Attendies from '../AgentSpace/Attendies';
 import AgentContainer from '../AgentSpace/AgentContainer';
 import AdminContainer from '../AdminSpace/AdminContainer';
@@ -35,10 +35,10 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 import AgentDashboard from '../AgentSpace/AgentDashboard';
 import SessionActivity from '../AdminSpace/SessionActivity';
-import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter'
-import UserStore from '../../mobx/gueststore'
-import EventStore from '../../mobx/eventstore'
-import SessionStore from '../../mobx/sessionstore'
+import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter';
+import UserStore from '../../mobx/gueststore';
+import EventStore from '../../mobx/eventstore';
+import SessionStore from '../../mobx/sessionstore';
 
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
@@ -57,82 +57,85 @@ const isAuthenticated = () => {
 
   return true;
 };
-const isAdmin=()=>{
+const isAdmin = () => {
   let role = localStorage.getItem('role');
-  if(role=='admin')
-  return true;
+  if (role == 'admin') return true;
   else {
     return false;
   }
-}
-const isINAgent=()=>{
+};
+const isINAgent = () => {
   let role = localStorage.getItem('role');
-  if(role=='agent_in')
-  return true;
+  if (role == 'agent_in') return true;
   else {
     return false;
   }
-}
-const isOUTAgent=()=>{
+};
+const isOUTAgent = () => {
   let role = localStorage.getItem('role');
-  if(role=='agent_out')
-  return true;
+  if (role == 'agent_out') return true;
   else {
     return false;
   }
-}
-const isWorkshopAgent=()=>{
+};
+const isWorkshopAgent = () => {
   let role = localStorage.getItem('role');
-  if(role=='agent_in_out')
-  return true;
+  if (role == 'agent_in_out') return true;
   else {
     return false;
   }
-}
+};
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (isAuthenticated() ? (
+      isAuthenticated() ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{
-            pathname: '/signin',
+            pathname: '/signin'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 const AgentINRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (isAuthenticated() && isINAgent()? (
-
-          <AgentContainer><Component {...props} /></AgentContainer>
+      isAuthenticated() && isINAgent() ? (
+        <AgentContainer>
+          <Component {...props} />
+        </AgentContainer>
       ) : (
         <Redirect
           to={{
-            pathname: '/signout',
+            pathname: '/signout'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 const AgentRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (isAuthenticated() && (isINAgent() || isOUTAgent() || isWorkshopAgent())? (
-        <AgentContainer><Component {...props} /></AgentContainer>
+      isAuthenticated() &&
+      (isINAgent() || isOUTAgent() || isWorkshopAgent()) ? (
+        <AgentContainer>
+          <Component {...props} />
+        </AgentContainer>
       ) : (
         <Redirect
           to={{
-            pathname: '/signout',
+            pathname: '/signout'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 //
@@ -140,121 +143,201 @@ const AgentWorkshopRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (isAuthenticated() && (isWorkshopAgent())? (
-      <AgentContainer><Component {...props} /></AgentContainer>
+      isAuthenticated() && isWorkshopAgent() ? (
+        <AgentContainer>
+          <Component {...props} />
+        </AgentContainer>
       ) : (
         <Redirect
           to={{
-            pathname: '/signout',
+            pathname: '/signout'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 const AgentOUTRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (isAuthenticated() && isOUTAgent()? (
-        <AgentContainer><Component {...props} /></AgentContainer>
+      isAuthenticated() && isOUTAgent() ? (
+        <AgentContainer>
+          <Component {...props} />
+        </AgentContainer>
       ) : (
         <Redirect
           to={{
-            pathname: '/signout',
+            pathname: '/signout'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 const AdminRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (isAuthenticated() && isAdmin()? (
-        <AdminContainer><Component UserStore={UserStore} {...props} /></AdminContainer>
+      isAuthenticated() && isAdmin() ? (
+        <AdminContainer>
+          <Component UserStore={UserStore} {...props} />
+        </AdminContainer>
       ) : (
         <Redirect
           to={{
-            pathname: '/signout',
+            pathname: '/signout'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 const CommonAuthenticatedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (isAuthenticated() && (isAdmin() || (isINAgent() || isOUTAgent() || isWorkshopAgent()))? (
-        <AdminContainer><Component UserStore={UserStore} {...props} /></AdminContainer>
+      isAuthenticated() &&
+      (isAdmin() || (isINAgent() || isOUTAgent() || isWorkshopAgent())) ? (
+        <AdminContainer>
+          <Component UserStore={UserStore} {...props} />
+        </AdminContainer>
       ) : (
         <Redirect
           to={{
-            pathname: '/signout',
+            pathname: '/signout'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 const LoginRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      (!isAuthenticated() ? (
+      !isAuthenticated() ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{
-            pathname: '/signout',
+            pathname: '/signout'
           }}
         />
-      ))}
+      )
+    }
   />
 );
 class App extends React.Component {
-
-	render() {
-		return (
-    <BrowserRouter>
-			<MuiThemeProvider theme={Theme}>
-      <Provider UserStore={UserStore} EventStore={EventStore} SessionStore={SessionStore}>
-        <JssProvider jss={jss}>
-        <Switch>
-                <LoginRoute exact path='/' component={SignInFormContainer} />
-                <LoginRoute exact path='/loggedas/:uid' component={SignInFormContainer} />
-                <Route exact path='/signout' component={LogoutPage} />
-                <PrivateRoute exact path='/capture' component={QReaderComponent} />
-  			      	<AgentRoute exact path='/listattendies' component={Attendies} />
-                <AgentRoute exact path='/agent' component={QReaderComponent} />
-                <AgentRoute exact path='/dashboard' component={AgentDashboard} />
-                <AgentRoute exact path='/operateonguestlist' component={EnterExitListUser}/>
-                <AdminRoute exact path='/manageguest' component={GuestListManageable} />
-                <AdminRoute exact path='/listguests' component={AttendiesList} />
-								<AdminRoute exact path='/activitylog' component={PaginatedEntriesContainer} />
-                <CommonAuthenticatedRoute exact path='/listusersbysession/:id' component={ListGuestBYSessionFilter} />
-                <AdminRoute exact path='/adduser' component={AddUserFormContainer} />
-								<AdminRoute exact path="/useractivity/:id" component={AttendeeActivity} />
-                <CommonAuthenticatedRoute exact path="/sessionactivity/:id" component={SessionActivity} />
+  render() {
+    return (
+      <BrowserRouter>
+        <MuiThemeProvider theme={Theme}>
+          <Provider
+            UserStore={UserStore}
+            EventStore={EventStore}
+            SessionStore={SessionStore}>
+            <JssProvider jss={jss}>
+              <Switch>
+                <LoginRoute exact path="/" component={SignInFormContainer} />
+                <LoginRoute
+                  exact
+                  path="/loggedas/:uid"
+                  component={SignInFormContainer}
+                />
+                <Route exact path="/signout" component={LogoutPage} />
+                <PrivateRoute
+                  exact
+                  path="/capture"
+                  component={QReaderComponent}
+                />
+                <AgentRoute exact path="/listattendies" component={Attendies} />
+                <AgentRoute exact path="/agent" component={QReaderComponent} />
+                <AgentRoute
+                  exact
+                  path="/dashboard"
+                  component={AgentDashboard}
+                />
+                <AgentRoute
+                  exact
+                  path="/operateonguestlist"
+                  component={EnterExitListUser}
+                />
+                <AdminRoute
+                  exact
+                  path="/manageguest"
+                  component={GuestListManageable}
+                />
+                <AdminRoute
+                  exact
+                  path="/listguests"
+                  component={AttendiesList}
+                />
+                <AdminRoute
+                  exact
+                  path="/activitylog"
+                  component={PaginatedEntriesContainer}
+                />
+                <CommonAuthenticatedRoute
+                  exact
+                  path="/listusersbysession/:id"
+                  component={ListGuestBYSessionFilter}
+                />
+                <AdminRoute
+                  exact
+                  path="/adduser"
+                  component={AddUserFormContainer}
+                />
+                <AdminRoute
+                  exact
+                  path="/useractivity/:id"
+                  component={AttendeeActivity}
+                />
+                <CommonAuthenticatedRoute
+                  exact
+                  path="/sessionactivity/:id"
+                  component={SessionActivity}
+                />
                 <AdminRoute exact path="/manageagents" component={AgentList} />
                 <AdminRoute exact path="/managevents" component={EventsList} />
-                <AdminRoute exact path="/manage-single-event/:id"  name="event-detail" component={EventDetail} />
-                <AdminRoute exact path="/event-dashboard/:id"  name="event-detail" component={EventDashboard} />
-								<AgentINRoute exact path="/verifyenter/:id" component={VerifyEnterComponent} />
-								<AgentOUTRoute exact path="/verifyexit/:id" component={VerifyExitComponent} />
-                <AgentWorkshopRoute exact path="/accessoperation/:id" component={AccessOperationForWorkshopsComponent} />
-
-
-			  </Switch>
-      </JssProvider>
-      </Provider>
-			</MuiThemeProvider>
-    </BrowserRouter>
-		);
-	}
+                <AdminRoute
+                  exact
+                  path="/manage-single-event/:id"
+                  name="event-detail"
+                  component={EventDetail}
+                />
+                <AdminRoute
+                  exact
+                  path="/event-dashboard/:id"
+                  name="event-detail"
+                  component={EventDashboard}
+                />
+                <AgentINRoute
+                  exact
+                  path="/verifyenter/:id"
+                  component={VerifyEnterComponent}
+                />
+                <AgentOUTRoute
+                  exact
+                  path="/verifyexit/:id"
+                  component={VerifyExitComponent}
+                />
+                <AgentWorkshopRoute
+                  exact
+                  path="/accessoperation/:id"
+                  component={AccessOperationForWorkshopsComponent}
+                />
+              </Switch>
+            </JssProvider>
+          </Provider>
+        </MuiThemeProvider>
+      </BrowserRouter>
+    );
+  }
 }
 
 App.propTypes = {
-	children:PropTypes.node
+  children: PropTypes.node
 };
 
 export default App;
