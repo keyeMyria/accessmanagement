@@ -3,144 +3,15 @@ import { createApolloFetch } from 'apollo-fetch';
 import moment from 'moment';
 import gql from 'graphql-tag';
 import graphql from 'mobx-apollo';
-import { getOperationAST } from 'graphql';
-
-import { WebSocketLink } from 'apollo-link-ws';
 import DOMAIN_PATH ,{REMOTE_DOMAIN_PATH , LOCAL_WEBSOCKET_ENDPOINT} from '../app/config'
-
-import { ApolloLink, concat } from 'apollo-link';
-import ApolloClient from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-
-
 useStrict(true);
 const fetch = createApolloFetch({
   uri: REMOTE_DOMAIN_PATH,
 });
 
-const link = ApolloLink.split(
-  operation => {
-    const operationAST = getOperationAST(operation.query, operation.operationName);
-    return !!operationAST && operationAST.operation === 'subscription';
-  },
-  new WebSocketLink({
-    uri: LOCAL_WEBSOCKET_ENDPOINT,
-    options: {
-      reconnect: true, //auto-reconnect
-      // // carry login state (should use secure websockets (wss) when using this)
-      // connectionParams: {
-      //   authToken: localStorage.getItem("Meteor.loginToken")
-      // }
-    }
-  }),
-  new HttpLink({ uri: REMOTE_DOMAIN_PATH })
-);
-
-const cache = new InMemoryCache(window.__APOLLO_STATE);
- const client = new ApolloClient({
-  link:  link ,
-  cache:cache
-
-});
-const  getEventById = gql`query getEventByID($eventid:String!) {
-  getEventByID(eventid:$eventid){
-    _id
-    title
-    type
-    place   
-    start_date
-    end_date
-    session_empty
-    session_collection{
-      _id
-      title
-      start_hour
-      end_hour
-      stat
-      closed_in
-      closed_out
-      closed_abscent
-
-    }
-    workshops{
-      _id
-      name
-      session_empty
-      session_list {
-        _id
-        title
-        start_hour
-        end_hour
-        stat
-        closed_in
-        closed_out
-        closed_abscent
-      }
-      users{
-        _id
-        status
-      }
-      guests_number
-    }
-    guests_number
-
-  }
-}`
-
-const getFullEventById=gql`query getEventByID($eventid:String!) {
-  getEventByID(eventid:$eventid){
-    _id
-    title
-    type
-    place   
-    start_date
-    end_date
-    session_empty
-    session_collection{
-      _id
-      title
-      start_hour
-      end_hour
-      stat
-      closed_in
-      closed_out
-      closed_abscent
-
-    }
-    workshops{
-      _id
-      name
-      session_empty
-      session_list {
-        _id
-        title
-        start_hour
-        end_hour
-        stat
-        closed_in
-        closed_out
-        closed_abscent
-      }
-      users{
-        _id
-        status
-      }
-      guests_number
-    }
-    guests_number
-  }
-}`
 
 class EventStore {
-  constructor(){
-    extendObservable(this , {
-      get getEventByIdExecute(){
-        return graphql({ client, query: getEventById , variables:{eventid:this.eventid}});            
-      }
-  })
 
-  }
 
     // Values marked as 'observable' can be watched by 'observers'
     @observable unfiltered_events = [];
@@ -205,10 +76,10 @@ class EventStore {
       var moment_Now = moment();
       var momentStart = moment(date1);
       let momentEnd = moment(date2)
-      if (moment_Now > momentStart){
+      if (moment_Now > momentEnd){
         return -1;
       }
-      else if (moment_Now < momentStart && moment_Now < momentEnd) return 1;
+      else if (moment_Now < momentStart && moment_Now <= momentEnd) return 1;
       else return 0;
     }
     @action filterEventByCurrentDate =(type)=>{
@@ -229,14 +100,15 @@ class EventStore {
       );
     }
     @action filterWorkshopsAndSessions(status , empty) {
-      this.event_sessions = this.getEventByIdExecute.data.getEventByID.session_collection.filter(
+      
+      this.event_sessions = this.selectedEvent.session_collection.filter(
         session => {
           return session.stat===status
         }
       );
-      this.event_workshops =this.getEventByIdExecute.data.getEventByID.workshops.filter(
+      this.event_workshops =this.selectedEvent.workshops.filter(
         work=>{
-          work.session_empty==empty
+          return work.session_empty===empty
         }
       );
     }

@@ -8,7 +8,6 @@ import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 
 import EventStore from '../../mobx/eventstore';
-@inject('EventStore')
 @observer
 class EventDashboard extends React.Component{
   constructor(props){
@@ -18,8 +17,8 @@ class EventDashboard extends React.Component{
       off_filter : false,
       initiated : false
     }
-    props.EventStore.setEventId(props.match.params.id);  
-    props.EventStore.getFullEventDetailsByID(props.match.params.id)  ;
+    EventStore.setEventId(props.match.params.id);  
+    EventStore.getFullEventDetailsByID(props.match.params.id)  ;
   };
   filterWorkshopsAndSessions =(stat , empty)=>{
     EventStore.filterWorkshopsAndSessions(stat , empty);
@@ -34,18 +33,9 @@ class EventDashboard extends React.Component{
       off_filter : true
     })
   }
-  componentDidUpdate=(props)=>{
-    
-    if(this.state.initiated==false)
-      {
-        props.EventStore.initEventVars();
-        this.setState({
-          initiated:true
-        })
-      }
-  }
+
   render(){
-		event = this.props.EventStore.getEventByIdExecute.data.getEventByID;
+		event = EventStore.selectedEvent;
      if (event == undefined) {
 			return (
 				<div>
@@ -65,14 +55,12 @@ class EventDashboard extends React.Component{
                   الفارط
                 </Button>
         </div>
-          {(this.props.EventStore.event_sessions!== undefined)&&
-            this.props.EventStore.event_sessions.map(gen_session=>{
+          {(EventStore.event_sessions!== undefined)&&
+            EventStore.event_sessions.map(gen_session=>{
               return(<DashboardUnit key={gen_session._id} details={gen_session} size={event.guests_number} />);
             })}
-          {(this.props.EventStore.event_workshops!== undefined)&& this.props.EventStore.event_workshops.map(work=>{
-              //work.session_list.map(session=>{
-                return(<WorkshopUnit key={work._id} details={work} users={work.guests_number}/>);
-              //})
+          {(EventStore.event_workshops!== undefined)&& EventStore.event_workshops.map(work=>{
+                 return(<WorkshopUnit key={work._id} details={work} users={work.guests_number}/>);
             })
           }
   

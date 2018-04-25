@@ -74,9 +74,11 @@ class Unit extends React.Component{
 
   }
   getUsersStatistics =()=>{
-    let in_length = this.props.INCOUNT.getSessionStats;
-    let out_length = this.props.OUTCOUNT.getSessionStats;
-    let abscent_length =this.props.ABSCENTCOUNT.getSessionStats;
+    console.log(this.props)
+    
+    let in_length = this.props.INCOUNT.getSessionStatsForWorkshop;
+    let out_length = this.props.OUTCOUNT.getSessionStatsForWorkshop;
+    let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForWorkshop;
 
     let data = [
       {name: 'داخل الورشة', value: in_length},
@@ -272,8 +274,8 @@ function CustomLabel({viewBox, value1, value2}){
    </text>
   )
 }
-const getSessionStats= gql`query getSessionStats($sessionId:String! , $status:String!) {
-  getSessionStats(sessionId:$sessionId , status:$status)
+const getSessionStatsForWorkshop= gql`query getSessionStatsForWorkshop($sessionId:String! , $status:String!) {
+  getSessionStatsForWorkshop(sessionId:$sessionId , status:$status)
 }`
 
 const sessionSubscription=gql`
@@ -287,7 +289,7 @@ subscription {
 }
 `
 const GraphQledUnit = compose(
-  graphql(getSessionStats , {
+  graphql(getSessionStatsForWorkshop , {
     name :"INCOUNT",
     options:(ownProps) => ({
       variables: {
@@ -295,7 +297,7 @@ const GraphQledUnit = compose(
         status :"IN"
       }
     })}),
-    graphql(getSessionStats , {
+    graphql(getSessionStatsForWorkshop , {
       name :"OUTCOUNT",
       options:(ownProps) => ({
         variables: {
@@ -303,7 +305,7 @@ const GraphQledUnit = compose(
           status :"OUT"
         }
       })}),
-      graphql(getSessionStats , {
+      graphql(getSessionStatsForWorkshop , {
         name :"ABSCENTCOUNT",
         options:(ownProps) => ({
           variables: {

@@ -35,18 +35,10 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 import AgentDashboard from '../AgentSpace/AgentDashboard';
 import SessionActivity from '../AdminSpace/SessionActivity';
-<<<<<<< HEAD
 import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter'
 import UserStore from '../../mobx/gueststore'
 import EventStore from '../../mobx/eventstore'
 import SessionStore from '../../mobx/sessionstore'
-=======
-import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter';
-import UserStore from '../../mobx/gueststore';
-import EventStore from '../../mobx/eventstore';
-import SessionStore from '../../mobx/sessionstore';
-
->>>>>>> 3a73f7fa5a37399a7033106b31ab1553b3771fe8
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;

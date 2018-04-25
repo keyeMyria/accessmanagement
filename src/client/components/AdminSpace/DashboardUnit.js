@@ -74,10 +74,9 @@ class DashboardUnit extends React.Component{
     super(props);
   }
   getUsersStatistics =()=>{
-
-    let in_length = this.props.INCOUNT.getSessionStats;
-    let out_length = this.props.OUTCOUNT.getSessionStats;
-    let abscent_length =this.props.ABSCENTCOUNT.getSessionStats;
+    let in_length = this.props.INCOUNT.getSessionStatsForSession;
+    let out_length = this.props.OUTCOUNT.getSessionStatsForSession;
+    let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForSession;
     let data = [
       {name: 'داخل الورشة', value: in_length},
       {name: 'خارج الورشة', value:out_length },
@@ -270,8 +269,8 @@ function CustomLabel({viewBox, value1, value2}){
    </text>
   )
 }
-const getSessionStats= gql`query getSessionStats($sessionId:String! , $status:String!) {
-  getSessionStats(sessionId:$sessionId , status:$status)
+const getSessionStatsForSession= gql`query getSessionStatsForSession($sessionId:String! , $status:String!) {
+  getSessionStatsForSession(sessionId:$sessionId , status:$status)
 }`
 
 const sessionSubscription=gql`
@@ -285,7 +284,7 @@ subscription {
 }
 `
 const GraphQledDashboardUnit = compose(
-  graphql(getSessionStats , {
+  graphql(getSessionStatsForSession , {
     name :"INCOUNT",
     options:(ownProps) => ({
       variables: {
@@ -293,7 +292,7 @@ const GraphQledDashboardUnit = compose(
         status :"IN"
       }
     })}),
-    graphql(getSessionStats , {
+    graphql(getSessionStatsForSession , {
       name :"OUTCOUNT",
       options:(ownProps) => ({
         variables: {
@@ -301,7 +300,7 @@ const GraphQledDashboardUnit = compose(
           status :"OUT"
         }
       })}),
-      graphql(getSessionStats , {
+      graphql(getSessionStatsForSession , {
         name :"ABSCENTCOUNT",
         options:(ownProps) => ({
           variables: {
