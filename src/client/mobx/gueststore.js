@@ -131,6 +131,7 @@ class UserStore {
       })
   }
   @action fetchGuestForAgentWorkshop=(userid)=>{
+    console.log(userid)
     fetch({
      query : `query getWorkshopByUserId($id : ID!){
        getWorkshopByUserId(id :$id){

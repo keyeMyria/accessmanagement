@@ -7,7 +7,9 @@ import SwapHoriz from 'material-ui-icons/SwapHoriz';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import _ from 'lodash';
-import moment from 'moment'
+import moment from 'moment';
+import { graphql , compose} from 'react-apollo';
+import gql from 'graphql-tag';
 import {observer , inject} from 'mobx-react'
 import SessionStore from '../../mobx/sessionstore';
 import {Link} from 'react-router-dom';
@@ -66,21 +68,15 @@ const styles = theme => ({
 const styleEndTime = {
     borderRight: '1px solid #eee',
 };
-const users=null ;
-@inject('SessionStore')
-@observer
+
 class DashboardUnit extends React.Component{
   constructor(props){
     super(props);
-     this.props.SessionStore.setSessionId(props.details._id);
-     this.props.SessionStore.subscribe(props.details._id)
-
   }
   getUsersStatistics =()=>{
-    let in_length = this.props.SessionStore.sessions[this.props.details._id]["in"]["data"]["getSessionStats"];
-    let out_length = this.props.SessionStore.sessions[this.props.details._id]["out"]["data"]["getSessionStats"];
-    let abscent_length = this.props.SessionStore.sessions[this.props.details._id]["abscent"]["data"]["getSessionStats"];
-
+    let in_length = this.props.INCOUNT.getSessionStatsForSession;
+    let out_length = this.props.OUTCOUNT.getSessionStatsForSession;
+    let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForSession;
     let data = [
       {name: 'داخل الورشة', value: in_length},
       {name: 'خارج الورشة', value:out_length },
@@ -190,12 +186,72 @@ class DashboardUnit extends React.Component{
         </div>
       </div>)
   }
-
+  componentWillMount() {
+    this.props.ABSCENTCOUNT.subscribeToMore({
+      document: sessionSubscription,
+      variables: {
+        sessionId: this.props.details._id,
+      },
+      updateQuery :(prev , {subscriptionData})=>{
+        if(!subscriptionData.data){
+          return prev;
+        }
+        else{
+          if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
+            return Object.assign({}, {
+                getSessionStats:subscriptionData.data.refreshedSessionStats.abscent
+            })
+         else{
+            return(prev)
+          }
+        }
+      }
+    });
+    this.props.INCOUNT.subscribeToMore({
+      document: sessionSubscription,
+      variables: {
+        sessionId: this.props.details._id,
+      },
+      updateQuery :(prev , {subscriptionData})=>{
+        if(!subscriptionData.data){
+          return prev;
+        }
+        else{
+          if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
+            return Object.assign({}, {
+                getSessionStats:subscriptionData.data.refreshedSessionStats.in
+            })
+          else
+          return (prev)
+        }    
+      }
+    });
+    this.props.OUTCOUNT.subscribeToMore({
+      document: sessionSubscription , 
+      variables: {
+        sessionId: this.props.details._id,
+      },
+      updateQuery :(prev , {subscriptionData})=>{
+        if(!subscriptionData.data){
+          return prev;
+        }
+        else{
+          if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
+            return Object.assign({}, {
+                getSessionStats:subscriptionData.data.refreshedSessionStats.out
+            })
+          else
+            return(prev)
+        }
+        
+      }
+    })
+  }
   render(){
     const {classes , details , key , size} = this.props;
 
-    if(this.props.SessionStore.sessions[details._id]!=undefined)
-        return(<div>{this.buildContentBasedOnData(details , classes ,details.title!=undefined ? details.title : "جلسة عامة" , size)}</div>)
+    if(!this.props.OUTCOUNT.loading &&!this.props.INCOUNT.loading && !this.props.ABSCENTCOUNT.loading )
+      return(<div>{this.buildContentBasedOnData(details , classes ,details.title!=undefined ? details.title : "جلسة عامة" , size)}</div>)
     else{
       return(	<div>
         <CircularProgress color="primary" />
@@ -213,4 +269,45 @@ function CustomLabel({viewBox, value1, value2}){
    </text>
   )
 }
-export default withStyles(styles)(DashboardUnit);
+const getSessionStatsForSession= gql`query getSessionStatsForSession($sessionId:String! , $status:String!) {
+  getSessionStatsForSession(sessionId:$sessionId , status:$status)
+}`
+
+const sessionSubscription=gql`
+subscription {
+  refreshedSessionStats{
+    in 
+    out 
+    abscent
+    id
+  }
+}
+`
+const GraphQledDashboardUnit = compose(
+  graphql(getSessionStatsForSession , {
+    name :"INCOUNT",
+    options:(ownProps) => ({
+      variables: {
+        sessionId: ownProps.details._id , 
+        status :"IN"
+      }
+    })}),
+    graphql(getSessionStatsForSession , {
+      name :"OUTCOUNT",
+      options:(ownProps) => ({
+        variables: {
+          sessionId: ownProps.details._id , 
+          status :"OUT"
+        }
+      })}),
+      graphql(getSessionStatsForSession , {
+        name :"ABSCENTCOUNT",
+        options:(ownProps) => ({
+          variables: {
+            sessionId: ownProps.details._id , 
+            status :"ABSCENT"
+          }
+        })}),
+  graphql(sessionSubscription)
+  )(DashboardUnit)
+export default withStyles(styles)(GraphQledDashboardUnit);

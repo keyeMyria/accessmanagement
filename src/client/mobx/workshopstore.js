@@ -1,8 +1,13 @@
-import { observable, action, computed, useStrict } from 'mobx';
+import { observable, action, computed, useStrict , extendObservable } from 'mobx';
 import axios from 'axios';
 import { createApolloFetch } from 'apollo-fetch';
 import EventStore from './eventstore';
-import {REMOTE_DOMAIN_PATH} from './../app/config'
+import { getOperationAST } from 'graphql';
+
+import gql from 'graphql-tag';
+import graphql from 'mobx-apollo';
+import { WebSocketLink } from 'apollo-link-ws';
+import DOMAIN_PATH ,{REMOTE_DOMAIN_PATH , LOCAL_WEBSOCKET_ENDPOINT} from '../app/config';
 
 useStrict(true);
 const fetch = createApolloFetch({
@@ -12,15 +17,23 @@ const fetch = createApolloFetch({
 
 
 class WorkshopStore {
+
     // Values marked as 'observable' can be watched by 'observers'
-    @observable state = 'loading' ;
+    @observable sessions = [];
+    @observable loading = true;
+    @observable sessionid = null;  
     @observable workshops = [];
     @observable users = [];
+    
     @observable selectedWorkshop = {};
     @observable selectedEvent = null;
     @computed get selectedId() { return this.selectedWorkshop._id; }
     @action setStateAction = (state) => {this.state=state }
     @observable agent_session ={};
+    @action setSessionId=(sessionid)=>{
+      this.sessionid = sessionid;
+      this.sessions[sessionid]=[]
+    }
     // In strict mode, only actions can modify mobx state
     @action setWorkshops = (workshops) => {
       this.workshops.length=0;
