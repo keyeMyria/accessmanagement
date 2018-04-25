@@ -71,7 +71,7 @@ const styles = (theme) => ({
 		lineHeight: '24pt',
 	},
 	typeEvent: {
-		marginTop:'36px',
+		marginTop:'8px',
 		marginBottom:'8px'
 	},
 	chipEventType: {
@@ -378,7 +378,7 @@ class EventDetail extends React.Component {
 								<Chip label={event.type} className={classes.chipEventType} />
 							</div>
 							<p className={classes.numberAttend}>
-								{' '}<AccountCircle style={{opacity:'0.5'}}/>
+								{' '}<AccountCircle style={{opacity:'0.5', marginLeft: '5px',}}/>
 								  الحضور المتوقع{' : '}  {event.guests_number}
 							</p>
 						</div>
@@ -431,8 +431,7 @@ class EventDetail extends React.Component {
 											{item.stat == 'ON' && (
 												<Button
 													onClick={() => this.stopSessionAction(item._id)}
-													className={classes.stop}
-												>
+													className={classes.stop}>
 													<div className={classes.startStopSession}>
 														<Stop />
 														إنهاء الجلسة

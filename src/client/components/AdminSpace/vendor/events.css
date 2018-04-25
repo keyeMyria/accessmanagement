@@ -100,7 +100,7 @@ color: #6f6f6f;
 background-color: #e0e0e0;
 border-radius: 2px;
 padding: 0 10px;*/
-margin-top: 16px;
+margin-top: 7px;
 }
 
 .event-list > li > .info > .desc {
@@ -177,7 +177,7 @@ background-color: rgb(200, 200, 200);
   background-color: #00ACC1;
 }
 div > div > .editButton {
-  /* position: absolute; */
+  position: absolute; 
   left: 8px;
   margin-bottom: 10px;
   background-color: #fff ;

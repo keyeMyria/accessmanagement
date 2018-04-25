@@ -115,7 +115,7 @@ class VerifyEnterComponent extends React.Component{
     };
 
   componentDidUpdate(props){
-    if(this.props.userToEnter.userId!=null &&this.props.userToEnter.userId.status=='IN' && this.state.open==false && this.state.displayed==false){
+    if(this.props.userToEnter.userId != null &&this.props.userToEnter.userId.status=='IN' && this.state.open==false && this.state.displayed==false){
       this.setState({
         open:true ,
         displayed : true
@@ -198,8 +198,7 @@ handleIconButtonRequestOpen = () => {
                 <Avatar
                   alt=""
                   src={`${REMOTE_ASSETS_PATH}/${this.props.userToEnter.userId.profile.avatar}`}
-                  className={classNames(classes.bigAvatar)}
-                />
+                  className={classNames(classes.bigAvatar)} />
                 <span className={classNames(classes.styleCommun , classes.profileName)}>
                 {this.props.userToEnter.userId.profile.name} {this.props.userToEnter.userId.profile.forname}</span>
                 <span className={classNames(classes.styleCommun , classes.profileFunction)}>
