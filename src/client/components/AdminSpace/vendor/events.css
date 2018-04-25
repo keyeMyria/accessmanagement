@@ -164,15 +164,20 @@ background-color: rgb(200, 200, 200);
 }
 .event-list + .addButton{
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #00bcd4;
+    bottom: 30px;
+    right: 30px;
+    background-color: #00bcd4;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    min-width: 0;
+    padding: 0;
 }
 .event-list + .addButton:hover{
   background-color: #00ACC1;
 }
 div > div > .editButton {
-  position: absolute;
+  /* position: absolute; */
   left: 8px;
   margin-bottom: 10px;
   background-color: #fff ;
