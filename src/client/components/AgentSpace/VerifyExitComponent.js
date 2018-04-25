@@ -88,6 +88,7 @@ class VerifyExitComponent extends React.Component{
         open: false,
         displayed :false
       };
+      console.log(props)
     UserStore.fetchGuestForAgentWorkshop(props.userid);
 
   }

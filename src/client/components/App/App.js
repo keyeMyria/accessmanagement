@@ -39,7 +39,6 @@ import ListGuestBYSessionFilter from '../AdminSpace/ListGuestBYSessionFilter'
 import UserStore from '../../mobx/gueststore'
 import EventStore from '../../mobx/eventstore'
 import SessionStore from '../../mobx/sessionstore'
-
 // Configure JSS
 const jss = create({ plugins: [...preset().plugins, rtl()] });
 jss.options.createGenerateClassName = createGenerateClassName;

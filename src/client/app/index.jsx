@@ -18,7 +18,7 @@ import { getOperationAST } from 'graphql';
 //import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import authReducer from '../reducers/authReducer';
-import { AUTH_SIGNIN , SET_ROLE } from '../actions';
+import { AUTH_SIGNIN , SET_ROLE , SET_USERID } from '../actions';
 import RequireAuth from '../containers/RequireAuth';
 import App from '../components/App/App';
 import DOMAIN_PATH ,{REMOTE_DOMAIN_PATH , LOCAL_WEBSOCKET_ENDPOINT} from './config'
@@ -89,6 +89,7 @@ if (token && role) {
   // We need to update application state if the token exists
   store.dispatch({ type: AUTH_SIGNIN });
   store.dispatch({type : SET_ROLE , role :role});
+  store.dispatch({type : SET_USERID , id :localStorage.getItem('loogedin_id')});
 }
 
 ReactDOM.render(<Provider store={store}>
