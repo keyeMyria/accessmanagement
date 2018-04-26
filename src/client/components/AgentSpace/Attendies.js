@@ -196,15 +196,17 @@ class Attendies extends React.Component {
 										<ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText}/>
 										<ListItemText secondary={value.status=='ABSCENT' ?   'غائب(ة)'  : 'حاضر(ة)'}/>
 										{value.status == 'ABSCENT' ? (
-											<RemoveCircleOutline className={classes.ABSCENT} />
+											<DirectionsWalk className={classes.ABSCENT} />
 										) : (
-											<Done className={classes.IN}/>
-										)}
-
-										{value.status == 'OUT' && <DirectionsWalk className={classes.OUT} />}
-										{value.status == <DirectionsWalk /> && (
 											<AirlineSeatReclineNormal className={classes.IN} />
 										)}
+
+										{
+										// 	value.status == 'OUT' && <DirectionsWalk className={classes.OUT} />}
+										// {value.status == <DirectionsWalk /> && (
+										// 	<AirlineSeatReclineNormal className={classes.IN} />
+										// )
+									}
 									</ListItem>
 								);
 							}
