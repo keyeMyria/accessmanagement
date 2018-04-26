@@ -20,7 +20,9 @@ class UserStore {
     @observable selectedUser = null;
     @computed get selectedId() { return this.selectedUser.id; }
     // In strict mode, only actions can modify mobx state
-    @action setUsers = (users) => {this.users = [...users];this.loading=false; }
+    @action setUsers = (users) => {
+      this.users.length=0;
+      this.users = [...users];this.loading=false; }
     @action setWorkShop = (workshop) => {this.agent_workshop = workshop; }
     @action setSession = (session) => {this.agent_session = session; }
 
@@ -131,7 +133,6 @@ class UserStore {
       })
   }
   @action fetchGuestForAgentWorkshop=(userid)=>{
-    console.log(userid)
     fetch({
      query : `query getWorkshopByUserId($id : ID!){
        getWorkshopByUserId(id :$id){
@@ -178,14 +179,9 @@ class UserStore {
         this.setUsers(res.data.getWorkshopByUserId.workshop.users)
 
      }
-     if(res.data.getWorkshopByUserId.session!=null){
-       
+     if(res.data.getWorkshopByUserId.session!=null && res.data.getWorkshopByUserId.workshop==null ){
        this.setSession(res.data.getWorkshopByUserId.session);
-      //  let users = EventStore.getUserDataForChartOfSession(res.data.getWorkshopByUserId.session._id);
-      //  users.then(res=>{
          this.setUsers(res.data.getWorkshopByUserId.session.expected_guests);
-         console.log(this.users)
-      //  })
      }
    })
   }
