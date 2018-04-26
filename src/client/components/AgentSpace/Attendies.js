@@ -108,19 +108,19 @@ class Attendies extends React.Component {
 		UserStore.fetchGuestForAgentWorkshop(id);
 	}
 
-	componentWillReceiveProps(newProps) {
-		if (newProps.data.guestusers) {
-			let out = newProps.data.guestusers.filter((user) => user.status == 'IN');
-			this.setState({
-				attendies_list: newProps.data.guestusers,
-				unfiltered_list: newProps.data.guestusers,
-				total: newProps.data.guestusers.length,
-				in_attendies: out.length,
-				out_attendies: newProps.data.guestusers.length - out.length,
-				present_precent: out.length / newProps.data.guestusers.length * 100
-			});
-		}
-	}
+	// componentWillReceiveProps(newProps) {
+	// 	if (newProps.data.guestusers) {
+	// 		let out = newProps.data.guestusers.filter((user) => user.status == 'IN');
+	// 		this.setState({
+	// 			attendies_list: newProps.data.guestusers,
+	// 			unfiltered_list: newProps.data.guestusers,
+	// 			total: newProps.data.guestusers.length,
+	// 			in_attendies: out.length,
+	// 			out_attendies: newProps.data.guestusers.length - out.length,
+	// 			present_precent: out.length / newProps.data.guestusers.length * 100
+	// 		});
+	// 	}
+	// }
 	handleToggle = (value) => () => {
 		const { checked } = this.state;
 		const currentIndex = checked.indexOf(value);

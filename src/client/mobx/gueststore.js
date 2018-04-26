@@ -18,6 +18,7 @@ class UserStore {
     @observable agent_workshop ={};
     @observable agent_session ={};
     @observable selectedUser = null;
+    @observable currentAgent=null;
     @computed get selectedId() { return this.selectedUser.id; }
     // In strict mode, only actions can modify mobx state
     @action setUsers = (users) => {
@@ -25,7 +26,9 @@ class UserStore {
       this.users = [...users];this.loading=false; }
     @action setWorkShop = (workshop) => {this.agent_workshop = workshop; }
     @action setSession = (session) => {this.agent_session = session; }
-
+    @action setCurrentAgent=(agent)=>{
+        this.currentAgent=agent
+      }
     @computed get selectWorkshopAgent() { return this.agent_workshop; }
 
     @action selectUser = (user) => {this.selectedUser = user;}
@@ -60,8 +63,8 @@ class UserStore {
       this.setUsers(res.data.guestusers);
     });
       }
-      @action fetchUserRole = async (userid)=>{
-        const role= await fetch({
+      @action fetchUserRole = (userid)=>{
+        fetch({
           query: `query getRoleNameByUserId($id : ID) {
             getRoleNameByUserId(id : $id) {
               _id
@@ -80,8 +83,10 @@ class UserStore {
           variables :{
             id : userid
           }
+        }).then(res=>{
+          this.setCurrentAgent(role.data.getRoleNameByUserId);
+          return role.data.getRoleNameByUserId ;
         })
-        return role.data.getRoleNameByUserId ;
 
       }
       @action getUserByID =(userid , callback)=>{
