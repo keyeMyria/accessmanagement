@@ -199,7 +199,7 @@ class DashboardUnit extends React.Component{
         else{
           if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
             return Object.assign({}, {
-                getSessionStats:subscriptionData.data.refreshedSessionStats.abscent
+              getSessionStatsForSession:subscriptionData.data.refreshedSessionStats.abscent
             })
          else{
             return(prev)
@@ -219,7 +219,7 @@ class DashboardUnit extends React.Component{
         else{
           if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
             return Object.assign({}, {
-                getSessionStats:subscriptionData.data.refreshedSessionStats.in
+              getSessionStatsForSession:subscriptionData.data.refreshedSessionStats.in
             })
           else
           return (prev)
@@ -238,7 +238,7 @@ class DashboardUnit extends React.Component{
         else{
           if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
             return Object.assign({}, {
-                getSessionStats:subscriptionData.data.refreshedSessionStats.out
+              getSessionStatsForSession:subscriptionData.data.refreshedSessionStats.out
             })
           else
             return(prev)

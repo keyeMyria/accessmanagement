@@ -94,13 +94,14 @@ class Unit extends React.Component{
         sessionId: this.props.details._id,
       },
       updateQuery :(prev , {subscriptionData})=>{
+        console.log(subscriptionData.data)
         if(!subscriptionData.data){
           return prev;
         }
         else{
           if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
             return Object.assign({}, {
-                getSessionStats:subscriptionData.data.refreshedSessionStats.abscent
+              getSessionStatsForWorkshop:subscriptionData.data.refreshedSessionStats.abscent
             })
           else
           return(prev)
@@ -119,7 +120,7 @@ class Unit extends React.Component{
         else{
           if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
             return Object.assign({}, {
-                getSessionStats:subscriptionData.data.refreshedSessionStats.in
+              getSessionStatsForWorkshop:subscriptionData.data.refreshedSessionStats.in
             })
           else
           return(prev)
@@ -138,7 +139,7 @@ class Unit extends React.Component{
         else{
           if(subscriptionData.data.refreshedSessionStats.id==this.props.details._id)
           return Object.assign({}, {
-              getSessionStats:subscriptionData.data.refreshedSessionStats.out
+            getSessionStatsForWorkshop:subscriptionData.data.refreshedSessionStats.out
           })
           else{
             return(prev)

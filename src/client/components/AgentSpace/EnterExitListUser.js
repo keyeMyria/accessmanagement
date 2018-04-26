@@ -28,7 +28,7 @@ class EnterExitListUser extends React.Component{
     UserStore.fetchGuestForAgentWorkshop(props.userid);
     let fetched_user = UserStore.fetchUserRole(props.userid);
     fetched_user.then(res=>{
-      this.setStagte({
+      this.setState({
         role:res.role.name
       })
     })
@@ -38,14 +38,14 @@ class EnterExitListUser extends React.Component{
   }
 
   render(){
-    const {classes}=this.props
+    const {classes}=this.props;
     if(UserStore.users!=null){
       return(
         <div>
         <List className={classes.containerLists}>
         {UserStore.users.map(value => {
           return(
-            <div key={value._id}>{value.profile!=null &&(
+            <div key={`div${value._id}`}>{value.profile!=null &&(
               <ListItem  dense button>
               <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
               <ListItemText className={classes.profileName} primary={`${value.profile.name} ${value.profile.forname}`}/>
