@@ -115,19 +115,19 @@ class AgentDashboard extends React.Component{
               </Pie>
               <Tooltip/>
             </PieChart>
-            <div className="containerLegand">
-              <div className="subContaineLegand">
-                <p>غائب</p>
-                <div className="legandChart abscent"></div>
-              </div>
-              <div className="subContaineLegand">
+            <div className="containerLegend">
+              <div className="subContaineLegend">
                 <p> داخل القاعة </p>
-                <div  className="legandChart in"></div>
+                <div  className="legendChart in"></div>
               </div>
-              <div className="subContaineLegand">
+              <div className="subContaineLegend">
                 <p> غادر القاعة </p>
-                <div  className="legandChart out"></div>
-               </div>
+                <div  className="legendChart out"></div>
+              </div>
+              <div className="subContaineLegend">
+                <p>غائب</p>
+                <div className="legendChart abscent"></div>
+              </div>
             </div>
           </div>
         <div className="ChartInfosContainer">
