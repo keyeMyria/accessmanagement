@@ -136,6 +136,12 @@ class WorkshopStore {
 
         });
       }
+      @action getActiveSession=(sessions)=>{
+        console.log(sessions)
+        return sessions.find(function(element){
+          return element.stat=="ON"
+        })
+      }
       @action fetchWorkshopDataForAgent = (userid)=>{
          fetch({
           query : `query getWorkshopByUserId($id : ID!){
@@ -151,11 +157,12 @@ class WorkshopStore {
               workshop{
                 _id
                 name
-                session_empty
-                users{
+                session_list{
                   _id
-                  status
+                  stat
                 }
+                session_empty
+                guests_number
               }
             }
 

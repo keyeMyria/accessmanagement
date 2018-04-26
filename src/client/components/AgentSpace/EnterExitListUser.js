@@ -26,12 +26,8 @@ class EnterExitListUser extends React.Component{
   constructor(props){
     super(props)
     UserStore.fetchGuestForAgentWorkshop(props.userid);
-    let fetched_user = UserStore.fetchUserRole(props.userid);
-    fetched_user.then(res=>{
-      this.setState({
-        role:res.role.name
-      })
-    })
+    UserStore.fetchUserRole(props.userid);
+    
   }
   addOperationToGuest =(guest , operation , agent , workshop)=>{
     UserStore.alterGuestStatus(guest , operation , agent, workshop);
@@ -50,13 +46,15 @@ class EnterExitListUser extends React.Component{
               <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
               <ListItemText className={classes.profileName} primary={`${value.profile.name} ${value.profile.forname}`}/>
               <ListItemText primary={value.status== "IN" && ' حاضر(ة) داخل الجلسة' || value.status== "OUT" && ' غادر(ة) الجلسة ' || value.status== "ABSCENT" && ' غائب(ة) '} />
-
-              {(this.state.role=='agent_in' || this.state.role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , id , UserStore.selectWorkshopAgent._id )}>
-                     دخول
-              </Button>)}
-              {(this.state.role=='agent_out' || this.state.role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , id , UserStore.selectWorkshopAgent._id)}>
-                   خروج
-              </Button>)}
+              {UserStore.currentAgent!=null&&(<div>
+                  {(UserStore.currentAgent.role=='agent_in' || UserStore.currentAgent.role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , UserStore.currentAgent , UserStore.selectWorkshopAgent._id )}>
+                  دخول
+                   </Button>)}
+                  {(UserStore.currentAgent.role=='agent_out' || UserStore.currentAgent.role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , UserStore.currentAgent , UserStore.selectWorkshopAgent._id)}>
+                    خروج
+                    </Button>)}</div>
+              )}
+            
             </ListItem>)}
             </div>
           )
