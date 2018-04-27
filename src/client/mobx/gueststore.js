@@ -85,6 +85,7 @@ class UserStore {
           }
         }).then(res=>{
           this.setCurrentAgent(role.data.getRoleNameByUserId);
+          console.log(role.data.getRoleNameByUserId)
           return role.data.getRoleNameByUserId ;
         })
 

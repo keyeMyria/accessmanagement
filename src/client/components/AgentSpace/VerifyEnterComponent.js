@@ -136,20 +136,8 @@ handleIconButtonRequestOpen = () => {
     // let id = this.props.match.params.id ;
     let id = this.props.userToEnter.userId._id;
     let status = "IN";
-
       await UserStore.alterGuestStatus(id , status , this.props.userid)
         this.props.history.push('/agent');
-  //
-  //   await this.props.updateUserStatus({
-  //   variables: {
-  //     id ,
-  //     status,
-  //     agent
-  //
-  //   }
-  // }).then(res=>{
-  //   this.props.history.push('/agent');
-  // })
 }
   render(){
     const {userToEnter , classes} = this.props;

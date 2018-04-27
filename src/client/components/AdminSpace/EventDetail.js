@@ -272,7 +272,7 @@ class EventDetail extends React.Component {
 		const workshoplist = WorkshopStore.workshops;
 		 event = EventStore.selectedEvent
 		const { classes } = this.props;
-		if (event == undefined) {
+		if (EventStore.selectedEvent == undefined) {
 			return (
 				<div>
 					<CircularProgress color="primary" className={classes.progressCircle} />
@@ -312,7 +312,7 @@ class EventDetail extends React.Component {
 						</AppBar>
 						<div>
 							<PlayButton className={classes.icon} />
-							<SessionForm form={formSessionAdd} eventid={event._id} />
+							<SessionForm form={formSessionAdd} eventid={EventStore.selectedEvent._id} />
 						</div>
 						<DialogActions>
 							<Button raised="true" color="secondary" onClick={(e)=>this.handleAddSessionForEvent(e ,formSessionAdd)}>
@@ -365,17 +365,17 @@ class EventDetail extends React.Component {
 							<Button className="editButton" onClick={this.handleClickOpenEditEvent} fab >
 								<ModeEditIcon className={classes.editIcon} />
 							</Button>
-							<h2 className={classes.title}>{event.title}</h2>
+							<h2 className={classes.title}>{EventStore.selectedEvent.title}</h2>
 							<p className={classes.dateEvent}>
-								{`من : ${dateFormat(event.start_date, 'dd/mm/yyyy')}`}{' '}
-								{`، الى : ${dateFormat(event.end_date, 'dd/mm/yyyy')}`}
+								{`من : ${dateFormat(EventStore.selectedEvent.start_date, 'dd/mm/yyyy')}`}{' '}
+								{`، الى : ${dateFormat(EventStore.selectedEvent.end_date, 'dd/mm/yyyy')}`}
 							</p>
 							<div className={classes.placeEvent}>
 								<Place style={{opacity:'0.5'}}/>
-								<p>{event.place}</p>
+								<p>{EventStore.selectedEvent.place}</p>
 							</div>
 							<div className={classes.typeEvent}>
-								<Chip label={event.type} className={classes.chipEventType} />
+								<Chip label={EventStore.selectedEvent.type} className={classes.chipEventType} />
 							</div>
 							<p className={classes.numberAttend}>
 								{' '}<AccountCircle style={{opacity:'0.5', marginLeft: '5px',}}/>
@@ -390,7 +390,7 @@ class EventDetail extends React.Component {
 								إضافة ورشة عمل
 							</div>
 						</Button>
-						{event.session_empty && (
+						{EventStore.selectedEvent.session_empty && (
 							<Button onClick={this.handleClickOpen} className="AddingButton">
 								<div className={classes.AddButton}>
 									<PlayArrow />
@@ -398,7 +398,7 @@ class EventDetail extends React.Component {
 								</div>
 							</Button>
 						)}
-						{event.session_empty == null && (
+						{EventStore.selectedEvent.session_empty == null && (
 							<Button onClick={this.handleClickOpen} className="AddingButton">
 								<div className={classes.AddButton}>
 									<Add />
@@ -406,9 +406,9 @@ class EventDetail extends React.Component {
 								</div>
 							</Button>
 						)}
-						{event.session_collection !== undefined && (
+						{EventStore.selectedEvent.session_collection !== undefined && (
 							<List className={classes.containerWorkshop}>
-								{event.session_collection.map((item) => (
+								{EventStore.selectedEvent.session_collection.map((item) => (
 									<div key={item._id} className={classes.listWorkshop}>
 										<ListItem className={classes.sessionItem}>
 											<div className={classes.datEntreSorti}>

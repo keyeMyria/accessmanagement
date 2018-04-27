@@ -3,6 +3,8 @@ import QrReader from 'react-qr-reader'
 import {withRouter} from "react-router-dom";
 import Dial , { DialPad  }  from './vendor/Dial'
 import {observer} from 'mobx-react'
+import { connect } from 'react-redux';
+
 import UserStore from '../../mobx/gueststore';
 import './vendor/agent.css'
 @observer
@@ -30,15 +32,13 @@ class QReaderComponent extends Component {
   handleScan(data){
 
 
-    let id = localStorage.getItem('loogedin_id');
-    let fetched_user = UserStore.fetchUserRole(id);
-    fetched_user.then(res=>{
-      let role = res.role.name ;
+    let role = this.props.role ;
+
       if(data){
         this.setState({
           result: data,
         })
-        if(this.verifySession(res)){
+        //if(this.verifySession(res)){
           if(role==="agent_in")
           this.props.history.push('/verifyenter/'+data);
           if(role==="agent_out")
@@ -46,26 +46,22 @@ class QReaderComponent extends Component {
           if(role==="agent_in_out"){
             this.props.history.push('/accessoperation/'+data);
           }
-        }
-        else{
-          console.log('you\'re not connected to any session')
-        }
+        // }
+        // else{
+        //   console.log('you\'re not connected to any session')
+        // }
 
 
       }
-    })
 
   }
   handleEntryNumber(data){
-    let id = localStorage.getItem('loogedin_id');
-    let fetched_user = UserStore.fetchUserRole(id);
-    fetched_user.then(res=>{
-      let role = res.role.name ;
+
+      let role = this.props.role ;
       if(data){
         this.setState({
           result: data,
         })
-        if(this.verifySession(res)){
           if(role==="agent_in")
           this.props.history.push('/verifyenter/'+data);
           if(role==="agent_out")
@@ -73,13 +69,11 @@ class QReaderComponent extends Component {
           if(role==="agent_in_out"){
             this.props.history.push('/accessoperation/'+data);
           }
-        }
-        else{
-          console.log('you\'re not connected to any session')
-        }
+        // else{
+        //   console.log('you\'re not connected to any session')
+        // }
 
       }
-    })
   }
   handleError(err){
     console.error(err)
@@ -99,4 +93,9 @@ class QReaderComponent extends Component {
     )
   }
 }
-export default withRouter(QReaderComponent);
+function mapStateToProps(state) {
+  return { userid: state.auth.userid ,
+  role:state.auth.role};
+}
+
+export default connect(mapStateToProps)(QReaderComponent);
