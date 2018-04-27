@@ -5,6 +5,9 @@ import Dial , { DialPad  }  from './vendor/Dial'
 import {observer} from 'mobx-react'
 import { connect } from 'react-redux';
 
+import { graphql} from 'react-apollo';
+import gql from 'graphql-tag';
+
 import UserStore from '../../mobx/gueststore';
 import './vendor/agent.css'
 @observer
@@ -38,7 +41,7 @@ class QReaderComponent extends Component {
         this.setState({
           result: data,
         })
-        //if(this.verifySession(res)){
+        if(this.verifySession(this.props.data.getRoleNameByUserId)){
           if(role==="agent_in")
           this.props.history.push('/verifyenter/'+data);
           if(role==="agent_out")
@@ -46,10 +49,10 @@ class QReaderComponent extends Component {
           if(role==="agent_in_out"){
             this.props.history.push('/accessoperation/'+data);
           }
-        // }
-        // else{
-        //   console.log('you\'re not connected to any session')
-        // }
+        }
+        else{
+          console.log('you\'re not connected to any session')
+        }
 
 
       }
@@ -62,16 +65,17 @@ class QReaderComponent extends Component {
         this.setState({
           result: data,
         })
+        if(this.verifySession(this.props.data.getRoleNameByUserId)){
           if(role==="agent_in")
           this.props.history.push('/verifyenter/'+data);
           if(role==="agent_out")
           this.props.history.push('/verifyexit/'+data);
           if(role==="agent_in_out"){
             this.props.history.push('/accessoperation/'+data);
-          }
-        // else{
-        //   console.log('you\'re not connected to any session')
-        // }
+          }}
+        else{
+          console.log('you\'re not connected to any session')
+        }
 
       }
   }
@@ -93,9 +97,29 @@ class QReaderComponent extends Component {
     )
   }
 }
+
+const query = gql`query getRoleNameByUserId($id : ID) {
+  getRoleNameByUserId(id : $id) {
+    _id
+    workshop{
+      session_empty
+    }
+    session{
+      stat
+    }
+    role{
+      name
+    }
+
+  }
+}`
+
 function mapStateToProps(state) {
   return { userid: state.auth.userid ,
   role:state.auth.role};
 }
-
-export default connect(mapStateToProps)(QReaderComponent);
+const id = localStorage.getItem('loogedin_id')
+const QReaderComponentWithAgent  = connect(mapStateToProps)(QReaderComponent)
+export default graphql(query, {
+  options: ({ ownProps }) => ({ variables: { id:id } }),
+})(QReaderComponentWithAgent);
