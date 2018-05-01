@@ -177,10 +177,9 @@ background-color: rgb(200, 200, 200);
   background-color: #00ACC1;
 }
 div > div > .editButton {
-  position: absolute; 
+  position: absolute;
   left: 8px;
-  margin-bottom: 10px;
-  background-color: #fff ;
+  background-color: rgba(0, 0, 0, 0.2) ;
 }
 /*div > div > .editButton:hover{
   background-color: #00abc7;
@@ -196,10 +195,11 @@ div > div > .AddingButton {
   color: #00abc7;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),0px 6px 10px 0px rgba(0, 0, 0, 0.14),0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   border-radius: 2px;
-},
+}
+
 div > div > .AddingButton:hover{
   background-color: #edfdff;
-},
+}
 
 .picker{
   margin:24px 0 16px;
@@ -210,9 +210,19 @@ div > div > .AddingButton:hover{
   width: 400px;
 }
 
+@media screen and (max-width: 340px) {
+  div > div > .AddingButton {
+    width: 120px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .dialogContent {
     width: 100%;
+  }
+
+  div > div > .AddingButton {
+    margin: 8px;
   }
 }
 
