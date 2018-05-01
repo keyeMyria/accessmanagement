@@ -75,7 +75,7 @@ class Unit extends React.Component{
   }
   getUsersStatistics =()=>{
     console.log(this.props)
-    
+
     let in_length = this.props.INCOUNT.getSessionStatsForWorkshop;
     let out_length = this.props.OUTCOUNT.getSessionStatsForWorkshop;
     let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForWorkshop;
@@ -124,11 +124,11 @@ class Unit extends React.Component{
             })
           else
           return(prev)
-        }    
+        }
       }
     });
     this.props.OUTCOUNT.subscribeToMore({
-      document: sessionSubscription , 
+      document: sessionSubscription ,
       variables: {
         sessionId: this.props.details._id,
       },
@@ -145,11 +145,11 @@ class Unit extends React.Component{
             return(prev)
           }
         }
-        
+
       }
     })
   }
-  
+
   render(){
     const {classes , details ,name , users } = this.props;
     if(!this.props.OUTCOUNT.loading &&!this.props.INCOUNT.loading && !this.props.ABSCENTCOUNT.loading ){
@@ -160,7 +160,7 @@ class Unit extends React.Component{
                   if(details.stat=="OFF")
                    data = [
                      {name: 'داخل الورشة', value: details.closed_in},
-                     {name: 'خارج الورشة', value:out_length },
+                     {name: 'خارج الورشة', value: details.closed_out},
                      {name: 'غائب', value: details.closed_abscent}];
                   else
                     data= this.getUsersStatistics();
@@ -282,8 +282,8 @@ const getSessionStatsForWorkshop= gql`query getSessionStatsForWorkshop($sessionI
 const sessionSubscription=gql`
 subscription {
   refreshedSessionStats{
-    in 
-    out 
+    in
+    out
     abscent
     id
   }
@@ -294,7 +294,7 @@ const GraphQledUnit = compose(
     name :"INCOUNT",
     options:(ownProps) => ({
       variables: {
-        sessionId: ownProps.details._id , 
+        sessionId: ownProps.details._id ,
         status :"IN"
       }
     })}),
@@ -302,7 +302,7 @@ const GraphQledUnit = compose(
       name :"OUTCOUNT",
       options:(ownProps) => ({
         variables: {
-          sessionId: ownProps.details._id , 
+          sessionId: ownProps.details._id ,
           status :"OUT"
         }
       })}),
@@ -310,7 +310,7 @@ const GraphQledUnit = compose(
         name :"ABSCENTCOUNT",
         options:(ownProps) => ({
           variables: {
-            sessionId: ownProps.details._id , 
+            sessionId: ownProps.details._id ,
             status :"ABSCENT"
           }
         })}),

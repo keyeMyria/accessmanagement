@@ -17,7 +17,7 @@ class EventDashboard extends React.Component{
       off_filter : false,
       initiated : false
     }
-    EventStore.setEventId(props.match.params.id);  
+    EventStore.setEventId(props.match.params.id);
     EventStore.getFullEventDetailsByID(props.match.params.id)  ;
   };
   filterWorkshopsAndSessions =(stat , empty)=>{
@@ -44,7 +44,7 @@ class EventDashboard extends React.Component{
 			);
     }
     else {
-      
+
       return(
         <div>
           <div className="Btns-filter">
@@ -63,10 +63,10 @@ class EventDashboard extends React.Component{
                  return(<WorkshopUnit key={work._id} details={work} users={work.guests_number}/>);
             })
           }
-  
+
       </div>)
     }
-    
+
   }
 }
 export default EventDashboard;
