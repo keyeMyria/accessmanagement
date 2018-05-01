@@ -210,10 +210,17 @@ div > div > .AddingButton:hover{
   width: 400px;
 }
 
-@media screen and (max-width: 340px) {
-  div > div > .AddingButton {
-    width: 120px;
-  }
+.workshopform{
+  width: 600px;
+}
+
+@media screen and (max-width: 768px) {
+.event-list > li {
+  max-width: 100%;
+  width: 90vw;
+}
+.workshopform{
+  width: 480px;
 }
 
 @media screen and (max-width: 480px) {
@@ -224,13 +231,20 @@ div > div > .AddingButton:hover{
   div > div > .AddingButton {
     margin: 8px;
   }
+  .workshopform{
+    width: 90%;
+  }
 }
 
-@media screen and (max-width: 768px) {
-.event-list > li {
-  max-width: 100%;
-  width: 90vw;
+@media screen and (max-width: 340px) {
+  div > div > .AddingButton {
+    width: 120px;
+  }
 }
+
+
+
+
 /*
 .event-list > li > time,
 .event-list > li > img  {

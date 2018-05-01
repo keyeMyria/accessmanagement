@@ -345,7 +345,7 @@ class EventDetail extends React.Component {
 								</Typography>
 							</Toolbar>
 						</AppBar>
-						<div className={classes.workshopform}>
+						<div className="workshopform">
 							<LectureIcon className={classes.icon} />
 							<WorkShopForm
 								className={classes.workshopformInputs}
