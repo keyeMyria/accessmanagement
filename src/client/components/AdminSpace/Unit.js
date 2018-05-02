@@ -74,8 +74,6 @@ class Unit extends React.Component{
 
   }
   getUsersStatistics =()=>{
-    console.log(this.props)
-
     let in_length = this.props.INCOUNT.getSessionStatsForWorkshop;
     let out_length = this.props.OUTCOUNT.getSessionStatsForWorkshop;
     let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForWorkshop;
@@ -94,7 +92,6 @@ class Unit extends React.Component{
         sessionId: this.props.details._id,
       },
       updateQuery :(prev , {subscriptionData})=>{
-        console.log(subscriptionData.data)
         if(!subscriptionData.data){
           return prev;
         }
@@ -178,7 +175,7 @@ class Unit extends React.Component{
             <div  className="PieContainer">
                 <PieChart width={300} height={320}>
                   <Tooltip wrapperStyle={{border:'none', borderRadius: '2px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.08)'}}/>
-                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
+                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} x={400} y={200} label labelLine>
                     {
                       data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
                     }
