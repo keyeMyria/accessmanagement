@@ -6,9 +6,9 @@ import { FormControl } from 'material-ui/Form';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import Paper from 'material-ui/Paper';
-import update from 'immutability-helper'
-import {REMOTE_ASSETS_PATH} from '../../../app/config'
-import TemporaryStore  from '../../../mobx/tempStore'
+import update from 'immutability-helper';
+import {REMOTE_ASSETS_PATH} from '../../../app/config';
+import TemporaryStore  from '../../../mobx/tempStore';
 // styles
 const $input = 'input-reset ba b--black-10 br1 pa2 mb2 db w-100 f6';
 const $label = 'f7 db mb2 mt3 light-silver';
@@ -20,6 +20,8 @@ const styles ={
     flexDirection:'row',
     alignItems:'center',
     textAlign:'right',
+    height:'56px',
+    cursor:'pointer',
   } ,
   avatarGuest :{
     width : '40px' ,
@@ -30,7 +32,9 @@ const styles ={
     fontWeight : '0.8em',
   },
   chipsContainer:{
-    border : '2px solid #eee',
+		maxWidth: '600px',
+    textAlign:'right'
+,    border : '2px solid #eee',
     borderRadius:'2px',
     minHeight: '40px',
     padding:'8px',
@@ -39,8 +43,9 @@ const styles ={
   GuestContainer:{
     padding:'8px',
     background:'#eee',
-    display:'flex',
-    flexDirection:'column',
+    maxHeight:'265px',
+    overflow:'auto',
+    borderBottom:'3px solid #003489',
   },
   guestCounter:{
       margin : '8px',
@@ -80,14 +85,13 @@ class MaterialSelectField extends React.Component{
   //     numberguest : prevState.numberguest+1
 
   // }))
-  
+
   this.props.form.$('users').value = TemporaryStore.names
 
  };
  handleDeleteChip = (item , index) => {
 
   TemporaryStore.removeGuest(item);
-
   this.props.form.$('users').value = TemporaryStore.names
 };
 
@@ -100,25 +104,28 @@ class MaterialSelectField extends React.Component{
 
                   {TemporaryStore.chipData.map((data , index) => {
 //console.log(data)
-                        return(<Chip
+                        return(
+                          <Chip
                           key={`{chip${data._id}}`}
                           avatar={<Avatar src={`${REMOTE_ASSETS_PATH}/${data.profile.avatar}`} />}
                           label={`${data.profile.name} ${data.profile.forname}`}
                           onDelete={()=>this.handleDeleteChip(data , index)}
                           style={styles.guestChip}
-                        />)
-                    
-                    
+                          />)
+
+
                   })}
-                  <p style={styles.guestCounter}>أضف المشاركين للورشة : {TemporaryStore.number_guests}</p>
+                  <p style={styles.guestCounter}> المشاركون في الورشة : {TemporaryStore.number_guests}</p>
                   </div>
                   <ul style={styles.GuestContainer}>
 
                         {TemporaryStore.invited_guests.map((item , index) => (
 
+
                           <li onClick={()=>this.handleAddGuest(item , index)} key={item._id} style={styles.guestItem}>
                                   {(item.profile!=null)&&(
-                                  <Avatar
+
+                                    <Avatar
                                     src={`${REMOTE_ASSETS_PATH}/${item.profile.avatar}`}
                                     style={styles.avatarGuest}
                                   />)}

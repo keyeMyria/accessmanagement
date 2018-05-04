@@ -106,13 +106,8 @@ class DashboardUnit extends React.Component{
           <div key={details._id} className={classes.DashboardContainer}>
           <div  className="ChartContainer">
             <div  className="PieContainer">
-                <PieChart width={300} height={320}>
+                <PieChart width={400} height={320}>
                   <Tooltip wrapperStyle={{border:'none', borderRadius: '2px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.08)'}}/>
-                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
-                    {
-                      data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
-                    }
-                  </Pie>
                   <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={90} outerRadius={115} fill="#00abc7" >
                     {
                       data.map((entry, index) => <Cell key={`second_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
@@ -123,6 +118,11 @@ class DashboardUnit extends React.Component{
                     <Label width={30} position="center"
                       content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `}/>}>
                     </Label>
+                  </Pie>
+                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
+                    {
+                      data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
+                    }
                   </Pie>
                 </PieChart>
                 <div className="containerLegend">
@@ -223,11 +223,11 @@ class DashboardUnit extends React.Component{
             })
           else
           return (prev)
-        }    
+        }
       }
     });
     this.props.OUTCOUNT.subscribeToMore({
-      document: sessionSubscription , 
+      document: sessionSubscription ,
       variables: {
         sessionId: this.props.details._id,
       },
@@ -243,7 +243,7 @@ class DashboardUnit extends React.Component{
           else
             return(prev)
         }
-        
+
       }
     })
   }
@@ -276,8 +276,8 @@ const getSessionStatsForSession= gql`query getSessionStatsForSession($sessionId:
 const sessionSubscription=gql`
 subscription {
   refreshedSessionStats{
-    in 
-    out 
+    in
+    out
     abscent
     id
   }
@@ -288,7 +288,7 @@ const GraphQledDashboardUnit = compose(
     name :"INCOUNT",
     options:(ownProps) => ({
       variables: {
-        sessionId: ownProps.details._id , 
+        sessionId: ownProps.details._id ,
         status :"IN"
       }
     })}),
@@ -296,7 +296,7 @@ const GraphQledDashboardUnit = compose(
       name :"OUTCOUNT",
       options:(ownProps) => ({
         variables: {
-          sessionId: ownProps.details._id , 
+          sessionId: ownProps.details._id ,
           status :"OUT"
         }
       })}),
@@ -304,7 +304,7 @@ const GraphQledDashboardUnit = compose(
         name :"ABSCENTCOUNT",
         options:(ownProps) => ({
           variables: {
-            sessionId: ownProps.details._id , 
+            sessionId: ownProps.details._id ,
             status :"ABSCENT"
           }
         })}),

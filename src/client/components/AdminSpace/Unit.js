@@ -74,8 +74,6 @@ class Unit extends React.Component{
 
   }
   getUsersStatistics =()=>{
-    console.log(this.props)
-    
     let in_length = this.props.INCOUNT.getSessionStatsForWorkshop;
     let out_length = this.props.OUTCOUNT.getSessionStatsForWorkshop;
     let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForWorkshop;
@@ -94,7 +92,6 @@ class Unit extends React.Component{
         sessionId: this.props.details._id,
       },
       updateQuery :(prev , {subscriptionData})=>{
-        console.log(subscriptionData.data)
         if(!subscriptionData.data){
           return prev;
         }
@@ -124,11 +121,11 @@ class Unit extends React.Component{
             })
           else
           return(prev)
-        }    
+        }
       }
     });
     this.props.OUTCOUNT.subscribeToMore({
-      document: sessionSubscription , 
+      document: sessionSubscription ,
       variables: {
         sessionId: this.props.details._id,
       },
@@ -145,11 +142,11 @@ class Unit extends React.Component{
             return(prev)
           }
         }
-        
+
       }
     })
   }
-  
+
   render(){
     const {classes , details ,name , users } = this.props;
     if(!this.props.OUTCOUNT.loading &&!this.props.INCOUNT.loading && !this.props.ABSCENTCOUNT.loading ){
@@ -160,7 +157,7 @@ class Unit extends React.Component{
                   if(details.stat=="OFF")
                    data = [
                      {name: 'داخل الورشة', value: details.closed_in},
-                     {name: 'خارج الورشة', value:out_length },
+                     {name: 'خارج الورشة', value: details.closed_out},
                      {name: 'غائب', value: details.closed_abscent}];
                   else
                     data= this.getUsersStatistics();
@@ -178,7 +175,7 @@ class Unit extends React.Component{
             <div  className="PieContainer">
                 <PieChart width={300} height={320}>
                   <Tooltip wrapperStyle={{border:'none', borderRadius: '2px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.08)'}}/>
-                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
+                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} x={400} y={200} label labelLine>
                     {
                       data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
                     }
@@ -282,8 +279,8 @@ const getSessionStatsForWorkshop= gql`query getSessionStatsForWorkshop($sessionI
 const sessionSubscription=gql`
 subscription {
   refreshedSessionStats{
-    in 
-    out 
+    in
+    out
     abscent
     id
   }
@@ -294,7 +291,7 @@ const GraphQledUnit = compose(
     name :"INCOUNT",
     options:(ownProps) => ({
       variables: {
-        sessionId: ownProps.details._id , 
+        sessionId: ownProps.details._id ,
         status :"IN"
       }
     })}),
@@ -302,7 +299,7 @@ const GraphQledUnit = compose(
       name :"OUTCOUNT",
       options:(ownProps) => ({
         variables: {
-          sessionId: ownProps.details._id , 
+          sessionId: ownProps.details._id ,
           status :"OUT"
         }
       })}),
@@ -310,7 +307,7 @@ const GraphQledUnit = compose(
         name :"ABSCENTCOUNT",
         options:(ownProps) => ({
           variables: {
-            sessionId: ownProps.details._id , 
+            sessionId: ownProps.details._id ,
             status :"ABSCENT"
           }
         })}),

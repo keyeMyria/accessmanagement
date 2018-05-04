@@ -40,7 +40,7 @@ class EventStore {
   @action initEventVars =()=>{
     if(this.getEventByIdExecute.data.getEventByID!=undefined){
       this.setEventSessions(this.getEventByIdExecute.data.getEventByID.session_collection)
-      this.setEventWorkshops (this.getEventByIdExecute.data.getEventByID.workshops) ; 
+      this.setEventWorkshops (this.getEventByIdExecute.data.getEventByID.workshops) ;
       }
   }
     @action setEventSessions = (sessions) => {
@@ -87,20 +87,20 @@ class EventStore {
         event=>{
           switch (type) {
             case "current":
-            return(this.comparedates(event.start_date , event.end_date)===0)
+            return(this.comparedates(event.start_date , event.end_date)==0)
               break;
               case  "coming":
-              return(this.comparedates(event.start_date, event.end_date)==-1)
+              return(this.comparedates(event.start_date, event.end_date)==1)
                 break;
                 case  "done":
-                return(this.comparedates(event.start_date, event.end_date)==1)
+                return(this.comparedates(event.start_date, event.end_date)==-1)
                   break;
           }
         }
       );
     }
     @action filterWorkshopsAndSessions(status , empty) {
-      
+
       this.event_sessions = this.selectedEvent.session_collection.filter(
         session => {
           return session.stat===status
@@ -249,7 +249,7 @@ class EventStore {
 
                   }
                 guests_number
-                  
+
                 }
               }`,
               variables :{
@@ -295,7 +295,7 @@ class EventStore {
                 eventid : eventid
               }
             }).then(res=>{
-              this.initSelectedEventStateOFSession(false);              
+              this.initSelectedEventStateOFSession(false);
               this.getFullEventDetailsByID(eventid)
             })
           }
@@ -310,7 +310,7 @@ class EventStore {
                 eventid : eventid
               }
             }).then(res=>{
-              this.initSelectedEventStateOFSession(true);              
+              this.initSelectedEventStateOFSession(true);
               this.getEvents();
             })
           }

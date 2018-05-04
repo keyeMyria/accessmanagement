@@ -12,7 +12,6 @@ const fields = [{
   name: 'type',
   label: 'نوعية الحدث',
   placeholder: 'اختر نوع الحدث',
-  rules: 'required|string',
 }, {
   name: 'place',
   label: 'مكان الحدث',
@@ -32,7 +31,8 @@ const fields = [{
 {
   name :'file',
   type:'hidden',
-  label :'اختر ملفا لاستيراد قائمة المدعوين'
+  label :'اختر ملفا لاستيراد قائمة المدعوين',
+  rules: 'required|string',
 
 }, {
   name: '_id',

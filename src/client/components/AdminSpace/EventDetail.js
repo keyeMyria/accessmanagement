@@ -6,6 +6,7 @@ import UserStore from '../../mobx/gueststore';
 import form from '../../mobx/forms/addworkshop';
 import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import AccountCircle from 'material-ui-icons/AccountCircle';
@@ -24,10 +25,9 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import Slide from 'material-ui/transitions/Slide';
-import PlayButton from './vendor/play.svg';
+import GeneralSession from './vendor/GeneralSession.svg';
 import LectureIcon from './vendor/lecture.svg';
 //import PlayButton from './vendor/playButton.svg';
 import WorkShopForm from './addWorkShopForm';
@@ -51,7 +51,7 @@ const styles = (theme) => ({
 		color: '#fff'
 	},
 	editIcon: {
-		color: '#00abc7',
+		color: '#fff',
 	},
 	title: {
 		margin: '16px 40px',
@@ -87,11 +87,18 @@ const styles = (theme) => ({
 	typoStyle: {
 		flex: 1
 	},
+	dialogContent: {
+		display:'flex',
+		flexDirection:'column',
+		margin: 'auto',
+	},
 	titleDialogContent: {
 		margin: '16px'
 	},
 	icon: {
+		width:'40vw',
 		maxWidth: '400px',
+		minWidth:'200px',
 		margin: '32px 24px 16px'
 	},
 	workshopform: {
@@ -310,8 +317,8 @@ class EventDetail extends React.Component {
 								</Typography>
 							</Toolbar>
 						</AppBar>
-						<div>
-							<PlayButton className={classes.icon} />
+						<div className={classes.dialogContent}>
+							<GeneralSession className={classes.icon} />
 							<SessionForm form={formSessionAdd} eventid={EventStore.selectedEvent._id} />
 						</div>
 						<DialogActions>
@@ -338,7 +345,7 @@ class EventDetail extends React.Component {
 								</Typography>
 							</Toolbar>
 						</AppBar>
-						<div className={classes.workshopform}>
+						<div className="workshopform">
 							<LectureIcon className={classes.icon} />
 							<WorkShopForm
 								className={classes.workshopformInputs}
@@ -362,9 +369,9 @@ class EventDetail extends React.Component {
 					<div className={classes.container}>
 						<div className={classes.header}>
 							<div className={classes.headerContent}>
-							<Button className="editButton" onClick={this.handleClickOpenEditEvent} fab >
-								<ModeEditIcon className={classes.editIcon} />
-							</Button>
+							<IconButton className="editButton" aria-label="Edit event" onClick={this.handleClickOpenEditEvent}>
+				        <ModeEditIcon className={classes.editIcon} />
+				      </IconButton>
 							<h2 className={classes.title}>{EventStore.selectedEvent.title}</h2>
 							<p className={classes.dateEvent}>
 								{`من : ${dateFormat(EventStore.selectedEvent.start_date, 'dd/mm/yyyy')}`}{' '}
