@@ -1,3 +1,4 @@
+const config_global=require('./src/client/app/config')
 var webpack = require('webpack');
 const WebpackRTLPlugin = require('webpack-rtl-plugin');
 /* Import webpack-manifest-plugin */
@@ -15,7 +16,8 @@ const paths = {
   SRC: path.resolve(__dirname, 'src/client'),
   JS: path.resolve(__dirname, 'src/js'),
 };
-const PUBLIC_PATH = 'http://localhost:8080/';
+
+const PUBLIC_PATH = config_global.COMMON_PATH;
 
 var config = {
   entry: APP_DIR + '/app/index.jsx',
@@ -146,7 +148,7 @@ devServer: {
     host: '0.0.0.0',
     proxy: {
       '/manage-single-event/*': {
-        target: 'http://localhost:8080/',
+        target: config_global.COMMON_PATH,
         pathRewrite: { '^/manage-single-event': '' },
       }
     }
