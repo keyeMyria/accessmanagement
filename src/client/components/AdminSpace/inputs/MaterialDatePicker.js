@@ -21,7 +21,7 @@ export default observer(({ field, type = 'text',minDate, placeholder = null ,onC
       {...field.bind({ type, placeholder })}
         name ={field.name}
        minDate={minDate}
-       onChange = {onChange(field)}
+       onChange = {onChange}
    />
 ));
 class MaterialDatePicker extends Component {
@@ -34,8 +34,7 @@ class MaterialDatePicker extends Component {
   }
   handleDateChange = (date) => {
     this.setState({ selectedDate: date });
-    // this.props.onChange(date);
-    console.log(this.props);
+     this.props.onChange(date);
   }
 
   handleWeekChange = (date) => {
