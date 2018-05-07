@@ -194,10 +194,10 @@ class AddUserFormComponent extends Component {
     return (
     <TextField
        placeholder={label}
-      //hintText={label}
+      hintText={label}
       label ={label}
-      //floatingLabelText={label}
-      //errorText={touched && error}
+      floatingLabelText={label}
+      errorText={touched && error}
       {...input}
       {...custom}
     />

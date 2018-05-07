@@ -69,21 +69,23 @@ const styleEndTime = {
     borderRight: '1px solid #eee',
 };
 
+
 class DashboardUnit extends React.Component{
   constructor(props){
     super(props);
   }
   getUsersStatistics =()=>{
-    let in_length = this.props.INCOUNT.getSessionStatsForSession;
-    let out_length = this.props.OUTCOUNT.getSessionStatsForSession;
-    let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForSession;
-    let data = [
-      {name: 'داخل الورشة', value: in_length},
-      {name: 'خارج الورشة', value:out_length },
-      {name: 'غائب', value:abscent_length}]
+      let in_length = this.props.INCOUNT.getSessionStatsForSession;
+      let out_length = this.props.OUTCOUNT.getSessionStatsForSession;
+      let abscent_length =this.props.ABSCENTCOUNT.getSessionStatsForSession;
+      let data = [
+        {name: 'داخل الورشة', value: in_length},
+        {name: 'خارج الورشة', value:out_length },
+        {name: 'غائب', value:abscent_length}]
 
-                  return data ;
-  }
+                    return data ;
+    }
+
   buildContentBasedOnData =(details , classes , name , size )=>{
                   const COLORS = ['#00abc7', '#686a77' , '#dcdcdc'];
                   let data;
@@ -93,7 +95,7 @@ class DashboardUnit extends React.Component{
                      {name: 'خارج الورشة', value: details.closed_out},
                      {name: 'غائب', value: details.closed_abscent}];
                   else
-                    data= this.getUsersStatistics();
+                  data= this.getUsersStatistics();
                   let end ;
                   let start = moment(moment(details.start_hour))
         if(details.end_hour!=null)
@@ -119,7 +121,8 @@ class DashboardUnit extends React.Component{
                       content={<CustomLabel value2={`${difference._data.hours} س ${difference._data.minutes} دق `}/>}>
                     </Label>
                   </Pie>
-                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label>
+                  <Pie data={data} dataKey="value" nameKey="name"  cx="50%" cy="50%" innerRadius={126} outerRadius={130} label={<RenderCustomizedLabel value={data}/>}>
+
                     {
                       data.map((entry, index) => <Cell key={`first_pie_cell_key${index}`} fill={COLORS[index % COLORS.length]}/>)
                     }
@@ -260,6 +263,14 @@ class DashboardUnit extends React.Component{
 
   }
 }
+const pieOptions = {
+  label: {
+    fontFamily: 'Arial',
+    fontSize: 50,
+    fontWeight: true,
+    color: 'red'
+  }
+}
 function CustomLabel({viewBox, value1, value2}){
   const {cx, cy} = viewBox;
   return (
@@ -268,6 +279,18 @@ function CustomLabel({viewBox, value1, value2}){
       <tspan x={cx} y={cy+12} fontSize="20" fill="#000000" fontFamily="Roboto">{value2}</tspan>
    </text>
   )
+}
+function RenderCustomizedLabel ({ cx, cy, midAngle, innerRadius, outerRadius, percent, value, fill }) {
+  const RADIAN = Math.PI / 180;
+ 	const radius = innerRadius + (outerRadius - innerRadius) * 9;
+  const x  = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy  + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text x={x} y={y} fill={fill} textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
+    	{value}
+    </text>
+  );
 }
 const getSessionStatsForSession= gql`query getSessionStatsForSession($sessionId:String! , $status:String!) {
   getSessionStatsForSession(sessionId:$sessionId , status:$status)
