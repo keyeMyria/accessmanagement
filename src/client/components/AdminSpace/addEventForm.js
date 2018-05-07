@@ -10,6 +10,7 @@ export default class AddEventForm extends React.Component{
   constructor(props){
     super(props);
     this.state={
+      startDate:new Date(),
       minDate :''
     }
   }
@@ -22,8 +23,8 @@ export default class AddEventForm extends React.Component{
       <MaterialTextField field={form.$('title')} />
       <MaterialTextField field={form.$('type')} />
       <MaterialTextField field={form.$('place')} />
-      <MaterialDatePicker field={form.$('start_date')} onChange={this.SetEndDateMin}/>
-      <MaterialDatePicker field={form.$('end_date')} minDate={this.state.minDate}/>
+      <MaterialDatePicker field={form.$('start_date')} minDate={this.state.startDate} disablePast={true} onChange={this.SetEndDateMin}/>
+      <MaterialDatePicker field={form.$('end_date')} disablePast={false} minDate={this.state.minDate} onChange={this.SetEndDateMin}/>
       <FileInput required field={form.$('file')} form={form}/>
       <br />
       <p>{form.error}</p>

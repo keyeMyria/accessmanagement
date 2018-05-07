@@ -16,11 +16,12 @@ const onChange = field => (e, k, payload) => {
   field.set('value', e._d); // not sure about this
   field.validate();
 };
-export default observer(({ field, type = 'text', placeholder = null}) => (
+export default observer(({ field, type = 'text',minDate, placeholder = null ,onChange}) => (
     <MaterialDatePickerWidget
       {...field.bind({ type, placeholder })}
-     name ={field.name}
-     onChange = {onChange(field)}
+        name ={field.name}
+       minDate={minDate}
+       onChange = {onChange(field)}
    />
 ));
 class MaterialDatePicker extends Component {
@@ -31,10 +32,10 @@ class MaterialDatePicker extends Component {
   state = {
     selectedDate: new Date(),
   }
-
   handleDateChange = (date) => {
     this.setState({ selectedDate: date });
-    this.props.onChange(date);
+    // this.props.onChange(date);
+    console.log(this.props);
   }
 
   handleWeekChange = (date) => {
@@ -103,23 +104,33 @@ class MaterialDatePicker extends Component {
   }
 
   render() {
+    // let disablePast;
+    // let disableOpenOnE;
     const { selectedDate } = this.state;
     const {name , minDate} = this.props;
+    // if (name=='start_date') {
+    //   disablePast=true
+    //   disableOpenOnE=false
+    // } else {
+    //   disablePast=false
+    //   disableOpenOnE=true
+    // }
     return (
       <Fragment>
         <div className="picker">
-          <DateTimePicker
-            autoSubmit={false}
-            value={selectedDate}
-            name={name}
-            minDate={minDate}
-            onChange={this.handleDateChange}
-            renderDay={this.renderCustomDayForDateTime}
-            leftArrowIcon= {<KeyboardArrowLeft />}
-            rightArrowIcon ={<KeyboardArrowRight />}
-            dateRangeIcon ={<InsertInvitation />}
-            timeIcon={<AccessTime />}
-          />
+        <DateTimePicker
+          autoSubmit={false}
+          value={selectedDate}
+          disablePast={this.props.disablePast}
+          minDate={this.props.minDate}
+          name={name}
+          onChange={this.handleDateChange}
+          renderDay={this.renderCustomDayForDateTime}
+          leftArrowIcon= {<KeyboardArrowLeft />}
+          rightArrowIcon ={<KeyboardArrowRight />}
+          dateRangeIcon ={<InsertInvitation />}
+          timeIcon={<AccessTime />}
+        />
         </div>
       </Fragment>
     );
