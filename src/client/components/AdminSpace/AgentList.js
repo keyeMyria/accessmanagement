@@ -24,7 +24,7 @@ import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
 import SessionBox from './SessionBox'
 import Button from 'material-ui/Button';
 import Add from 'material-ui-icons/Add';
-import Form from './AddAgentForm'
+import AddAgentDialog from '../Dialogs/AddAgent'
 import form from '../../mobx/forms/addAgents'
 import './vendor/events.css';
 import EmptyAgentsListIcon from '../App/EmptyAgentsList.svg';
@@ -196,26 +196,7 @@ addUnaffectedAgentBox =(data)=>{
                  </p>
                    <div>
                      {
-                       <Dialog
-                       open={this.state.open}
-                       onClose={this.handleCloseDialog}
-                       aria-labelledby="form-dialog-title"
-                     >
-                       <DialogTitle id="form-dialog-title">
-                           إضافة وكيل جديد
-                       </DialogTitle>
-                       <DialogContent className="dialogContent">
-                       <Form form={form}/>
-                       </DialogContent>
-                       <DialogActions>
-                         <Button onClick={form.onSubmit} color="secondary">
-                           حفظ
-                         </Button>
-                         <Button onClick={this.handleCloseDialog} >
-                         إلغاء
-                         </Button>
-                       </DialogActions>
-                     </Dialog>
+                       
                    }
                      {
                        <Button   variant="fab"   color="secondary" aria-label="add new agentt" onClick={this.handleAddAgent} className={classes.addButton}>
@@ -233,26 +214,8 @@ addUnaffectedAgentBox =(data)=>{
         return (
           <div>
             {
-              <Dialog
-              open={this.state.open}
-              onClose={this.handleCloseDialog}
-              aria-labelledby="form-dialog-title"
-            >
-              <DialogTitle id="form-dialog-title">
-                  إضافة وكيل جديد
-              </DialogTitle>
-              <DialogContent className="dialogContent">
-              <Form form={form} successCallback={this.addUnaffectedAgentBox}/>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={(e) => this.addAgentOperation(e)} color="secondary">
-                  حفظ
-                </Button>
-                <Button onClick={this.handleCloseDialog} >
-                إلغاء
-                </Button>
-              </DialogActions>
-            </Dialog>
+              <AddAgentDialog open={this.state.open} AddForm={form} successCallback={this.addUnaffectedAgentBox}/>
+
           }
 
     				<div className={classes.wrapper}>
