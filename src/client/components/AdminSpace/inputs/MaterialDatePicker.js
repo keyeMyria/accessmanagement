@@ -16,11 +16,13 @@ const onChange = field => (e, k, payload) => {
   field.set('value', e._d); // not sure about this
   field.validate();
 };
-export default observer(({ field, type = 'text',minDate, placeholder = null ,onChange}) => (
+export default observer(({ field, type = 'text',minDate,value,disablePast, placeholder = null ,onChange}) => (
     <MaterialDatePickerWidget
       {...field.bind({ type, placeholder })}
         name ={field.name}
        minDate={minDate}
+       value={value}
+       disablePast={disablePast}
        onChange = {onChange}
    />
 ));
@@ -103,23 +105,14 @@ class MaterialDatePicker extends Component {
   }
 
   render() {
-    // let disablePast;
-    // let disableOpenOnE;
     const { selectedDate } = this.state;
     const {name , minDate} = this.props;
-    // if (name=='start_date') {
-    //   disablePast=true
-    //   disableOpenOnE=false
-    // } else {
-    //   disablePast=false
-    //   disableOpenOnE=true
-    // }
     return (
       <Fragment>
         <div className="picker">
         <DateTimePicker
           autoSubmit={false}
-          value={selectedDate}
+          value={this.props.value}
           disablePast={this.props.disablePast}
           minDate={this.props.minDate}
           name={name}
