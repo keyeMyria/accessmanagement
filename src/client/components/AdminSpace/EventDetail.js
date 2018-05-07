@@ -32,10 +32,11 @@ import LectureIcon from './vendor/lecture.svg';
 //import PlayButton from './vendor/playButton.svg';
 import WorkShopForm from './addWorkShopForm';
 import Add from 'material-ui-icons/Add';
-import formEdit from '../../mobx/forms/addevent';
+import EditForm from '../../mobx/forms/editEvent';
+
 import formSessionAdd from '../../mobx/forms/addSession';
 
-import Form from './addEventForm';
+import EditEventDialog from '../Dialogs/EditEvent';
 import SessionForm from './addSessionForm'
 const styles = (theme) => ({
 	container: {},
@@ -220,11 +221,11 @@ class EventDetail extends React.Component {
 		this.setState({ open: true });
 	};
 	handleClickOpenEditEvent = () => {
-		formEdit.update({
+		EditForm.update({
 			title: EventStore.selectedEvent.title,
-			type: EventStore.selectedEvent.type,
-			place: EventStore.selectedEvent.place,
-			start_date: EventStore.selectedEvent.start_date,
+			// type: EventStore.selectedEvent.type,
+			// place: EventStore.selectedEvent.place,
+			// start_date: EventStore.selectedEvent.start_date,
 			end_date: EventStore.selectedEvent.end_date,
 			_id: EventStore.selectedEvent._id
 		});
@@ -233,7 +234,7 @@ class EventDetail extends React.Component {
 		});
 	};
 	addEventOperation = (e) => {
-		formEdit.onSubmit(e);
+		EditForm.onSubmit(e);
 		this.handleClickOpenEditEvent();
 	};
 	handleClickCloseEditEvent = () => {
@@ -289,22 +290,7 @@ class EventDetail extends React.Component {
 		else{
 			return (
 				<div>
-					<Dialog
-						open={this.state.open_edit_event}
-						onClose={this.handleClose}
-						aria-labelledby="form-dialog-title"
-					>
-						<DialogTitle id="form-dialog-title">تحديث يبانات الحدث</DialogTitle>
-						<DialogContent className="dialogContent">
-							<Form form={formEdit} />
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={(e) => this.addEventOperation(e)} color="secondary">
-								حفظ
-							</Button>
-							<Button onClick={this.handleClose}>إلغاء</Button>
-						</DialogActions>
-					</Dialog>
+					<EditEventDialog EditForm={EditForm} open={this.state.open_edit_event}/>
 
 					<Dialog fullScreen open={this.state.open} onClose={this.handleClose} transition={Transition}>
 						<AppBar className={classes.appBar}>
