@@ -40,6 +40,7 @@ let filterType = null ;
 class EventsList extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
+    form.reset();
   };
 
   constructor(props) {
