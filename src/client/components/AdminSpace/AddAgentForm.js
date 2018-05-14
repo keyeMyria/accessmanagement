@@ -14,7 +14,7 @@ const roles=[{
   "label":"خروج/دخول" , 
   "value":"agent_in_out"
 }]
-export default observer(({ form , onSuccess }) => (
+export default observer(({ form , onSuccess , successCallback}) => (
   <form onSubmit={form.onSubmit} >
     <MaterialTextField field={form.$('username')} />
     <MaterialTextField field={form.$('password')} />

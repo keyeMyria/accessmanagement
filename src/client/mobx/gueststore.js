@@ -217,12 +217,16 @@ class UserStore {
       console.log(res)
     })
   }
-  @action addAgent=(data)=>{
+  @action addAgent=(data , functionCallback)=>{
     fetch({
       query :`mutation addUserWithRole($username:String! , $password:String! ,$rolename:String! , $identifiant:String!){
           addUserWithRole(username:$username , password:$password , rolename:$rolename, identifiant :$identifiant){
             _id
             username
+            role{
+              _id
+              name
+            }
           }
         }`,
       variables:{
@@ -231,6 +235,8 @@ class UserStore {
         rolename:data.rolename ,
         identifiant: data.identifiant
       }
+    }).then(res=>{
+      functionCallback(res.data.addUserWithRole)
     })
   }
   @action updateSelectedUserField =(fields)=>{

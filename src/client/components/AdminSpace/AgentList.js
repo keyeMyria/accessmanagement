@@ -121,9 +121,11 @@ initAgentBoxes=()=>{
 
 }
 addUnaffectedAgentBox =(data)=>{
-  sessions[0].push(data);
+  console.log(sessions[0] , data)
+  sessions[0].list.push(data);
   this.setState({
-    sessions:sessions
+    sessions:sessions , 
+    open:false
   })
 }
     isDropped(boxName) {
@@ -211,6 +213,7 @@ addUnaffectedAgentBox =(data)=>{
     }
     else{
       const { boxes, sessions } = this.state
+      form.successCallback = this.addUnaffectedAgentBox;
         return (
           <div>
             {

@@ -28,7 +28,7 @@ const fields = [{
 }]
 const hooks = {
   onSuccess(form) {
-    UserStore.addAgent(form.values())
+    UserStore.addAgent(form.values() ,form.successCallback)
   },
   onError(form) {
     alert('Form has errors!');
