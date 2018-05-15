@@ -33,9 +33,8 @@ import LectureIcon from './vendor/lecture.svg';
 import WorkShopForm from './addWorkShopForm';
 import Add from 'material-ui-icons/Add';
 import EditForm from '../../mobx/forms/editEvent';
-
+import { withLastLocation } from 'react-router-last-location';
 import formSessionAdd from '../../mobx/forms/addSession';
-
 import EditEventDialog from '../Dialogs/EditEvent';
 import SessionForm from './addSessionForm'
 const styles = (theme) => ({
@@ -288,6 +287,21 @@ class EventDetail extends React.Component {
 			);
 		}
 		else{
+
+			let slideDirection = "right";
+      if(this.props.lastLocation!=null){
+				switch(this.props.lastLocation.pathname){
+          case '/managevents':
+          slideDirection = "down";
+          break;
+        }
+				if(this.props.lastLocation.pathname.includes("/useractivity")){
+            slideDirection = "up";
+        }
+      }
+
+			console.log(this.props.lastLocation.pathname);
+
 			return (
 				<div>
 					<EditEventDialog EditForm={EditForm} open={this.state.open_edit_event}/>
@@ -352,163 +366,167 @@ class EventDetail extends React.Component {
 						</DialogActions>
 					</Dialog>
 
-					<div className={classes.container}>
-						<div className={classes.header}>
-							<div className={classes.headerContent}>
-							<IconButton className="editButton" aria-label="Edit event" onClick={this.handleClickOpenEditEvent}>
-				        <ModeEditIcon className={classes.editIcon} />
-				      </IconButton>
-							<h2 className={classes.title}>{EventStore.selectedEvent.title}</h2>
-							<p className={classes.dateEvent}>
-								{`من : ${dateFormat(EventStore.selectedEvent.start_date, 'dd/mm/yyyy')}`}{' '}
-								{`، الى : ${dateFormat(EventStore.selectedEvent.end_date, 'dd/mm/yyyy')}`}
-							</p>
-							<div className={classes.placeEvent}>
-								<Place style={{opacity:'0.5'}}/>
-								<p>{EventStore.selectedEvent.place}</p>
-							</div>
-							<div className={classes.typeEvent}>
-								<Chip label={EventStore.selectedEvent.type} className={classes.chipEventType} />
-							</div>
-							<p className={classes.numberAttend}>
-								{' '}<AccountCircle style={{opacity:'0.5', marginLeft: '5px',}}/>
-								  الحضور المتوقع{' : '}  {event.guests_number}
-							</p>
-						</div>
-						</div>
-
-						<Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
-							<div className={classes.AddButton}>
-								<Add />
-								إضافة ورشة عمل
-							</div>
-						</Button>
-						{EventStore.selectedEvent.session_empty && (
-							<Button onClick={this.handleClickOpen} className="AddingButton">
-								<div className={classes.AddButton}>
-									<PlayArrow />
-									تسجيل جلسة عامة
+					<Slide direction={slideDirection} in={true} timeout="600">
+						<div className={classes.container}>
+							<div className={classes.header}>
+								<div className={classes.headerContent}>
+								<IconButton className="editButton" aria-label="Edit event" onClick={this.handleClickOpenEditEvent}>
+					        <ModeEditIcon className={classes.editIcon} />
+					      </IconButton>
+								<h2 className={classes.title}>{EventStore.selectedEvent.title}</h2>
+								<p className={classes.dateEvent}>
+									{`من : ${dateFormat(EventStore.selectedEvent.start_date, 'dd/mm/yyyy')}`}{' '}
+									{`، الى : ${dateFormat(EventStore.selectedEvent.end_date, 'dd/mm/yyyy')}`}
+								</p>
+								<div className={classes.placeEvent}>
+									<Place style={{opacity:'0.5'}}/>
+									<p>{EventStore.selectedEvent.place}</p>
 								</div>
-							</Button>
-						)}
-						{EventStore.selectedEvent.session_empty == null && (
-							<Button onClick={this.handleClickOpen} className="AddingButton">
+								<div className={classes.typeEvent}>
+									<Chip label={EventStore.selectedEvent.type} className={classes.chipEventType} />
+								</div>
+								<p className={classes.numberAttend}>
+									{' '}<AccountCircle style={{opacity:'0.5', marginLeft: '5px',}}/>
+									  الحضور المتوقع{' : '}  {event.guests_number}
+								</p>
+							</div>
+							</div>
+
+							<Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
 								<div className={classes.AddButton}>
 									<Add />
-									Add Session
+									إضافة ورشة عمل
 								</div>
 							</Button>
-						)}
-						{EventStore.selectedEvent.session_collection !== undefined && (
-							<List className={classes.containerWorkshop}>
-								{EventStore.selectedEvent.session_collection.map((item) => (
-									<div key={item._id} className={classes.listWorkshop}>
-										<ListItem className={classes.sessionItem}>
-											<div className={classes.datEntreSorti}>
-												<ListItemText primary={item.title} />
-												<div className={classes.generalSessionitem}>
-													<div className={classes.sessionitemTime}>
-														<div>
-															<AccessTime className={classes.sessionitemTimeIcon} />
-															{` أفتتحت من الساعة ${dateFormat(item.start_hour, 'HH:mm')} `}
-														</div>
-														{item.stat == 'OFF' && (
-															<div className={classes.sessionitemTimeEnd}>
-															{` اغلقت على الساعة ${dateFormat(item.end_hour,'HH:mm')}`}
-															</div>
-														)}
-													</div>
-												</div>
-											</div>
-
-											{item.stat == 'ON' && (
-												<Button
-													onClick={() => this.stopSessionAction(item._id)}
-													className={classes.stop}>
-													<div className={classes.startStopSession}>
-														<Stop />
-														إنهاء الجلسة
-													</div>
-												</Button>
-											)}
-										</ListItem>
+							{EventStore.selectedEvent.session_empty && (
+								<Button onClick={this.handleClickOpen} className="AddingButton">
+									<div className={classes.AddButton}>
+										<PlayArrow />
+										تسجيل جلسة عامة
 									</div>
-								))}
-							</List>
-						)}
-						{workshoplist !== undefined && (
-							<List className={classes.containerWorkshop}>
-								{workshoplist.map((item) => (
-									<div key={item._id} className={classes.listWorkshop}>
-										<ListItem className={classes.workshopItem}>
-											<ListItemText primary={item.name} />
-											{item.session_empty == true &&(
-												<Button
-													onClick={() => this.startSessionForWorkshop(item._id)}
-													className={classes.star}>
-													<div className={classes.startStopSession}>
-														<PlayArrow />
-														تسجيل جلسة
-													</div>
-												</Button>
-											)}
-											{ `${item._id}_load` ==true &&(<div className={classes.startStopSession}>
-														<CircularProgress
-															className={classes.progressCircle}
-															color="primary"
-														/>
-													</div>)}
-											{item.session_empty == null && (
-												<Button
-													onClick={() => this.startSessionForWorkshop(item._id)}
-													className={classes.star}
-												>
-													<div className={classes.startStopSession}>
-														<PlayArrow />
-														تسجيل جلسة
-													</div>
-												</Button>
-											)}
-											{item.session_empty == false && (
-												<Button
-													onClick={() => this.stopSessionForWorkShop(item._id)}
-													className={classes.stop}
-												>
-													<div className={classes.startStopSession}>
-														<Stop />
-														إنهاء الجلسة
-													</div>
-												</Button>
-											)}
-										</ListItem>
-										<List className={classes.sessionListWork}>
-											{item.session_list!=undefined && item.session_list.map((lol) => (
-												<div key={lol._id}>
-													<div className={classes.workshopsessionitem}>
+								</Button>
+							)}
+							{EventStore.selectedEvent.session_empty == null && (
+								<Button onClick={this.handleClickOpen} className="AddingButton">
+									<div className={classes.AddButton}>
+										<Add />
+										Add Session
+									</div>
+								</Button>
+							)}
+							{EventStore.selectedEvent.session_collection !== undefined && (
+								<List className={classes.containerWorkshop}>
+									{EventStore.selectedEvent.session_collection.map((item) => (
+										<div key={item._id} className={classes.listWorkshop}>
+											<ListItem className={classes.sessionItem}>
+												<div className={classes.datEntreSorti}>
+													<ListItemText primary={item.title} />
+													<div className={classes.generalSessionitem}>
 														<div className={classes.sessionitemTime}>
 															<div>
 																<AccessTime className={classes.sessionitemTimeIcon} />
-																{`التوقيت : من ${dateFormat(lol.start_hour, 'HH:mm')}`}
+																{` أفتتحت من الساعة ${dateFormat(item.start_hour, 'HH:mm')} `}
 															</div>
-															{lol.stat == 'OFF' && (
-																<div
-																	className={classes.sessionitemTimeEnd}
-																>{`الى ${dateFormat(lol.end_hour, 'HH:mm')}`}</div>
+															{item.stat == 'OFF' && (
+																<div className={classes.sessionitemTimeEnd}>
+																{` اغلقت على الساعة ${dateFormat(item.end_hour,'HH:mm')}`}
+																</div>
 															)}
 														</div>
 													</div>
 												</div>
-											))}
-										</List>
-									</div>
-								))}
-							</List>
-						)}
-					</div>
+
+												{item.stat == 'ON' && (
+													<Button
+														onClick={() => this.stopSessionAction(item._id)}
+														className={classes.stop}>
+														<div className={classes.startStopSession}>
+															<Stop />
+															إنهاء الجلسة
+														</div>
+													</Button>
+												)}
+											</ListItem>
+										</div>
+									))}
+								</List>
+							)}
+							{workshoplist !== undefined && (
+								<List className={classes.containerWorkshop}>
+									{workshoplist.map((item) => (
+										<div key={item._id} className={classes.listWorkshop}>
+											<ListItem className={classes.workshopItem}>
+												<ListItemText primary={item.name} />
+												{item.session_empty == true &&(
+													<Button
+														onClick={() => this.startSessionForWorkshop(item._id)}
+														className={classes.star}>
+														<div className={classes.startStopSession}>
+															<PlayArrow />
+															تسجيل جلسة
+														</div>
+													</Button>
+												)}
+												{ `${item._id}_load` ==true &&(<div className={classes.startStopSession}>
+															<CircularProgress
+																className={classes.progressCircle}
+																color="primary"
+															/>
+														</div>)}
+												{item.session_empty == null && (
+													<Button
+														onClick={() => this.startSessionForWorkshop(item._id)}
+														className={classes.star}
+													>
+														<div className={classes.startStopSession}>
+															<PlayArrow />
+															تسجيل جلسة
+														</div>
+													</Button>
+												)}
+												{item.session_empty == false && (
+													<Button
+														onClick={() => this.stopSessionForWorkShop(item._id)}
+														className={classes.stop}
+													>
+														<div className={classes.startStopSession}>
+															<Stop />
+															إنهاء الجلسة
+														</div>
+													</Button>
+												)}
+											</ListItem>
+											<List className={classes.sessionListWork}>
+												{item.session_list!=undefined && item.session_list.map((lol) => (
+													<div key={lol._id}>
+														<div className={classes.workshopsessionitem}>
+															<div className={classes.sessionitemTime}>
+																<div>
+																	<AccessTime className={classes.sessionitemTimeIcon} />
+																	{`التوقيت : من ${dateFormat(lol.start_hour, 'HH:mm')}`}
+																</div>
+																{lol.stat == 'OFF' && (
+																	<div
+																		className={classes.sessionitemTimeEnd}
+																	>{`الى ${dateFormat(lol.end_hour, 'HH:mm')}`}</div>
+																)}
+															</div>
+														</div>
+													</div>
+												))}
+											</List>
+										</div>
+									))}
+								</List>
+							)}
+						</div>
+					</Slide>
 				</div>
 			);
 		}
 
 	}
 }
-export default withStyles(styles)(EventDetail);
+
+const fromWithStyles = withStyles(styles)(EventDetail);
+export default withLastLocation(fromWithStyles);
