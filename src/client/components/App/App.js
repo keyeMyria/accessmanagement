@@ -1,5 +1,6 @@
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { LastLocationProvider } from 'react-router-last-location';
 import SignInFormContainer from '../../containers/SignInFormContainer';
 import LogoutPage from '../../components/Login/LogoutPage';
 import QrCodeAuthentication from '../../components/Login/QrCodeAuthentication';
@@ -231,6 +232,8 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
+        <LastLocationProvider>
+
         <MuiThemeProvider theme={Theme}>
           <Provider
             UserStore={UserStore}
@@ -330,6 +333,8 @@ class App extends React.Component {
             </JssProvider>
           </Provider>
         </MuiThemeProvider>
+      </LastLocationProvider>
+
       </BrowserRouter>
     );
   }

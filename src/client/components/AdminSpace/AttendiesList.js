@@ -28,6 +28,8 @@ import Typography from 'material-ui/Typography';
 import GuestCardToManage from './GuestCardToManage';
 import EmptyAttendeesStatusIcon from '../App/EmptyAttenteesStatus.svg';
 import Fade from 'material-ui/transitions/Fade';
+import Slide from 'material-ui/transitions/Slide';
+import { withLastLocation } from 'react-router-last-location';
 
 const styles = theme => ({
   root: {
@@ -168,6 +170,17 @@ class AttendiesList extends React.Component {
   };
   render() {
     const { classes } = this.props;
+
+    let slideDirection = "left";
+    if(this.props.lastLocation!=null){
+      switch(this.props.lastLocation.pathname){
+        case '/':
+        slideDirection = "down";
+        break;
+      }
+    }
+
+
     if (this.props.data.loading == true)
       return (
         <div className={classes.root}>
@@ -175,53 +188,54 @@ class AttendiesList extends React.Component {
             color="primary"
             className={classes.progressCircle}
           />
-
-          <div
-            className="fakeContainerGuest"
-            className={classes.fakeContainerGuest}>
+          <Slide direction={slideDirection} in={true} timeout="600">
             <div
-              className="fakeContainer_ui"
-              className={classes.fakeContainer_ui}>
-              <div className="fakeAvatar" className={classes.fakeAvatar} />
-              <div className="fakeText" className={classes.fakeText}>
-                <div className="fakeHeading" className={classes.fakeHeading} />
-                <div
-                  className="fakeSecondaryText"
-                  className={classes.fakeSecondaryText}
-                />
+              className="fakeContainerGuest"
+              className={classes.fakeContainerGuest}>
+              <div
+                className="fakeContainer_ui"
+                className={classes.fakeContainer_ui}>
+                <div className="fakeAvatar" className={classes.fakeAvatar} />
+                <div className="fakeText" className={classes.fakeText}>
+                  <div className="fakeHeading" className={classes.fakeHeading} />
+                  <div
+                    className="fakeSecondaryText"
+                    className={classes.fakeSecondaryText}
+                  />
+                </div>
+                <div className="fakeButton" className={classes.fakeButton} />
+                <div className="fakeButton" className={classes.fakeButton} />
               </div>
-              <div className="fakeButton" className={classes.fakeButton} />
-              <div className="fakeButton" className={classes.fakeButton} />
-            </div>
-            <div
-              className="fakeContainer_ui"
-              className={classes.fakeContainer_ui}>
-              <div className="fakeAvatar" className={classes.fakeAvatar} />
-              <div className="fakeText" className={classes.fakeText}>
-                <div className="fakeHeading" className={classes.fakeHeading} />
-                <div
-                  className="fakeSecondaryText"
-                  className={classes.fakeSecondaryText}
-                />
+              <div
+                className="fakeContainer_ui"
+                className={classes.fakeContainer_ui}>
+                <div className="fakeAvatar" className={classes.fakeAvatar} />
+                <div className="fakeText" className={classes.fakeText}>
+                  <div className="fakeHeading" className={classes.fakeHeading} />
+                  <div
+                    className="fakeSecondaryText"
+                    className={classes.fakeSecondaryText}
+                  />
+                </div>
+                <div className="fakeButton" className={classes.fakeButton} />
+                <div className="fakeButton" className={classes.fakeButton} />
               </div>
-              <div className="fakeButton" className={classes.fakeButton} />
-              <div className="fakeButton" className={classes.fakeButton} />
-            </div>
-            <div
-              className="fakeContainer_ui"
-              className={classes.fakeContainer_ui}>
-              <div className="fakeAvatar" className={classes.fakeAvatar} />
-              <div className="fakeText" className={classes.fakeText}>
-                <div className="fakeHeading" className={classes.fakeHeading} />
-                <div
-                  className="fakeSecondaryText"
-                  className={classes.fakeSecondaryText}
-                />
+              <div
+                className="fakeContainer_ui"
+                className={classes.fakeContainer_ui}>
+                <div className="fakeAvatar" className={classes.fakeAvatar} />
+                <div className="fakeText" className={classes.fakeText}>
+                  <div className="fakeHeading" className={classes.fakeHeading} />
+                  <div
+                    className="fakeSecondaryText"
+                    className={classes.fakeSecondaryText}
+                  />
+                </div>
+                <div className="fakeButton" className={classes.fakeButton} />
+                <div className="fakeButton" className={classes.fakeButton} />
               </div>
-              <div className="fakeButton" className={classes.fakeButton} />
-              <div className="fakeButton" className={classes.fakeButton} />
             </div>
-          </div>
+          </Slide>
         </div>
       );
     else if (
@@ -229,15 +243,17 @@ class AttendiesList extends React.Component {
       Object.keys(this.props.data.guestusers).length === 0
     ) {
       return (
-        <div className={classes.root} className="emptyStatus">
-          <div className="emptyStatusIcon">
-            <EmptyAttendeesStatusIcon />
+        <Slide direction={slideDirection} in={true} timeout="600">
+          <div className={classes.root} className="emptyStatus">
+            <div className="emptyStatusIcon">
+              <EmptyAttendeesStatusIcon />
+            </div>
+            <h3 className="emptyStatusTitle">لا يوجد مشاركين في هذا الحدث</h3>
+            <p className="emptyStatusDesciption">
+              Edit this event and upload a file with your guest list.
+            </p>
           </div>
-          <h3 className="emptyStatusTitle">لا يوجد مشاركين في هذا الحدث</h3>
-          <p className="emptyStatusDesciption">
-            Edit this event and upload a file with your guest list.
-          </p>
-        </div>
+        </Slide>
       );
     } else {
       const data = [
@@ -248,35 +264,37 @@ class AttendiesList extends React.Component {
       const COLORS = ['#00ABC7', '#cccccc'];
 
       return (
-        <div className={classes.root}>
-          <FormControl className={classes.formControl}>
-            <Input
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton>
-                    <Search />
-                  </IconButton>
-                </InputAdornment>
-              }
-              className={classes.search}
-              placeholder="Search Attendies"
-              onChange={this.filterList}
-            />
-          </FormControl>
-          <Fade in={true}>
-            <div className="containerGuest" className={classes.containerGuest}>
-              <div className="container_ui" className={classes.container_ui}>
-                {this.state.attendies_list.map(value => (
-                  <GuestCardToManage
-                    key={value._id}
-                    data={value}
-                    readonly={true}
-                  />
-                ))}
+        <Slide direction={slideDirection} in={true} timeout="600">
+          <div className={classes.root}>
+            <FormControl className={classes.formControl}>
+              <Input
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton>
+                      <Search />
+                    </IconButton>
+                  </InputAdornment>
+                }
+                className={classes.search}
+                placeholder="Search Attendies"
+                onChange={this.filterList}
+              />
+            </FormControl>
+            <Fade in={true}>
+              <div className="containerGuest" className={classes.containerGuest}>
+                <div className="container_ui" className={classes.container_ui}>
+                  {this.state.attendies_list.map(value => (
+                    <GuestCardToManage
+                      key={value._id}
+                      data={value}
+                      readonly={true}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          </Fade>
-        </div>
+            </Fade>
+          </div>
+        </Slide>
       );
     }
   }
@@ -302,4 +320,5 @@ const guestlist = gql`
 `;
 
 const AttendeesWithData = graphql(guestlist)(AttendiesList);
-export default withStyles(styles)(AttendeesWithData);
+const fromWithStyles = withStyles(styles)(AttendeesWithData);
+export default withLastLocation(fromWithStyles);
