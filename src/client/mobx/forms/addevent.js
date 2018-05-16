@@ -50,9 +50,8 @@ const hooks = {
       EventStore.addNewEvent(form.values())
   },
   onError(form) {
-    alert('Form has errors!');
-    // get all form errors
-    //  console.log('All form errors', form.errors());
+      console.log(form.values())
+      console.log('All form errors', form.errors());
   }
 }
 

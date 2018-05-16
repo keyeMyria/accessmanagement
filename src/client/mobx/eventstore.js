@@ -201,6 +201,7 @@ class EventStore {
             file : data.file
           }
         }).then(res => {
+          console.log(res)
           this.getEvents()
         });
           }
@@ -258,6 +259,7 @@ class EventStore {
             }).then(res=>{
               this.selectEvent(res.data.getEventByID);
               this.setEventSessions(res.data.getEventByID.session_collection);
+              if(res.data.getEventByID.workshops)
               this.setEventWorkshops(res.data.getEventByID.workshops);
             })
           }

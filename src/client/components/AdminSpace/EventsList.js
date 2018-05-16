@@ -67,16 +67,6 @@ class EventsList extends React.Component {
 		filterType = type ;
     EventStore.filterEventByCurrentDate(type);
   };
-  // componentDidMount=()=>{
-  //   let arr =[]
-  //   EventStore.unfiltered_events.map((item) => {
-  //     i = item._id
-  //     arr[i] = null
-  //   })
-  //   this.setState({
-  //     anchorEl:arr
-  //   })
-  // }
   handleAddEvent = event => {
     this.setState({ open: true });
   };

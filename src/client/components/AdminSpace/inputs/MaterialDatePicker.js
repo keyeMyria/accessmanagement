@@ -12,15 +12,13 @@ import AccessTime from 'material-ui-icons/AccessTime';
 const $input = 'input-reset ba b--black-10 br1 pa2 mb2 db w-100 f6';
 const $label = 'f7 db mb2 mt3 light-silver';
 const $small = 'f6 black-60 db red';
-const onChange = field => (e, k, payload) => {
-  field.set('value', e._d); // not sure about this
-  field.validate();
-};
+
 export default observer(({ field, type = 'text',minDate,value,disablePast, placeholder = null ,onChange}) => (
     <MaterialDatePickerWidget
       {...field.bind({ type, placeholder })}
         name ={field.name}
        minDate={minDate}
+       field={field}
        value={value}
        disablePast={disablePast}
        onChange = {onChange}
@@ -35,7 +33,9 @@ class MaterialDatePicker extends Component {
     selectedDate: new Date(),
   }
   handleDateChange = (date) => {
-    this.setState({ selectedDate: date });
+      this.setState({ selectedDate: date });
+      this.props.field.set('value', date); 
+      console.log(this.props.field)// not sure about this  onChangeField(date)
      this.props.onChange(date);
   }
 
