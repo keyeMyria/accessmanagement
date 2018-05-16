@@ -14,7 +14,9 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import EmptyActivityAttendeesIcon from '../App/EmptyActivityAttendees.svg';
-import {REMOTE_ASSETS_PATH} from '../../app/config'
+import {REMOTE_ASSETS_PATH} from '../../app/config';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Grow from 'material-ui/transitions/Grow';
 
 const styles = theme => ({
   root: {
@@ -64,43 +66,55 @@ const styles = theme => ({
  class AttendeeActivity  extends React.Component{
   render(){
     const {classes} = this.props;
-    if(this.props.data.loading==true)
-      return(<div className={classes.root}><CircularProgress  color="primary" className={classes.progressCircle} /></div>);
-      else if (this.props.data.activity==null || Object.keys(this.props.data.activity).length === 0) {
-          return (
-              <div className={classes.root} className="emptyStatus">
-                <div className="emptyStatusIcon">
-                  <EmptyActivityAttendeesIcon/>
-                </div>
-                 <h3 className="emptyStatusTitle">
-                    لم يتم تسجيل اي دخول بعد
-                 </h3>
-                 <p className="emptyStatusDesciption">
-                   سيتم عرض تحركات المشارك حال ما يتم تسجيل مروره من قبل الوكلاء
-                 </p>
-              </div>
-            );
-  }
-  else{
+
+
     return(
-      <div className={classes.root}>
-       <div className={classes.chip}>
-          <Avatar className={classes.avatar} src={`${REMOTE_ASSETS_PATH}/${this.props.data.activity[0].user.profile.avatar}`}/>
-          <p className={classes.name} >{this.props.data.activity[0].user.profile.name} {this.props.data.activity[0].user.profile.forname}</p>
-        </div>
-        <List className={classes.ListProfil}>
-          {this.props.data.activity.map(value => (
-            <div>
-              <ListItem key={value.id} dense>
-                <ListItemText className={classes.time} primary={`${value.action=="IN" ? "دخل" : "غادر"} الجلسة,  ${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
-                {value.agent &&(<ListItemText secondary={`سجل من قبل ${value.agent.username}`  }/>)}
-                <DirectionsWalk className={classes[value.action]}/>
-              </ListItem>
+    <Grow in={true} {...(true ? { timeout: 300 } : {})}>
+      <div>
+        {(this.props.data.loading==true) && (
+          <div className={classes.root}><CircularProgress  color="primary" className={classes.progressCircle} /></div>
+        )}
+
+        {((this.props.data.loading == false && this.props.data.activity==null) || (this.props.data.loading == false && Object.keys(this.props.data.activity).length === 0)) && (
+          <div className={classes.root} className="emptyStatus">
+            <div className="emptyStatusIcon">
+              <EmptyActivityAttendeesIcon/>
             </div>
-          ))}
-        </List>
-      </div>)
-  }
+             <h3 className="emptyStatusTitle">
+                لم يتم تسجيل اي دخول بعد
+             </h3>
+             <p className="emptyStatusDesciption">
+               سيتم عرض تحركات المشارك حال ما يتم تسجيل مروره من قبل الوكلاء
+             </p>
+          </div>
+        )}
+
+        {(this.props.data.activity!=undefined && Object.keys(this.props.data.activity).length > 0) && (
+          <div className={classes.root}>
+           <div className={classes.chip}>
+              <Avatar className={classes.avatar} src={`${REMOTE_ASSETS_PATH}/${this.props.data.activity[0].user.profile.avatar}`}/>
+              <p className={classes.name} >{this.props.data.activity[0].user.profile.name} {this.props.data.activity[0].user.profile.forname}</p>
+            </div>
+            <List className={classes.ListProfil}>
+              {this.props.data.activity.map(value => (
+                <ReactCSSTransitionGroup
+                    transitionName="fadeItem"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}>
+                  <ListItem key={value.id} dense>
+                    <ListItemText className={classes.time} primary={`${value.action=="IN" ? "دخل" : "غادر"} الجلسة,  ${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
+                    {value.agent &&(<ListItemText secondary={`سجل من قبل ${value.agent.username}`  }/>)}
+                    <DirectionsWalk className={classes[value.action]}/>
+                  </ListItem>
+                </ReactCSSTransitionGroup>
+              ))}
+            </List>
+          </div>
+        )}
+
+      </div>
+    </Grow>
+    )
   }
 }
 

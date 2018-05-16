@@ -292,7 +292,9 @@ figure {
 	100%{transform: translateY(0%);}
 }
 
-/*======Transition if the new location is in a highter lvl=======*/
+/*======//////////// TRANSITION BETWWEN VIEWS ////////////=======*/
+
+/*====== Transition if the new location is in a highter lvl =======*/
 
 .fadeHightlvl-appear {
   opacity: 0.01;
@@ -327,7 +329,7 @@ figure {
 
 
 
-/*======Transition if the new location is in the same lvl=======*/
+/*====== Transition if the new location is in the same lvl =======*/
 
 .fadeSamelvlToLeft-appear {
   opacity: 0.01;
@@ -396,4 +398,23 @@ figure {
   opacity: 0.01;
 	transform: scale(0.9);
   transition: all .3s ease-out;
+}
+
+
+
+/*======//////////// NEW ITEMS ANIMATION ////////////=======*/
+
+.fadeItem-enter {
+  opacity: 0.01;
+}
+.fadeItem-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fadeItem-exit {
+  opacity: 1;
+}
+.fadeItem-exit-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
 }
