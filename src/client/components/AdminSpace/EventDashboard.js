@@ -1,14 +1,15 @@
 import React from 'react';
 import DashboardUnit from './DashboardUnit';
 import WorkshopUnit from './WorkshopUnit';
-
 import {observable} from 'mobx'
 import {observer , inject} from 'mobx-react';
 import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import { withLastLocation } from 'react-router-last-location';
 import EventStore from '../../mobx/eventstore';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Slide from 'material-ui/transitions/Slide';
+
 @observer
 class EventDashboard extends React.Component{
   constructor(props){
@@ -37,51 +38,61 @@ class EventDashboard extends React.Component{
 
   render(){
 		event = EventStore.selectedEvent;
-     if (event == undefined) {
-			return (
-				<div>
-					<CircularProgress color="primary" />
-				</div>
-			);
-    }
-    else {
-      let slideDirection = "down";
-      if(this.props.lastLocation!=null){
-        switch(this.props.lastLocation.pathname){
-          case '/listguests':
-          slideDirection = "right";
-          break;
-        }
-        if(this.props.lastLocation.pathname.includes("/manage-single-event/")){
-            slideDirection = "left";
-        }
+
+    let transitionName = "fadeHightlvl";
+		if(this.props.lastLocation!=null){
+			if(this.props.lastLocation.pathname == "/listguests"){
+        transitionName = "fadeSamelvlToLeft";
+      } else if (this.props.lastLocation.pathname.includes("/manage-single-event")){
+      	transitionName = "fadeSamelvlToRight";
       }
-      return(
-        <Slide direction={slideDirection} in={true} timeout="600">
+    } else if (this.props.lastLocation==null){
+			transitionName = "fadeHightlvl";
+		}
+
+
+
+return(
+  <ReactCSSTransitionGroup
+      transitionName={transitionName}
+      transitionAppear={true}
+      transitionAppearTimeout={300}
+      transitionEnter={false}
+      transitionLeave={true}
+      transitionLeaveTimeout={300}>
           <div>
+            {(event == undefined)&&(
+              <div>
+                <CircularProgress color="primary" />
+              </div>
+          )}
 
-            <div className="Btns-filter">
-                  <Button  className={this.state.on_filter ? "filter-activ" :"filterLink" } onClick={()=>this.filterWorkshopsAndSessions("ON" , false)}>
-                    الحالي
-                  </Button>
-                  <Button className={this.state.off_filter ? "filter-activ" :"filterLink" } onClick={()=>this.filterWorkshopsAndSessions("OFF" , true)}>
-                    الفارط
-                  </Button>
+            {(event != undefined)&&(
+              <div>
+                <div className="Btns-filter">
+                      <Button  className={this.state.on_filter ? "filter-activ" :"filterLink" } onClick={()=>this.filterWorkshopsAndSessions("ON" , false)}>
+                        الحالي
+                      </Button>
+                      <Button className={this.state.off_filter ? "filter-activ" :"filterLink" } onClick={()=>this.filterWorkshopsAndSessions("OFF" , true)}>
+                        الفارط
+                      </Button>
+                </div>
+
+                {(EventStore.event_sessions!== undefined)&&
+                  EventStore.event_sessions.map(gen_session=>{
+                    return(<DashboardUnit key={gen_session._id} details={gen_session} size={event.guests_number} />);
+                  })}
+                {(EventStore.event_workshops!== undefined)&& EventStore.event_workshops.map(work=>{
+                       return(<WorkshopUnit key={work._id} details={work} users={work.guests_number}/>);
+                  })
+                }
+
             </div>
-
-            {(EventStore.event_sessions!== undefined)&&
-              EventStore.event_sessions.map(gen_session=>{
-                return(<DashboardUnit key={gen_session._id} details={gen_session} size={event.guests_number} />);
-              })}
-            {(EventStore.event_workshops!== undefined)&& EventStore.event_workshops.map(work=>{
-                   return(<WorkshopUnit key={work._id} details={work} users={work.guests_number}/>);
-              })
-            }
-
+          )}
           </div>
-      </Slide>)
-    }
-
+      </ReactCSSTransitionGroup>
+    )
   }
 }
+
 export default withLastLocation(EventDashboard);

@@ -14,6 +14,7 @@ import Place from 'material-ui-icons/Place';
 import AccessTime from 'material-ui-icons/AccessTime';
 import dateFormat from 'dateformat';
 import { withStyles } from 'material-ui/styles';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Dialog, { DialogActions, DialogTitle, DialogContent } from 'material-ui/Dialog';
 import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
 import './vendor/events.css';
@@ -27,6 +28,7 @@ import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import CloseIcon from 'material-ui-icons/Close';
 import Slide from 'material-ui/transitions/Slide';
+import Grow from 'material-ui/transitions/Grow';
 import GeneralSession from './vendor/GeneralSession.svg';
 import LectureIcon from './vendor/lecture.svg';
 //import PlayButton from './vendor/playButton.svg';
@@ -36,7 +38,7 @@ import EditForm from '../../mobx/forms/editEvent';
 import { withLastLocation } from 'react-router-last-location';
 import formSessionAdd from '../../mobx/forms/addSession';
 import EditEventDialog from '../Dialogs/EditEvent';
-import SessionForm from './addSessionForm'
+import SessionForm from './addSessionForm';
 const styles = (theme) => ({
 	container: {},
 	progressCircle: {
@@ -276,65 +278,67 @@ class EventDetail extends React.Component {
 
 	}
 	render() {
+
 		const workshoplist = WorkshopStore.workshops;
 		 event = EventStore.selectedEvent
 		const { classes } = this.props;
-		if (EventStore.selectedEvent == undefined) {
-			return (
-				<div>
-					<CircularProgress color="primary" className={classes.progressCircle} />
-				</div>
-			);
+
+		let transitionName = "fade";
+		if(this.props.lastLocation!=null){
+				if((this.props.lastLocation.pathname.includes("/event-dashboard") ) || (this.props.lastLocation.pathname == "/listguests")){
+	        transitionName = "fadeSamelvlToLeft";
+	      } else {
+	      	transitionName = "fadeLowlvl";
+	      }
+    } else if (this.props.lastLocation==null){
+			transitionName = "fadeHightlvl";
 		}
-		else{
 
-			let slideDirection = "right";
-      if(this.props.lastLocation!=null){
-				switch(this.props.lastLocation.pathname){
-          case '/managevents':
-          slideDirection = "down";
-          break;
-        }
-				if(this.props.lastLocation.pathname.includes("/useractivity")){
-            slideDirection = "up";
-        }
-      }
+		return(
+			<ReactCSSTransitionGroup
+          transitionName={transitionName}
+          transitionAppear={true}
+          transitionAppearTimeout={300}
+          transitionEnter={false}
+          transitionLeave={true}
+          transitionLeaveTimeout={300}>
+			<div>
+				{(EventStore.selectedEvent==undefined)&&(
+					<CircularProgress color="primary" className={classes.progressCircle} />
+				)}
+				{(EventStore.selectedEvent!=undefined)&&(
+					<div>
+						<EditEventDialog EditForm={EditForm} open={this.state.open_edit_event}/>
 
-			console.log(this.props.lastLocation.pathname);
+						<Dialog fullScreen open={this.state.open} onClose={this.handleClose} transition={Transition}>
+							<AppBar className={classes.appBar}>
+								<Toolbar>
+									<IconButton onClick={this.handleClose} aria-label="Close">
+										<CloseIcon className={classes.closeDialog} />
+									</IconButton>
+									<Typography type="title" color="inherit" className={classes.typoStyle}>
+										تسجيل جلسة عامة جديدة
+									</Typography>
+								</Toolbar>
+							</AppBar>
+							<div className={classes.dialogContent}>
+								<GeneralSession className={classes.icon} />
+								<SessionForm form={formSessionAdd} eventid={EventStore.selectedEvent._id} />
+							</div>
+							<DialogActions>
+								<Button raised="true" color="secondary" onClick={(e)=>this.handleAddSessionForEvent(e ,formSessionAdd)}>
+									تسجيل
+								</Button>
+								<Button onClick={this.handleClose}>إلغاء</Button>
+							</DialogActions>
+						</Dialog>
 
-			return (
-				<div>
-					<EditEventDialog EditForm={EditForm} open={this.state.open_edit_event}/>
-
-					<Dialog fullScreen open={this.state.open} onClose={this.handleClose} transition={Transition}>
-						<AppBar className={classes.appBar}>
-							<Toolbar>
-								<IconButton onClick={this.handleClose} aria-label="Close">
-									<CloseIcon className={classes.closeDialog} />
-								</IconButton>
-								<Typography type="title" color="inherit" className={classes.typoStyle}>
-									تسجيل جلسة عامة جديدة
-								</Typography>
-							</Toolbar>
-						</AppBar>
-						<div className={classes.dialogContent}>
-							<GeneralSession className={classes.icon} />
-							<SessionForm form={formSessionAdd} eventid={EventStore.selectedEvent._id} />
-						</div>
-						<DialogActions>
-							<Button raised="true" color="secondary" onClick={(e)=>this.handleAddSessionForEvent(e ,formSessionAdd)}>
-								تسجيل
-							</Button>
-							<Button onClick={this.handleClose}>إلغاء</Button>
-						</DialogActions>
-					</Dialog>
-
-					<Dialog
-						fullScreen
-						open={this.state.open_workshop}
-						onClose={this.handleCloseWorkshop}
-						transition={Transition}
-					>
+						<Dialog
+							fullScreen
+							open={this.state.open_workshop}
+							onClose={this.handleCloseWorkshop}
+							transition={Transition}
+						>
 						<AppBar className={classes.appBar}>
 							<Toolbar>
 								<IconButton onClick={this.handleCloseWorkshop} aria-label="Close">
@@ -364,15 +368,16 @@ class EventDetail extends React.Component {
 							</Button>
 							<Button onClick={this.handleCloseWorkshop}>إلغاء</Button>
 						</DialogActions>
-					</Dialog>
+						</Dialog>
 
-					<Slide direction={slideDirection} in={true} timeout="600">
 						<div className={classes.container}>
+
+							<Grow in={true}>
 							<div className={classes.header}>
 								<div className={classes.headerContent}>
 								<IconButton className="editButton" aria-label="Edit event" onClick={this.handleClickOpenEditEvent}>
-					        <ModeEditIcon className={classes.editIcon} />
-					      </IconButton>
+									<ModeEditIcon className={classes.editIcon} />
+								</IconButton>
 								<h2 className={classes.title}>{EventStore.selectedEvent.title}</h2>
 								<p className={classes.dateEvent}>
 									{`من : ${dateFormat(EventStore.selectedEvent.start_date, 'dd/mm/yyyy')}`}{' '}
@@ -387,10 +392,12 @@ class EventDetail extends React.Component {
 								</div>
 								<p className={classes.numberAttend}>
 									{' '}<AccountCircle style={{opacity:'0.5', marginLeft: '5px',}}/>
-									  الحضور المتوقع{' : '}  {event.guests_number}
+										الحضور المتوقع{' : '}  {event.guests_number}
 								</p>
 							</div>
 							</div>
+						</Grow>
+
 
 							<Button onClick={this.handleClickOpenWorkshop} className="AddingButton">
 								<div className={classes.AddButton}>
@@ -520,13 +527,12 @@ class EventDetail extends React.Component {
 								</List>
 							)}
 						</div>
-					</Slide>
-				</div>
-			);
-		}
-
+					</div>
+					)}
+			</div>
+			</ReactCSSTransitionGroup>
+		)
 	}
 }
-
-const fromWithStyles = withStyles(styles)(EventDetail);
-export default withLastLocation(fromWithStyles);
+const EventDetailwithStyles = withStyles(styles)(EventDetail);
+export default withLastLocation(EventDetailwithStyles);

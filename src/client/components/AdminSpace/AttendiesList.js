@@ -30,6 +30,7 @@ import EmptyAttendeesStatusIcon from '../App/EmptyAttenteesStatus.svg';
 import Fade from 'material-ui/transitions/Fade';
 import Slide from 'material-ui/transitions/Slide';
 import { withLastLocation } from 'react-router-last-location';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const styles = theme => ({
   root: {
@@ -169,134 +170,141 @@ class AttendiesList extends React.Component {
     this.setState({ attendies_list: updatedList });
   };
   render() {
-    const { classes } = this.props;
+    const { classes }= this.props;
 
-    let slideDirection = "left";
-    if(this.props.lastLocation!=null){
-      switch(this.props.lastLocation.pathname){
-        case '/':
-        slideDirection = "down";
-        break;
-      }
-    }
+    let transitionName = "fade";
+		if(this.props.lastLocation!=null){
+				if((this.props.lastLocation.pathname.includes("/manage-single-event") ) || (this.props.lastLocation.pathname.includes("/event-dashboard"))){
+	        transitionName = "fadeSamelvlToRight";
+	      } else if (this.props.lastLocation.pathname.includes("/useractivity")) {
+	      	transitionName = "fadeHightlvl";
+	      } else {
+	      	transitionName = "fadeHightlvl";
+	      }
+    } else if (this.props.lastLocation==null){
+			transitionName = "fadeHightlvl";
+		}
 
+    const COLORS = ['#00ABC7', '#cccccc'];
 
-    if (this.props.data.loading == true)
-      return (
-        <div className={classes.root}>
-          <CircularProgress
-            color="primary"
-            className={classes.progressCircle}
-          />
-          <Slide direction={slideDirection} in={true} timeout="600">
-            <div
-              className="fakeContainerGuest"
-              className={classes.fakeContainerGuest}>
-              <div
-                className="fakeContainer_ui"
-                className={classes.fakeContainer_ui}>
-                <div className="fakeAvatar" className={classes.fakeAvatar} />
-                <div className="fakeText" className={classes.fakeText}>
-                  <div className="fakeHeading" className={classes.fakeHeading} />
-                  <div
-                    className="fakeSecondaryText"
-                    className={classes.fakeSecondaryText}
-                  />
-                </div>
-                <div className="fakeButton" className={classes.fakeButton} />
-                <div className="fakeButton" className={classes.fakeButton} />
-              </div>
-              <div
-                className="fakeContainer_ui"
-                className={classes.fakeContainer_ui}>
-                <div className="fakeAvatar" className={classes.fakeAvatar} />
-                <div className="fakeText" className={classes.fakeText}>
-                  <div className="fakeHeading" className={classes.fakeHeading} />
-                  <div
-                    className="fakeSecondaryText"
-                    className={classes.fakeSecondaryText}
-                  />
-                </div>
-                <div className="fakeButton" className={classes.fakeButton} />
-                <div className="fakeButton" className={classes.fakeButton} />
-              </div>
-              <div
-                className="fakeContainer_ui"
-                className={classes.fakeContainer_ui}>
-                <div className="fakeAvatar" className={classes.fakeAvatar} />
-                <div className="fakeText" className={classes.fakeText}>
-                  <div className="fakeHeading" className={classes.fakeHeading} />
-                  <div
-                    className="fakeSecondaryText"
-                    className={classes.fakeSecondaryText}
-                  />
-                </div>
-                <div className="fakeButton" className={classes.fakeButton} />
-                <div className="fakeButton" className={classes.fakeButton} />
-              </div>
-            </div>
-          </Slide>
-        </div>
-      );
-    else if (
-      this.props.data.guestusers == null ||
-      Object.keys(this.props.data.guestusers).length === 0
-    ) {
-      return (
-        <Slide direction={slideDirection} in={true} timeout="600">
-          <div className={classes.root} className="emptyStatus">
-            <div className="emptyStatusIcon">
-              <EmptyAttendeesStatusIcon />
-            </div>
-            <h3 className="emptyStatusTitle">لا يوجد مشاركين في هذا الحدث</h3>
-            <p className="emptyStatusDesciption">
-              Edit this event and upload a file with your guest list.
-            </p>
-          </div>
-        </Slide>
-      );
-    } else {
-      const data = [
-        { name: 'indoor', value: this.state.present_precent },
-        { name: 'outdoor', value: this.state.out_attendies }
-      ];
+    const data = [
+      { name: 'indoor', value: this.state.present_precent },
+      { name: 'outdoor', value: this.state.out_attendies }
+    ];
+    return(
+      <ReactCSSTransitionGroup
+          transitionName={transitionName}
+          transitionAppear={true}
+          transitionAppearTimeout={300}
+          transitionEnter={false}
+          transitionLeave={true}
+          transitionLeaveTimeout={300}>
 
-      const COLORS = ['#00ABC7', '#cccccc'];
+      <div>
 
-      return (
-        <Slide direction={slideDirection} in={true} timeout="600">
-          <div className={classes.root}>
-            <FormControl className={classes.formControl}>
-              <Input
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton>
-                      <Search />
-                    </IconButton>
-                  </InputAdornment>
-                }
-                className={classes.search}
-                placeholder="Search Attendies"
-                onChange={this.filterList}
+          {(this.props.data.loading == true )&&(
+            <div className={classes.root}>
+              <CircularProgress
+                color="primary"
+                className={classes.progressCircle}
               />
-            </FormControl>
-            <Fade in={true}>
-              <div className="containerGuest" className={classes.containerGuest}>
-                <div className="container_ui" className={classes.container_ui}>
-                  {this.state.attendies_list.map(value => (
-                    <GuestCardToManage
-                      key={value._id}
-                      data={value}
-                      readonly={true}
-                    />
-                  ))}
+
+                <div
+                  className="fakeContainerGuest"
+                  className={classes.fakeContainerGuest}>
+                  <div
+                    className="fakeContainer_ui"
+                    className={classes.fakeContainer_ui}>
+                    <div className="fakeAvatar" className={classes.fakeAvatar} />
+                    <div className="fakeText" className={classes.fakeText}>
+                      <div className="fakeHeading" className={classes.fakeHeading} />
+                      <div
+                        className="fakeSecondaryText"
+                        className={classes.fakeSecondaryText}
+                      />
+                    </div>
+                    <div className="fakeButton" className={classes.fakeButton} />
+                    <div className="fakeButton" className={classes.fakeButton} />
+                  </div>
+                  <div
+                    className="fakeContainer_ui"
+                    className={classes.fakeContainer_ui}>
+                    <div className="fakeAvatar" className={classes.fakeAvatar} />
+                    <div className="fakeText" className={classes.fakeText}>
+                      <div className="fakeHeading" className={classes.fakeHeading} />
+                      <div
+                        className="fakeSecondaryText"
+                        className={classes.fakeSecondaryText}
+                      />
+                    </div>
+                    <div className="fakeButton" className={classes.fakeButton} />
+                    <div className="fakeButton" className={classes.fakeButton} />
+                  </div>
+                  <div
+                    className="fakeContainer_ui"
+                    className={classes.fakeContainer_ui}>
+                    <div className="fakeAvatar" className={classes.fakeAvatar} />
+                    <div className="fakeText" className={classes.fakeText}>
+                      <div className="fakeHeading" className={classes.fakeHeading} />
+                      <div
+                        className="fakeSecondaryText"
+                        className={classes.fakeSecondaryText}
+                      />
+                    </div>
+                    <div className="fakeButton" className={classes.fakeButton} />
+                    <div className="fakeButton" className={classes.fakeButton} />
+                  </div>
                 </div>
+
+            </div>
+          )}
+
+          {(this.props.data.loading == false && this.props.data.guestusers == null && Object.keys(this.props.data.guestusers).length==0)&&(
+            <div className={classes.root} className="emptyStatus">
+              <div className="emptyStatusIcon">
+                <EmptyAttendeesStatusIcon />
               </div>
-            </Fade>
+              <h3 className="emptyStatusTitle">لا يوجد مشاركين في هذا الحدث</h3>
+              <p className="emptyStatusDesciption">
+                Edit this event and upload a file with your guest list.
+              </p>
+            </div>
+          )}
+
+          {(this.props.data.guestusers!=undefined && Object.keys(this.props.data.guestusers).length > 0)&&(
+
+            <div className={classes.root}>
+              <FormControl className={classes.formControl}>
+                <Input
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <Search />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  className={classes.search}
+                  placeholder="Search Attendies"
+                  onChange={this.filterList}
+                />
+              </FormControl>
+              <Fade in={true}>
+                <div className="containerGuest" className={classes.containerGuest}>
+                  <div className="container_ui" className={classes.container_ui}>
+                    {this.state.attendies_list.map(value => (
+                      <GuestCardToManage
+                        key={value._id}
+                        data={value}
+                        readonly={true}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </Fade>
+            </div>)}
           </div>
-        </Slide>
-      );
-    }
+      </ReactCSSTransitionGroup>
+    )
   }
 }
 
@@ -320,5 +328,5 @@ const guestlist = gql`
 `;
 
 const AttendeesWithData = graphql(guestlist)(AttendiesList);
-const fromWithStyles = withStyles(styles)(AttendeesWithData);
-export default withLastLocation(fromWithStyles);
+const AttendeesWithDataWithStyles = withStyles(styles)(AttendeesWithData);
+export default withLastLocation(AttendeesWithDataWithStyles);
