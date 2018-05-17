@@ -91,6 +91,7 @@ font-size: 20pt;
 font-weight: 500;
 font-family: Changa, sans-serif;
 color: #00abc7;
+margin-bottom: 12px;
 }
 .event-list > li > .info > .type {
 /*display: inline-block;
@@ -107,9 +108,17 @@ margin-top: 7px;
   font-size: 12pt;
   font-weight: 300;
   display: flex;
-  margin: 8px 0 4px;
+  margin: 4px 0 0;
+  color: #272727;
 }
-.event-list > li > .info > .desc > .accountIcon{
+.event-list > li > .info > .desc.Place {
+  font-weight: 600;
+}
+.event-list > li > .info > .desc.Guests {
+  color: #6f6f6f;
+}
+
+.event-list > li > .info > .desc > .IconDescription{
   color: #bdbdbd;
   width: 20px ;
   height: 20px ;

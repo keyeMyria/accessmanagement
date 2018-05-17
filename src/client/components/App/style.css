@@ -406,15 +406,19 @@ figure {
 
 .fadeItem-enter {
   opacity: 0.01;
+	transform: scale(3);
 }
 .fadeItem-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+	transform: scale(0);
+  transition: all 400ms ease-in;
 }
 .fadeItem-exit {
   opacity: 1;
+	transform: scale(0);
 }
 .fadeItem-exit-active {
   opacity: 0.01;
-  transition: opacity 500ms ease-in;
+	transform: scale(3);
+  transition: all 400ms ease-in;
 }

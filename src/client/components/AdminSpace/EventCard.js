@@ -7,6 +7,7 @@ import Chip from 'material-ui/Chip';
 import Grow from 'material-ui/transitions/Grow';
 import dateFormat from 'dateformat';
 import AccountCircle from 'material-ui-icons/AccountCircle';
+import Event from 'material-ui-icons/Event';
 import Place from 'material-ui-icons/Place';
 import './vendor/events.css';
 import { withRouter } from 'react-router-dom';
@@ -68,20 +69,21 @@ class EventCard extends React.Component {
               this.eventDetail(this.props);
             }}>
             <h2 className="titre">{this.props.title}</h2>
+            <p className="desc Place">
+              {' '}
+              <Place className="IconDescription" /> {this.props.place}
+            </p>
             <p className="desc">
+              <Event className="IconDescription" />
               {' '}
               من {dateFormat(this.props.start_date, 'dd/mm/yyyy')} ,{' '}
               {dateFormat(this.props.start_date, 'HH:mm')} الى{' '}
               {dateFormat(this.props.end_date, 'dd/mm/yyyy')} ,{' '}
               {dateFormat(this.props.end_date, 'HH:mm')}
             </p>
-            <p className="emplacement">
-              {' '}
-              <Place color="disabled" /> {this.props.place}
-            </p>
             <Chip label={this.props.type} className="type" />
-            <p className="desc">
-              <AccountCircle className="accountIcon" /> الحضور المتوقع{' '}
+            <p className="desc Guests">
+              <AccountCircle className="IconDescription" /> الحضور المتوقع{' '}
               {this.props.guests_number}
             </p>
           </div>

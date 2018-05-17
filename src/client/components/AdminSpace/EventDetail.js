@@ -424,6 +424,10 @@ class EventDetail extends React.Component {
 							{EventStore.selectedEvent.session_collection !== undefined && (
 								<List className={classes.containerWorkshop}>
 									{EventStore.selectedEvent.session_collection.map((item) => (
+										<ReactCSSTransitionGroup
+		                    transitionName="fadeItem"
+		                    transitionEnterTimeout={400}
+		                    transitionLeaveTimeout={400}>
 										<div key={item._id} className={classes.listWorkshop}>
 											<ListItem className={classes.sessionItem}>
 												<div className={classes.datEntreSorti}>
@@ -455,12 +459,17 @@ class EventDetail extends React.Component {
 												)}
 											</ListItem>
 										</div>
+									</ReactCSSTransitionGroup>
 									))}
 								</List>
 							)}
 							{workshoplist !== undefined && (
 								<List className={classes.containerWorkshop}>
 									{workshoplist.map((item) => (
+										<ReactCSSTransitionGroup
+		                    transitionName="fadeItem"
+		                    transitionEnterTimeout={400}
+		                    transitionLeaveTimeout={400}>
 										<div key={item._id} className={classes.listWorkshop}>
 											<ListItem className={classes.workshopItem}>
 												<ListItemText primary={item.name} />
@@ -503,6 +512,7 @@ class EventDetail extends React.Component {
 													</Button>
 												)}
 											</ListItem>
+
 											<List className={classes.sessionListWork}>
 												{item.session_list!=undefined && item.session_list.map((lol) => (
 													<div key={lol._id}>
@@ -522,7 +532,9 @@ class EventDetail extends React.Component {
 													</div>
 												))}
 											</List>
+
 										</div>
+									</ReactCSSTransitionGroup>
 									))}
 								</List>
 							)}

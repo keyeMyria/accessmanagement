@@ -99,8 +99,8 @@ const styles = theme => ({
               {this.props.data.activity.map(value => (
                 <ReactCSSTransitionGroup
                     transitionName="fadeItem"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}>
+                    transitionEnterTimeout={400}
+                    transitionLeaveTimeout={400}>
                   <ListItem key={value.id} dense>
                     <ListItemText className={classes.time} primary={`${value.action=="IN" ? "دخل" : "غادر"} الجلسة,  ${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
                     {value.agent &&(<ListItemText secondary={`سجل من قبل ${value.agent.username}`  }/>)}
