@@ -34,7 +34,7 @@ class MaterialDatePicker extends Component {
   }
   handleDateChange = (date) => {
       this.setState({ selectedDate: date });
-      this.props.field.set('value', date); 
+      this.props.field.set('value', date);
       console.log(this.props.field)// not sure about this  onChangeField(date)
      this.props.onChange(date);
   }
@@ -107,6 +107,7 @@ class MaterialDatePicker extends Component {
   render() {
     const { selectedDate } = this.state;
     const {name , minDate} = this.props;
+
     return (
       <Fragment>
         <div className="picker">
@@ -122,6 +123,10 @@ class MaterialDatePicker extends Component {
           rightArrowIcon ={<KeyboardArrowRight />}
           dateRangeIcon ={<InsertInvitation />}
           timeIcon={<AccessTime />}
+          ampm={false}
+          minDateMessage='لا يمكن إختيار ساعة قد انقضت'
+          okLabel='حفظ'
+          cancelLabel='إلغاء'
         />
         </div>
       </Fragment>

@@ -215,6 +215,26 @@ div > div > .AddingButton:hover{
   text-align: right;
 }
 
+.DateMainContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 8px;
+}
+
+.DateFieldContainer{
+}
+
+.LabelTimePicker{
+  font-family: Roboto;
+  font-size: 12pt;
+  font-weight: 100;
+  color: #848484;
+  text-align: right;
+  position: relative;
+  top: 22px;
+}
+
 .dialogContent {
   width: 400px;
 }
@@ -235,6 +255,10 @@ div > div > .AddingButton:hover{
 @media screen and (max-width: 480px) {
   .dialogContent {
     width: 100%;
+  }
+
+  .DateMainContainer{
+    flex-direction: column;
   }
 
   div > div > .AddingButton {

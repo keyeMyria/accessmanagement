@@ -32,9 +32,17 @@ export default class AddEventForm extends React.Component{
       <MaterialTextField field={form.$('title')} />
       <MaterialTextField field={form.$('type')} />
       <MaterialTextField field={form.$('place')} />
-      <MaterialDatePicker field={form.$('start_date')} value={this.state.valueDebut} disablePast={true} onChange={this.SetEndDateMin}/>
-      <MaterialDatePicker field={form.$('end_date')} value={this.state.valueFin} minDate={this.state.valueDebut} onChange={this.setStartDate}/>
-      <FileInput required field={form.$('file')} form={form}/>
+      <div className="DateMainContainer">
+        <div className="DateFieldContainer">
+          <div className="LabelTimePicker">من</div>
+          <MaterialDatePicker field={form.$('start_date')} value={this.state.valueDebut} disablePast={true} onChange={this.SetEndDateMin} />
+        </div>
+        <div className="DateFieldContainer">
+          <div className="LabelTimePicker">الى</div>
+          <MaterialDatePicker field={form.$('end_date')} value={this.state.valueFin} minDate={this.state.valueDebut} onChange={this.setStartDate}/>
+        </div>
+      </div>
+      <FileInput required field={form.$('file')} form={form} />
       <br />
       <p>{form.error}</p>
     </form>)

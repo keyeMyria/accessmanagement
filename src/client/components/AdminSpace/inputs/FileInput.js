@@ -2,7 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { observer } from 'mobx-react';
-import {LOCAL_IMPORT_PATH} from '../../../app/config'
+import {LOCAL_IMPORT_PATH} from '../../../app/config';
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+
+const Inputstyle = {
+  display:'none'
+};
 
 @observer
 class FileInput extends React.Component{
@@ -28,8 +34,24 @@ class FileInput extends React.Component{
   render() {
 		const {field , type , placeholder} = this.props
     return (
-      <div><input ref="file" type="file" accept=".json" onChange={this.handleFile} name="importedfile"/>
-			<input type="hidden" {...field.bind()} value={this.state.value} /></div>
+			<div>
+				<input
+	        accept=".json"
+	        id="raised-button-file"
+	        multiple
+	        type="file"
+					ref="file"
+					onChange={this.handleFile} name="importedfile"
+					style={Inputstyle}
+	      />
+				<input type="hidden" {...field.bind()} value={this.state.value} />
+
+	      <label htmlFor="raised-button-file">
+	        <Button raised="true" color="secondary" component="div">
+	          تحميل قائمة المشا ركين
+	        </Button>
+	      </label>
+			</div>
     );
   }
 }
