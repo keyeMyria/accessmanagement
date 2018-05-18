@@ -256,9 +256,16 @@ body .container_ui__item .itemInfosResponsive{
 
 @media screen and (max-width: 768px) {
   body .container_ui__item .itemInfosResponsive{
+    width: calc(100% - 270px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body .container_ui__item .itemInfosResponsive{
     width: calc(100% - 84px);
   }
 }
+
 /* end Attendees list only */
 
 
@@ -304,10 +311,24 @@ body .container_ui__item .itemActions{
 
 @media screen and (max-width: 768px) {
   body .container_ui__item .itemActions{
-    width: 100%;
+    width: 185px;
     margin-top: 16px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
   }
 }
+
+@media screen and (max-width: 480px) {
+  body .container_ui__item .itemActions{
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #f2f2f2;
+    border-radius: 3px;
+  }
+}
+
 /* end Attendees list only */
 
 body .container_ui__item .face .color_bar  {
