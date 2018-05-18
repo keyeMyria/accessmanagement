@@ -51,7 +51,7 @@ const styles = theme => ({
     color: '#fff',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   avatar:{
       margin: '10px',

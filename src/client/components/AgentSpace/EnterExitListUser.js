@@ -6,7 +6,8 @@ import List, { ListItem, ListItemSecondaryAction,ListItemIcon, ListItemText } fr
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import { connect } from 'react-redux';
-import {REMOTE_ASSETS_PATH} from '../../app/config'
+import {REMOTE_ASSETS_PATH} from '../../app/config';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const styles = theme => ({
   containerLists:{
@@ -42,28 +43,34 @@ class EnterExitListUser extends React.Component{
         <List className={classes.containerLists}>
         {UserStore.users.map(value => {
           return(
-            <div key={`div${value._id}`}>{value.profile!=null &&(
-              <ListItem button>
-              <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
-              <ListItemText className={classes.profileName} primary={`${value.profile.name} ${value.profile.forname}`}/>
-              <ListItemText primary={value.status== "IN" && ' حاضر(ة) داخل الجلسة' || value.status== "OUT" && ' غادر(ة) الجلسة ' || value.status== "ABSCENT" && ' غائب(ة) '} />
-              {UserStore.currentAgent!=null&&(<div>
-                  {(UserStore.currentAgent.role=='agent_in' || UserStore.currentAgent.role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , UserStore.currentAgent , UserStore.selectWorkshopAgent._id )}>
-                  دخول
-                   </Button>)}
-                  {(UserStore.currentAgent.role=='agent_out' || UserStore.currentAgent.role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , UserStore.currentAgent , UserStore.selectWorkshopAgent._id)}>
-                    خروج
-                    </Button>)}</div>
-              )}
+            <ReactCSSTransitionGroup
+                transitionName="fadeItem"
+                transitionEnterTimeout={400}
+                transitionLeaveTimeout={400}>
+                <div key={`div${value._id}`}>{value.profile!=null &&(
+                        <ListItem button>
+                        <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
+                        <ListItemText className={classes.profileName} primary={`${value.profile.name} ${value.profile.forname}`}/>
+                        <ListItemText primary={value.status== "IN" && ' حاضر(ة) داخل الجلسة' || value.status== "OUT" && ' غادر(ة) الجلسة ' || value.status== "ABSCENT" && ' غائب(ة) '} />
+                        {UserStore.currentAgent!=null&&(<div>
+                            {(UserStore.currentAgent.role=='agent_in' || UserStore.currentAgent.role=='agent_in_out') &&(<Button  raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "IN" , UserStore.currentAgent , UserStore.selectWorkshopAgent._id )}>
+                            دخول
+                             </Button>)}
+                            {(UserStore.currentAgent.role=='agent_out' || UserStore.currentAgent.role=='agent_in_out')&&(<Button   raised="true" color="secondary"   onClick={()=>this.addOperationToGuest(value._id , "OUT" , UserStore.currentAgent , UserStore.selectWorkshopAgent._id)}>
+                              خروج
+                              </Button>)}</div>
+                        )}
 
-            </ListItem>)}
-            </div>
-          )
-        }
+                      </ListItem>)}
+                  </div>
+              </ReactCSSTransitionGroup>
+              )
+            }
 
-        )}
-      </List>
-  </div>)
+            )}
+          </List>
+        </div>
+)
 }else{
   return(<div>Either you're not affected to any workshop or no guest are present yet </div>)
 }

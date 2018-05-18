@@ -11,7 +11,8 @@ import moment from 'moment';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Grow from 'material-ui/transitions/Grow';
-import {REMOTE_ASSETS_PATH} from '../../app/config'
+import {REMOTE_ASSETS_PATH} from '../../app/config';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const styles = theme => ({
   root: {
@@ -83,35 +84,46 @@ class SessionActivity extends React.Component{
   }
   render(){
     const {classes} = this.props;
-    if(this.props.data.activitylistbysessionID!=null){
-      return(
+    return(
+      <Grow in={true} {...(true ? { timeout: 300 } : {})}>
+        <div>
+      {(this.props.data.activitylistbysessionID!=null) && (
         <div className={classes.container}>
           <ul className={classes.List}>
           {this.props.data.activitylistbysessionID.map(entry=>{
             return(
-            <div key={entry.entryId}>
-             <ListItem className={classes.ListProfil}>
-                <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
-                <ListItemText className={classes.nameProfil} primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
-                <ListItemText className={classes.listeItem} secondary={`${entry.action=="IN" ? " دخل(ت) " : "غادر(ت)"} الجلسة ،${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}` }/>
-                {entry.agent &&(<ListItemText className={classes.listeItem} secondary={` مسجل من قبل :  ${entry.agent.username}`  }/>)}
-                {entry.action == 'OUT' ? (
-                  <DirectionsWalk className={classes.OUT} />
-                ) : (
-                  <AirlineSeatReclineExtra className={classes.IN} />
-                )}
-              </ListItem>
-              <Divider className={classes.line}inset/>
+              <ReactCSSTransitionGroup
+                  transitionName="fadeItem"
+                  transitionEnterTimeout={400}
+                  transitionLeaveTimeout={400}>
+                  <div key={entry.entryId}>
+                    <ListItem className={classes.ListProfil}>
+                    <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
+                    <ListItemText className={classes.nameProfil} primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
+                    <ListItemText className={classes.listeItem} secondary={`${entry.action=="IN" ? " دخل(ت) " : "غادر(ت)"} الجلسة ،${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}` }/>
+                    {entry.agent &&(<ListItemText className={classes.listeItem} secondary={` مسجل من قبل :  ${entry.agent.username}`  }/>)}
+                    {entry.action == 'OUT' ? (
+                      <DirectionsWalk className={classes.OUT} />
+                    ) : (
+                      <AirlineSeatReclineExtra className={classes.IN} />
+                    )}
+                  </ListItem>
+                  <Divider className={classes.line}inset/>
               </div>
+            </ReactCSSTransitionGroup>
             )
           })}
         </ul>
-      </div>)
-    }else{
-      return(<div>No Items to display</div>)
-    }
+      </div>
+      )}
+      {(this.props.data.activitylistbysessionID==null) && (<div>No Items to display</div>)}
+
+        </div>
+      </Grow>
+    )
   }
 }
+
 export const listEntriesBySession = gql`
   query activitylistbysessionID($sessionId:ID){
             activitylistbysessionID(sessionId:$sessionId){

@@ -22,7 +22,8 @@ import NavBarContainer from '../../containers/NavBarContainer';
 import BottomToolbarContainer from '../../containers/BottomToolbarContainer';
 import { observer } from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
-import {REMOTE_ASSETS_PATH} from '../../app/config'
+import {REMOTE_ASSETS_PATH} from '../../app/config';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const styles = (theme) => ({
 	root: {
@@ -193,23 +194,28 @@ class Attendies extends React.Component {
 						{UserStore.users.map((value) => {
 							if (value.profile != null) {
 								return (
-									<ListItem key={value._id} button className={classes.listItem}>
-										<Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
-										<ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText}/>
-										<ListItemText secondary={value.status=='ABSCENT' ?   'غائب(ة)'  : 'حاضر(ة)'}/>
-										{value.status == 'ABSCENT' ? (
-											<DirectionsWalk className={classes.OUT} />
-										) : (
-											<AirlineSeatReclineExtra className={classes.IN} />
-										)}
+									<ReactCSSTransitionGroup
+			                transitionName="fadeItem"
+			                transitionEnterTimeout={400}
+			                transitionLeaveTimeout={400}>
+													<ListItem key={value._id} button className={classes.listItem}>
+													<Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
+													<ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText}/>
+													<ListItemText secondary={value.status=='ABSCENT' ?   'غائب(ة)'  : 'حاضر(ة)'}/>
+													{value.status == 'ABSCENT' ? (
+														<DirectionsWalk className={classes.OUT} />
+													) : (
+														<AirlineSeatReclineExtra className={classes.IN} />
+													)}
 
-										{
-										// 	value.status == 'OUT' && <DirectionsWalk className={classes.OUT} />}
-										// {value.status == <DirectionsWalk /> && (
-										// 	<AirlineSeatReclineNormal className={classes.IN} />
-										// )
-									}
-									</ListItem>
+													{
+													// 	value.status == 'OUT' && <DirectionsWalk className={classes.OUT} />}
+													// {value.status == <DirectionsWalk /> && (
+													// 	<AirlineSeatReclineNormal className={classes.IN} />
+													// )
+												}
+												</ListItem>
+									</ReactCSSTransitionGroup>
 								);
 							}
 						})}

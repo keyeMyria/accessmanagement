@@ -107,7 +107,7 @@ a{
 
 
 /* Make things perty */
-body { font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;  text-align: center;}
+body { font-family: 'Roboto', Helvetica, Arial, sans-serif;  text-align: center;}
 /*@import url(https://fonts.googleapis.com/css?family=Montserrat:400);*/
 @import url(https://fonts.googleapis.com/css?family=Cairo:400,700);
 body {
@@ -291,6 +291,7 @@ figure {
 	50%{transform: translateY(20px);}
 	100%{transform: translateY(0%);}
 }
+
 
 /*======//////////// TRANSITION BETWWEN VIEWS ////////////=======*/
 
