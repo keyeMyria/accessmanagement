@@ -42,16 +42,16 @@ const styles = theme => ({
     width: '100%',
     padding: '16px'
   },
-  IN: {
-    fill: '#00abc7',
+  IN:{
+    fill :"#00abc7",
     '-webkit-transform': 'rotateY(180deg)',
     '-moz-transform': 'rotateY(180deg)',
     '-ms-transform': 'rotateY(180deg)',
     '-o-transform': 'rotateY(180deg)',
-    transform: 'rotateY(180deg)'
+    'transform': 'rotateY(180deg)',
   },
-  OUT: {
-    fill: '#ef4035'
+  OUT:{
+    fill :"#ef4035",
   },
   containerGuest: {
     padding: '0 16px',

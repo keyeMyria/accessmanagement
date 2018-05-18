@@ -3,7 +3,8 @@ import {observer} from 'mobx-react' ;
 import SessionStore from '../../mobx/sessionstore';
 import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import DirectionsRun from 'material-ui-icons/DirectionsRun';
+import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
+import AirlineSeatReclineExtra from 'material-ui-icons/AirlineSeatReclineExtra';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import moment from 'moment';
@@ -18,25 +19,27 @@ const styles = theme => ({
     background: theme.palette.background.paper,
   },
   IN:{
-    fill :"#00B0FF",
+    fill :"#00abc7",
     '-webkit-transform': 'rotateY(180deg)',
     '-moz-transform': 'rotateY(180deg)',
     '-ms-transform': 'rotateY(180deg)',
     '-o-transform': 'rotateY(180deg)',
     'transform': 'rotateY(180deg)',
-
-  },
-  container:{
-    maxWidth: '1200px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   OUT:{
     fill :"#ef4035",
   },
+  container:{
+      backgroundColor:"#fff",
+      maxWidth:'700px',
+      margin:'0 auto 16px',
+      borderTop: '5px solid #003489',
+      boxShadow:'0 1px 4px 0 rgba(0,0,0,.14)',
+  },
   nameProfil:{
     flexGrow:'2',
     maxWidth: '350px',
+    width:'30%',
   },
   ListProfil:{
     backgroundColor:"#fff",
@@ -86,25 +89,20 @@ class SessionActivity extends React.Component{
           <ul className={classes.List}>
           {this.props.data.activitylistbysessionID.map(entry=>{
             return(
-
             <div key={entry.entryId}>
-            {
-              // <Grow in={true}>
-            }
-             <ListItem className={classes.ListProfil} dense>
+             <ListItem className={classes.ListProfil}>
                 <Avatar src={`${REMOTE_ASSETS_PATH}/${entry.user.profile.avatar}`} />
-                <ListItemText className={classes.listeItem} secondary={`${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}`}  />
                 <ListItemText className={classes.nameProfil} primary={`${entry.user.profile.name} ${entry.user.profile.forname}`} />
-                <ListItemText className={classes.listeItem} secondary={`${entry.action=="IN" ? " حاضر داخل " : "غادر(ت)"} الجلسة `  }/>
-                {entry.agent &&(<ListItemText className={classes.listeItem} secondary={` مسجل بواسطة :  ${entry.agent.username}`  }/>)}
-                <DirectionsRun className={classes[entry.action]}/>
+                <ListItemText className={classes.listeItem} secondary={`${entry.action=="IN" ? " دخل(ت) " : "غادر(ت)"} الجلسة ،${moment(entry.dateEntry).utcOffset(1, true).format('HH:mm:ss')}` }/>
+                {entry.agent &&(<ListItemText className={classes.listeItem} secondary={` مسجل من قبل :  ${entry.agent.username}`  }/>)}
+                {entry.action == 'OUT' ? (
+                  <DirectionsWalk className={classes.OUT} />
+                ) : (
+                  <AirlineSeatReclineExtra className={classes.IN} />
+                )}
               </ListItem>
               <Divider className={classes.line}inset/>
-              {
-                // </Grow>
-              }
               </div>
-
             )
           })}
         </ul>

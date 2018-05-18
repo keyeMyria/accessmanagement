@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
 import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
+import AirlineSeatReclineExtra from 'material-ui-icons/AirlineSeatReclineExtra';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
@@ -23,7 +24,7 @@ const styles = theme => ({
     width: '100%',
   },
   IN:{
-    fill :"#00B0FF",
+    fill :"#00abc7",
     '-webkit-transform': 'rotateY(180deg)',
     '-moz-transform': 'rotateY(180deg)',
     '-ms-transform': 'rotateY(180deg)',
@@ -57,7 +58,7 @@ const styles = theme => ({
   },
   name:{
     color: 'white',
-    fontSize: '15px',
+    fontSize: '15pt',
   },
   time:{
     maxWidth: '42%',
@@ -101,10 +102,15 @@ const styles = theme => ({
                     transitionName="fadeItem"
                     transitionEnterTimeout={400}
                     transitionLeaveTimeout={400}>
-                  <ListItem key={value.id} dense>
+                  <ListItem key={value.id}>
                     <ListItemText className={classes.time} primary={`${value.action=="IN" ? "دخل" : "غادر"} الجلسة,  ${dateFormat(value.dateEntry , 'HH:mm:ss')}`} />
-                    {value.agent &&(<ListItemText secondary={`سجل من قبل ${value.agent.username}`  }/>)}
-                    <DirectionsWalk className={classes[value.action]}/>
+                    {value.agent &&(<ListItemText secondary={`مسجل من قبل ${value.agent.username}`  }/>)}
+                    {value.action == 'OUT' ? (
+											<DirectionsWalk className={classes.OUT} />
+										) : (
+											<AirlineSeatReclineExtra className={classes.IN} />
+										)}
+
                   </ListItem>
                 </ReactCSSTransitionGroup>
               ))}

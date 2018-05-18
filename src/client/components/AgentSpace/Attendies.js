@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import DirectionsWalk from 'material-ui-icons/DirectionsWalk';
 import RemoveCircleOutline from 'material-ui-icons/RemoveCircleOutline';
 import Done from 'material-ui-icons/Done';
-import AirlineSeatReclineNormal from 'material-ui-icons/AirlineSeatReclineNormal';
+import AirlineSeatReclineExtra from 'material-ui-icons/AirlineSeatReclineExtra';
 import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import SearchComponent from './SearchComponent';
@@ -27,30 +27,32 @@ import {REMOTE_ASSETS_PATH} from '../../app/config'
 const styles = (theme) => ({
 	root: {
 		width: '100%',
-		maxWidth: '1200px',
+		maxWidth: '700px',
 		margin: 'auto',
 		padding: '60px 16px 8px'
 	},
 	progressCircle: {
 		margin: '16px 0 0 0'
 	},
-	IN: {
-		fill: '#00abc7'
-	},
-	OUT: {
-		fill: '#ff1850'
-	},
-	ABSCENT: {
-		fill: '#ff1850'
-	},
 	IN:{
-		color: '#2E7D32'
-	},
+		marginLeft:16,
+    fill :"#00abc7",
+    '-webkit-transform': 'rotateY(180deg)',
+    '-moz-transform': 'rotateY(180deg)',
+    '-ms-transform': 'rotateY(180deg)',
+    '-o-transform': 'rotateY(180deg)',
+    'transform': 'rotateY(180deg)',
+  },
+  OUT:{
+    fill :"#ef4035",
+		marginLeft:16,
+  },
 	search: {
 		width: '100%'
 	},
 	listItemText: {
-		maxWidth: '500px'
+		maxWidth: '500px',
+		width:'100%'
 	},
 	empty_img: {
 		display: 'flex',
@@ -196,9 +198,9 @@ class Attendies extends React.Component {
 										<ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText}/>
 										<ListItemText secondary={value.status=='ABSCENT' ?   'غائب(ة)'  : 'حاضر(ة)'}/>
 										{value.status == 'ABSCENT' ? (
-											<DirectionsWalk className={classes.ABSCENT} />
+											<DirectionsWalk className={classes.OUT} />
 										) : (
-											<AirlineSeatReclineNormal className={classes.IN} />
+											<AirlineSeatReclineExtra className={classes.IN} />
 										)}
 
 										{

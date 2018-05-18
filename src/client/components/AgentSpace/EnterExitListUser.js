@@ -10,10 +10,11 @@ import {REMOTE_ASSETS_PATH} from '../../app/config'
 
 const styles = theme => ({
   containerLists:{
-    margin:'70px auto',
-    backgroundColor: 'white',
-    width: '95%',
-    boxShadow: '0 1px 0 rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.07)',
+    margin:'56px auto 70px',
+    backgroundColor:"#fff",
+    maxWidth: '700px',
+    borderTop: '5px solid #003489',
+    boxShadow:'0 1px 4px 0 rgba(0,0,0,.14)',
   },
   profileName:{
     maxWidth: '500px',
@@ -27,7 +28,7 @@ class EnterExitListUser extends React.Component{
     super(props)
     UserStore.fetchGuestForAgentWorkshop(props.userid);
     UserStore.fetchUserRole(props.userid);
-    
+
   }
   addOperationToGuest =(guest , operation , agent , workshop)=>{
     UserStore.alterGuestStatus(guest , operation , agent, workshop);
@@ -42,7 +43,7 @@ class EnterExitListUser extends React.Component{
         {UserStore.users.map(value => {
           return(
             <div key={`div${value._id}`}>{value.profile!=null &&(
-              <ListItem  dense button>
+              <ListItem button>
               <Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
               <ListItemText className={classes.profileName} primary={`${value.profile.name} ${value.profile.forname}`}/>
               <ListItemText primary={value.status== "IN" && ' حاضر(ة) داخل الجلسة' || value.status== "OUT" && ' غادر(ة) الجلسة ' || value.status== "ABSCENT" && ' غائب(ة) '} />
@@ -54,7 +55,7 @@ class EnterExitListUser extends React.Component{
                     خروج
                     </Button>)}</div>
               )}
-            
+
             </ListItem>)}
             </div>
           )
