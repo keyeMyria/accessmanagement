@@ -1,10 +1,10 @@
 const DOMAIN_PATH = 'http://localhost:4000/graphql';
-let remote = 'http://192.168.1.52:4000/graphql';
-let remote_upload = 'http://192.168.1.52:4000/upload';
+let remote = 'http://192.168.1.36:4000/graphql';
+let remote_upload = 'http://192.168.1.36:4000/upload';
 let local_upload_import = 'http://localhost:4000/importUserList';
 let websocket_endpoint = 'ws://localhost:4000/subscriptions';
-let remote_assets_path = 'http://192.168.1.52:4000/assets/avatars';
-let path = 'http://192.168.1.52:8080';
+let remote_assets_path = 'http://192.168.1.36:4000/assets/avatars';
+let path = 'http://192.168.1.36:8080';
 module.exports.default = DOMAIN_PATH;
 module.exports.REMOTE_DOMAIN_PATH = remote;
 module.exports.REMOTE_UPLOAD_PATH = remote_upload;
