@@ -79,7 +79,6 @@ class EventsList extends React.Component {
   };
   addEventOperation = e => {
     form.onSubmit(e);
-    this.handleClose();
   };
   render() {
     const { from, to } = this.state;
