@@ -23,6 +23,7 @@ import BottomToolbarContainer from '../../containers/BottomToolbarContainer';
 import { observer } from 'mobx-react';
 import UserStore from '../../mobx/gueststore';
 import {REMOTE_ASSETS_PATH} from '../../app/config';
+import { withLastLocation } from 'react-router-last-location';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const styles = (theme) => ({
@@ -157,72 +158,97 @@ class Attendies extends React.Component {
 
 	render() {
 		const { classes } = this.props;
-		if (UserStore.loading == true)
-			return (
-				<div className={classes.root}>
-					<CircularProgress color="primary" className={classes.progressCircle} />
-				</div>
-			);
-		else if (UserStore.users == null) {
-			return (
-				<div className="emptyStatus">
-					<div className="emptyStatusIcon">
-						<EmptyActivityIcon />
-					</div>
-					<h3 className="emptyStatusTitle">NoBody has presented his pass yet</h3>
-					<p className="emptyStatusDesciption">
-						Use the capture code to register the entry and the exit of the participants
-					</p>
-				</div>
-			);
-		} else {
-			return (
-				<div className={classes.root}>
-					<Input
-						endAdornment={
-							<InputAdornment position="end">
-								<IconButton>
-									<Search />
-								</IconButton>
-							</InputAdornment>
-						}
-						className={classes.search}
-						placeholder="Search Attendies"
-						onChange={this.filterList}
-					/>
-					<List className={classes.attendeesListContainer}>
-						{UserStore.users.map((value) => {
-							if (value.profile != null) {
-								return (
-									<ReactCSSTransitionGroup
-			                transitionName="fadeItem"
-			                transitionEnterTimeout={400}
-			                transitionLeaveTimeout={400}>
-													<ListItem key={value._id} button className={classes.listItem}>
-													<Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
-													<ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText}/>
-													<ListItemText secondary={value.status=='ABSCENT' ?   'غائب(ة)'  : 'حاضر(ة)'}/>
-													{value.status == 'ABSCENT' ? (
-														<DirectionsWalk className={classes.OUT} />
-													) : (
-														<AirlineSeatReclineExtra className={classes.IN} />
-													)}
 
-													{
-													// 	value.status == 'OUT' && <DirectionsWalk className={classes.OUT} />}
-													// {value.status == <DirectionsWalk /> && (
-													// 	<AirlineSeatReclineNormal className={classes.IN} />
-													// )
-												}
-												</ListItem>
-									</ReactCSSTransitionGroup>
-								);
-							}
-						})}
-					</List>
-				</div>
-			);
+		let transitionName = "fadeSamelvlToRight";
+		if(this.props.lastLocation==null){
+			transitionName = "fadeHightlvl";
+    	} else if (this.props.lastLocation!=null){
+					if (this.props.lastLocation.pathname == "/agent" || this.props.lastLocation.pathname == "/operateonguestlist" || this.props.lastLocation.pathname == "/dashboard"){
+		      	transitionName = "fadeSamelvlToRight";
+		      } else {
+		      	transitionName = "fadeHightlvl";
+		      }
 		}
+
+		return(
+      <ReactCSSTransitionGroup
+          transitionName={transitionName}
+          transitionAppear={true}
+          transitionAppearTimeout={270}
+          transitionEnter={false}
+          transitionLeave={true}
+          transitionLeaveTimeout={270}>
+							{(UserStore.loading == true) && (
+							<div className={classes.root}>
+									<CircularProgress color="primary" className={classes.progressCircle} />
+							</div>
+					)}
+
+
+							{(UserStore.users == null) && (
+							<div className="emptyStatus">
+								<div className="emptyStatusIcon">
+									<EmptyActivityIcon />
+								</div>
+								<h3 className="emptyStatusTitle">NoBody has presented his pass yet</h3>
+								<p className="emptyStatusDesciption">
+									Use the capture code to register the entry and the exit of the participants
+								</p>
+							</div>
+					)}
+
+
+							{((UserStore.loading != true && UserStore.users != null)) && (
+						<div className={classes.root}>
+							<Input
+								endAdornment={
+									<InputAdornment position="end">
+										<IconButton>
+											<Search />
+										</IconButton>
+									</InputAdornment>
+								}
+								className={classes.search}
+								placeholder="Search Attendies"
+								onChange={this.filterList}
+							/>
+							<List className={classes.attendeesListContainer}>
+								{UserStore.users.map((value) => {
+									if (value.profile != null) {
+										return (
+											<ReactCSSTransitionGroup
+													transitionName="fadeItem"
+													transitionEnterTimeout={400}
+													transitionLeaveTimeout={400}>
+															<ListItem key={value._id} button className={classes.listItem}>
+															<Avatar alt="" src={`${REMOTE_ASSETS_PATH}/${value.profile.avatar}`} />
+															<ListItemText primary={`${value.profile.name} ${value.profile.forname}`} className={classes.listItemText}/>
+															<ListItemText secondary={value.status=='ABSCENT' ?   'غائب(ة)'  : 'حاضر(ة)'}/>
+															{value.status == 'ABSCENT' ? (
+																<DirectionsWalk className={classes.OUT} />
+															) : (
+																<AirlineSeatReclineExtra className={classes.IN} />
+															)}
+
+															{
+															// 	value.status == 'OUT' && <DirectionsWalk className={classes.OUT} />}
+															// {value.status == <DirectionsWalk /> && (
+															// 	<AirlineSeatReclineNormal className={classes.IN} />
+															// )
+														}
+														</ListItem>
+											</ReactCSSTransitionGroup>
+										);
+									}
+								})}
+							</List>
+						</div>
+					)}
+
+				</ReactCSSTransitionGroup>
+			)
+
+
 	}
 }
 
@@ -247,4 +273,5 @@ Attendies.propTypes = {
 // `;
 
 //const AttendeesWithData = graphql(CurrentUserForLayout)(Attendies);
-export default withStyles(styles)(Attendies);
+const AttendiesWithStyles = withStyles(styles)(Attendies);
+export default withLastLocation(AttendiesWithStyles);

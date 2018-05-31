@@ -9,7 +9,12 @@ import { graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 
 import UserStore from '../../mobx/gueststore';
-import './vendor/agent.css'
+import './vendor/agent.css';
+
+import { withLastLocation } from 'react-router-last-location';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+
 @observer
 class QReaderComponent extends Component {
 
@@ -83,17 +88,40 @@ class QReaderComponent extends Component {
     console.error(err)
   }
   render(){
+
+    let transitionName = "fadeHightlvl";
+		if(this.props.lastLocation==null){
+			transitionName = "fadeHightlvl";
+    	} else if (this.props.lastLocation!=null){
+					if (this.props.lastLocation.pathname == "/dashboard" || this.props.lastLocation.pathname == "/operateonguestlist"){
+		      	transitionName = "fadeSamelvlToRight";
+		      } else if (this.props.lastLocation.pathname == "/listattendies"){
+		      	transitionName = "fadeSamelvlToLeft";
+		      }else {
+		      	transitionName = "fadeHightlvl";
+		      }
+		}
+
+
     return(
-      <div className="containerQrcodeDail">
-        <QrReader
-          className="section"
-          delay={this.state.delay}
-          onError={this.handleError}
-          onScan={this.handleScan}
-          facingMode="user"
-          />
-          <Dial className="section" handleValid = {this.handleEntryNumber}/>
-      </div>
+      <ReactCSSTransitionGroup
+          transitionName={transitionName}
+          transitionAppear={true}
+          transitionAppearTimeout={270}
+          transitionEnter={false}
+          transitionLeave={true}
+          transitionLeaveTimeout={270}>
+          <div className="containerQrcodeDail">
+            <QrReader
+              className="section"
+              delay={this.state.delay}
+              onError={this.handleError}
+              onScan={this.handleScan}
+              facingMode="user"
+              />
+              <Dial className="section" handleValid = {this.handleEntryNumber}/>
+          </div>
+      </ReactCSSTransitionGroup>
     )
   }
 }
@@ -120,6 +148,7 @@ function mapStateToProps(state) {
 }
 const id = localStorage.getItem('loogedin_id')
 const QReaderComponentWithAgent  = connect(mapStateToProps)(QReaderComponent)
-export default graphql(query, {
+const QReaderComponentWithAgentGRQL = graphql(query, {
   options: ({ ownProps }) => ({ variables: { id:id } }),
-})(QReaderComponentWithAgent);
+})(QReaderComponentWithAgent)
+export default withLastLocation(QReaderComponentWithAgentGRQL);

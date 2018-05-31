@@ -295,6 +295,36 @@ figure {
 
 /*======//////////// TRANSITION BETWWEN VIEWS ////////////=======*/
 
+/*====== Transition for the login =======*/
+
+.Simplefade-appear {
+  opacity: 0.01;
+}
+
+.Simplefade-appear.Simplefade-appear-active {
+  opacity: 1;
+  transition: all .4s ease-out;
+}
+
+/*.Simplefade-enter {
+  opacity: 0.01;
+}
+
+.Simplefade-enter.Simplefade-enter-active {
+  opacity: 1;
+  transition: opacity 4s ease-in;
+}*/
+
+.Simplefade-leave {
+  opacity: 1;
+}
+
+.Simplefade-leave.Simplefade-leave-active {
+  opacity: 0.01;
+  transition: all .4s ease-out;
+}
+
+
 /*====== Transition if the new location is in a highter lvl =======*/
 
 .fadeHightlvl-appear {
@@ -305,7 +335,7 @@ figure {
 .fadeHightlvl-appear.fadeHightlvl-appear-active {
   opacity: 1;
 	transform: translateY(0) scale(1);
-  transition: all .3s ease-out;
+  transition: all  .4s ease-out;
 }
 
 /*.fade-enter {
@@ -325,7 +355,7 @@ figure {
 .fadeHightlvl-leave.fadeHightlvl-leave-active {
   opacity: 0.01;
 	transform: translateY(5%) scale(1.1);
-  transition: all .3s ease-out;
+  transition: all .4s ease-out;
 }
 
 
@@ -334,13 +364,13 @@ figure {
 
 .fadeSamelvlToLeft-appear {
   opacity: 0.01;
-	transform: translateX(-50%);
+	transform: translateX(-100px);
 }
 
 .fadeSamelvlToLeft-appear.fadeSamelvlToLeft-appear-active {
   opacity: 1;
 	transform: translateY(0);
-  transition: all .3s ease-out;
+  transition: all .27s ease-out;
 }
 
 .fadeSamelvlToLeft-leave {
@@ -350,20 +380,20 @@ figure {
 
 .fadeSamelvlToLeft-leave.fadeSamelvlToLeft-leave-active {
   opacity: 0.01;
-	transform: translateY(-50%);
-  transition: all .3s ease-out;
+	transform: translateY(-100px);
+  transition: all .27s ease-out;
 }
 /*==========*/
 
 .fadeSamelvlToRight-appear {
   opacity: 0.01;
-	transform: translateX(50%);
+	transform: translateX(100px);
 }
 
 .fadeSamelvlToRight-appear.fadeSamelvlToRight-appear-active {
   opacity: 1;
 	transform: translateY(0);
-  transition: all .3s ease-out;
+  transition: all .27s ease-out;
 }
 
 .fadeSamelvlToRight-leave {
@@ -373,8 +403,8 @@ figure {
 
 .fadeSamelvlToRight-leave.fadeSamelvlToRight-leave-active {
   opacity: 0.01;
-	transform: translateY(50%);
-  transition: all .3s ease-out;
+	transform: translateY(100px);
+  transition: all .27s ease-out;
 }
 
 /*======Transition if the new location is in a low lvl=======*/
@@ -387,7 +417,7 @@ figure {
 .fadeLowlvl-appear.fadeLowlvl-appear-active {
   opacity: 1;
 	transform: scale(1);
-  transition: all .3s ease-out;
+  transition: all .27s ease-out;
 }
 
 .fadeLowlvl-leave {
@@ -398,7 +428,7 @@ figure {
 .fadeLowlvl-leave.fadeLowlvl-leave-active {
   opacity: 0.01;
 	transform: scale(0.9);
-  transition: all .3s ease-out;
+  transition: all .27s ease-out;
 }
 
 

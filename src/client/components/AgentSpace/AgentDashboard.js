@@ -14,6 +14,8 @@ import SwapHoriz from 'material-ui-icons/SwapHoriz';
 import '../AdminSpace/vendor/dashboard.css';
 import Unit from '../AdminSpace/Unit';
 import DashboardUnit from '../AdminSpace/DashboardUnit';
+import { withLastLocation } from 'react-router-last-location';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const styles = theme => ({
   cardInfos:{
@@ -74,29 +76,59 @@ class AgentDashboard extends React.Component{
 
   }
   render(){
-    if(WorkshopStore.selectedWorkshop!=null && WorkshopStore.selectedWorkshop.session!=undefined){
-      if(!WorkshopStore.selectedWorkshop.session_empty){
-        let session = WorkshopStore.getActiveSession(WorkshopStore.selectedWorkshop.workshop.session_list);
-        return(<Unit details={session} name={WorkshopStore.selectedWorkshop.name} users={WorkshopStore.selectedWorkshop.guests_number} />);
 
-      }
-          else{
-        return(<div>You're not allowed to access this ...No Session is active yet</div>)
+    let transitionName = "fadeSamelvlToLeft";
+    if(this.props.lastLocation!=null){
+      transitionName = "fadeSamelvlToLeft";
+    } else if (this.props.lastLocation==null){
+			transitionName = "fadeHightlvl";
+		}
 
-      }
-    }else{
-      if(WorkshopStore.agent_session!=null){
-        if(WorkshopStore.agent_session.stat=="ON")
-        return(<DashboardUnit key={WorkshopStore.agent_session._id} details={WorkshopStore.agent_session} />);
+    return(
+      <ReactCSSTransitionGroup
+          transitionName={transitionName}
+          transitionAppear={true}
+          transitionAppearTimeout={270}
+          transitionEnter={false}
+          transitionLeave={true}
+          transitionLeaveTimeout={270}>
 
-       else{
-          return(<div>You're not allowed to access this ...No Session is active yet</div>)
-        }
-      }
-      else{
-        return(<div className={classes.root}>You haven't been affected to any workshop</div>)
-      }
-    }
+          {((WorkshopStore.selectedWorkshop!=null && WorkshopStore.selectedWorkshop.session!=undefined)) && (
+
+            (() => {
+              if(!WorkshopStore.selectedWorkshop.session_empty){
+                let session = WorkshopStore.getActiveSession(WorkshopStore.selectedWorkshop.workshop.session_list);
+                return(<Unit details={session} name={WorkshopStore.selectedWorkshop.name} users={WorkshopStore.selectedWorkshop.guests_number} />);
+
+              }
+                  else{
+                return(<div>You're not allowed to access this ...No Session is active yet</div>)
+
+              }
+            })()
+
+          )}
+
+          {((WorkshopStore.selectedWorkshop==null || WorkshopStore.selectedWorkshop.session==undefined)) && (
+            (() => {
+              if(WorkshopStore.agent_session!=null){
+                if(WorkshopStore.agent_session.stat=="ON")
+                return(<DashboardUnit key={WorkshopStore.agent_session._id} details={WorkshopStore.agent_session} />);
+
+               else{
+                  return(<div>You're not allowed to access this ...No Session is active yet</div>)
+                }
+              }
+              else{
+                return(<div className={classes.root}>You haven't been affected to any workshop</div>)
+              }
+            })()
+
+          )}
+        </ReactCSSTransitionGroup>
+      )
+
+
 
 
   }
@@ -110,4 +142,5 @@ class AgentDashboard extends React.Component{
   )
 }
 
-export default withStyles(styles)(AgentDashboard);
+const AgentDashboardWithStyles = withStyles(styles)(AgentDashboard);
+export default withLastLocation(AgentDashboardWithStyles);

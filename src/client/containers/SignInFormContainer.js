@@ -23,6 +23,7 @@ import QRcodeUnknown from '../components/AgentSpace/vendor/QRcodeUnknown.svg';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import { REMOTE_ASSETS_PATH } from '../app/config';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // const container = {
 //   display: 'flex' ,
@@ -216,128 +217,163 @@ class SignInFormContainer extends React.Component {
 
   render() {
     const { classes } = this.props;
-    if (this.props.match.params.uid) {
-      if (this.state.user != null)
-        return (
-          <div>
-            <div className="containerBackground">
-              <div className="topBackLoginC">
-                <TopBackLogin />
-              </div>
-              <div className="bottomBackLoginC">
-                <BottomBackLogin />
-              </div>
-            </div>
-            <div className="container" className="containerAutentified">
-              <div className="section1">
-                <Typography type="display2" style={styleTypog2}>
-                  إدارة الأحداث والحضور
-                </Typography>
-              </div>
-              {this.state.user.profile != null && (
+    return(
+      <div>
+          <ReactCSSTransitionGroup
+              transitionName="fadeLowlvl"
+              transitionAppear={true}
+              transitionAppearTimeout={270}
+              transitionEnter={false}
+              transitionLeave={true}
+              transitionLeaveTimeout={270}>
+
+              {(this.props.match.params.uid) && (
+                (() => {
+                  if (this.state.user != null) {
+                    return (
+                      <div>
+                        <div className="containerBackground">
+                          <div className="topBackLoginC">
+                            <TopBackLogin />
+                          </div>
+                          <div className="bottomBackLoginC">
+                            <BottomBackLogin />
+                          </div>
+                        </div>
+                        <div className="container" className="containerAutentified">
+                          <div className="section1">
+                            <Typography type="display2" style={styleTypog2}>
+                              إدارة الأحداث والحضور
+                            </Typography>
+                          </div>
+                          {this.state.user.profile != null && (
+                            <div>
+                              <Avatar
+                                src={`${REMOTE_ASSETS_PATH}/${
+                                  this.state.user.profile.avatar
+                                }`}
+                                className={classes.bigAvatar}
+                              />
+                              <p className={classes.textAuthentification}>
+                                {' '}
+                                Identified As{' '}
+                              </p>
+                              <h2 className={classes.authentifiedUserName}>
+                                {this.state.user.profile.forname}{' '}
+                                {this.state.user.profile.name}
+                              </h2>
+                            </div>
+                          )}
+                          <LoginForm
+                            onSubmit={this.handleSubmit.bind(this)}
+                            errors={this.state.errors}
+                            username={this.state.user.username}
+                            user={this.state.user}
+                          />
+                        </div>
+                      </div>
+                    );
+                  }
+                  else {
+                    return (
+                        <div>
+                          <QRcodeUnknown/>
+                          <Typography type="display1">  رمز هذا الشخص غير معروف </Typography>
+                        </div>
+                  );
+                  }
+                })
+              )}</ReactCSSTransitionGroup>
+
+
+              <ReactCSSTransitionGroup
+                  transitionName="Simplefade"
+                  transitionAppear={true}
+                  transitionAppearTimeout={270}
+                  transitionEnter={false}
+                  transitionLeave={true}
+                  transitionLeaveTimeout={270}>
+              {(!this.props.match.params.uid) && (
                 <div>
-                  <Avatar
-                    src={`${REMOTE_ASSETS_PATH}/${
-                      this.state.user.profile.avatar
-                    }`}
-                    className={classes.bigAvatar}
-                  />
-                  <p className={classes.textAuthentification}>
-                    {' '}
-                    Identified As{' '}
-                  </p>
-                  <h2 className={classes.authentifiedUserName}>
-                    {this.state.user.profile.forname}{' '}
-                    {this.state.user.profile.name}
-                  </h2>
+                  <div className="containerBackground">
+                    <div className="topBackLoginC">
+                      <TopBackLogin />
+                    </div>
+                    <div className="bottomBackLoginC">
+                      <BottomBackLogin />
+                    </div>
+                  </div>
+                  <div className="container">
+                    <div className="section1">
+                      <Typography type="display2" style={styleTypog2}>
+                        إدارة الأحداث والحضور
+                      </Typography>
+                    </div>
+                    <CSSTransitionGroup
+                      className="section2"
+                      transitionName="qrcode"
+                      transitionEnterTimeout={500}
+                      transitionLeaveTimeout={300}>
+                      <div className="formLogin article">
+                        <Typography
+                          type="headline"
+                          gutterBottom
+                          style={styleTypogTitle}>
+                          تسجيل الدخول
+                        </Typography>
+                        <LoginForm
+                          onSubmit={this.handleSubmit.bind(this)}
+                          errors={this.state.errors}
+                          username={null}
+                          user={this.state.user}
+                        />
+                      </div>
+                      <div style={QRCodeContainer}>
+                        <div>
+                          {!this.state.qrcodeauth && (
+                            <ButtonBase
+                              focusRipple
+                              style={buttonQRCode}
+                              onClick={this.handleOpenQrCode}>
+                              <span>
+                                <PhotoCamera style={{ height: 48, width: 48 }} />
+                                <Typography component="span" style={buttonQRCodeText}>
+                                  تسجيل الدخول برمز QR
+                                </Typography>
+                              </span>
+                            </ButtonBase>
+                          )}
+                        </div>
+
+                        <div className="article">
+                          {this.state.qrcodeauth && (
+                            <ReactCSSTransitionGroup
+                                transitionName="fadeLowlvl"
+                                transitionEnter={true}
+                                transitionEnterTimeout={400}
+                                transitionAppear={true}
+                                transitionAppearTimeout={400}
+                                transitionLeave={false}>
+                            <QrReader
+                              className="QRcode"
+                              delay={this.state.delay}
+                              onError={this.handleError}
+                              onScan={this.handleScan}
+                              facingMode="user"
+                            />
+                          </ReactCSSTransitionGroup>
+                          )}
+                        </div>
+
+                      </div>
+                    </CSSTransitionGroup>
+                  </div>
                 </div>
               )}
-              <LoginForm
-                onSubmit={this.handleSubmit.bind(this)}
-                errors={this.state.errors}
-                username={this.state.user.username}
-                user={this.state.user}
-              />
-            </div>
-          </div>
-        );
-      else {
-        return (
-            <div>
-              <QRcodeUnknown/>
-              <Typography type="display1">  رمز هذا الشخص غير معروف </Typography>
-            </div>
-      );
-      }
-    } else {
-      return (
-        <div>
-          <div className="containerBackground">
-            <div className="topBackLoginC">
-              <TopBackLogin />
-            </div>
-            <div className="bottomBackLoginC">
-              <BottomBackLogin />
-            </div>
-          </div>
-          <div className="container">
-            <div className="section1">
-              <Typography type="display2" style={styleTypog2}>
-                إدارة الأحداث والحضور
-              </Typography>
-            </div>
-            <CSSTransitionGroup
-              className="section2"
-              transitionName="qrcode"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}>
-              <div className="formLogin article">
-                <Typography
-                  type="headline"
-                  gutterBottom
-                  style={styleTypogTitle}>
-                  تسجيل الدخول
-                </Typography>
-                <LoginForm
-                  onSubmit={this.handleSubmit.bind(this)}
-                  errors={this.state.errors}
-                  username={null}
-                  user={this.state.user}
-                />
-              </div>
-              <div style={QRCodeContainer}>
-                <div>
-                  {!this.state.qrcodeauth && (
-                    <ButtonBase
-                      focusRipple
-                      style={buttonQRCode}
-                      onClick={this.handleOpenQrCode}>
-                      <span>
-                        <PhotoCamera style={{ height: 48, width: 48 }} />
-                        <Typography component="span" style={buttonQRCodeText}>
-                          تسجيل الدخول برمز QR
-                        </Typography>
-                      </span>
-                    </ButtonBase>
-                  )}
-                </div>
-                <div className="article">
-                  {this.state.qrcodeauth && (
-                    <QrReader
-                      className="QRcode"
-                      delay={this.state.delay}
-                      onError={this.handleError}
-                      onScan={this.handleScan}
-                      facingMode="user"
-                    />
-                  )}
-                </div>
-              </div>
-            </CSSTransitionGroup>
-          </div>
-        </div>
-      );
-    }
+
+        </ReactCSSTransitionGroup>
+      </div>)
+
   }
 }
 
